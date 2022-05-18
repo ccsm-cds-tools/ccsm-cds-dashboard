@@ -9,7 +9,7 @@ This dashboard and the underlying CDS definitions are both under *active develop
 ## Demo
 
 The dashboard is under active development, but a demonstration with basic synthentic test data can be be found 
-[here](https://ccsm-cds-tools.github.io/ccsm-cds-dashboard/tests).
+[here](https://ccsm-cds-tools.github.io/ccsm-cds-dashboard#/tests).
 
 ## Licenses
 

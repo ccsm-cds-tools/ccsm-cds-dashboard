@@ -1,0 +1,14 @@
+
+.patient-name {font-size:2rem}
+
+.mrn {
+  b {text-transform:uppercase;color:#666;font-size:0.9rem;margin-top:5px}
+  a {font-size:0.9rem}
+  border-bottom: 1px solid #ddd;
+  padding-bottom:5px;
+}
+
+.info-items {margin-bottom:2rem;border-bottom:1px solid #ccc;padding-bottom:0.5rem;margin-top:1rem}
+.info-items b {display:block;text-transform:uppercase;color:#666;font-size:0.8rem;margin-top:5px}
+.info-item {margin-bottom:1rem}
+

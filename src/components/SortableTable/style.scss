@@ -1,0 +1,89 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+Table.sortable {
+  font-size:0.9rem;
+  line-height:1.5em;
+  thead tr th button {
+    text-transform:uppercase;
+    color:#666;
+    padding: 0;
+  }
+  tbody tr td {
+    border:none; 
+    padding:0.25rem 0.5rem;
+    &.warn {
+      background-color:#ffe392
+    }
+    &:first-child {
+      font-weight: bolder;
+      // width: 60%;
+    }
+  }
+
+  th.sorted {
+    background-color: #e0eaef;
+  }
+  
+  th button {
+    border: 0;
+    border-radius: none;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: inherit;
+    padding: 0.5em;
+    margin-bottom: 1px;
+    width: 100%;
+    background-color: inherit;
+  }
+  
+  th span.header-text {
+    display: inline-block;
+    width: 80%;
+    text-align: left;
+    background-color: inherit;
+    user-select: none;
+  }
+  
+  th span.sorting-symbol {
+    display: inline-block;
+    user-select: none;
+    width: 20%;
+    text-align: center;
+    visibility: hidden;
+  }
+  
+  th:hover span.sorting-symbol {
+    visibility: visible;
+    color: black;
+  }
+  
+  th.sorted span.sorting-symbol {
+    color: rgb(100, 100, 100);
+    display: inline-block;
+    visibility: visible;
+  }
+  
+  th.sorted:hover span.sorting-symbol {
+    visibility: visible;
+    color: black;
+  }
+
+  .incomplete {
+    color: $red-700;
+    text-transform:uppercase;
+    font-size:0.9rem
+  }
+  td.incomplete a {
+    color: $red-700;
+  }
+  tr:last-child td {
+    border-bottom:1px solid #ccc;
+    padding-bottom:0.5rem
+  }
+
+}
+
+.is_manual {
+  color: $red-700;
+  font-weight: bolder;
+}

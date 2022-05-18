@@ -1,0 +1,15 @@
+.cds-reference h3 {margin-bottom:1rem}
+.document-list ul {padding-left:0}
+.document-list li {list-style:none;}
+.document-list li a {display:inline-block}
+.document-list li a span.filesize {font-size:0.9rem;color:#666;text-decoration:none}
+
+a.doc.certificate {
+  background-image: url('/assets/certificate-paper.svg');
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: 3rem 3rem;
+  padding-left:3rem;
+  line-height:1.75rem;
+  min-height:3rem;
+}

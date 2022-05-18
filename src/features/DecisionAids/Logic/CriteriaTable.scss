@@ -1,0 +1,36 @@
+table.table-logic {
+  thead th:last-child {
+    width: 10%;
+  }
+  tbody {
+    &.basis {
+      border: none;
+      tr {
+        border: none;
+        td {
+          border: none;
+          padding:0.25rem 0.5rem
+        }
+      }
+    }
+    tr {
+      &.group {
+        border-bottom: none;
+        td {
+          border-top: 1px solid #ccc;
+          padding-top: 0.5rem;
+        }
+      }
+      td {
+        &.step {
+          padding-left: 1.5rem;
+        }
+        &.step-value {
+          padding-left: 3rem;
+        }
+        border:none; 
+        padding:0.25rem 0.5rem
+      } 
+    }
+  }
+}

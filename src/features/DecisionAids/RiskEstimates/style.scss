@@ -1,0 +1,9 @@
+.table {
+  &.risktable tr.highlight td {
+    background-color:#ffed97;
+    font-weight:bold;
+  }
+}
+div.risk {
+  margin-top: 2vh;
+}

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ccsm-cds-dashboard/static/css/main.591ccdaa.css",
-    "main.js": "/ccsm-cds-dashboard/static/js/main.8c37dc46.js",
+    "main.css": "/ccsm-cds-dashboard/static/css/main.9034db35.css",
+    "main.js": "/ccsm-cds-dashboard/static/js/main.ea32b10b.js",
     "static/js/787.a01c6e21.chunk.js": "/ccsm-cds-dashboard/static/js/787.a01c6e21.chunk.js",
     "static/media/bootstrap-icons.woff?": "/ccsm-cds-dashboard/static/media/bootstrap-icons.7ff3ca6fa798de3f8ac2.woff",
     "static/media/bootstrap-icons.woff2?": "/ccsm-cds-dashboard/static/media/bootstrap-icons.f2539a501be3a673de05.woff2",
@@ -9,12 +9,12 @@
     "static/media/certificate-paper.svg": "/ccsm-cds-dashboard/static/media/certificate-paper.00d544fc7c3da2661bcc.svg",
     "index.html": "/ccsm-cds-dashboard/index.html",
     "static/media/plus-square.svg": "/ccsm-cds-dashboard/static/media/plus-square.1254f9745b42217d16e8c047e1aea764.svg",
-    "main.591ccdaa.css.map": "/ccsm-cds-dashboard/static/css/main.591ccdaa.css.map",
-    "main.8c37dc46.js.map": "/ccsm-cds-dashboard/static/js/main.8c37dc46.js.map",
+    "main.9034db35.css.map": "/ccsm-cds-dashboard/static/css/main.9034db35.css.map",
+    "main.ea32b10b.js.map": "/ccsm-cds-dashboard/static/js/main.ea32b10b.js.map",
     "787.a01c6e21.chunk.js.map": "/ccsm-cds-dashboard/static/js/787.a01c6e21.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.591ccdaa.css",
-    "static/js/main.8c37dc46.js"
+    "static/css/main.9034db35.css",
+    "static/js/main.ea32b10b.js"
   ]
 }

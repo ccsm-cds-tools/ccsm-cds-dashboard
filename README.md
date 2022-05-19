@@ -15,4 +15,4 @@ The dashboard is under active development, but a demonstration with basic synthe
 
 (C) 2022 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 21-1556. Distribution Unlimited.
 
-Unless otherwise noted, the CCSM CDS Dashboard is available under an [Apache 2.0 license](./LICENSE). It was produced by the MITRE Corporation for the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30120F09743.
+Unless otherwise noted, the CCSM CDS Dashboard is available under an [Apache 2.0 license](./LICENSE.txt). It was produced by the MITRE Corporation for the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30120F09743.

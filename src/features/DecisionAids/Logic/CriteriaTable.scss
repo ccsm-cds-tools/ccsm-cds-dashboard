@@ -3,16 +3,7 @@ table.table-logic {
     width: 10%;
   }
   tbody {
-    &.basis {
-      border: none;
-      tr {
-        border: none;
-        td {
-          border: none;
-          padding:0.25rem 0.5rem
-        }
-      }
-    }
+    margin-top: 10px;
     tr {
       &.group {
         border-bottom: none;
@@ -20,6 +11,12 @@ table.table-logic {
           border-top: 1px solid #ccc;
           padding-top: 0.5rem;
         }
+        th {
+          border-bottom: none;
+        }
+      }
+      &:last-child td {
+        padding-bottom: 0.5rem;
       }
       td {
         &.step {
@@ -27,6 +24,7 @@ table.table-logic {
         }
         &.step-value {
           padding-left: 3rem;
+          font-weight: bold;
         }
         border:none; 
         padding:0.25rem 0.5rem

@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Table } from 'react-bootstrap';
 import './TimelineTable.scss';
 
@@ -29,7 +30,7 @@ function ProjectionGroup(props) {
   const { 
     projection: {
       era='',
-      recommendation='',
+      status='',
       options=[]
     } 
   } = props;
@@ -42,11 +43,18 @@ function ProjectionGroup(props) {
       <tr>
         <td>
           {
-            options.map((opt,idx) => <EraOption option={opt} key={idx} />)
+            options.map((opt,idx) => {
+              return (
+                <Fragment key={idx}>
+                  { idx > 0 ? <p>OR</p> : null }
+                  <EraOption option={opt} />
+                </Fragment>
+              )
+            })
           }
         </td>
         <td>
-          {recommendation}
+          {status}
         </td>
       </tr>
     </tbody>

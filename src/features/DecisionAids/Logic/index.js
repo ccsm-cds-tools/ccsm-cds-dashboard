@@ -8,7 +8,7 @@ function Logic(props) {
       recommendationGroup='',
       logicPath={},
       logicSummary='',
-      logicCriteria={}
+      logicCriteria=[]
     }
   } = props;
 
@@ -23,7 +23,7 @@ function Logic(props) {
         </a>
       </p>
       <p>{logicSummary}</p>
-      <CriteriaTable input={logicCriteria} />
+      <CriteriaTable criteria={logicCriteria} />
     </div>
   )
 }

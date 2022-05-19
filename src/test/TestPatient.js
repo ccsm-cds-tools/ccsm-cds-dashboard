@@ -62,7 +62,7 @@ function reshapeTestData(testData) {
       riskTable: testData.risk,
       references: testData.references,
       logicPath: testData.logicpath,
-      logicPathSummary: testData.logicpathsummary,
+      logicSummary: testData.logicsummary,
       logicCriteria: testData.logiccriteria,
       timeline: testData.timeline
     }

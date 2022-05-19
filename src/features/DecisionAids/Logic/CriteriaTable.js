@@ -1,14 +1,9 @@
+import { Fragment } from 'react';
 import { Table } from 'react-bootstrap';
 import './CriteriaTable.scss';
 
 function CriteriaTable (props) {
-  const { 
-    input: {
-      inclusion=[],
-      exclusion=[],
-      basis={}
-    }
-  } = props;
+  const { criteria=[] } = props;
 
   return (
     <Table className="table-logic">
@@ -19,67 +14,46 @@ function CriteriaTable (props) {
           <th>Action</th>
         </tr>
       </thead>
-      <tbody>
-        <tr className="group">
-          <td colSpan="3"><b>Inclusion</b></td>
-        </tr>
-        <CriteriaGroup groups={inclusion} stepClass={'step'} />
-        <tr className="group">
-          <td colSpan="3"><b>Exclusion</b></td>
-        </tr>
-        <CriteriaGroup groups={exclusion} stepClass={'step'} />
-      </tbody>
-      <tbody>
-        <tr className="group"><td colSpan="3"><b>{basis.title}</b></td></tr>
-      </tbody>
-      <BasisGroup groups={basis.groups} />
+      {
+        criteria.map((crt,idx) => {
+          const {title,groups} = crt;
+          return (
+            <tbody key={idx}>
+              <tr className="group">
+                <th colSpan="3">{title}</th>
+              </tr>
+              <CriteriaGroup groups={groups} />
+            </tbody>
+          )
+        })
+      }
     </Table>
   )
 }
 
 function CriteriaGroup(props) {
-  const { groups, stepClass } = props;
-  if (groups.length === 0) {
-    return <EmptryGroup stepClass={stepClass} />
-  } else {
-    return (
-      groups.map((grp,idx) => {
-        return (
-          <tr key={idx}>
-            <td colSpan={grp.date ? 1 : 2} className={stepClass}>
-              {grp.criteria}
-            </td>
-            { grp.date ? <td>{grp.date}</td> : null }
-            <td>{grp.action}</td>
-          </tr>
-        )
-      })
-    )
-  }
-}
-
-function BasisGroup(props) {
   const { groups=[] } = props;
   if (groups.length === 0) {
     return (
-      <tbody>
-        <EmptryGroup className={'step'} />
-      </tbody>
+      <Fragment>
+        <EmptryGroup stepClass={'step'} />
+      </Fragment>
     )
   } else {
     return (
       groups.map((grp,idx) => {
+        const {name,items} = grp;
         return (
-          <tbody key={idx} className='basis'>
+          <Fragment key={idx}>
             <tr>
               <td colSpan='3' className='step'>
-                {grp.name}
+                {name}
               </td>
               <td></td>
               <td></td>
             </tr>
-            <CriteriaGroup groups={grp.steps} stepClass='step-value' />
-          </tbody>
+            <CriteriaItems items={items} stepClass='step-value' />
+          </Fragment>
         )
       })
     )
@@ -95,5 +69,28 @@ function EmptryGroup(props) {
     </tr>
   )
 }
+
+function CriteriaItems(props) {
+  const { items, stepClass } = props;
+  if (items.length === 0) {
+    return <Fragment></Fragment> //<EmptryGroup stepClass={stepClass} />
+  } else {
+    return (
+      items.map((grp,idx) => {
+        return (
+          <tr key={idx}>
+            <td colSpan={grp.date ? 1 : 2} className={stepClass}>
+              {grp.criteria}
+            </td>
+            { grp.date ? <td>{grp.date}</td> : null }
+            <td>{grp.action}</td>
+          </tr>
+        )
+      })
+    )
+  }
+}
+
+
 
 export default CriteriaTable;

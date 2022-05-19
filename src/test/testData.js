@@ -90,26 +90,30 @@ export const testData = {
       "reference": "#logic-path"
     },
     "logicsummary": "Follow-up after treatment for CIN2 or CIN3 Table 5A.",
-    "logiccriteria": {
-      "inclusion": [
-        {
-          "criteria": "Age >= 25 years old",
-          "date": null,
-          "action": null
-        },
-        {
-          "criteria": "Sex at birth = female",
-          "date": null,
-          "action": null
-        },
-      ],
-      "exclusion": [],
-      "basis": {
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
         "title": "Common Abnormality #5",
         "groups": [
           {
             "name": "Most Recent Cotest >= 6 months and <= 9 months after CIN2 or CIN3 treatment",
-            "steps": [
+            "items": [
               {
                 "criteria": "HPV Test - Negative",
                 "date": "06/22/2021",
@@ -124,7 +128,7 @@ export const testData = {
           },
           {
             "name": "CIN2 or CIN3 Treatment <= 3 months after most recent CIN2 or CIN3 histology",
-            "steps": [
+            "items": [
               {
                 "criteria": "LEEP Procedure",
                 "date": "11/20/2020",
@@ -134,7 +138,7 @@ export const testData = {
           },
           {
             "name": "Most Recent Cervical Histology is CIN2 or CIN3",
-            "steps": [
+            "items": [
               {
                 "criteria": "Most Recent Cervical Histology is CIN2 or CIN3",
                 "date": "11/20/2020",
@@ -144,13 +148,13 @@ export const testData = {
           }
         ]
       }
-    },
+    ],
     "timeline": {
       "explanation": "[Explanation text about the timeline here...]",
       "projection": [
         {
           "era": "Start Age 21",
-          "recommendation": "Patient Status info here...",
+          "status": "Patient Status info here...",
           "options": [
             {
               "activity": "Cervical Cytology",
@@ -308,26 +312,30 @@ export const testData = {
       "reference": "#logic-path"
     },
     "logicsummary": "Grade D Recommendation: The USPSTF recommends against screening for cervical cancer in individuals over 65 years who have had adequate prior screening and are not otherwise at high risk for cervical cancer.",
-    "logiccriteria": {
-      "inclusion": [
-        {
-          "criteria": "Age > 65 years old",
-          "date": null,
-          "action": null
-        },
-        {
-          "criteria": "Sex at birth = female",
-          "date": null,
-          "action": null
-        },
-      ],
-      "exclusion": [],
-      "basis": {
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age > 65 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
         "title": "Adequate prior screening",
         "groups": [
           {
             "name": "Negative Cervical Cytology Every 3 years x3",
-            "steps": [
+            "items": [
               {
                 "criteria": "Cytology (Pap)</b> - NILM",
                 "date": "04/18/2021",
@@ -347,7 +355,7 @@ export const testData = {
           },
           {
             "name": "Adequate Screening in past 11 years",
-            "steps": [
+            "items": [
               {
                 "criteria": "3 Negative Cervical Cytology results in 11-year span - TRUE",
                 "date": null,
@@ -362,13 +370,13 @@ export const testData = {
           }
         ]
       }
-    },
+    ],
     "timeline": {
       "explanation": "[Explanation text about the timeline here...]",
       "projection": [
         {
           "era": "Start Age 21",
-          "recommendation": "Patient Status info here...",
+          "status": "Patient Status info here...",
           "options": [
             {
               "activity": "Cervical Cytology",
@@ -451,12 +459,200 @@ export const testData = {
     "pregnant": "N/A",
     "race": "White; Non-Hispanic",
     "language": "English",
-    "recommendation": "rec/bernadette",
-    "reference": "ref/bernadette",
-    "logic": "logic/bernadette",
-    "timeline": "timeline/longhigh",
     "patientrec": "Surveillance Testing Due 11/12/2023",
     "patientgroup": "Long-term surveillance following treatment for high-grade precancer",
+    "recdetails": [
+      "Per the ASCCP Risk-Based Management Guidelines, surveillance testing is recommended 3 years following the last negative result.",
+      "HPV-based testing with cotest or primary hrHPV test is recommended every 3 years after a histologic HSIL (CIN2 or CIN3) or AIS results for 25 years, regardless of whether the patient has had a hysterectomy either for treatment or at any point during the surveillance period (CIII)."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "Schedule Surveillance",
+    "risk": {
+      "title": "Risk Estimates",
+      "subtitle": "Long-Term Follow-up When There Are 2 or 3 Negative Follow-up Test Results After Treatment of CIN 2 or CIN 3",
+      "headers": [
+        {
+          "key": "histResult",
+          "display": "History: cotest or HPV test negative"
+        },
+        {
+          "key": "currentResult",
+          "display": "Current Cytology Result"
+        },
+        {
+          "key": "immediateRisk",
+          "display": "CIN 3+ Immediate Risk (%)"
+        },
+        {
+          "key": "fiveYearRisk",
+          "display": "CIN 3+ 5 yr Risk (%)"
+        }
+      ],
+      "relevant": {
+        "histResult": "Cotest negative x2",
+        "currentResult": "Cotest negative",
+        "immediateRisk": 0,
+        "fiveYearRisk": 0.35
+      },
+      "adjacent": [
+        {
+          "histResult": "Cotest negative x1",
+          "currentResult": "Cotest negative",
+          "immediateRisk": 0,
+          "fiveYearRisk": 0.68
+        },
+        {
+          "histResult": "HPV-negative x1",
+          "currentResult": "HPV-negative",
+          "immediateRisk": 0.05,
+          "fiveYearRisk": 0.91
+        },
+        {
+          "histResult": "HPV-negative x2",
+          "currentResult": "HPV-negative",
+          "immediateRisk": 0.15,
+          "fiveYearRisk": 0.44
+        }
+      ],
+      "clarifications": [
+        "Applicable to patients who are followed up after a CIN 2 or CIN 3 treatment with more than 1 cotest or primary HPV-negative results."
+      ]
+    },
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "details": [
+          "After a diagnosis of high-grade histology or cytology, patients may undergo hysterectomy for reasons related or unrelated to their cervical abnormalities. If hysterectomy is performed for treatment, patients should have 3 consecutive annual HPV-based tests before entering long-term surveillance. Long-term surveillance after treatment for histologic HSIL (CIN 2 or CIN 3) or AIS involves HPV-based testing at 3-year intervals for 25 years, regardless of whether the patient has had a hysterectomy either for treatment or at any point during the surveillance period (CIII). Among patients who have undergone hysterectomy but either have no previous diagnosis of CIN 2+ within the previous 25 years or have completed the 25 year surveillance period, screening is generally not recommended. However, if performed, abnormal vaginal screening test results should be managed according to published recommendations (BII)."
+        ],
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.5)",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "NEED TO FIX: The L2 logic for this used to make sense but it has been changed and doesn't match the patient history anymore.",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          },
+          {
+            "name": "Removal of cervix procedure",
+            "items": [
+              {
+                "criteria": "Total Abdominal Hysterectomy",
+                "date": "09/15/2017",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Diagnosis of Cervical Cancer",
+            "items": [
+              {
+                "criteria": "High grade squamous intraepithelial lesion on cytologic smear of cervix (HGSIL)",
+                "date": "05/02/2015",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": [
+          {
+            "name": "Removal of cervix <5 years ago",
+            "items": [
+              {
+                "criteria": "Total Abdominal Hysterectomy",
+                "date": "09/15/2017",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Other exclusions",
+            "items": [
+              {
+                "criteria": "None present",
+                "date": null,
+                "action": "Edit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Initial intensive surveillance period post-hysterectomy",
+        "groups": [
+          {
+            "name": "Negative Surveillance Test",
+            "items": [
+              {
+                "criteria": "hrHPV Test - Negative",
+                "date": "11/12/2020",
+                "action": "View"
+              },
+              {
+                "criteria": "hrHPV Test - Negative",
+                "date": "11/14/2019",
+                "action": "View"
+              },
+              {
+                "criteria": "hrHPV Test - Negative",
+                "date": "10/02/2018",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "NOTIONAL: Expected sequence of events for Long-term surveillance following treatment for high-grade precancer patients following current guidelines, assuming no abnormal results found or significant changes to clinical status.",
+      "projection": [
+        {
+          "era": "Age 30-65",
+          "status": "Info about current patient status here",
+          "options": [
+            {
+              "activity": "Recommendation Name",
+              "period": "5 years",
+              "detail": "Recommendation Text",
+              "duration": "7 to 9 times (2024 to 2059)",
+            },
+            {
+              "activity": "Recommendation Name",
+              "period": "3 years",
+              "detail": "Recommendation Text",
+              "duration": "10 to 12 times (2024 to 2059)",
+            }
+          ]
+        },
+        {
+          "era": "Age 65+",
+          "status": "Info about current patient status here",
+          "options": [
+            {
+              "activity": "Recommendation Name",
+              "period": "5 years",
+              "detail": "What should this patient do when she is 65+? For more detail, read this.",
+              "duration": "As needed starting in 2059",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-01-12",
     "labresults": [{
       "name": "HPV Test",

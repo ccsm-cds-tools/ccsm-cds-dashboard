@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 // NOTE: BrowserRouter does not work with Github Pages. For deployment, must 
 // replace with [HashRouter](https://create-react-app.dev/docs/deployment/#notes-on-client-side-routing).
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route
 } from 'react-router-dom';

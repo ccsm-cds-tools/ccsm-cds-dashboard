@@ -56,7 +56,7 @@ function SortableTable(props) {
 }
 
 function RenderRow(hdr, itm) {
-  if (hdr.key === 'date') return <time dateTime="1994-01-20">{itm.date}</time>
+  if (hdr.key === 'date') return <time dateTime={itm.date}>{itm.date}</time>
   else if (hdr.key === null) return <a href="#">View</a>
   else return itm[hdr.key] ?? ''
 }

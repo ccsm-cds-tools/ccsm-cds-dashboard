@@ -17,7 +17,7 @@ function PatientInfo(props) {
           <div className="row">
             <div className="col">
               <div className="info-item">
-                <b>Date of Birth</b> <span><time dateTime="1994-01-20">{input.dob}</time></span>
+                <b>Date of Birth</b> <span><time dateTime={input.dob}>{input.dob}</time></span>
               </div>
               <div className="info-item">
                 <b>Sex at Birth</b>

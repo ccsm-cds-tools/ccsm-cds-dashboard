@@ -1045,12 +1045,143 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "White; Non-Hispanic",
     "language": "English",
-    "recommendation": "rec/no_recommendation",
-    "reference": "ref/catherine",
-    "logic": "logic/catherine",
-    "timeline": "timeline/normal",
-    "patientrec": "Colposcopy is recommended",
-    "patientgroup": "Surveillance with recommended colposcopy ",
+    "patientrec": "Unable to identify care recommendation",
+    "patientgroup": "Test results not recorded",
+    "recdetails": [
+      "A recommendation cannot be made because items from the patient history do not have a result value specified."
+    ],
+    "errors": [
+      "Please review the lab reports listed above and document the results so the CDS can evaluate the patient’s history and provide an evidence-based care recommendation."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "",
+    "risk": {},
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "details": [
+          "After a diagnosis of high-grade histology or cytology, patients may undergo hysterectomy for reasons related or unrelated to their cervical abnormalities. If hysterectomy is performed for treatment, patients should have 3 consecutive annual HPV-based tests before entering long-term surveillance. Long-term surveillance after treatment for histologic HSIL (CIN 2 or CIN 3) or AIS involves HPV-based testing at 3-year intervals for 25 years, regardless of whether the patient has had a hysterectomy either for treatment or at any point during the surveillance period (CIII). Among patients who have undergone hysterectomy but either have no previous diagnosis of CIN 2+ within the previous 25 years or have completed the 25 year surveillance period, screening is generally not recommended. However, if performed, abnormal vaginal screening test results should be managed according to published recommendations (BII)."
+        ],
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.7)",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Surveillance following results not requiring immediate colposcopic referral.",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 21 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Abnormal results",
+        "groups": [
+          {
+            "name": "Most Recent Cotest <= 3 years ago",
+            "items": [
+              {
+                "criteria": "HPV Test - Positive",
+                "date": "12/18/2021",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "12/18/2021",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Second Most Recent Cotest",
+            "items": [
+              {
+                "criteria": "HPV Test - Negative",
+                "date": "11/20/2020",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "11/20/2020",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "Expected sequence of events for Average Risk Cervical Cancer Screening patients following current guidelines, assuming no abnormal results found or significant changes to clinical status.",
+      "projection": [
+        {
+          "era": "Age 21 to 29 years",
+          "status": "",
+          "options": [
+            {
+              "activity": "Cervical Cytology",
+              "period": "3 years",
+              "detail": "Cervical Cytology testing alone",
+              "duration": "2 to 3 times (2015 to 2024)",
+            }
+          ]
+        },
+        {
+          "era": "Age 30 to 65 years",
+          "status": "Women in this age group should discuss with their health care professional which testing strategy is best for them.",
+          "options": [
+            {
+              "activity": "hrHPV",
+              "period": "5 years",
+              "detail": "hrHPV Testing alone",
+              "duration": "7 to 9 times (2024 to 2059)",
+            },
+            {
+              "activity": "hrHPV + Cytology",
+              "period": "5 years",
+              "detail": "hrHPV/Cytology cotesting",
+              "duration": "7 to 9 times (2024 to 2059)",
+            },
+            {
+              "activity": "Cervical Cytology",
+              "period": "3 years",
+              "detail": "Cervical Cytology testing alone",
+              "duration": "10 to 12 times (2024 to 2059)",
+            }
+          ]
+        },
+        {
+          "era": "Age older than 65 years",
+          "status": "",
+          "options": [
+            {
+              "activity": "Testing as needed",
+              "period": "5 years",
+              "detail": "Testing as needed until 3 consecutive negative cytology results or 2 consecutive negative cotesting results within 10 years.",
+              "duration": "As needed starting in 2059",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-03-24",
     "labresults": [{
       "name": "HPV Test",

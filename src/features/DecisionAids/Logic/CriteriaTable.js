@@ -82,7 +82,7 @@ function CriteriaItems(props) {
             <td colSpan={grp.date ? 1 : 2} className={stepClass}>
               {grp.criteria}
             </td>
-            { grp.date ? <td><time datetime={grp.date}>{grp.date}</time></td> : null }
+            { grp.date ? <td><time dateTime={grp.date}>{grp.date}</time></td> : null }
             <td>{grp.action}</td>
           </tr>
         )

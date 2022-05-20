@@ -23,7 +23,7 @@ export const config = {
               display: 'Onset Date'
             },
             {
-              key: null,
+              key: 'status',
               display: 'Action'
             }
           ],
@@ -46,7 +46,7 @@ export const config = {
               display: 'Date Performed'
             },
             {
-              key: null,
+              key: 'status',
               display: 'Action'
             }
           ],
@@ -69,7 +69,7 @@ export const config = {
               display: 'Start Date'
             },
             {
-              key: null,
+              key: 'status',
               display: 'Action'
             }
           ],
@@ -109,7 +109,7 @@ export const config = {
               display: 'Date'
             },
             {
-              key: null,
+              key: 'status',
               display: 'Action'
             }
           ],
@@ -141,7 +141,7 @@ export const config = {
               display: 'Date'
             },
             {
-              key: null,
+              key: 'status',
               display: 'Action'
             }
           ],

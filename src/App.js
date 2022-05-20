@@ -17,7 +17,7 @@ document.body.className = 'bg-light';
 
 function App() {
   return (
-    <Container>
+    <Container fluid>
       <Router>
         <Routes>
           <Route path="/tests" >

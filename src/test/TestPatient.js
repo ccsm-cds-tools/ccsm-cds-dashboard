@@ -57,6 +57,7 @@ function reshapeTestData(testData) {
       recommendation: testData.patientrec,
       recommendationGroup: testData.patientgroup,
       recommendationDetails: testData.recdetails,
+      errors: testData.errors,
       disclaimer: testData.disclaimer,
       suggestedOrder: testData.order,
       riskTable: testData.risk,

@@ -1051,7 +1051,7 @@ export const testData = {
       "A recommendation cannot be made because items from the patient history do not have a result value specified."
     ],
     "errors": [
-      "Please review the lab reports listed above and document the results so the CDS can evaluate the patient’s history and provide an evidence-based care recommendation."
+      "Please review the highlighted lab reports and document the results so the CDS can evaluate the patient’s history and provide an evidence-based care recommendation."
     ],
     "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
     "order": "",
@@ -1246,13 +1246,154 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "White; Non-Hispanic",
     "language": "English",
-    "recommendation": "rec/darla",
-    "reference": "ref/darla",
-    "logic": "logic/darla",
-    "timeline": "timeline/generic",
     "patientrec": "Colposcopy is recommended",
     "patientgroup": "Surveillance with recommended colposcopy",
-    "updated": "2022-01-25",
+    "recdetails": [
+      "Per the 2012 ASCCP Risk Management guidelines, colposcopy is recommended.",
+      "When patients have an estimated immediate risk of diagnosis of CIN 3+ of 4.0% or greater based on history and current results, referral to colposcopy is recommended (AII)."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "referral",
+    "risk": {
+      "title": "Risk Estimates",
+      "subtitle": "Immediate and 5-year risks of CIN 3+ for abnormal screening results, when there are no known prior HPV test results",
+      "headers": [
+        {
+          "key": "currentHpv",
+          "display": "Current HPV Result"
+        },
+        {
+          "key": "currentCyto",
+          "display": "Current Cytology Result"
+        },
+        {
+          "key": "immediateRisk",
+          "display": "CIN 3+ Immediate Risk (%)"
+        },
+        {
+          "key": "fiveYearRisk",
+          "display": "CIN 3+ 5 yr Risk (%)"
+        }
+      ],
+      "relevant": {
+        "currentHpv": "HPV Positive",
+        "currentCyto": "LSIL",
+        "immediateRisk": 4.3,
+        "fiveYearRisk": 6.9
+      },
+      "adjacent": [
+        {
+          "currentHpv": "HPV Positiv",
+          "currentCyto": "NILM",
+          "immediateRisk": 2.1,
+          "fiveYearRisk": 4.8
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "ASC-US",
+          "immediateRisk": 4.4,
+          "fiveYearRisk": 7.3
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "ASC-H",
+          "immediateRisk": 26,
+          "fiveYearRisk": 33
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "AGC",
+          "immediateRisk": 26,
+          "fiveYearRisk": 35
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "HSIL+",
+          "immediateRisk": 49,
+          "fiveYearRisk": 53
+        }
+      ],
+      "clarifications": [
+        "Applicable to patients without a prior HPV screening test result documented in the medical record. It applies for cotest results, primary HPV screens with cytology triage for HPV-positive results."
+      ]
+    },
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.6)",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Abnormal results (Table 1A)",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Abnormal results",
+        "groups": [
+          {
+            "name": "Most Recent Surveillance Test <= 5 years ago",
+            "items": [
+              {
+                "criteria": "HPV Test - Positive",
+                "date": "01/16/2022",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "01/16/2022",
+                "action": "View"
+              },
+              {
+                "criteria": "Previous Surveillance Test is Not Found - TRUE",
+                "date": null,
+                "action": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "[Explanation text about the timeline here...]",
+      "projection": [
+        {
+          "era": "Start Age 21",
+          "status": "Patient Status info here...",
+          "options": [
+            {
+              "activity": "Cervical Cytology",
+              "period": "3 years",
+              "detail": "Cervical Cytology testing alone",
+              "duration": "2 to 3 times (2015 to 2024)",
+            }
+          ]
+        }
+      ]
+    },
     "labresults": [{
       "name": "HPV Test",
       "value": "Positive",

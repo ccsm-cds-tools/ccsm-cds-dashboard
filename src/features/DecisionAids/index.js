@@ -8,6 +8,9 @@ import './style.scss';
 
 function DecisionAids(props) {
   const { input } = props;
+  const { errors=[] } = input;
+  const errorsExist = errors.length > 0;
+  
   return (
     <section>
       <h2 className="visually-hidden">Decision Aids</h2>
@@ -15,13 +18,13 @@ function DecisionAids(props) {
         <Tab eventKey={'recs'} title={'Recommendations'}>
           <Recommendations input={input} />
         </Tab>
-        <Tab eventKey={'refs'} title={'References'}>
+        <Tab eventKey={'refs'} title={'References'} disabled={errorsExist}>
           <References input={input} />
         </Tab>
-        <Tab eventKey={'logx'} title={'Logic'}>
+        <Tab eventKey={'logx'} title={'Logic'} disabled={errorsExist}>
           <Logic input={input} />
         </Tab>
-        <Tab eventKey={'time'} title={'Timeline'}>
+        <Tab eventKey={'time'} title={'Timeline'} disabled={errorsExist}>
           <Timeline input={input} />
         </Tab>
       </Tabs>

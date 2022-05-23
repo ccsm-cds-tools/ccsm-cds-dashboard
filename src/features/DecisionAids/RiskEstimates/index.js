@@ -18,7 +18,7 @@ function RiskEstimates(props) {
       <h4>{title} <a href='#info' className='fs-5'><i className='bi bi-info-circle-fill'></i></a></h4>
       <p className="text-secondary">{subtitle}</p>
       {
-        relevant ? 
+        Object.keys(relevant).length > 0 ? 
           <RiskTable 
             headers={headers} 
             relevant={relevant} 

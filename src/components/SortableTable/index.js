@@ -40,11 +40,14 @@ function SortableTable(props) {
         }</tr>
       </thead>
       <tbody>{ // TODO: Pipe in View link
-        items.map((itm,idx) => 
-          <tr key={idx}>
-            { header.map((hdr,hid) => <td key={hid}>{RenderRow(hdr,itm)}</td>) }
-          </tr>
-        )
+        items.map((itm,idx) => {
+          const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
+          return (
+            <tr className={incompleteClass} key={idx}>
+              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm)}</td>) }
+            </tr>
+          )
+        })
       }</tbody>
       <tfoot>{/* TODO: Make this appear only if manual data has been added */}
         <tr>
@@ -55,10 +58,24 @@ function SortableTable(props) {
   )
 }
 
-function RenderRow(hdr, itm) {
-  if (hdr.key === 'date') return <time dateTime="1994-01-20">{itm.date}</time>
-  else if (hdr.key === null) return <a href="#">View</a>
-  else return itm[hdr.key] ?? ''
+function RenderRowElement(hdr, itm) {
+  const { key } = hdr;
+  const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
+  if (key === 'date') return (
+    <time className={incompleteClass} dateTime={itm.date}>
+      {itm.date}
+    </time>
+  )
+  else if (key === 'status') {
+    return (
+      <a className={incompleteClass} href='#'>
+        {
+          itm?.status === 'incomplete' ? 'Review' : 'View'
+        }
+      </a>
+    )
+  }
+  else return <span className={incompleteClass}>{itm[key] ?? ''}</span>
 }
 
 export default SortableTable;

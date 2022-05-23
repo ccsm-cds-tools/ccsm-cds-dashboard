@@ -1799,12 +1799,149 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "White; Non-Hispanic",
     "language": "English",
-    "recommendation": "rec/jill",
-    "reference": "ref/jill",
-    "logic": "logic/jill",
-    "timeline": "timeline/generic",
     "patientrec": "Surveillance Testing Due 1/10/2025",
     "patientgroup": "Post-colposcopy surveillance",
+    "recdetails": [
+      "Per the ASCCP Risk-Based Management Guidelines, surveillance testing is recommended with a 3-year follow-up.",
+      "After abnormal cervical cancer screening test results for patients 25 years or older, colposcopic biopsy results, or treatment of histologic HSIL, surveillance with either HPV testing alone or cotesting is preferred (AI). Surveillance with cervical cytology alone is acceptable only if testing with HPV or cotesting is not feasible (CIII). Cytology is recommended at 6-month intervals when 1-year intervals are recommended for HPV or cotesting, and annually when 3-year intervals are recommended for HPV or cotesting (AII)."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "surveillance",
+    "risk": {
+      "title": "Risk Estimates",
+      "subtitle": "Immediate and 5-year risks of CIN 3+ postcolposcopy at which CIN 2+ was not found, after referral for low-grade results.",
+      "headers": [
+        {
+          "key": "currentHpv",
+          "display": "Current HPV Result"
+        },
+        {
+          "key": "currentCyto",
+          "display": "Current Cytology Result"
+        },
+        {
+          "key": "immediateRisk",
+          "display": "CIN 3+ Immediate Risk (%)"
+        },
+        {
+          "key": "fiveYearRisk",
+          "display": "CIN 3+ 5 yr Risk (%)"
+        }
+      ],
+      "relevant": {
+        "currentHpv": "HPV-negative",
+        "currentCyto": "NILM",
+        "immediateRisk": 0.0,
+        "fiveYearRisk": 0.42
+      },
+      "adjacent": [
+        {
+          "currentHpv": "HPV-negative",
+          "currentCyto": "ASC-US/LSIL",
+          "immediateRisk": 0.05,
+          "fiveYearRisk": 0.92
+        },
+        {
+          "currentHpv": "HPV-negative",
+          "currentCyto": "High grade",
+          "immediateRisk": 1.6,
+          "fiveYearRisk": 4.1
+        },
+        {
+          "currentHpv": "HPV-negative",
+          "currentCyto": "ALL",
+          "immediateRisk": 0.01,
+          "fiveYearRisk": 0.51
+        }
+      ],
+      "clarifications": [
+        "Applicable to patient who are recommended for 1-year follow-up surveillance after less than CIN 2 colposcopy results following a low-grade (i.e. ASC-US, LSIL regardless of HPV test result or HPV-positive NILM) screening result. This addresses both a current cotest result or primary HPV test with cytology triage for HPV-positive tests.",
+        "High grade corresponds to ASC-H/AGC/HSIL+",
+        "HPV-negative ALL, e.g. primary HPV screening"
+      ]
+    },
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.9)",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Surveillance visit following colposcopy/biopsy finding less than CIN2",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Abnormal results",
+        "groups": [
+          {
+            "name": "Most Recent Cotest >= 12 months and <= 18 months after Latest Cervical Histology Test",
+            "items": [
+              {
+                "criteria": "HPV Test - Negative",
+                "date": "01/10/2022",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - NILM",
+                "date": "01/10/2022",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Latest Cervical Histology Test",
+            "items": [
+              {
+                "criteria": "Cervical Histology - Histologic LSIL (CIN1)",
+                "date": "12/10/2020",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "[Explanation text about the timeline here...]",
+      "projection": [
+        {
+          "era": "Start Age 21",
+          "status": "Patient Status info here...",
+          "options": [
+            {
+              "activity": "Cervical Cytology",
+              "period": "3 years",
+              "detail": "Cervical Cytology testing alone",
+              "duration": "2 to 3 times (2015 to 2024)",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-01-26",
     "labresults": [{
       "name": "HPV Test",
@@ -1853,12 +1990,189 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "Black or African American; Non-Hispanic",
     "language": "English",
-    "recommendation": "rec/lily",
-    "reference": "ref/lily",
-    "logic": "logic/lily",
-    "timeline": "timeline/lily",
     "patientrec": "Surveillance Testing Due 10/25/2022",
     "patientgroup": "Post-colposcopy surveillance",
+    "recdetails": [
+      "Per the ASCCP Risk-Based Management Guidelines, surveillance testing is recommended with a 1-year follow-up.",
+      "After abnormal cervical cancer screening test results for patients 25 years or older, colposcopic biopsy results, or treatment of histologic HSIL, surveillance with either HPV testing alone or cotesting is preferred (AI). Surveillance with cervical cytology alone is acceptable only if testing with HPV or cotesting is not feasible (CIII). Cytology is recommended at 6-month intervals when 1-year intervals are recommended for HPV or cotesting, and annually when 3-year intervals are recommended for HPV or cotesting (AII)."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "surveillance",
+    "risk": {
+      "title": "Risk Estimates",
+      "subtitle": "CIN 3+ 1-year and 5-year risks upon receipt of colposcopy/biopsy result",
+      "headers": [
+        {
+          "key": "preColpoResult",
+          "display": "Precolposcopy test result"
+        },
+        {
+          "key": "colpoDx",
+          "display": "Colposcopy diagnosis"
+        },
+        {
+          "key": "oneYearRisk",
+          "display": "CIN3+ 1 yr Risk (%)"
+        },
+        {
+          "key": "fiveYearRisk",
+          "display": "CIN3+ 5 yr Risk (%)"
+        }
+      ],
+      "relevant": {
+        "currentHpv": "HPV Positive LSIL",
+        "currentCyto": "CIN1",
+        "immediateRisk": 0.74,
+        "fiveYearRisk": 2.3
+      },
+      "adjacent": [
+        {
+          "currentHpv": "HPV Positive NILM x2",
+          "currentCyto": "CIN1",
+          "immediateRisk": 0.74,
+          "fiveYearRisk": 2.8
+        },
+        {
+          "currentHpv": "HPV Positive ASC-US",
+          "currentCyto": "CIN1",
+          "immediateRisk": 0.53,
+          "fiveYearRisk": 2.6
+        },
+        {
+          "currentHpv": "ASC-H",
+          "currentCyto": "CIN1",
+          "immediateRisk": 1.4,
+          "fiveYearRisk": 5.6
+        },
+        {
+          "currentHpv": "AGC",
+          "currentCyto": "CIN1",
+          "immediateRisk": 1.3,
+          "fiveYearRisk": 3.8
+        },
+        {
+          "currentHpv": "HSIL+",
+          "currentCyto": "CIN1",
+          "immediateRisk": 3.9,
+          "fiveYearRisk": 6.5
+        }
+      ],
+      "clarifications": [
+        "Applicable to patients who have undergone a recent colposcopy."
+      ]
+    },
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.8) - Receipt of colposcopy/biopsy results",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Follow-up after treatment for CIN2 or CIN3 Table 5A.",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Abnormal colposcopy/biopsy results",
+        "groups": [
+          {
+            "name": "Latest Cervical Histology Test <= 12 months ago",
+            "items": [
+              {
+                "criteria": "Cervical Histology - Histological LSIL (CIN1)",
+                "date": "10/25/2021",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Most Recent Cotest <= 3 months before Latest Cervical Histology",
+            "items": [
+              {
+                "criteria": "HPV Test - Positive (Type 16)",
+                "date": "08/17/2021",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "08/17/2021",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "[Explanation text about the timeline here...]",
+      "projection": [
+        {
+          "era": "Start Post-colposcopy CIN1",
+          "status": "Patient Status info here...",
+          "options": [
+            {
+              "activity": "Surveillance Testing",
+              "period": "1 year",
+              "detail": "[What surveillance is needed?]",
+              "duration": "1 year follow-up (How often? Until when?)",
+            },
+            {
+              "activity": "Next State after surveillance",
+              "period": "? years",
+              "detail": "[What action is needed?]",
+              "duration": "? to ? times (2023 to 2059)",
+            }
+          ]
+        },
+        {
+          "era": "Next Expected Event after Post-colposcopy surveillance",
+          "status": "Note about this expected state...",
+          "options": [
+            {
+              "activity": "[Next state after event]",
+              "period": "? year",
+              "detail": "[What actions happen here?]",
+              "duration": "1 year follow-up (How often? Until when?)",
+            }
+          ]
+        },
+        {
+          "era": "Age older than 65 years",
+          "status": "[What is expected for this patient once over 65?]",
+          "options": [
+            {
+              "activity": "Testing as needed",
+              "period": "5 years",
+              "detail": "Testing as needed until 3 consecutive negative cytology results or 2 consecutive negative cotesting results within 10 years.",
+              "duration": "As needed starting in 2050",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-04-04",
     "labresults": [{
       "name": "Cervical Histology",
@@ -1928,12 +2242,129 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "Black or African American; Non-Hispanic",
     "language": "English",
-    "recommendation": "rec/no_recommendation",
-    "reference": "ref/lily",
-    "logic": "logic/lily",
-    "timeline": "timeline/lily",
-    "patientrec": "Surveillance Testing Due 10/25/2022",
-    "patientgroup": "Post-colposcopy surveillance",
+    "patientrec": "Unable to identify care recommendation",
+    "patientgroup": "Test results not recorded",
+    "recdetails": [
+      "A recommendation cannot be made because items from the patient history do not have a result value specified."
+    ],
+    "errors": [
+      "Please review the highlighted lab reports and document the results so the CDS can evaluate the patient’s history and provide an evidence-based care recommendation."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "",
+    "risk": {},
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.8) - Receipt of colposcopy/biopsy results",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Follow-up after treatment for CIN2 or CIN3 Table 5A.",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Abnormal colposcopy/biopsy results",
+        "groups": [
+          {
+            "name": "Latest Cervical Histology Test <= 12 months ago",
+            "items": [
+              {
+                "criteria": "Cervical Histology - Histological LSIL (CIN1)",
+                "date": "10/25/2021",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Most Recent Cotest <= 3 months before Latest Cervical Histology",
+            "items": [
+              {
+                "criteria": "HPV Test - Positive (Type 16)",
+                "date": "08/17/2021",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "08/17/2021",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "[Explanation text about the timeline here...]",
+      "projection": [
+        {
+          "era": "Start Post-colposcopy CIN1",
+          "status": "Patient Status info here...",
+          "options": [
+            {
+              "activity": "Surveillance Testing",
+              "period": "1 year",
+              "detail": "[What surveillance is needed?]",
+              "duration": "1 year follow-up (How often? Until when?)",
+            },
+            {
+              "activity": "Next State after surveillance",
+              "period": "? years",
+              "detail": "[What action is needed?]",
+              "duration": "? to ? times (2023 to 2059)",
+            }
+          ]
+        },
+        {
+          "era": "Next Expected Event after Post-colposcopy surveillance",
+          "status": "Note about this expected state...",
+          "options": [
+            {
+              "activity": "[Next state after event]",
+              "period": "? year",
+              "detail": "[What actions happen here?]",
+              "duration": "1 year follow-up (How often? Until when?)",
+            }
+          ]
+        },
+        {
+          "era": "Age older than 65 years",
+          "status": "[What is expected for this patient once over 65?]",
+          "options": [
+            {
+              "activity": "Testing as needed",
+              "period": "5 years",
+              "detail": "Testing as needed until 3 consecutive negative cytology results or 2 consecutive negative cotesting results within 10 years.",
+              "duration": "As needed starting in 2050",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-04-04",
     "labresults": [{
       "name": "Cervical Histology",

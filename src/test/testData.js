@@ -1421,12 +1421,164 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "White; Hispanic",
     "language": "Spanish",
-    "recommendation": "rec/erica",
-    "reference": "ref/erica",
-    "logic": "logic/erica-grace2",
-    "timeline": "timeline/generic",
     "patientrec": "Surveillance Testing Due 1/19/2023",
     "patientgroup": "Surveillance of abnormal result",
+    "recdetails": [
+      "Per the ASCCP Risk-Based Management Guidelines, surveillance testing is recommended with a 1-year follow-up.",
+      "After abnormal cervical cancer screening test results for patients 25 years or older, colposcopic biopsy results, or treatment of histologic HSIL, surveillance with either HPV testing alone or cotesting is preferred (AI). Surveillance with cervical cytology alone is acceptable only if testing with HPV or cotesting is not feasible (CIII). Cytology is recommended at 6-month intervals when 1-year intervals are recommended for HPV or cotesting, and annually when 3-year intervals are recommended for HPV or cotesting (AII)."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "surveillance",
+    "risk": {
+      "title": "Risk Estimates",
+      "subtitle": "Immediate and 5-year risks of CIN 3+ after a prior HPV-negative screen documented in the medical record",
+      "headers": [
+        {
+          "key": "currentHpv",
+          "display": "Current HPV Result"
+        },
+        {
+          "key": "currentCyto",
+          "display": "Current Cytology Result"
+        },
+        {
+          "key": "immediateRisk",
+          "display": "CIN 3+ Immediate Risk (%)"
+        },
+        {
+          "key": "fiveYearRisk",
+          "display": "CIN 3+ 5 yr Risk (%)"
+        }
+      ],
+      "relevant": {
+        "currentHpv": "HPV Positive",
+        "currentCyto": "LSIL",
+        "immediateRisk": 2.1,
+        "fiveYearRisk": 3.8
+      },
+      "adjacent": [
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "NILM",
+          "immediateRisk": 0.74,
+          "fiveYearRisk": 2.3
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "ASC-US",
+          "immediateRisk": 2.0,
+          "fiveYearRisk": 3.8
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "ASC-H",
+          "immediateRisk": 14,
+          "fiveYearRisk": 18
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "AGC",
+          "immediateRisk": 14,
+          "fiveYearRisk": 21
+        },
+        {
+          "currentHpv": "HPV Positive",
+          "currentCyto": "HSIL+",
+          "immediateRisk": 32,
+          "fiveYearRisk": 34
+        }
+      ],
+      "clarifications": [
+        "Applicable to patients with abnormal screening results that are preceded by a documented negative HPV test result within an appropriate screening interval (approximately 5 years)."
+      ]
+    },
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.6) - Surveillance following results not requiring immediate colposcopic referral",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Abnormal results (Table 1A)",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Common Abnormal Result",
+        "groups": [
+          {
+            "name": "Most Recent Cotest <= 5 years ago",
+            "items": [
+              {
+                "criteria": "HPV Test - Positive",
+                "date": "01/19/2017",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "01/19/2017",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Previous Cotest is Negative",
+            "items": [
+              {
+                "criteria": "HPV Test - Negative",
+                "date": "01/02/2014",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - NILM",
+                "date": "01/02/2014",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "[Explanation text about the timeline here...]",
+      "projection": [
+        {
+          "era": "Start Age 21",
+          "status": "Patient Status info here...",
+          "options": [
+            {
+              "activity": "Cervical Cytology",
+              "period": "3 years",
+              "detail": "Cervical Cytology testing alone",
+              "duration": "2 to 3 times (2015 to 2024)",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-05-04",
     "labresults": [{
       "name": "HPV Test",
@@ -1492,12 +1644,109 @@ export const testData = {
     "pregnant": "Unknown",
     "race": "White; Hispanic",
     "language": "Spanish",
-    "recommendation": "rec/susan",
-    "reference": "ref/erica",
-    "logic": "logic/erica",
-    "timeline": "timeline/generic",
     "patientrec": "Cervical Screening Due Now",
     "patientgroup": "Average-risk screening",
+    "recdetails": [
+      "Per USPSTF recommendations, this patient is due for cervical cancer screening.",
+      "The screening can be performed by using one of the following screening approaches: Cervical cytology testing alone, hrHPV testing alone, or cotesting with cervical cytology testing and hrHPV testing."
+    ],
+    "disclaimer": "An evidence based recommendation is provided based on clinical data available in the patient's electronic medical record. Please validate with patient and document any additional relevant history and cervical cancer screening related procedures, and lab testing with documented written evidence.",
+    "order": "screening",
+    "risk": {
+      "title": "Risk Estimates",
+      "subtitle": "Risk estimates are not available for patients with no prior positive HPV test results or abnormal cytology results.",
+      "headers": [],
+      "relevant": {},
+      "adjacent": [],
+      "clarifications": []
+    },
+    "references": [
+      {
+        "name": "ASCCP Risk-Based Management Consensus, 2019",
+        "documents": [
+          {
+            "title": "2019 ASCCP Risk-Based Management Consensus Guidelines for Abnormal Cervical Cancer Screening Tests and Cancer Precursors, 2019",
+            "link": "https://www.asccp.org/Assets/b2263c88-ec67-4ab0-9f07-6f112e76f8d7/637269576182030000/2019-asccp-risk-based-management-consensus-3-5-pdf"
+          }
+        ]
+      }
+    ],
+    "logicpath": {
+      "name": "(Logic Path 5 - 4.7.3.3.6) - Surveillance following results not requiring immediate colposcopic referral",
+      "reference": "#logic-path"
+    },
+    "logicsummary": "Abnormal results (Table 1A)",
+    "logiccriteria": [
+      {
+        "title": "Inclusions",
+        "groups": [
+          {
+            "name": "Age >= 25 years old",
+            "items": []
+          },
+          {
+            "name": "Sex at birth = female",
+            "items": []
+          }
+        ]
+      },
+      {
+        "title": "Exclusions",
+        "groups": []
+      },
+      {
+        "title": "Common Abnormal Result",
+        "groups": [
+          {
+            "name": "Most Recent Cotest <= 5 years ago",
+            "items": [
+              {
+                "criteria": "HPV Test - Positive",
+                "date": "01/19/2017",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - LSIL",
+                "date": "01/19/2017",
+                "action": "View"
+              }
+            ]
+          },
+          {
+            "name": "Previous Cotest is Negative",
+            "items": [
+              {
+                "criteria": "HPV Test - Negative",
+                "date": "01/02/2014",
+                "action": "View"
+              },
+              {
+                "criteria": "Cytology (Pap) - NILM",
+                "date": "01/02/2014",
+                "action": "View"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "timeline": {
+      "explanation": "[Explanation text about the timeline here...]",
+      "projection": [
+        {
+          "era": "Start Age 21",
+          "status": "Patient Status info here...",
+          "options": [
+            {
+              "activity": "Cervical Cytology",
+              "period": "3 years",
+              "detail": "Cervical Cytology testing alone",
+              "duration": "2 to 3 times (2015 to 2024)",
+            }
+          ]
+        }
+      ]
+    },
     "updated": "2022-03-24",
     "labresults": [{
       "name": "HPV Test",
@@ -1534,62 +1783,6 @@ export const testData = {
       "value": "NILM",
       "date": "2001-05-02",
       "sdate": "May 2001"
-    }]
-  },
-  "explanation": {
-    "name": "Firstname Middle Lastname",
-    "mrn": "[identifier]",
-    "dob": "01/20/1994",
-    "age": 27,
-    "height": "5 ft 4 in",
-    "weight": "138 lb",
-    "sab": "Female",
-    "gender": "Female",
-    "pregnant": "Yes - EDD 03/07/2022",
-    "race": "White; Non-Hispanic",
-    "language": "English",
-    "recommendation": "rec/explanation",
-    "reference": "ref/explanation",
-    "logic": "logic/explanation",
-    "timeline": "timeline/explanation",
-    "updated": "2021-01-10",
-    "labresults": [{
-      "name": "Cytology (Pap)",
-      "value": "NILM",
-      "date": "2021-11-17",
-      "sdate": "Nov 2021"
-    }, {
-      "name": "Cytology (Pap)",
-      "value": "NILM",
-      "date": "2018-11-17",
-      "sdate": "Nov 2018"
-    }, {
-      "name": "Cervical Excision (LEEP)",
-      "value": "Completed",
-      "date": "2018-11-17",
-      "sdate": "Nov 2018"
-    }],
-    "conditions": [{
-      "name": "Pregnancy Diagnosis",
-      "value": "28w2d (2022-03-12)",
-      "date": "2021-06-21",
-      "sdate": "Aug 2021"
-    }],
-    "vaccinations": [{
-      "name": "HPV",
-      "value": "GARDASIL9 (Dose 3)",
-      "date": "2019-11-13",
-      "sdate": "Nov 2019"
-    }, {
-      "name": "HPV",
-      "value": "GARDASIL9 (Dose 2)",
-      "date": "2019-05-12",
-      "sdate": "May 2019"
-    }, {
-      "name": "HPV",
-      "value": "GARDASIL9 (Dose 1)",
-      "date": "2019-03-09",
-      "sdate": "Mar 2019"
     }]
   },
   "jill": {

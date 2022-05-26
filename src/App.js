@@ -9,8 +9,8 @@ import {
   Route
 } from 'react-router-dom';
 
-import TestPatientSelector from 'test/TestPatientSelector';
-import TestPatient from 'test/TestPatient';
+import TestPatientSelector from 'test/basic/TestPatientSelector';
+import TestPatient from 'test/basic/TestPatient';
 import Dashboard from 'features/Dashboard';
 
 document.body.className = 'bg-light';
@@ -309,7 +309,7 @@ function App() {
     <Container fluid>
       <Router>
         <Routes>
-          <Route path="/tests" >
+          <Route path="/tests-basic" >
             <Route path=":testName" element={<TestPatient />} />
             <Route index element={<TestPatientSelector/>} />
           </Route>

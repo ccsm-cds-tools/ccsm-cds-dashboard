@@ -98,7 +98,7 @@ function IndexRow(props) {
   return (
     <tr>
       <td>{index}</td>
-      <td><Link to={'/tests/'+rowData['key']}>{rowData['name']}</Link></td>
+      <td><Link to={'/tests-basic/'+rowData['key']}>{rowData['name']}</Link></td>
       <td>View</td>
       <td>{rowData['age']}</td>
       <td>{rowData['scenario']}</td>

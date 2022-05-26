@@ -1,6 +1,6 @@
-import { RelevantHistoryForm } from "test/forms/RelevantHistoryForm";
-import { ScreeningAndManagementHistoryForm } from "test/forms/ScreeningAndManagementHistoryForm";
-import { VaccinationHistoryForm } from "test/forms/VaccinationHistoryForm";
+import { RelevantHistoryForm } from "test/basic/forms/RelevantHistoryForm";
+import { ScreeningAndManagementHistoryForm } from "test/basic/forms/ScreeningAndManagementHistoryForm";
+import { VaccinationHistoryForm } from "test/basic/forms/VaccinationHistoryForm";
 
 export const config = {
   histories: [

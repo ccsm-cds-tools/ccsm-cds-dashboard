@@ -187,6 +187,10 @@ module.exports = function (webpackEnv) {
   };
 
   return {
+    // NOTE: Encender requires support for top level await support.
+    experiments: {
+      topLevelAwait: true
+    },
     target: ['browserslist'],
     // Webpack noise constrained to errors and warnings
     stats: 'errors-warnings',
@@ -300,6 +304,14 @@ module.exports = function (webpackEnv) {
       modules: ['node_modules', paths.appNodeModules].concat(
         modules.additionalModulePaths || []
       ),
+      // NOTE: Not polyfilling here, just ignoring these node modules.
+      fallback: {
+        buffer: false,
+        fs: false,
+        module: false,
+        timers: false,
+        worker_threads: false
+      },
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
       // some tools, although we do not recommend using it, see:
@@ -657,10 +669,27 @@ module.exports = function (webpackEnv) {
       // solution that requires the user to opt into importing specific locales.
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
-      new webpack.IgnorePlugin({
-        resourceRegExp: /^\.\/locale$/,
-        contextRegExp: /moment$/,
-      }),
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: /^\.\/locale$/,
+          contextRegExp: /moment$/,
+        }
+      ),
+      // NOTE: Replacing older modelinfos included in cql-exec-fhir with v4.0.1.
+      // This significantly reduces the final bundle size by removing these 
+      // unnecessary files.
+      new webpack.NormalModuleReplacementPlugin(
+        /^\.\/modelInfos\/fhir-modelinfo-1\.0\.2\.xml\.js$/,
+        './modelInfos/fhir-modelinfo-4.0.1.xml.js'
+      ),
+      new webpack.NormalModuleReplacementPlugin(
+        /^\.\/modelInfos\/fhir-modelinfo-3\.0\.0\.xml\.js$/,
+        './modelInfos/fhir-modelinfo-4.0.1.xml.js'
+      ),
+      new webpack.NormalModuleReplacementPlugin(
+        /^\.\/modelInfos\/fhir-modelinfo-4\.0\.0\.xml\.js$/,
+        './modelInfos/fhir-modelinfo-4.0.1.xml.js'
+      ),
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the webpack build.
       isEnvProduction &&

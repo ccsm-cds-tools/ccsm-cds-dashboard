@@ -675,6 +675,15 @@ module.exports = function (webpackEnv) {
           contextRegExp: /moment$/,
         }
       ),
+      // NOTE: The schema packaged with fhir-json-schema-validator is huge.
+      // Validation will not work, but removing this file drastically reduces 
+      // bundle size.
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: /^\.\/fhir\.schema\.json$/,
+          contextRegExp: /fhir-json-schema-validator$/,
+        }
+      ),
       // NOTE: Replacing older modelinfos included in cql-exec-fhir with v4.0.1.
       // This significantly reduces the final bundle size by removing these 
       // unnecessary files.

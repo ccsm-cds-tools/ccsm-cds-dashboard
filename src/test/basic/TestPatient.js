@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
 import Dashboard from "features/Dashboard";
 import './TestPatient.scss';
 
 // Load the test data and configuration
 import { testData } from './testData.js';
 import { config } from './test.config.js';
-import TestPatientSelector from "./TestPatientSelector";
 
 function TestPatient() {
   let params = useParams();
@@ -28,7 +28,7 @@ function TestPatient() {
     )
   } else {
     // TODO: Route back to TestPatientSelector
-    return <div></div>
+    return <Navigate to="/tests-basic" replace={true} />
   }
   
 }

@@ -11,7 +11,6 @@ import {
 
 import TestPatientSelector from 'test/basic/TestPatientSelector';
 import TestPatient from 'test/basic/TestPatient';
-import Dashboard from 'features/Dashboard';
 
 document.body.className = 'bg-light';
 
@@ -313,7 +312,6 @@ function App() {
             <Route path=":testName" element={<TestPatient />} />
             <Route index element={<TestPatientSelector/>} />
           </Route>
-          <Route path="/dashboard" element={<Dashboard/>} />
         </Routes>
       </Router>
     </Container>

@@ -81,7 +81,10 @@
       "babelOptions": {
         "presets": [
           ["babel-preset-react-app", false]
-        ]
+        ],
+        "parserOpts": {
+          "plugins": ["jsx"]
+        }
       }
     }
   },

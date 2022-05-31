@@ -7,9 +7,9 @@ import './style.scss';
 function Dashboard(props) {
   const {
     input: {
-      patientInfo,
-      patientHistory,
-      decisionAids
+      patientInfo={},
+      patientHistory={},
+      decisionAids={}
     },
     config 
   } = props;

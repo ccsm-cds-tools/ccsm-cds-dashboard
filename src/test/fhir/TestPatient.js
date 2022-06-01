@@ -11,13 +11,19 @@ import { config } from './test.config.js';
 
 export function TestPatient() {
   let params = useParams();
-  const [inputData, setInputData] = useState({});
-  const input = useCds(inputData);
+  const [patientData, setPatientData] = useState([]);
+  const input = useCds(patientData);
   
   // Extract the data for the requested test patient
   if (params.testName in testData) {
-    if (!Object.keys(inputData).includes('patientInfo')) {
-      setInputData(reshapeTestData(testData[params.testName]));
+    if (Object.keys(patientData).length === 0) {
+      const newData = testData[params.testName].entry.reduce((acc,cv) => {
+        return [
+          ...acc,
+          cv.resource
+        ];
+      },[])
+      setPatientData(newData);
     }
 
     // Return the Dashboard with a testing disclaimer at the top

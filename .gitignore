@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+*.crt
+*.csr
+*.key
+
+valueset-db.json

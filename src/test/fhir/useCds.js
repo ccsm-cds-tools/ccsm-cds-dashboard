@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import { applyPlan, simpleResolver } from 'encender';
 
-let resourceArray = [
-  {
-    "resourceType": "Patient",
-    "id": "1"
-  },
+let cdsResources = [
   {
     "resourceType": "PlanDefinition",
     "id": "canonicalPlanDefinition",
@@ -119,10 +115,22 @@ let resourceArray = [
   }
 ];
 
-const applyCds = async function(setter) {
-  let resolver = simpleResolver(resourceArray, false);
+export const useCds = (patientData) => {
+
+  const [output, setOutput] = useState({});
+
+  useEffect(() => {
+    applyCds(patientData, setOutput);
+  }, [patientData]);
+
+  return output; 
+}
+
+const applyCds = async function(patientData, setOutput) {
+  let resolver = simpleResolver([...cdsResources, ...patientData], false);
+  console.log(resolver());
   const tenApplicabilityConditions = resolver('PlanDefinition/tenApplicabilityConditions')[0];
-  const patientReference = 'Patient/1';
+  const patientReference = 'Patient/2d0c1024-dee6-416f-af57-9e7544745e83';
   const WorkerFactory = () => {
     return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
   };
@@ -131,17 +139,5 @@ const applyCds = async function(setter) {
   console.log(CarePlan);
   console.log(RequestGroup);
   console.log(otherResources);
-  setter(CarePlan);
-}
-
-export const useCds = (inputData) => {
-
-  const [input, setInput] = useState(inputData);
-
-  useEffect(() => {
-    applyCds(setInput);
-  }, [inputData]);
-
-  return input;
-  
+  setOutput(CarePlan);
 }

@@ -128,14 +128,13 @@ export const useCds = (patientData) => {
 
 const applyCds = async function(patientData, setOutput) {
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
-  console.log(resolver());
-  const tenApplicabilityConditions = resolver('PlanDefinition/tenApplicabilityConditions')[0];
+  const planDefinition = resolver('PlanDefinition/tenApplicabilityConditions')[0];
   const patientReference = 'Patient/2d0c1024-dee6-416f-af57-9e7544745e83';
   const WorkerFactory = () => {
     return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
   };
   const aux = { WorkerFactory };
-  const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(tenApplicabilityConditions, patientReference, resolver, aux);
+  const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
   console.log(CarePlan);
   console.log(RequestGroup);
   console.log(otherResources);

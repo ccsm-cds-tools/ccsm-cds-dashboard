@@ -1,8 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
-import Dashboard from "features/Dashboard";
-import { useCds } from './useCds.js';
+import Dashboard from 'features/Dashboard';
+import { useCds } from 'hooks/useCds';
 import './TestPatient.scss';
 
 // Load the test data and configuration
@@ -12,16 +12,13 @@ import { config } from './test.config.js';
 export function TestPatient() {
   let params = useParams();
   const [patientData, setPatientData] = useState([]);
-  const input = useCds(patientData);
+  const dashboardInput = useCds(patientData);
   
   // Extract the data for the requested test patient
   if (params.testName in testData) {
-    if (Object.keys(patientData).length === 0) {
+    if (patientData.length === 0) {
       const newData = testData[params.testName].entry.reduce((acc,cv) => {
-        return [
-          ...acc,
-          cv.resource
-        ];
+        return [...acc, cv.resource];
       },[])
       setPatientData(newData);
     }
@@ -30,7 +27,7 @@ export function TestPatient() {
     return (
       <div className="content">
         <p className="text-danger-dark">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
-        <Dashboard input={input} config={config} />
+        <Dashboard input={dashboardInput} config={config} />
       </div>
     )
   } else {

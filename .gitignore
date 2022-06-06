@@ -27,3 +27,5 @@ yarn-error.log*
 *.key
 
 valueset-db.json
+valueset-db.js
+/src/services/valueset/vsac-cache

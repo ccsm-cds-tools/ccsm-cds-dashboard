@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { applyPlan, simpleResolver } from 'encender';
-import { elmJsonDependencies } from 'services/cql';
+import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
+import { valueSetJson } from 'services/valuesets';
 
 /**
  * 
@@ -33,7 +34,8 @@ const applyCds = async function(patientData, setOutput) {
   };
   const aux = {
     elmJsonDependencies,
-    WorkerFactory 
+    valueSetJson,
+    WorkerFactory,
   };
   const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
   console.log(CarePlan);

@@ -27,8 +27,9 @@ export const useCds = (patientData) => {
  */
 const applyCds = async function(patientData, setOutput) {
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
-  const planDefinition = resolver('PlanDefinition/CervicalCancerScreening')[0];
-  const patientReference = 'Patient/2d0c1024-dee6-416f-af57-9e7544745e83';
+  const planDefinition = resolver('PlanDefinition/CervicalCancerManagement')[0];
+  // TODO: Throw error if there is anything other than 1 patient resource
+  const patientReference = 'Patient/' + patientData.filter(pd => pd.resourceType === 'Patient').map(pd => pd.id)[0];
   const WorkerFactory = () => {
     return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
   };

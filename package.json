@@ -11,12 +11,14 @@
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.8.2",
     "gh-pages": "^4.0.0",
+    "questionnaire-to-survey": "^2.1.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.3.1",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sass": "^1.51.0",
+    "survey-react": "^1.9.34",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

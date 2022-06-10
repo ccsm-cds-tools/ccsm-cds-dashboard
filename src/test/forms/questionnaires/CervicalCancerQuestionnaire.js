@@ -1,4 +1,4 @@
-{
+export const CervicalCancerQuestionnaire = {
   "resourceType": "Questionnaire",
   "id": "CervicalCancerQuestionnaire",
   "meta": {

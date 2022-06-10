@@ -1,7 +1,7 @@
-import { Questionnaire } from "test/forms/Questionnaire";
-import { RelevantHistoryForm } from "test/forms/RelevantHistoryForm";
+// import { RelevantHistoryForm } from "test/forms/RelevantHistoryForm"; // These will become RelevantHistoryQuestionnaire
+import { CervicalCancerQuestionnaire } from "test/forms/questionnaires/CervicalCancerQuestionnaire"; // PlaceHolder until actual questionnaires are built
 import { ScreeningAndManagementHistoryQuestionnaire } from "test/forms/questionnaires/ScreeningAndManagementHistoryQuestionnaire";
-import { VaccinationHistoryForm } from "test/forms/VaccinationHistoryForm";
+// import { VaccinationHistoryForm } from "test/forms/VaccinationHistoryForm"; // This will become VaccinationHistoryQuestionnaire
 
 export const config = {
   histories: [
@@ -30,7 +30,7 @@ export const config = {
           ],
           addButtonText: 'Add condition',
           form: {
-            handle: RelevantHistoryForm,
+            handle: CervicalCancerQuestionnaire, // TODO: Change to ConditionQuetionnaire
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -53,7 +53,7 @@ export const config = {
           ],
           addButtonText: 'Add procedure',
           form: {
-            handle: RelevantHistoryForm,
+            handle: CervicalCancerQuestionnaire, // TODO: Change to ProcedureQuetionnaire
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -76,7 +76,7 @@ export const config = {
           ],
           addButtonText: 'Add medication',
           form: {
-            handle: RelevantHistoryForm,
+            handle: CervicalCancerQuestionnaire, // Change to RelevantHistoryQuestionnaire
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -116,8 +116,7 @@ export const config = {
           ],
           addButtonText: 'Add result',
           form: {
-            handle: Questionnaire,
-            // handle: Questionnaire(ScreeningAndManagementHistoryQuestionnaire),
+            handle: ScreeningAndManagementHistoryQuestionnaire,
             title: 'Add Result',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -149,7 +148,7 @@ export const config = {
           ],
           addButtonText: 'Add HPV vaccination',
           form: {
-            handle: VaccinationHistoryForm,
+            handle: CervicalCancerQuestionnaire, // TODO: Change to VaccinationHistoryQuestionnaire
             title: 'Add Vaccination',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }

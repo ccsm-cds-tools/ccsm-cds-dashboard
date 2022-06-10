@@ -1,4 +1,5 @@
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { Questionnaire } from 'test/forms/Questionnaire';
 
 function AddDataDialog(DataEntryComponent, meta) {
 
@@ -14,7 +15,7 @@ function AddDataDialog(DataEntryComponent, meta) {
         </Modal.Header>
         <Modal.Body>
           <p>{preamble}</p>
-          <DataEntryComponent />
+          <Questionnaire fhirQuestionnaire={DataEntryComponent}/>
         </Modal.Body>
       </Modal>
     )

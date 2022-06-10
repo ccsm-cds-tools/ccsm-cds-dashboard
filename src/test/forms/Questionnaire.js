@@ -5,9 +5,7 @@ import "survey-react/defaultV2.css";
 import SurveyComponent from './SurveyComponent'
 
 export function Questionnaire(props) {
-  
-  // const { fhirQuestionnaire } = props;
-  const fhirQuestionnaire = ScreeningAndManagementHistoryQuestionnaire; // This will become a prop
+  const { fhirQuestionnaire } = props;
 
   const [showPage, setShowPage] = useState(true);
 

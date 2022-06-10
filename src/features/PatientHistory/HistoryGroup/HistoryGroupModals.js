@@ -1,7 +1,7 @@
 import AddDataDialog from 'components/AddDataDialog';
 
 function HistoryGroupModals(props) {
-  const { formInfo, whichModal, setWhichModal } = props;
+  const { formInfo, whichModal, setWhichModal, addHistory } = props;
   return (
     <div>
       {
@@ -16,7 +16,7 @@ function HistoryGroupModals(props) {
           ] = form;
           const DataEntryForm = AddDataDialog(handle, {title,preamble});
           return (
-            <DataEntryForm key={idx} show={whichModal === formId} handleClose={() => setWhichModal('')} />
+            <DataEntryForm key={idx} show={whichModal === formId} handleClose={() => setWhichModal('')} addHistory={addHistory}/>
           )
         })
       }

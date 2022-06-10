@@ -6,7 +6,7 @@ function AddDataDialog(DataEntryComponent, meta) {
   const { title, preamble } = meta;
 
   return function(props) {
-    const { show, handleClose } = props;
+    const { show, handleClose, addHistory } = props;
 
     return (
       <Modal show={show} onHide={handleClose}>
@@ -15,7 +15,7 @@ function AddDataDialog(DataEntryComponent, meta) {
         </Modal.Header>
         <Modal.Body>
           <p>{preamble}</p>
-          <Questionnaire fhirQuestionnaire={DataEntryComponent} handleClose={handleClose}/>
+          <Questionnaire fhirQuestionnaire={DataEntryComponent} handleClose={handleClose} addHistory={addHistory}/>
         </Modal.Body>
       </Modal>
     )

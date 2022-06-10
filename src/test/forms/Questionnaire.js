@@ -2,12 +2,12 @@ import React from 'react'
 import SurveyComponent from './SurveyComponent'
 
 export function Questionnaire(props) {
-  const { fhirQuestionnaire, handleClose } = props;
+  const { fhirQuestionnaire, handleClose, addHistory } = props;
 
   const saveResponses = (data) => {
     var response = buildQuestionnaireResponse(fhirQuestionnaire, data)
     console.log("QUESTIONNAIRE RESPONSE:", response);
-    // TODO: Save Questionnaire Resonse
+    addHistory(response);
     handleClose()
   }
 

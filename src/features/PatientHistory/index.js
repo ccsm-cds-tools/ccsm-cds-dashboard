@@ -5,7 +5,8 @@ function PatientHistory(props) {
     input,
     config: {
       histories=[]
-    }
+    },
+    addHistory
   } = props;
 
   return (
@@ -14,7 +15,7 @@ function PatientHistory(props) {
         histories.map((h,idx) => {
           const tableData = collateTableData(h.tables, input);
           return (
-            <HistoryGroup key={idx} meta={h} tableData={tableData} />
+            <HistoryGroup key={idx} meta={h} tableData={tableData} addHistory={addHistory}/>
           )
         })
       }

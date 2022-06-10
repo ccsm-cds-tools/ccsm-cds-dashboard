@@ -1,11 +1,14 @@
 import React, {useState, useCallback} from 'react'
 
-import fhirQuestionnaire from './data/questionnaire/Questionnaire-ScreeningAndManagementHistoryQuestionnaire.json'
+import { ScreeningAndManagementHistoryQuestionnaire } from './questionnaires/ScreeningAndManagementHistoryQuestionnaire.js'
 import "survey-react/defaultV2.css";
 import SurveyComponent from './SurveyComponent'
 
-export default function Questionnaire() {
+export function Questionnaire(props) {
   
+  // const { fhirQuestionnaire } = props;
+  const fhirQuestionnaire = ScreeningAndManagementHistoryQuestionnaire; // This will become a prop
+
   const [showPage, setShowPage] = useState(true);
 
   const onCompletePage = useCallback( (data) => {

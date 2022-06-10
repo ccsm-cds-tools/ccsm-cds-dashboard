@@ -1,5 +1,6 @@
+import { Questionnaire } from "test/forms/Questionnaire";
 import { RelevantHistoryForm } from "test/forms/RelevantHistoryForm";
-import { ScreeningAndManagementHistoryForm } from "test/forms/ScreeningAndManagementHistoryForm";
+import { ScreeningAndManagementHistoryQuestionnaire } from "test/forms/questionnaires/ScreeningAndManagementHistoryQuestionnaire";
 import { VaccinationHistoryForm } from "test/forms/VaccinationHistoryForm";
 
 export const config = {
@@ -115,7 +116,8 @@ export const config = {
           ],
           addButtonText: 'Add result',
           form: {
-            handle: ScreeningAndManagementHistoryForm,
+            handle: Questionnaire,
+            // handle: Questionnaire(ScreeningAndManagementHistoryQuestionnaire),
             title: 'Add Result',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }

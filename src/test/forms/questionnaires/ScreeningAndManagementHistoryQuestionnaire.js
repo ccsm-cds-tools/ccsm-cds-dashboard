@@ -1,4 +1,4 @@
-{
+export const ScreeningAndManagementHistoryQuestionnaire = {
   "resourceType": "Questionnaire",
   "id": "ScreeningAndManagementHistoryQuestionnaire",
   "meta": {

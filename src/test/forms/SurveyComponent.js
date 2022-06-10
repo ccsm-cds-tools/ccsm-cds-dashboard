@@ -3,7 +3,7 @@ import converter from 'questionnaire-to-survey'
 import { FunctionFactory, Model, Serializer, StylesManager, Survey } from 'survey-react'
 
 export default function SurveyComponent(props) {
-  let {questionnaire, showCompletedPage} = props;
+  let {questionnaire, saveResponses} = props;
 
   // Create SurveyJS object from a FHIR Questionnaire
   const reactConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
@@ -22,7 +22,7 @@ export default function SurveyComponent(props) {
     <Survey
       model={model}
       showCompletedPage={false}
-      onComplete={data=>showCompletedPage(data.valuesHash)}
+      onComplete={data=>saveResponses(data.valuesHash)}
     />   
   )
 }

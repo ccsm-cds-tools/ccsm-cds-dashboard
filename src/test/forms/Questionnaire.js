@@ -1,27 +1,14 @@
-import React, {useState, useCallback} from 'react'
-
-import { ScreeningAndManagementHistoryQuestionnaire } from './questionnaires/ScreeningAndManagementHistoryQuestionnaire.js'
-import "survey-react/defaultV2.css";
+import React from 'react'
 import SurveyComponent from './SurveyComponent'
 
 export function Questionnaire(props) {
-  const { fhirQuestionnaire } = props;
+  const { fhirQuestionnaire, handleClose } = props;
 
-  const [showPage, setShowPage] = useState(true);
-
-  const onCompletePage = useCallback( (data) => {
+  const saveResponses = (data) => {
     var response = buildQuestionnaireResponse(fhirQuestionnaire, data)
     console.log("QUESTIONNAIRE RESPONSE:", response);
-    setShowPage(!showPage);
-  }, [showPage])
-
-  const setFinalPage = () => {
-    return(
-      <div>
-        <h3>Questionnaire Response Has Been Generated!</h3>
-        <p>Questionnaire response has been logged to the console. You may now return to patient page.</p>
-      </div>
-    )
+    // TODO: Save Questionnaire Resonse
+    handleClose()
   }
 
   const buildQuestionnaireResponse = (fhirQuestionnaire, data) => {
@@ -81,20 +68,14 @@ export function Questionnaire(props) {
       responseValue.type = 'valueCoding';    
       responseValue.value = { display: response };
     }
-  
+
     return responseValue;
   }
 
   return (
-    <div>
-      {
-        showPage ?
-        <SurveyComponent
-          questionnaire={fhirQuestionnaire}
-          showCompletedPage={data=>onCompletePage(data)}
-        /> :
-        setFinalPage()
-      }
-    </div>  
+    <SurveyComponent
+      questionnaire={fhirQuestionnaire}
+      saveResponses={data=>saveResponses(data)}
+    /> 
   )
 }

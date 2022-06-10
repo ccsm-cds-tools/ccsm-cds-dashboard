@@ -15,7 +15,7 @@ function AddDataDialog(DataEntryComponent, meta) {
         </Modal.Header>
         <Modal.Body>
           <p>{preamble}</p>
-          <Questionnaire fhirQuestionnaire={DataEntryComponent}/>
+          <Questionnaire fhirQuestionnaire={DataEntryComponent} handleClose={handleClose}/>
         </Modal.Body>
       </Modal>
     )

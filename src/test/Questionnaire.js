@@ -1,30 +1,24 @@
 import React, {useState, useCallback} from 'react'
-import { Link } from 'react-router-dom'
 
 import fhirQuestionnaire from './data/questionnaire/Questionnaire-ScreeningAndManagementHistoryQuestionnaire.json'
 import "survey-react/defaultV2.css";
 import SurveyComponent from './SurveyComponent'
-import QuestionnaireResponse from './QuestionnaireResponse';
 
 export default function Questionnaire() {
   
   const [showPage, setShowPage] = useState(true);
-  const [questionnaireResponse, setQuestionnaireResponse] = useState({});
 
   const onCompletePage = useCallback( (data) => {
     var response = buildQuestionnaireResponse(fhirQuestionnaire, data)
-    setQuestionnaireResponse(response);
-    setShowPage(!showPage)
+    console.log("QUESTIONNAIRE RESPONSE:", response);
+    setShowPage(!showPage);
   }, [showPage])
 
   const setFinalPage = () => {
     return(
       <div>
         <h3>Questionnaire Response Has Been Generated!</h3>
-        <h4>You may now return to patient page.</h4>
-        <br></br>
-        <h3>Questionnaire Response:</h3>
-        <QuestionnaireResponse questionnaireResponse={questionnaireResponse}/>
+        <p>Questionnaire response has been logged to the console. You may now return to patient page.</p>
       </div>
     )
   }
@@ -39,7 +33,6 @@ export default function Questionnaire() {
       authored: new Date().toDateString(),
       // TODO: Add addtional QuestionnaireResponse-level elements
     };
-
     const questionnaireItems = fhirQuestionnaire.item
     questionnaireItems.forEach(item => {
       if (Object.keys(data).includes(item.linkId)){
@@ -56,10 +49,6 @@ export default function Questionnaire() {
         questionnaireResponse.item.push(qrItem)
       }
     })
-    console.log("QUESTIONNAIRE:", fhirQuestionnaire);
-    console.log("SURVEY RESULTS:", data);
-    console.log("QUESTIONNAIRE RESPONSE:", questionnaireResponse);
-
     return questionnaireResponse;
   }
 
@@ -96,22 +85,15 @@ export default function Questionnaire() {
   }
 
   return (
-
     <div>
-      <p><Link to='../patient'>Return to Patient page</Link></p>
-
-      <h1>Questionnaire:</h1>
-
-      <div>
-        {
-          showPage ?
-          <SurveyComponent
-            questionnaire={fhirQuestionnaire}
-            showCompletedPage={data=>onCompletePage(data)}
-          /> :
-          setFinalPage()
-        }
-      </div>  
-    </div>
+      {
+        showPage ?
+        <SurveyComponent
+          questionnaire={fhirQuestionnaire}
+          showCompletedPage={data=>onCompletePage(data)}
+        /> :
+        setFinalPage()
+      }
+    </div>  
   )
 }

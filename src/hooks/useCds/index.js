@@ -39,8 +39,9 @@ const applyCds = async function(patientData, setOutput) {
     WorkerFactory,
   };
   const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
-  console.log(CarePlan);
-  console.log(RequestGroup);
-  console.log(otherResources);
-  setOutput(CarePlan);
+  let CommunicationRequest = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest')[0];
+  if (CommunicationRequest?.payload?.length > 0) {
+    setOutput(CommunicationRequest.payload[0].contentString);
+  }
+    
 }

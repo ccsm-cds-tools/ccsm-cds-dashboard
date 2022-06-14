@@ -15,19 +15,19 @@ export const inputSchema = {
           "description": "description",
           "type": "string"
         },
-        "mrn": {
+        "id": {
           "description": "description",
           "type": "string"
         },
-        "pregnant": {
+        "isPregnant": {
           "description": "description",
           "type": "boolean"
         },
-        "dob": {
+        "dateOfBirth": {
           "description": "description",
           "type": "date"
         },
-        "sab": {
+        "sexAtBirth": {
           "description": "description",
           "type": "string"
         },
@@ -39,7 +39,7 @@ export const inputSchema = {
           "description": "description",
           "type": "string"
         },
-        "language": {
+        "primaryLanguage": {
           "description": "description",
           "type": "string"
         },
@@ -58,7 +58,7 @@ export const inputSchema = {
           "type": "array",
           "items": { "$ref": "#/$defs/historyItem" }
         },
-        "labResults": {
+        "diagnosticReports": {
           "type": "array",
           "items": { "$ref": "#/$defs/historyItem" }
         },

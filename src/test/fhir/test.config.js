@@ -90,7 +90,7 @@ export const config = {
       },
       tables: [
         {
-          name: 'labresults',
+          name: 'diagnosticReports',
           header: [
             {
               key: 'name',

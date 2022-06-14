@@ -37,18 +37,18 @@ function reshapeTestData(testData) {
   return {
     patientInfo: {
       name: testData.name,
-      mrn: testData.mrn,
-      pregnant: testData.pregnant,
-      dob: testData.dob,
-      sab: testData.sab,
+      id: testData.id,
+      isPregnant: testData.isPregnant,
+      dateOfBirth: testData.dateOfBirth,
+      sexAtBirth: testData.sexAtBirth,
       age: testData.age,
       gender: testData.gender,
-      language: testData.language,
+      primaryLanguage: testData.primaryLanguage,
       race: testData.race
     },
     patientHistory: {
       conditions: testData.conditions,
-      labresults: testData.labresults,
+      diagnosticReports: testData.diagnosticReports,
       medications: testData.medications,
       procedures: testData.procedures,
       vaccinations: testData.vaccinations

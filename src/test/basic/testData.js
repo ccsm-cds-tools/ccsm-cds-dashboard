@@ -3,16 +3,16 @@ export const testData = {
     "name": "Alice14 Winter87",
     "scenario": "Post-treatment Surveillance",
     "scenario_desc": "The appropriate re-testing interval and indications for colposcopy after treatment for CIN2/CIN3/AIS (with negative excisional margins and negative ECC)",
-    "mrn": "RV-3584-1486",
-    "dob": "06/19/1979",
+    "id": "RV-3584-1486",
+    "dateOfBirth": "06/19/1979",
     "age": 42,
     "height": "5 ft 9 in",
     "weight": "161 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Surveillance Testing Due 6/22/2022",
     "patientgroup": "Post-treatment Surveillance",
     "recdetails": [
@@ -167,7 +167,7 @@ export const testData = {
       ]
     },
     "updated": "2022-04-04",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Negative",
       "date": "2021-06-22",
@@ -245,16 +245,16 @@ export const testData = {
     "name": "Barb23 Long56",
     "scenario": "Individual older than 65 who was adequately screened",
     "scenario_desc": "Screening cessation at ages 65+ based on prior documented test results",
-    "mrn": "SH-8485-2098",
-    "dob": "04/21/1955",
+    "id": "SH-8485-2098",
+    "dateOfBirth": "04/21/1955",
     "age": 66,
     "height": "5 ft 5 in",
     "weight": "150 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "N/A",
+    "isPregnant": "N/A",
     "race": "Black or African American; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "No additional cervical cancer screening is indicated",
     "patientgroup": "Average-risk screening",
     "recdetails": [
@@ -389,7 +389,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-25",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cytology (Pap)",
       "value": "NILM",
       "date": "2021-04-18",
@@ -449,16 +449,16 @@ export const testData = {
   "bernadette": {
     "name": "Bernadette61 MacKenzie82",
     "scenario": "Long-term surveillance following treatment for high-grade precancer",
-    "mrn": "PK-4877-5859",
-    "dob": "06/19/1968",
+    "id": "PK-4877-5859",
+    "dateOfBirth": "06/19/1968",
     "age": 53,
     "height": "5 ft 9 in",
     "weight": "161 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "N/A",
+    "isPregnant": "N/A",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Surveillance Testing Due 11/12/2023",
     "patientgroup": "Long-term surveillance following treatment for high-grade precancer",
     "recdetails": [
@@ -654,7 +654,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-12",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Negative",
       "date": "2020-11-12",
@@ -773,16 +773,16 @@ export const testData = {
     "name": "Catherine23 Sullivan98",
     "scenario": "Surveillance with recommended colposcopy with history of prior screening results (Table 2B)",
     "scenario_desc": "Need for colposcopy for an (initial) abnormal test result",
-    "mrn": "AC-4823-0484",
-    "dob": "02/12/1986",
+    "id": "AC-4823-0484",
+    "dateOfBirth": "02/12/1986",
     "age": 35,
     "height": "5 ft 4 in",
     "weight": "138 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Colposcopy is recommended",
     "patientgroup": "Surveillance with recommended colposcopy",
     "recdetails": [
@@ -981,7 +981,7 @@ export const testData = {
       ]
     },
     "updated": "2022-04-04",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Positive",
       "date": "2021-12-18",
@@ -1035,16 +1035,16 @@ export const testData = {
     "name": "Catherine23 Sullivan98",
     "scenario": "Surveillance with recommended colposcopy with incomplete cotest",
     "scenario_desc": "Incomplete result for HPV and Pap",
-    "mrn": "AC-4823-0484",
-    "dob": "02/12/1986",
+    "id": "AC-4823-0484",
+    "dateOfBirth": "02/12/1986",
     "age": 35,
     "height": "5 ft 4 in",
     "weight": "138 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Unable to identify care recommendation",
     "patientgroup": "Test results not recorded",
     "recdetails": [
@@ -1183,7 +1183,7 @@ export const testData = {
       ]
     },
     "updated": "2022-03-24",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Positive",
       "date": "2021-12-18",
@@ -1236,16 +1236,16 @@ export const testData = {
     "name": "Darla43 Evans12",
     "scenario": "Surveillance with recommended colposcopy with no prior screening results",
     "scenario_desc": "The appropriate re-testing interval in individuals with minimally abnormal test results (e.g., NILM/HPV+ non16/18) who have no prior abnormal test results and who have a negative HPV test result within the prior 5 years",
-    "mrn": "GB-5843-1593",
-    "dob": "05/23/1990",
+    "id": "GB-5843-1593",
+    "dateOfBirth": "05/23/1990",
     "age": 31,
     "height": "5 ft 7 in",
     "weight": "188 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Colposcopy is recommended",
     "patientgroup": "Surveillance with recommended colposcopy",
     "recdetails": [
@@ -1394,7 +1394,7 @@ export const testData = {
         }
       ]
     },
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Positive",
       "date": "2022-01-16",
@@ -1411,16 +1411,16 @@ export const testData = {
     "name": "Erica94 Castellanos87",
     "scenario": "Surveillance of abnormal result - minimally abnormal result with no prior abnormal",
     "scenario_desc": "The appropriate re-testing interval in individuals with minimally abnormal test results who have no prior abnormal test results but who do not meet the criteria for colposcopy (e.g., ASC-US/HPV-; NILM/HPV+ non16/18) - with minor tweaking",
-    "mrn": "JR-4857-9383",
-    "dob": "10/25/1981",
+    "id": "JR-4857-9383",
+    "dateOfBirth": "10/25/1981",
     "age": 40,
     "height": "5 ft 5 in",
     "weight": "151 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Hispanic",
-    "language": "Spanish",
+    "primaryLanguage": "Spanish",
     "patientrec": "Surveillance Testing Due 1/19/2023",
     "patientgroup": "Surveillance of abnormal result",
     "recdetails": [
@@ -1580,7 +1580,7 @@ export const testData = {
       ]
     },
     "updated": "2022-05-04",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Positive",
       "date": "2022-01-19",
@@ -1634,16 +1634,16 @@ export const testData = {
     "name": "Erica94 Castellanos87",
     "scenario": "Surveillance of abnormal result - Missing Latest Cotest",
     "scenario_desc": "The appropriate re-testing interval in individuals with minimally abnormal test results who have no prior abnormal test results but who do not meet the criteria for colposcopy (e.g., ASC-US/HPV-; NILM/HPV+ non16/18) - with minor tweaking",
-    "mrn": "JR-4857-9383",
-    "dob": "10/25/1981",
+    "id": "JR-4857-9383",
+    "dateOfBirth": "10/25/1981",
     "age": 40,
     "height": "5 ft 5 in",
     "weight": "151 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Hispanic",
-    "language": "Spanish",
+    "primaryLanguage": "Spanish",
     "patientrec": "Cervical Screening Due Now",
     "patientgroup": "Average-risk screening",
     "recdetails": [
@@ -1748,7 +1748,7 @@ export const testData = {
       ]
     },
     "updated": "2022-03-24",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Negative",
       "date": "2017-01-02",
@@ -1789,16 +1789,16 @@ export const testData = {
     "name": "Jill34 Brown12",
     "scenario": "Post-colposcopy surveillance",
     "scenario_desc": "Table 4 - Surveillance for low-grade result",
-    "mrn": "KR-4852-3782",
-    "dob": "06/02/1986",
+    "id": "KR-4852-3782",
+    "dateOfBirth": "06/02/1986",
     "age": 35,
     "height": "5 ft 7 in",
     "weight": "176 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Surveillance Testing Due 1/10/2025",
     "patientgroup": "Post-colposcopy surveillance",
     "recdetails": [
@@ -1943,7 +1943,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-26",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "Negative",
       "date": "2022-01-10",
@@ -1980,16 +1980,16 @@ export const testData = {
     "name": "Lily23 Flowers68",
     "scenario": "Receipt of biopsy results",
     "scenario_desc": "(Receipt of biopsy results, Table 3): The appropriate re-testing interval and indications for repeat colposcopy after an initial colposcopy in which no CIN2+ was found among those with a prior minimal* test result abnormality - with minor tweaking",
-    "mrn": "DW-5934-4529",
-    "dob": "11/27/1985",
+    "id": "DW-5934-4529",
+    "dateOfBirth": "11/27/1985",
     "age": 36,
     "height": "5 ft 6 in",
     "weight": "163 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "Black or African American; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Surveillance Testing Due 10/25/2022",
     "patientgroup": "Post-colposcopy surveillance",
     "recdetails": [
@@ -2174,7 +2174,7 @@ export const testData = {
       ]
     },
     "updated": "2022-04-04",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cervical Histology",
       "value": "Histologic LSIL (CIN1)",
       "date": "2021-10-25",
@@ -2232,16 +2232,16 @@ export const testData = {
     "name": "Lily23 Flowers68",
     "scenario": "Receipt of biopsy results - Incomplete",
     "scenario_desc": "Incomplete value for Cervical Histology",
-    "mrn": "DW-5934-4529",
-    "dob": "11/27/1985",
+    "id": "DW-5934-4529",
+    "dateOfBirth": "11/27/1985",
     "age": 36,
     "height": "5 ft 6 in",
     "weight": "163 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "Black or African American; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Unable to identify care recommendation",
     "patientgroup": "Test results not recorded",
     "recdetails": [
@@ -2366,7 +2366,7 @@ export const testData = {
       ]
     },
     "updated": "2022-04-04",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cervical Histology",
       "value": "See Report",
       "date": "2021-10-25",
@@ -2423,16 +2423,16 @@ export const testData = {
   "lisa": {
     "name": "Lisa02 Danvers12",
     "scenario": "Prior vaginal/vulvar disease",
-    "mrn": "RF-8762-9400",
-    "dob": "08/19/1990",
+    "id": "RF-8762-9400",
+    "dateOfBirth": "08/19/1990",
     "age": 31,
     "height": "5 ft 7 in",
     "weight": "142 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "Black or African American; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Unable to identify care recommendation",
     "patientgroup": "Test results not recorded",
     "recdetails": [
@@ -2557,7 +2557,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-10",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "HPV Test",
       "value": "See Report",
       "date": "2022-03-18",
@@ -2641,16 +2641,16 @@ export const testData = {
     "name": "Paulina58 Vale56",
     "scenario": "Average-risk Routine Screening - Younger than 30",
     "scenario_desc": "The appropriate re-screening interval in individuals with normal test results who have no prior abnormal test results",
-    "mrn": "EM-7601-6250",
-    "dob": "01/20/1994",
+    "id": "EM-7601-6250",
+    "dateOfBirth": "01/20/1994",
     "age": 28,
     "height": "5 ft 4 in",
     "weight": "138 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Cervical Screening Due Now",
     "patientgroup": "Average-risk screening",
     "recdetails": [
@@ -2754,7 +2754,7 @@ export const testData = {
       ]
     },
     "updated": "2022-03-24",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cytology (Pap)",
       "value": "NILM",
       "date": "2018-11-12",
@@ -2782,16 +2782,16 @@ export const testData = {
     "name": "Paulina58 Vale56",
     "scenario": "No Screening History - Younger than 30",
     "scenario_desc": "Add missing Pap test result",
-    "mrn": "EM-7601-6251",
-    "dob": "01/20/1994",
+    "id": "EM-7601-6251",
+    "dateOfBirth": "01/20/1994",
     "age": 28,
     "height": "5 ft 4 in",
     "weight": "138 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Cervical Screening Due Now",
     "patientgroup": "Average-risk screening",
     "recdetails": [
@@ -2895,7 +2895,7 @@ export const testData = {
       ]
     },
     "updated": "2022-04-04",
-    "labresults": null,
+    "diagnosticReports": null,
     "vaccinations": [{
       "name": "Gardasil",
       "value": "",
@@ -2916,16 +2916,16 @@ export const testData = {
   "shana": {
     "name": "Shana11 Myers45",
     "scenario": "Surveillance after abnormalities",
-    "mrn": "RK-1485-9514",
-    "dob": "05/24/1987",
+    "id": "RK-1485-9514",
+    "dateOfBirth": "05/24/1987",
     "age": 34,
     "height": "5 ft 7 in",
     "weight": "142 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Observation is preferred in one year, but treatment is acceptable",
     "patientgroup": "Surveillance after abnormalities",
     "recdetails": [
@@ -2999,7 +2999,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-10",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cervical Histology",
       "value": "CIN1",
       "date": "2021-04-19",
@@ -3108,16 +3108,16 @@ export const testData = {
     "name": "Susan21 Holden65",
     "scenario": "Average-risk Routine Screening - Older than 30",
     "scenario_desc": "The appropriate re-screening interval in individuals with normal test results who have no prior abnormal test results",
-    "mrn": "AC-1947-4883",
-    "dob": "07/10/1980",
+    "id": "AC-1947-4883",
+    "dateOfBirth": "07/10/1980",
     "age": 41,
     "height": "5 ft 4 in",
     "weight": "138 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "Unknown",
+    "isPregnant": "Unknown",
     "race": "Black or African American; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Cervical Screening Due Now",
     "patientgroup": "Average-risk screening",
     "recdetails": [
@@ -3235,7 +3235,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-24",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cytology (Pap)",
       "value": "NILM",
       "date": "2016-09-22",
@@ -3265,16 +3265,16 @@ export const testData = {
   "tanya": {
     "name": "Tanya44 Meyer12",
     "scenario": "Individual older than 65 who is not adequately screened",
-    "mrn": "HI-6845-6245",
-    "dob": "03/15/1955",
+    "id": "HI-6845-6245",
+    "dateOfBirth": "03/15/1955",
     "age": 66,
     "height": "5 ft 7 in",
     "weight": "142 lb",
-    "sab": "Female",
+    "sexAtBirth": "Female",
     "gender": "Female",
-    "pregnant": "N/A",
+    "isPregnant": "N/A",
     "race": "White; Non-Hispanic",
-    "language": "English",
+    "primaryLanguage": "English",
     "patientrec": "Cervical Screening Due on 4/19/2024",
     "patientgroup": "Average-risk population",
     "recdetails": [
@@ -3350,7 +3350,7 @@ export const testData = {
       ]
     },
     "updated": "2022-01-12",
-    "labresults": [{
+    "diagnosticReports": [{
       "name": "Cytology (Pap)",
       "value": "NILM",
       "date": "2021-04-18",

@@ -1,4 +1,6 @@
-{
+// This JSON Schema is currently for documentation purposes only.
+// It describes the input object that the CCSM Dashboard expects.
+export const inputSchema = {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.com/product.schema.json",
   "title": "title",
@@ -237,4 +239,4 @@
       "description": "description"
     }
   }
-}
+};

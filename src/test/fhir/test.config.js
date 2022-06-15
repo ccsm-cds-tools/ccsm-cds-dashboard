@@ -1,6 +1,6 @@
-import { RelevantHistoryForm } from "test/basic/forms/RelevantHistoryForm";
-import { ScreeningAndManagementHistoryForm } from "test/basic/forms/ScreeningAndManagementHistoryForm";
-import { VaccinationHistoryForm } from "test/basic/forms/VaccinationHistoryForm";
+import { RelevantHistoryQuestionnaire } from "test/basic/forms/RelevantHistoryQuestionnaire";
+import { ScreeningAndManagementHistoryQuestionnaire } from "test/basic/forms/ScreeningAndManagementHistoryQuestionnaire";
+import { VaccinationHistoryQuestionnaire } from "test/basic/forms/VaccinationHistoryQuestionnaire";
 
 export const config = {
   histories: [
@@ -29,7 +29,7 @@ export const config = {
           ],
           addButtonText: 'Add condition',
           form: {
-            handle: RelevantHistoryForm,
+            handle: RelevantHistoryQuestionnaire,
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -52,7 +52,7 @@ export const config = {
           ],
           addButtonText: 'Add procedure',
           form: {
-            handle: RelevantHistoryForm,
+            handle: RelevantHistoryQuestionnaire,
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -75,7 +75,7 @@ export const config = {
           ],
           addButtonText: 'Add medication',
           form: {
-            handle: RelevantHistoryForm,
+            handle: RelevantHistoryQuestionnaire,
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -115,7 +115,7 @@ export const config = {
           ],
           addButtonText: 'Add result',
           form: {
-            handle: ScreeningAndManagementHistoryForm,
+            handle: ScreeningAndManagementHistoryQuestionnaire,
             title: 'Add Result',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -147,7 +147,7 @@ export const config = {
           ],
           addButtonText: 'Add HPV vaccination',
           form: {
-            handle: VaccinationHistoryForm,
+            handle: VaccinationHistoryQuestionnaire,
             title: 'Add Vaccination',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }

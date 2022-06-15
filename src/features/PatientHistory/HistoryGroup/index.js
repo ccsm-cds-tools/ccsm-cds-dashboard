@@ -18,7 +18,8 @@ function HistoryGroup(props) {
       tables=[]
     }, 
     tableData,
-    resolver
+    resolver,
+    setPatientData
   } = props;
 
   const [whichModal, setWhichModal] = useState('');
@@ -45,7 +46,7 @@ function HistoryGroup(props) {
         })
       }
       <HistoryGroupFooter addButtonInfo={addButtonInfo} setWhichModal={setWhichModal} />
-      <HistoryGroupModals formInfo={formInfo} whichModal={whichModal} setWhichModal={setWhichModal} />
+      <HistoryGroupModals formInfo={formInfo} whichModal={whichModal} setWhichModal={setWhichModal} setPatientData={setPatientData} />
       <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} />
    </div>
   )

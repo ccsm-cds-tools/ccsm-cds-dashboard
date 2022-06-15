@@ -26,6 +26,7 @@ export const useCds = (patientData) => {
  * @param {*} setOutput 
  */
 const applyCds = async function(patientData, setOutput) {
+  console.log('patient data: ', patientData);
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerManagement')[0];
   // TODO: Throw error if there is anything other than 1 patient resource
@@ -40,6 +41,9 @@ const applyCds = async function(patientData, setOutput) {
   };
   const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
   let CommunicationRequest = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest')[0];
+  console.log('CDS output: ', CarePlan);
+  console.log('CDS output: ', RequestGroup);
+  console.log('CDS output: ', otherResources);
   if (CommunicationRequest?.payload?.length > 0) {
     let crp = CommunicationRequest.payload[0].contentString;
     setOutput(

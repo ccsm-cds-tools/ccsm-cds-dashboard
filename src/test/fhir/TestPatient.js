@@ -27,7 +27,7 @@ export function TestPatient() {
     return (
       <div className="content">
         <p className="text-danger-dark">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
-        <Dashboard input={dashboardInput} config={config} />
+        <Dashboard input={dashboardInput} config={config} setPatientData={setPatientData} />
       </div>
     )
   } else {

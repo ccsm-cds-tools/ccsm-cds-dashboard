@@ -9,7 +9,7 @@ import { config } from './test.config.js';
 
 function TestPatient() {
   let params = useParams();
-  
+
   // Extract the data for the requested test patient
   if (params.testName in testData) {
     const scenario = testData[params.testName].scenario;
@@ -51,7 +51,8 @@ function reshapeTestData(testData) {
       diagnosticReports: testData.diagnosticReports,
       medications: testData.medications,
       procedures: testData.procedures,
-      vaccinations: testData.vaccinations
+      vaccinations: testData.vaccinations,
+      questionnaireResponses : []
     },
     decisionAids: {
       recommendation: testData.patientrec,

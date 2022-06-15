@@ -3,6 +3,7 @@ import HistoryGroup from 'features/PatientHistory/HistoryGroup';
 function PatientHistory(props) {
   const {
     input,
+    resolver,
     config: {
       histories=[]
     }
@@ -14,7 +15,7 @@ function PatientHistory(props) {
         histories.map((h,idx) => {
           const tableData = collateTableData(h.tables, input);
           return (
-            <HistoryGroup key={idx} meta={h} tableData={tableData} />
+            <HistoryGroup key={idx} meta={h} tableData={tableData} resolver={resolver} />
           )
         })
       }

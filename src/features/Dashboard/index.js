@@ -9,7 +9,8 @@ function Dashboard(props) {
     input: {
       patientInfo={},
       patientHistory={},
-      decisionAids={}
+      decisionAids={},
+      resolver=()=>{}
     },
     config 
   } = props;
@@ -18,7 +19,7 @@ function Dashboard(props) {
       <div className="row">
         <div className="col-xl-6">
           <PatientInfo input={patientInfo} />
-          <PatientHistory input={patientHistory} config={config} />
+          <PatientHistory input={patientHistory} resolver={resolver} config={config} />
         </div>
         <div className="col-xl-6">
           <DecisionAids input={decisionAids} />

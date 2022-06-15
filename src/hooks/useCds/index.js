@@ -41,7 +41,13 @@ const applyCds = async function(patientData, setOutput) {
   const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
   let CommunicationRequest = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest')[0];
   if (CommunicationRequest?.payload?.length > 0) {
-    setOutput(CommunicationRequest.payload[0].contentString);
+    let crp = CommunicationRequest.payload[0].contentString;
+    setOutput(
+      {
+        ...crp,
+        resolver: (r) => r === '' ? {} : resolver(r)
+      }
+    );
   }
     
 }

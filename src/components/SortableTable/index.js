@@ -1,9 +1,13 @@
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { useSortableData } from './useSortableData.js';
 import './style.scss';
 
 function SortableTable(props) {
-  const {header=[], rowData=[]} = props;
+  const {
+    header=[], 
+    rowData=[], 
+    setDataToView=()=>{}
+  } = props;
   const { items, requestSort, sortConfig } = useSortableData(rowData);
   const ascendingOrDescending = (name) => {
     return sortConfig?.key === name ? sortConfig.direction : 'none';
@@ -44,7 +48,7 @@ function SortableTable(props) {
           const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
           return (
             <tr className={incompleteClass} key={idx}>
-              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm)}</td>) }
+              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm,setDataToView)}</td>) }
             </tr>
           )
         })
@@ -58,7 +62,7 @@ function SortableTable(props) {
   )
 }
 
-function RenderRowElement(hdr, itm) {
+function RenderRowElement(hdr, itm, setDataToView) {
   const { key } = hdr;
   const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
   if (key === 'date') return (
@@ -68,11 +72,11 @@ function RenderRowElement(hdr, itm) {
   )
   else if (key === 'status') {
     return (
-      <a className={incompleteClass} href='#'>
+      <Button variant="link" onClick={() => setDataToView(itm?.reference)}>
         {
           itm?.status === 'incomplete' ? 'Review' : 'View'
         }
-      </a>
+      </Button>
     )
   }
   else return <span className={incompleteClass}>{itm[key] ?? ''}</span>

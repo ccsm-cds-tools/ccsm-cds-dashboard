@@ -1,0 +1,12 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
+div#survey-root {
+  --primary: #{$blue-700};
+  // --primary-light: rgba(26, 183, 250, 0.1);
+  // --secondary: #1ab7fa;
+  // --background: #555555;
+  // --background-dim: #4d4d4d;
+  // --background-dim-light: #4d4d4d;
+  // --foreground: #ededed;
+}
+

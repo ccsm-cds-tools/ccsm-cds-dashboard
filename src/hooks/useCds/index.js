@@ -6,8 +6,8 @@ import { valueSetJson } from 'services/valuesets';
 
 /**
  * 
- * @param {*} patientData 
- * @returns 
+ * @param {Object[]} patientData 
+ * @returns {Object}
  */
 export const useCds = (patientData) => {
 
@@ -22,8 +22,8 @@ export const useCds = (patientData) => {
 
 /**
  * 
- * @param {*} patientData 
- * @param {*} setOutput 
+ * @param {Object[]} patientData 
+ * @param {function} setOutput 
  */
 const applyCds = async function(patientData, setOutput) {
   console.log('patient data: ', patientData);

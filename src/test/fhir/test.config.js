@@ -29,7 +29,7 @@ export const config = {
           ],
           addButtonText: 'Add condition',
           form: {
-            handle: RelevantHistoryQuestionnaire,
+            json: RelevantHistoryQuestionnaire,
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -52,7 +52,7 @@ export const config = {
           ],
           addButtonText: 'Add procedure',
           form: {
-            handle: RelevantHistoryQuestionnaire,
+            json: RelevantHistoryQuestionnaire,
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -75,7 +75,7 @@ export const config = {
           ],
           addButtonText: 'Add medication',
           form: {
-            handle: RelevantHistoryQuestionnaire,
+            json: RelevantHistoryQuestionnaire,
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -115,7 +115,7 @@ export const config = {
           ],
           addButtonText: 'Add result',
           form: {
-            handle: ScreeningAndManagementHistoryQuestionnaire,
+            json: ScreeningAndManagementHistoryQuestionnaire,
             title: 'Add Result',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -147,7 +147,7 @@ export const config = {
           ],
           addButtonText: 'Add HPV vaccination',
           form: {
-            handle: VaccinationHistoryQuestionnaire,
+            json: VaccinationHistoryQuestionnaire,
             title: 'Add Vaccination',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }

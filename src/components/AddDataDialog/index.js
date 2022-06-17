@@ -9,7 +9,7 @@ function AddDataDialog(DataEntryComponent, meta) {
     const { show, handleClose, setPatientData } = props;
 
     return (
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} >
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

@@ -1,15 +1,21 @@
 import converter from 'questionnaire-to-survey'
 import { FunctionFactory, Model, Serializer, StylesManager, Survey } from 'survey-react'
+import "survey-react/defaultV2.min.css";
+import "./SurveyComponent.scss";
 
 export default function SurveyComponent(props) {
   let {questionnaire, saveResponses} = props;
 
+  // Apply Styling to Survey
+  // StylesManager.applyTheme("defaultV2");
+  // StylesManager.applyTheme("bootstrap");
+
   // Create SurveyJS object from a FHIR Questionnaire
   const reactConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
-  var model = reactConverter(questionnaire)
+  console.log(questionnaire);
+  var model = reactConverter(questionnaire, null, 'defaultV2');
 
-  // Apply Styling to Survey
-  StylesManager.applyTheme("bootstrapmaterial");
+
 
   // Set SurveyJS settings
   model.showQuestionNumbers = 'off';
@@ -19,6 +25,7 @@ export default function SurveyComponent(props) {
 
   return (
     <Survey
+      id="survey-root"
       model={model}
       showCompletedPage={false}
       onComplete={data=>saveResponses(data.valuesHash)}

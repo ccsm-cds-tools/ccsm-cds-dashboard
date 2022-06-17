@@ -45,18 +45,18 @@ export const VaccinationHistoryQuestionnaire = {
     },
     {
       "linkId": "2",
-      "text": "Date",
-      "type": "string"
+      "text": "dateTime",
+      "type": "dateTime"
     },
     {
       "linkId": "3",
-      "text": "Notes",
-      "type": "string"
+      "text": "date",
+      "type": "date"
     },
     {
       "linkId": "4",
-      "text": "Some Option",
-      "type": "boolean"
+      "text": "time",
+      "type": "time"
     }
   ]
 }

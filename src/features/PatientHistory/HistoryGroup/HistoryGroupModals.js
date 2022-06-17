@@ -15,12 +15,12 @@ function HistoryGroupModals(props) {
           const [
             formId, 
             {
-              handle = ()=>{}, 
+              json = ()=>{}, 
               title = '', 
               preamble = ''
             }
           ] = form;
-          const DataEntryForm = AddDataDialog(handle, {title,preamble});
+          const DataEntryForm = AddDataDialog(json, {title,preamble});
           return (
             <DataEntryForm key={idx} show={whichModal === formId} handleClose={() => setWhichModal('')} setPatientData={setPatientData}/>
           )

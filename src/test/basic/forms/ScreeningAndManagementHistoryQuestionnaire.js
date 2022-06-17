@@ -65,7 +65,7 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
     {
       "linkId": "3",
       "text": "Date",
-      "type": "string"
+      "type": "date"
     }
   ]
 }

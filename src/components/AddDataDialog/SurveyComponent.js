@@ -6,16 +6,10 @@ import "./SurveyComponent.scss";
 export default function SurveyComponent(props) {
   let {questionnaire, saveResponses} = props;
 
-  // Apply Styling to Survey
-  // StylesManager.applyTheme("defaultV2");
-  // StylesManager.applyTheme("bootstrap");
-
   // Create SurveyJS object from a FHIR Questionnaire
   const reactConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
   console.log(questionnaire);
   var model = reactConverter(questionnaire, null, 'defaultV2');
-
-
 
   // Set SurveyJS settings
   model.showQuestionNumbers = 'off';

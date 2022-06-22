@@ -3,24 +3,23 @@ import SurveyComponent from './SurveyComponent.js'
 export function Questionnaire(props) {
   const { fhirQuestionnaire, handleClose, setPatientData } = props;
 
-  const saveResponses = (data) => {
-    var response = buildQuestionnaireResponse(fhirQuestionnaire, data);
-    console.log("QUESTIONNAIRE RESPONSE:", response);
-    setPatientData(existingData => [...existingData, response]);
-    handleClose()
+  const saveResponses = (responses) => {
+    let fhirQR = buildQuestionnaireResponse(fhirQuestionnaire, responses);
+    setPatientData(existingData => [...existingData, fhirQR]);
+    handleClose();
   }
 
   return (
     <SurveyComponent
       questionnaire={fhirQuestionnaire}
-      saveResponses={data=>saveResponses(data)}
+      saveResponses={rsp=>saveResponses(rsp)}
     /> 
   )
 }
 
-const buildQuestionnaireResponse = (fhirQuestionnaire, data) => {
+const buildQuestionnaireResponse = (fhirQuestionnaire, responses) => {
   // Define the QuestionnaireResponse which will contain the user responses.
-  var questionnaireResponse = {
+  let questionnaireResponse = {
     resourceType: 'QuestionnaireResponse',
     questionnaire: fhirQuestionnaire.url,
     status: 'in-progress',
@@ -28,17 +27,16 @@ const buildQuestionnaireResponse = (fhirQuestionnaire, data) => {
     authored: new Date().toDateString(),
     // TODO: Add addtional QuestionnaireResponse-level elements
   };
-  const questionnaireItems = fhirQuestionnaire.item
-  questionnaireItems.forEach(item => {
-    if (Object.keys(data).includes(item.linkId)){
-      let responseValue = getResponseValue(fhirQuestionnaire, item.linkId, data[item.linkId])
-      var qrItem = {
+  fhirQuestionnaire.item.forEach(item => {
+    if (Object.keys(responses).includes(item.linkId)){
+      let responseValues = getResponseValues(fhirQuestionnaire, item.linkId, responses[item.linkId]);
+      let qrItem = {
         linkId: item.linkId,
-        answer: [
+        answer: responseValues.map(rv => (
           {
-            [responseValue.type]: responseValue.value
+            [rv.type]: [rv.value]
           }
-        ] 
+        ))
       }
       // TODO: Add additional item-level elements
       questionnaireResponse.item.push(qrItem)
@@ -47,34 +45,40 @@ const buildQuestionnaireResponse = (fhirQuestionnaire, data) => {
   return questionnaireResponse;
 }
 
-function getResponseValue(questionnaire, linkId, response) {
-  let responseValue = {};
-  let questionItemIndex = questionnaire.item.findIndex(itm => itm.linkId === linkId);
-  let item = questionnaire.item[questionItemIndex];
-  if (item.type === 'choice') {
-    let answerOptionIndex = item.answerOption.findIndex(itm => {
-      if (itm.valueString && itm.valueString === response) return true;
-      if (itm.valueCoding && itm.valueCoding.display === response) return true;
-      return false;
-    });
-    if (item.answerOption[answerOptionIndex].valueString) {
-      responseValue.type = 'valueString';
+function getResponseValues(questionnaire, linkId, responses) {
+  let responseValues = [];
+  responses = Array.isArray(responses) ? responses : [responses];
+  responses.forEach(response => {
+    let responseValue = {};
+    let questionItemIndex = questionnaire.item.findIndex(itm => itm.linkId === linkId);
+    let item = questionnaire.item[questionItemIndex];
+    if (item.type === 'choice') {
+      let answerOptionIndex = item.answerOption.findIndex(itm => {
+        if (itm.valueString && itm.valueString === response) return true;
+        if (itm.valueCoding && itm.valueCoding.display === response) return true;
+        return false;
+      });
+      if (item.answerOption[answerOptionIndex].valueString) {
+        responseValue.type = 'valueString';
+        responseValue.value = response;
+      } else if (item.answerOption[answerOptionIndex].valueCoding) {
+        responseValue.type = 'valueCoding';
+        responseValue.value = item.answerOption[answerOptionIndex].valueCoding;
+      } // TODO: ELSE THROW ERROR
+    } else if (item.type === 'boolean') {
+      responseValue.type = 'valueBoolean';
       responseValue.value = response;
-    } else if (item.answerOption[answerOptionIndex].valueCoding) {
-      responseValue.type = 'valueCoding';
-      responseValue.value = item.answerOption[answerOptionIndex].valueCoding;
-    } // TODO: ELSE THROW ERROR
-  } else if (item.type === 'boolean') {
-    responseValue.type = 'valueBoolean';
-    responseValue.value = response;
-  }
-  else if (item.type === 'decimal') {
-    responseValue.type = 'valueDecimal';
-    responseValue.value = response;
-  } else {
-    responseValue.type = 'valueCoding';    
-    responseValue.value = { display: response };
-  }
+    }
+    else if (item.type === 'decimal') {
+      responseValue.type = 'valueDecimal';
+      responseValue.value = response;
+    } else {
+      responseValue.type = 'valueCoding';    
+      responseValue.value = { display: response };
+    }
+    responseValues.push(responseValue);
+  });
+  
 
-  return responseValue;
+  return responseValues;
 }

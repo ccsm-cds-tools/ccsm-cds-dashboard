@@ -34,7 +34,7 @@ const buildQuestionnaireResponse = (fhirQuestionnaire, responses) => {
         linkId: item.linkId,
         answer: responseValues.map(rv => (
           {
-            [rv.type]: [rv.value]
+            [rv.type]: rv.value
           }
         ))
       }
@@ -79,6 +79,6 @@ function getResponseValues(questionnaire, linkId, responses) {
     responseValues.push(responseValue);
   });
   
-
+  console.log(responseValues);
   return responseValues;
 }

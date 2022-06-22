@@ -26,25 +26,19 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       "text": "Test Type",
       "required": true,
       "type": "choice",
-      "repeats": true,
       "answerOption": [
         {
-          "valueCoding": {
-              "code": "21440-3",
-              "system": "http://loinc.org/",
-              "display": "HPV"
-          }
+          "valueString": "HPV"
         },
         {
-          "valueCoding": {
-              "code": "10524-7",
-              "system": "http://loinc.org/",
-              "display": "Cervical Cytology (Pap)"
-          }
+          "valueString": "Cervical Cytology (Pap)"
+        },
+        {
+          "valueString": "HPV and Cytology Cotest"
         },
         {
           "valueString": "Cervical Histology"
-        }
+        },
       ]
     },
     {
@@ -54,42 +48,28 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
         {
           "question": "test-type",
           "operator": "=",
-          "answerCoding": {
-            "code": "21440-3",
-            "system": "http://loinc.org/",
-            "display": "HPV"
-          }
+          "answerValue": "HPV"
+        },
+        {
+          "question": "test-type",
+          "operator": "=",
+          "answerValue": "HPV and Cytology Cotest"
         }
       ],
+      "enableBehavior": "any",
       "type": "choice",
       "answerOption": [
         {
-          "valueCoding": {
-            "code": "260385009",
-            "system": "http://snomed.info/sct",
-            "display": "Negative"
-          }
+          "valueString": "Negative"
         },
         {
-          "valueCoding": {
-            "code": "10828004",
-            "system": "http://snomed.info/sct",
-            "display": "Positive (Not Type 16/18)"
-          }
+          "valueString": "Positive (Not Type 16/18)"
         },
         {
-          "valueCoding": {
-            "code": "708298003",
-            "system": "http://snomed.info/sct",
-            "display": "Positive (Type 16)"
-          }
+          "valueString": "Positive (Type 16)"
         },
         {
-          "valueCoding": {
-            "code": "708299006",
-            "system": "http://snomed.info/sct",
-            "display": "Positive (Type 18)"
-          }
+          "valueString": "Positive (Type 18)"
         }
       ]
     },
@@ -100,56 +80,34 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
         {
           "question": "test-type",
           "operator": "=",
-          "answerCoding": {
-            "code": "10524-7",
-            "system": "http://loinc.org/",
-            "display": "Cervical Cytology (Pap)"
-          }
+          "answerString": "Cervical Cytology (Pap)"
+        },
+        {
+          "question": "test-type",
+          "operator": "=",
+          "answerValue": "HPV and Cytology Cotest"
         }
       ],
+      "enableBehavior": "any",
       "type": "choice",
       "answerOption": [
         {
-          "valueCoding": {
-            "code": "373887005",
-            "system": "http://snomed.info/sct",
-            "display": "NILM"
-          }
+          "valueString": "NILM"
         },
         {
-          "valueCoding": {
-            "code": "62051000119105",
-            "system": "http://snomed.info/sct",
-            "display": "LSIL"
-          }
+          "valueString": "LSIL"
         },
         {
-          "valueCoding": {
-            "code": "441087007",
-            "system": "http://snomed.info/sct",
-            "display": "ASC-US"
-          }
+          "valueString": "ASC-US"
         },
         {
-          "valueCoding": {
-            "code": "441088002",
-            "system": "http://snomed.info/sct",
-            "display": "ASC-H"
-          }
+          "valueString": "ASC-H"
         },
         {
-          "valueCoding": {
-            "code": "441219009",
-            "system": "http://snomed.info/sct",
-            "display": "AGC"
-          }
+          "valueString": "AGC"
         },
         {
-          "valueCoding": {
-            "code": "62061000119107",
-            "system": "http://snomed.info/sct",
-            "display": "HSIL"
-          }
+          "valueString": "HSIL"
         }
       ]
     },

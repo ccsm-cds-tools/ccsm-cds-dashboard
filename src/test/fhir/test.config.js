@@ -94,15 +94,13 @@ export const config = {
           header: [
             {
               key: 'name',
-              display: 'Test Name/Procedure'
+              display: 'Test Name/Procedure',
+              detailKey: 'longName'
             },
             {
               key: 'value',
-              display: 'Result'
-            },
-            {
-              key: 'genotype',
-              display: 'Genotype'
+              display: 'Result',
+              detailKey: 'longValue'
             },
             {
               key: 'date',

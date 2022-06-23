@@ -85,6 +85,9 @@ Table.sortable {
   tr.incomplete {
     background-color: $red-100;
   }
+  td {
+    vertical-align: middle;
+  }
 
 }
 

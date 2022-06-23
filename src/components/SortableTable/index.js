@@ -43,7 +43,7 @@ function SortableTable(props) {
           }) 
         }</tr>
       </thead>
-      <tbody>{ // TODO: Pipe in View link
+      <tbody>{
         items.map((itm,idx) => {
           const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
           return (
@@ -63,7 +63,10 @@ function SortableTable(props) {
 }
 
 function RenderRowElement(hdr, itm, setDataToView) {
-  const { key } = hdr;
+  const { 
+    key,
+    detailKey=null
+  } = hdr;
   const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
   if (key === 'date') return (
     <time className={incompleteClass} dateTime={itm.date}>
@@ -78,6 +81,12 @@ function RenderRowElement(hdr, itm, setDataToView) {
         }
       </Button>
     )
+  } else if (detailKey) {
+    const details = itm[detailKey];
+    const detailText = Array.isArray(details) ?
+      details.map(d => d.value).join('; ') :
+      details;
+    return <span className={incompleteClass} title={detailText}>{itm[key] ?? ''}</span>
   }
   else return <span className={incompleteClass}>{itm[key] ?? ''}</span>
 }

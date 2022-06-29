@@ -38,6 +38,9 @@ import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHist
 
 // ValueSet
 import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
+import { CervicalCytologyResult } from "./ValueSet/CervicalCytologyResult";
+import { HpvTestResult } from "./ValueSet/HpvTestResult";
+import { CervicalHistologyResult } from "./ValueSet/CervicalHistologyResult";
 
 export const cdsResources = [
   CervicalCytologyScreeningRecommendation,
@@ -70,5 +73,8 @@ export const cdsResources = [
   RelevantHistoryQuestionnaire,
   ScreeningAndManagementHistoryQuestionnaire,
   VaccinationHistoryQuestionnaire,
-  ScreeningAndManagementTestType
+  ScreeningAndManagementTestType,
+  CervicalCytologyResult,
+  HpvTestResult,
+  CervicalHistologyResult
 ];

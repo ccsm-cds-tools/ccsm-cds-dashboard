@@ -37,29 +37,11 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
           "question": "test-type",
           "operator": "=",
           "answerValue": "HPV"
-        },
-        {
-          "question": "test-type",
-          "operator": "=",
-          "answerValue": "HPV and Cytology Cotest"
         }
       ],
       "enableBehavior": "any",
       "type": "choice",
-      "answerOption": [
-        {
-          "valueString": "Negative"
-        },
-        {
-          "valueString": "Positive (Not Type 16/18)"
-        },
-        {
-          "valueString": "Positive (Type 16)"
-        },
-        {
-          "valueString": "Positive (Type 18)"
-        }
-      ]
+      "answerValueSet": "ValueSet/HpvTestResult"
     },
     {
       "linkId": "cytology-results",
@@ -69,35 +51,25 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
           "question": "test-type",
           "operator": "=",
           "answerString": "Cervical Cytology (Pap)"
-        },
-        {
-          "question": "test-type",
-          "operator": "=",
-          "answerValue": "HPV and Cytology Cotest"
         }
       ],
       "enableBehavior": "any",
       "type": "choice",
-      "answerOption": [
+      "answerValueSet": "ValueSet/CervicalCytologyResult"
+    },
+    {
+      "linkId": "histology-results",
+      "text": "Histology Results",
+      "enableWhen": [
         {
-          "valueString": "NILM"
-        },
-        {
-          "valueString": "LSIL"
-        },
-        {
-          "valueString": "ASC-US"
-        },
-        {
-          "valueString": "ASC-H"
-        },
-        {
-          "valueString": "AGC"
-        },
-        {
-          "valueString": "HSIL"
+          "question": "test-type",
+          "operator": "=",
+          "answerString": "Cervical Histology"
         }
-      ]
+      ],
+      "enableBehavior": "any",
+      "type": "choice",
+      "answerValueSet": "ValueSet/CervicalHistologyResult"
     },
     {
       "linkId": "test-date",
@@ -110,6 +82,10 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
         },
         {
           "question": "cytology-results",
+          "operator": "exists"
+        },
+        {
+          "question": "histology-results",
           "operator": "exists"
         }
       ],

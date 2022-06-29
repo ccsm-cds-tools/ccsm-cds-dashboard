@@ -23,7 +23,6 @@ function HistoryGroupModals(props) {
             }
           ] = form;
           let fhirQuestionnaire = resolver(canonicalUri);
-          console.log(fhirQuestionnaire);
           if (fhirQuestionnaire) {
             fhirQuestionnaire = fhirQuestionnaire.length > 0 ? fhirQuestionnaire[0] : {};
             const DataEntryForm = AddDataDialog(fhirQuestionnaire, {title,preamble}, resourceConverter, resolver);

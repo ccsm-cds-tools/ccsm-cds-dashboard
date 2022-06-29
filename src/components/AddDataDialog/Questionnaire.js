@@ -10,10 +10,9 @@ export function Questionnaire(props) {
   } = props;
 
   const saveResponses = (responses) => {
-    console.log(responses);
     const fhirQR = responses; //buildQuestionnaireResponse(fhirQuestionnaire, responses);
     const convertedResource = resourceConverter(fhirQR);
-    if (convertedResource) setPatientData(existingData => [...existingData, fhirQR, convertedResource]);
+    if (convertedResource) setPatientData(existingData => [...existingData, fhirQR, ...convertedResource]);
     else setPatientData(existingData => [...existingData, fhirQR]);
     handleClose();
   }

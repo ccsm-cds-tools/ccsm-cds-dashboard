@@ -1,6 +1,3 @@
-import { RelevantHistoryQuestionnaire } from "test/basic/forms/RelevantHistoryQuestionnaire";
-import { ScreeningAndManagementHistoryQuestionnaire } from "test/basic/forms/ScreeningAndManagementHistoryQuestionnaire";
-import { VaccinationHistoryQuestionnaire } from "test/basic/forms/VaccinationHistoryQuestionnaire";
 
 export const config = {
   histories: [
@@ -29,7 +26,7 @@ export const config = {
           ],
           addButtonText: 'Add condition',
           form: {
-            json: RelevantHistoryQuestionnaire,
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -52,7 +49,7 @@ export const config = {
           ],
           addButtonText: 'Add procedure',
           form: {
-            json: RelevantHistoryQuestionnaire,
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -75,7 +72,7 @@ export const config = {
           ],
           addButtonText: 'Add medication',
           form: {
-            json: RelevantHistoryQuestionnaire,
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
             title: 'Add Condition',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -113,7 +110,7 @@ export const config = {
           ],
           addButtonText: 'Add result',
           form: {
-            json: ScreeningAndManagementHistoryQuestionnaire,
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
             title: 'Add Result',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }
@@ -145,7 +142,7 @@ export const config = {
           ],
           addButtonText: 'Add HPV vaccination',
           form: {
-            json: VaccinationHistoryQuestionnaire,
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/VaccinationHistoryQuestionnaire',
             title: 'Add Vaccination',
             preamble: 'NOTIONAL - meant to represent simple form for adding data'
           }

@@ -5,7 +5,9 @@ function HistoryGroupModals(props) {
     formInfo, 
     whichModal, 
     setWhichModal, 
-    setPatientData 
+    setPatientData,
+    resourceConverter,
+    resolver
   } = props;
   
   return (
@@ -15,15 +17,22 @@ function HistoryGroupModals(props) {
           const [
             formId, 
             {
-              json = ()=>{}, 
+              canonicalUri = '', 
               title = '', 
               preamble = ''
             }
           ] = form;
-          const DataEntryForm = AddDataDialog(json, {title,preamble});
-          return (
-            <DataEntryForm key={idx} show={whichModal === formId} handleClose={() => setWhichModal('')} setPatientData={setPatientData}/>
-          )
+          let fhirQuestionnaire = resolver(canonicalUri);
+          console.log(fhirQuestionnaire);
+          if (fhirQuestionnaire) {
+            fhirQuestionnaire = fhirQuestionnaire.length > 0 ? fhirQuestionnaire[0] : {};
+            const DataEntryForm = AddDataDialog(fhirQuestionnaire, {title,preamble}, resourceConverter, resolver);
+            return (
+              <DataEntryForm key={idx} show={whichModal === formId} handleClose={() => setWhichModal('')} setPatientData={setPatientData}/>
+            )
+          } else {
+            return <div key={idx}></div>
+          }
         })
       }
     </div>

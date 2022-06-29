@@ -7,7 +7,8 @@ function PatientHistory(props) {
     config: {
       histories=[]
     },
-    setPatientData
+    setPatientData,
+    resourceConverter
   } = props;
 
   return (
@@ -16,7 +17,14 @@ function PatientHistory(props) {
         histories.map((h,idx) => {
           const tableData = collateTableData(h.tables, input);
           return (
-            <HistoryGroup key={idx} meta={h} tableData={tableData} resolver={resolver} setPatientData={setPatientData} />
+            <HistoryGroup 
+              key={idx} 
+              meta={h} 
+              tableData={tableData} 
+              resolver={resolver} 
+              setPatientData={setPatientData} 
+              resourceConverter={resourceConverter}
+            />
           )
         })
       }

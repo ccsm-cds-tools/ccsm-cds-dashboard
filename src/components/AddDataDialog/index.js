@@ -1,12 +1,16 @@
 import { Modal } from 'react-bootstrap';
 import { Questionnaire } from './Questionnaire.js';
 
-function AddDataDialog(DataEntryComponent, meta) {
+function AddDataDialog(fhirQuestionnaire, meta, resourceConverter=()=>{}, resolver=()=>{}) {
 
   const { title, preamble } = meta;
 
   return function(props) {
-    const { show, handleClose, setPatientData } = props;
+    const { 
+      show, 
+      handleClose, 
+      setPatientData=()=>{}
+    } = props;
 
     return (
       <Modal show={show} onHide={handleClose} >
@@ -15,7 +19,13 @@ function AddDataDialog(DataEntryComponent, meta) {
         </Modal.Header>
         <Modal.Body>
           <p>{preamble}</p>
-          <Questionnaire fhirQuestionnaire={DataEntryComponent} handleClose={handleClose} setPatientData={setPatientData}/>
+          <Questionnaire 
+            fhirQuestionnaire={fhirQuestionnaire} 
+            handleClose={handleClose} 
+            setPatientData={setPatientData}
+            resourceConverter={resourceConverter}
+            resolver={resolver}
+          />
         </Modal.Body>
       </Modal>
     )

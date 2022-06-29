@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
+import { resourceConverter } from './resourceConverter.js';
 import './TestPatient.scss';
 
 // Load the test data and configuration
@@ -27,7 +28,12 @@ export function TestPatient() {
     return (
       <div className="content">
         <p className="text-danger-dark">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
-        <Dashboard input={dashboardInput} config={config} setPatientData={setPatientData} />
+        <Dashboard 
+          input={dashboardInput} 
+          config={config} 
+          setPatientData={setPatientData}
+          resourceConverter={resourceConverter}
+        />
       </div>
     )
   } else {

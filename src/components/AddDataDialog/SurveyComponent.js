@@ -1,15 +1,17 @@
-import converter from 'questionnaire-to-survey'
-import { FunctionFactory, Model, Serializer, StylesManager, Survey } from 'survey-react'
+import converter, { responser } from 'questionnaire-to-survey'
+import { FunctionFactory, ItemValue, Model, Serializer, StylesManager, Survey } from 'survey-react'
 import "survey-react/defaultV2.min.css";
 import "./SurveyComponent.scss";
 
 export default function SurveyComponent(props) {
-  let {questionnaire, saveResponses} = props;
+  let {questionnaire, saveResponses, resolver} = props;
 
   // Create SurveyJS object from a FHIR Questionnaire
-  const reactConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
-  console.log(questionnaire);
+  const reactConverter = converter(FunctionFactory, Model, Serializer, StylesManager, resolver);
   var model = reactConverter(questionnaire, null, 'defaultV2');
+
+  // A function for converting SurveyJS outputs into a FHIR QuestionnaireResponse
+  const responseConverter = responser(questionnaire, ItemValue);
 
   // Set SurveyJS settings
   model.showQuestionNumbers = 'off';
@@ -22,7 +24,7 @@ export default function SurveyComponent(props) {
       id="survey-root"
       model={model}
       showCompletedPage={false}
-      onComplete={data=>saveResponses(data.valuesHash)}
-    />   
+      onComplete={data => saveResponses(responseConverter(data))}
+    />
   )
 }

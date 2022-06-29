@@ -84,7 +84,7 @@ function RenderRowElement(hdr, itm, setDataToView) {
   } else if (detailKey) {
     const details = itm[detailKey];
     const detailText = Array.isArray(details) ?
-      details.map(d => d.value).join('; ') :
+      details.map(d => d?.value).join('; ') :
       details;
     return <span className={incompleteClass} title={detailText}>{itm[key] ?? ''}</span>
   }

@@ -6,6 +6,8 @@ import { useState } from 'react';
 import './style.scss';
 
 function Dashboard(props) {
+
+  console.log(props);
   const {
     input: {
       patientInfo={},
@@ -14,7 +16,8 @@ function Dashboard(props) {
       resolver=()=>{}
     },
     config={},
-    setPatientData=()=>{}
+    setPatientData=()=>{},
+    resourceConverter=()=>{}
   } = props;
 
   return (
@@ -22,7 +25,13 @@ function Dashboard(props) {
       <div className="row">
         <div className="col-xl-6">
           <PatientInfo input={patientInfo} />
-          <PatientHistory input={patientHistory} resolver={resolver} config={config} setPatientData={setPatientData} />
+          <PatientHistory 
+            input={patientHistory} 
+            resolver={resolver} 
+            config={config} 
+            setPatientData={setPatientData}
+            resourceConverter={resourceConverter}
+          />
         </div>
         <div className="col-xl-6">
           <DecisionAids input={decisionAids} />

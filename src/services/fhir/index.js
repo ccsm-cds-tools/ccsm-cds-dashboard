@@ -31,6 +31,13 @@ import { ManageCervicalSpecialPopulations } from "./PlanDefinition/ManageCervica
 
 // Questionnaire
 import { ProvideMoreInformation } from "./Questionnaire/ProvideMoreInformation";
+import { CervicalCancerQuestionnaire } from "./Questionnaire/CervicalCancerQuestionnaire";
+import { RelevantHistoryQuestionnaire } from "./Questionnaire/RelevantHistoryQuestionnaire";
+import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
+import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHistoryQuestionnaire";
+
+// ValueSet
+import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
 
 export const cdsResources = [
   CervicalCytologyScreeningRecommendation,
@@ -58,5 +65,10 @@ export const cdsResources = [
   ManageCervicalCommonAbnormalities,
   ManageCervicalRareAbnormalities,
   ManageCervicalSpecialPopulations,
-  ProvideMoreInformation
+  ProvideMoreInformation,
+  CervicalCancerQuestionnaire,
+  RelevantHistoryQuestionnaire,
+  ScreeningAndManagementHistoryQuestionnaire,
+  VaccinationHistoryQuestionnaire,
+  ScreeningAndManagementTestType
 ];

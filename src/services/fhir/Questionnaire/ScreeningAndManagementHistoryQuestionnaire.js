@@ -27,29 +27,7 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       "required": true,
       "type": "choice",
       "repeats": true,
-      "answerOption": [
-        {
-          "valueCoding": {
-            "system": "http://loinc.org",
-            "code": "21440-3",
-            "display": "Human papilloma virus 16+18+31+33+35+45+51+52+56 DNA [Presence] in Cervix by Probe"
-          }
-        },
-        {
-          "valueCoding": {
-            "system": "http://loinc.org",
-            "code": "10524-7",
-            "display": "Microscopic observation [Identifier] in Cervix by Cyto stain"
-          }
-        },
-        {
-          "valueCoding": {
-            "system": "http://loinc.org",
-            "code": "65753-6",
-            "display": "Cervix Pathology biopsy report"
-          }
-        }
-      ]
+      "answerValueSet": "ValueSet/ScreeningAndManagementTestType"
     },
     {
       "linkId": "hpv-results",

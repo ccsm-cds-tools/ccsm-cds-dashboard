@@ -1,3 +1,4 @@
+import { resourceConverter } from 'services/fhir';
 import SurveyComponent from './SurveyComponent.js'
 
 export function Questionnaire(props) {
@@ -5,12 +6,10 @@ export function Questionnaire(props) {
     fhirQuestionnaire, 
     handleClose, 
     setPatientData,
-    resourceConverter,
     resolver
   } = props;
 
-  const saveResponses = (responses) => {
-    const fhirQR = responses; //buildQuestionnaireResponse(fhirQuestionnaire, responses);
+  const saveResponses = (fhirQR) => {
     const convertedResource = resourceConverter(fhirQR);
     if (convertedResource) setPatientData(existingData => [...existingData, fhirQR, ...convertedResource]);
     else setPatientData(existingData => [...existingData, fhirQR]);

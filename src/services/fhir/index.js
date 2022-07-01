@@ -29,14 +29,14 @@ import { ManageCervicalCommonAbnormalities } from "./PlanDefinition/ManageCervic
 import { ManageCervicalRareAbnormalities } from "./PlanDefinition/ManageCervicalRareAbnormalities";
 import { ManageCervicalSpecialPopulations } from "./PlanDefinition/ManageCervicalSpecialPopulations";
 
-// Questionnaire
+// Questionnaire resources
 import { ProvideMoreInformation } from "./Questionnaire/ProvideMoreInformation";
 import { CervicalCancerQuestionnaire } from "./Questionnaire/CervicalCancerQuestionnaire";
 import { RelevantHistoryQuestionnaire } from "./Questionnaire/RelevantHistoryQuestionnaire";
 import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
 import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHistoryQuestionnaire";
 
-// ValueSet
+// ValueSet resources
 import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
 import { CervicalCytologyResult } from "./ValueSet/CervicalCytologyResult";
 import { HpvTestResult } from "./ValueSet/HpvTestResult";
@@ -78,3 +78,5 @@ export const cdsResources = [
   HpvTestResult,
   CervicalHistologyResult
 ];
+
+export { resourceConverter } from './resourceConverter.js';

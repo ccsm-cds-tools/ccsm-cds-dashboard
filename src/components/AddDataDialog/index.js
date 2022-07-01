@@ -1,7 +1,7 @@
 import { Modal } from 'react-bootstrap';
 import { Questionnaire } from './Questionnaire.js';
 
-function AddDataDialog(fhirQuestionnaire, meta, resourceConverter=()=>{}, resolver=()=>{}) {
+function AddDataDialog(fhirQuestionnaire, meta, resolver=()=>{}) {
 
   const { title, preamble } = meta;
 
@@ -23,7 +23,6 @@ function AddDataDialog(fhirQuestionnaire, meta, resourceConverter=()=>{}, resolv
             fhirQuestionnaire={fhirQuestionnaire} 
             handleClose={handleClose} 
             setPatientData={setPatientData}
-            resourceConverter={resourceConverter}
             resolver={resolver}
           />
         </Modal.Body>

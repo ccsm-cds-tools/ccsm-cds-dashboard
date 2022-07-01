@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
-import { resourceConverter } from './resourceConverter.js';
 import './TestPatient.scss';
 
 // Load the test data and configuration
@@ -32,7 +31,6 @@ export function TestPatient() {
           input={dashboardInput} 
           config={config} 
           setPatientData={setPatientData}
-          resourceConverter={resourceConverter}
         />
       </div>
     )

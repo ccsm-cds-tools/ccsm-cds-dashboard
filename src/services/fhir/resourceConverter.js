@@ -1,5 +1,5 @@
 
-export function resourceConverter(questionnaireResponse) {
+export function resourceConverter(questionnaireResponse, resolver, getIncrementalId) {
 
   console.log('qr = ', questionnaireResponse);
 
@@ -32,14 +32,12 @@ export function resourceConverter(questionnaireResponse) {
   console.log(codeConclusionPair);
 
   let resources = [];
-  let id = 100;
   codeConclusionPair.forEach(ccp => {
-    id = id + 1;
     resources.push({
       resourceType: 'DiagnosticReport',
-      id: id.toString(),
+      id: getIncrementalId(),
       status: "amended",
-      subject: {
+      subject: { // TODO: Pull in patient reference
         reference: 'Patient/2d0c1024-dee6-416f-af57-9e7544745e83'
       },
       effectiveDateTime: testDate,

@@ -45,11 +45,18 @@ const applyCds = async function(patientData, setOutput) {
   console.log('CDS output: ', RequestGroup);
   console.log('CDS output: ', otherResources);
   if (CommunicationRequest?.payload?.length > 0) {
-    let crp = CommunicationRequest.payload[0].contentString;
+    let {
+      patientInfo={}, 
+      patientHistory={}, 
+      decisionAids={}
+    } = CommunicationRequest.payload[0].contentString;
     setOutput(
       {
-        ...crp,
-        resolver: (r) => r === '' ? {} : resolver(r)
+        patientInfo,
+        patientHistory,
+        decisionAids,
+        resolver: (r) => r === '' ? {} : resolver(r),
+        patientReference
       }
     );
   }

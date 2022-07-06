@@ -6,21 +6,35 @@ export function Questionnaire(props) {
     fhirQuestionnaire, 
     handleClose, 
     setPatientData,
-    resolver
+    resolver,
+    patientReference
   } = props;
 
   const saveResponses = (fhirQR) => {
-    const convertedResource = resourceConverter(fhirQR);
-    if (convertedResource) setPatientData(existingData => [...existingData, fhirQR, ...convertedResource]);
-    else setPatientData(existingData => [...existingData, fhirQR]);
+    fhirQR.id = getIncrementalId();
+    fhirQR.subject = patientReference;
+    const convertedResources = resourceConverter(fhirQR, resolver, getIncrementalId);
+    setPatientData(existingData => [...existingData, fhirQR, ...convertedResources]);
     handleClose();
   }
 
   return (
     <SurveyComponent
       questionnaire={fhirQuestionnaire}
-      saveResponses={rsp=>saveResponses(rsp)}
+      saveResponses={rsp => saveResponses(rsp)}
       resolver={resolver}
     /> 
   )
+}
+
+function* simpleGenerator() {
+  let n = 1;
+  while (true)
+    yield n++;
+}
+
+let simpleCounter = simpleGenerator();
+
+function getIncrementalId() {
+  return 'ccsm-cds-dashboard-' + simpleCounter.next().value.toString();
 }

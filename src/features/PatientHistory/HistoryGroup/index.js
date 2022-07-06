@@ -19,7 +19,8 @@ function HistoryGroup(props) {
     }, 
     tableData,
     resolver,
-    setPatientData
+    setPatientData,
+    patientReference
   } = props;
 
   const [whichModal, setWhichModal] = useState('');
@@ -52,6 +53,7 @@ function HistoryGroup(props) {
         setWhichModal={setWhichModal} 
         setPatientData={setPatientData}
         resolver={resolver}
+        patientReference={patientReference}
       />
       <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} />
    </div>

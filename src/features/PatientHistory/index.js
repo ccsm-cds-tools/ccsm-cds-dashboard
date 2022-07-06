@@ -8,7 +8,7 @@ function PatientHistory(props) {
       histories=[]
     },
     setPatientData,
-    resourceConverter
+    patientReference
   } = props;
 
   return (
@@ -23,7 +23,7 @@ function PatientHistory(props) {
               tableData={tableData} 
               resolver={resolver} 
               setPatientData={setPatientData} 
-              resourceConverter={resourceConverter}
+              patientReference={patientReference}
             />
           )
         })

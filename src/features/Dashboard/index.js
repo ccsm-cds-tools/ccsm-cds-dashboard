@@ -12,7 +12,8 @@ function Dashboard(props) {
       patientInfo={},
       patientHistory={},
       decisionAids={},
-      resolver=()=>{}
+      resolver=()=>{},
+      patientReference=''
     },
     config={},
     setPatientData=()=>{}
@@ -28,6 +29,7 @@ function Dashboard(props) {
             resolver={resolver} 
             config={config} 
             setPatientData={setPatientData}
+            patientReference={patientReference}
           />
         </div>
         <div className="col-xl-6">

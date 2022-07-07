@@ -1,19 +1,7 @@
+import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
+import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
 
-export function resourceConverter(questionnaireResponse, resolver, getIncrementalId) {
-
-  console.log('qr = ', questionnaireResponse);
-
-  const hpvConclusion = questionnaireResponse.item
-    .filter(itm => itm.linkId === 'hpv-results')
-    .flatMap(itm => itm.answer);
-
-  const papConclusion = questionnaireResponse.item
-    .filter(itm => itm.linkId === 'cytology-results')
-    .flatMap(itm => itm.answer);
-  
-  const histConclusion = questionnaireResponse.item
-    .filter(itm => itm.linkId === 'histology-results')
-    .flatMap(itm => itm.answer);
+export function resourceConverter(questionnaireResponse, patientReference, getIncrementalId) {
 
   const testDate = questionnaireResponse.item
     .filter(itm => itm.linkId === 'test-date')
@@ -23,13 +11,24 @@ export function resourceConverter(questionnaireResponse, resolver, getIncrementa
   let codeConclusionPair = [];
   const testTypes = questionnaireResponse.item.filter(itm => itm.linkId === 'test-type').map(itm => itm.answer)[0];
   testTypes.forEach(tt => {
-    const coding = tt.valueCoding;
-    if (tt.valueCoding.code === '21440-3') codeConclusionPair.push({code: coding, conclusion: hpvConclusion[0].valueCoding});
-    if (tt.valueCoding.code === '10524-7') codeConclusionPair.push({code: coding, conclusion: papConclusion[0].valueCoding});
-    if (tt.valueCoding.code === '65753-6') codeConclusionPair.push({code: coding, conclusion: histConclusion[0].valueCoding});
-  });
 
-  console.log(codeConclusionPair);
+    const coding = tt.valueCoding;
+
+    const shortHandDisplay = ScreeningAndManagementTestType.compose.include[0].concept
+      .filter(cpt => cpt.code === coding.code)
+      .map(cpt => cpt.display)[0];
+    
+    const linkId = ScreeningAndManagementHistoryQuestionnaire.item
+      .filter(itm => itm?.enableWhen?.filter(ew => ew?.answerString === shortHandDisplay)?.length > 0)
+      .map (itm => itm?.linkId)[0];
+
+    const conclusion = questionnaireResponse.item
+      .filter(itm => itm.linkId === linkId)
+      .flatMap(itm => itm.answer)[0].valueCoding;
+    
+    codeConclusionPair.push({code: coding, conclusion: conclusion});
+
+  });
 
   let resources = [];
   codeConclusionPair.forEach(ccp => {
@@ -37,8 +36,8 @@ export function resourceConverter(questionnaireResponse, resolver, getIncrementa
       resourceType: 'DiagnosticReport',
       id: getIncrementalId(),
       status: "amended",
-      subject: { // TODO: Pull in patient reference
-        reference: 'Patient/2d0c1024-dee6-416f-af57-9e7544745e83'
+      subject: {
+        reference: patientReference
       },
       effectiveDateTime: testDate,
       code: {

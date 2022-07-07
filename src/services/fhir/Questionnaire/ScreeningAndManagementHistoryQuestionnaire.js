@@ -36,7 +36,7 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
         {
           "question": "test-type",
           "operator": "=",
-          "answerValue": "HPV"
+          "answerString": "HPV"
         }
       ],
       "enableBehavior": "any",

@@ -13,7 +13,7 @@ export function Questionnaire(props) {
   const saveResponses = (fhirQR) => {
     fhirQR.id = getIncrementalId();
     fhirQR.subject = patientReference;
-    const convertedResources = resourceConverter(fhirQR, resolver, getIncrementalId);
+    const convertedResources = resourceConverter(fhirQR, patientReference, getIncrementalId);
     setPatientData(existingData => [...existingData, fhirQR, ...convertedResources]);
     handleClose();
   }

@@ -4,6 +4,9 @@ function PatientInfo(props) {
 
   const {input} = props;
 
+  console.log(input);
+  const dob = formatDateOfBirth(input?.dateOfBirth?.value);
+
   return (
     <section className="patient-info">
       <div className="patient-name">{input.name}</div>
@@ -17,7 +20,7 @@ function PatientInfo(props) {
           <div className="row">
             <div className="col">
               <div className="info-item">
-                <b>Date of Birth</b> <span><time dateTime={input?.dateOfBirth?.value?.year}>{input?.dateOfBirth?.value?.year}</time></span>
+                <b>Date of Birth</b> <span><time dateTime={dob}>{dob}</time></span>
               </div>
               <div className="info-item">
                 <b>Sex at Birth</b>
@@ -48,3 +51,18 @@ function PatientInfo(props) {
 }
 
 export default PatientInfo;
+
+function formatDateOfBirth(dateOfBirth) {
+  const day = String(dateOfBirth?.day ?? '');
+  const month = String(dateOfBirth?.month ?? '');
+  const year = String(dateOfBirth?.year ?? '');
+
+  console.log(day,month,year);
+
+  const dobString = 
+    month.padStart(2,'0') + ' / ' +
+    day.padStart(2,'0') + ' / ' +
+    year;
+
+  return dobString;
+}

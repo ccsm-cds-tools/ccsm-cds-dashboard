@@ -40,16 +40,40 @@ const applyCds = async function(patientData, setOutput) {
     WorkerFactory,
   };
   const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
-  let CommunicationRequest = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest')[0];
+  
+  let CommunicationRequests = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest');
+  let DisplayCervicalCancerMedicalHistory = CommunicationRequests.filter(cr => {
+    return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
+  })[0];
+  let CervicalCancerManagementDecisionAids = CommunicationRequests.filter(cr => {
+    return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerManagementDecisionAids';
+  })[0];
+  
   console.log('CDS output: ', CarePlan);
   console.log('CDS output: ', RequestGroup);
   console.log('CDS output: ', otherResources);
-  if (CommunicationRequest?.payload?.length > 0) {
-    let {
-      patientInfo={}, 
-      patientHistory={}, 
-      decisionAids={}
-    } = CommunicationRequest.payload[0].contentString;
+
+  let patientInfo={};
+  let patientHistory={};
+  let decisionAids={};
+  let thereAreOutputs = false;
+
+  if (DisplayCervicalCancerMedicalHistory?.payload?.length > 0) {
+    let historyString = DisplayCervicalCancerMedicalHistory.payload[0].contentString;
+    let history = JSON.parse(historyString);
+    patientInfo = history.patientInfo;
+    patientHistory = history.patientHistory;
+    thereAreOutputs = true;
+  }
+
+  if (CervicalCancerManagementDecisionAids?.payload?.length > 0) {
+    let decisionsString = CervicalCancerManagementDecisionAids.payload[0].contentString;
+    let decisions = JSON.parse(decisionsString);
+    decisionAids = decisions;
+    thereAreOutputs = true;
+  }
+
+  if (thereAreOutputs) {
     setOutput(
       {
         patientInfo,

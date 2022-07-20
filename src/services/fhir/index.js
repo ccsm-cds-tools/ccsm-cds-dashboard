@@ -1,4 +1,6 @@
 // ActivityDefinition resources
+import { CervicalCancerManagementActivity } from "./ActivityDefinition/CervicalCancerManagementActivity";
+import { CervicalCancerManagementDecisionAids } from "./ActivityDefinition/CervicalCancerManagementDecisionAids";
 import { CervicalCytologyScreeningRecommendation } from "./ActivityDefinition/CervicalCytologyScreeningRecommendation";
 import { ColposcopyActivityDefinition } from "./ActivityDefinition/ColposcopyActivityDefinition";
 import { CommunicateErrors } from "./ActivityDefinition/CommunicateErrors";
@@ -19,6 +21,7 @@ import { TopLevelScreeningLibrary } from "./Library/TopLevelScreeningLibrary";
 
 // PlanDefinition resources
 import { CervicalCancerManagement } from "./PlanDefinition/CervicalCancerManagement";
+import { CervicalCancerManagementActions } from "./PlanDefinition/CervicalCancerManagementActions";
 import { CervicalCancerScreening } from "./PlanDefinition/CervicalCancerScreening";
 import { CervicalCancerScreeningAverageRisk } from "./PlanDefinition/CervicalCancerScreeningAverageRisk";
 import { CervicalCancerScreeningDesExposure } from "./PlanDefinition/CervicalCancerScreeningDesExposure";
@@ -43,6 +46,8 @@ import { HpvTestResult } from "./ValueSet/HpvTestResult";
 import { CervicalHistologyResult } from "./ValueSet/CervicalHistologyResult";
 
 export const cdsResources = [
+  CervicalCancerManagementActivity,
+  CervicalCancerManagementDecisionAids,
   CervicalCytologyScreeningRecommendation,
   ColposcopyActivityDefinition,
   CommunicateErrors,
@@ -59,6 +64,7 @@ export const cdsResources = [
   ScreeningImmunocompromisedLibrary,
   TopLevelScreeningLibrary,
   CervicalCancerManagement,
+  CervicalCancerManagementActions,
   CervicalCancerScreening,
   CervicalCancerScreeningAverageRisk,
   CervicalCancerScreeningDesExposure,

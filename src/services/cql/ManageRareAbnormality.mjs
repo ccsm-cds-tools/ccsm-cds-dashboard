@@ -1095,101 +1095,48 @@ export const ManageRareAbnormality = {
                }
             }
          }, {
-            "name" : "PremenopausalObservations",
+            "name" : "HasPremenopausalObservationOrCondition",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "name" : "Verified",
-               "libraryName" : "C3F",
-               "type" : "FunctionRef",
+               "type" : "Or",
                "operand" : [ {
-                  "type" : "Union",
-                  "operand" : [ {
-                     "type" : "Union",
-                     "operand" : [ {
-                        "dataType" : "{http://hl7.org/fhir}Observation",
-                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
-                        "codeProperty" : "code",
-                        "codeComparator" : "in",
-                        "type" : "Retrieve",
-                        "codes" : {
-                           "name" : "Premenopausal",
-                           "type" : "ValueSetRef"
-                        }
-                     }, {
-                        "dataType" : "{http://hl7.org/fhir}Observation",
-                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
-                        "codeProperty" : "code",
-                        "codeComparator" : "~",
-                        "type" : "Retrieve",
-                        "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
-                              "name" : "Premenopausal Menorrhagia",
-                              "type" : "CodeRef"
-                           }
-                        }
-                     } ]
-                  }, {
-                     "dataType" : "{http://hl7.org/fhir}Observation",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
-                     "codeProperty" : "code",
-                     "codeComparator" : "~",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "type" : "ToList",
-                        "operand" : {
-                           "name" : "Excessive Bleeding in the Premenopausal Period",
-                           "type" : "CodeRef"
-                        }
-                     }
-                  } ]
-               } ]
-            }
-         }, {
-            "name" : "HasPremenopausalObservation",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "expression" : {
-               "type" : "Exists",
-               "operand" : {
-                  "name" : "PremenopausalObservations",
-                  "type" : "ExpressionRef"
-               }
-            }
-         }, {
-            "name" : "PostmenopausalObservations",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "expression" : {
-               "name" : "Verified",
-               "libraryName" : "C3F",
-               "type" : "FunctionRef",
-               "operand" : [ {
-                  "dataType" : "{http://hl7.org/fhir}Observation",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
-                  "codeProperty" : "code",
-                  "codeComparator" : "~",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "type" : "ToList",
-                     "operand" : {
-                        "name" : "Postmenopausal",
-                        "type" : "CodeRef"
-                     }
+                  "type" : "Exists",
+                  "operand" : {
+                     "name" : "PremenopausalObservations",
+                     "libraryName" : "Dash",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "type" : "Exists",
+                  "operand" : {
+                     "name" : "PremenopausalConditions",
+                     "libraryName" : "Dash",
+                     "type" : "ExpressionRef"
                   }
                } ]
             }
          }, {
-            "name" : "HasPostmenopausalObservation",
+            "name" : "HasPostmenopausalObservationOrCondition",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "type" : "Exists",
-               "operand" : {
-                  "name" : "PostmenopausalObservations",
-                  "type" : "ExpressionRef"
-               }
+               "type" : "Or",
+               "operand" : [ {
+                  "type" : "Exists",
+                  "operand" : {
+                     "name" : "PostmenopausalObservations",
+                     "libraryName" : "Dash",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "type" : "Exists",
+                  "operand" : {
+                     "name" : "PostmenopausalConditions",
+                     "libraryName" : "Dash",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
             }
          }, {
             "name" : "HistologyInterpretedAsCin1",
@@ -1988,189 +1935,6 @@ export const ManageRareAbnormality = {
                         "operand" : [ {
                            "type" : "And",
                            "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "Less",
-                                 "operand" : [ {
-                                    "precision" : "Year",
-                                    "type" : "CalculateAge",
-                                    "operand" : {
-                                       "path" : "birthDate.value",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "Patient",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }
-                                 }, {
-                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                    "value" : "35",
-                                    "type" : "Literal"
-                                 } ]
-                              }, {
-                                 "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
-                                 "type" : "ExpressionRef"
-                              } ]
-                           }, {
-                              "name" : "CytologyInterpretedAsAgcOrAis",
-                              "type" : "ExpressionRef"
-                           } ]
-                        }, {
-                           "type" : "Not",
-                           "operand" : {
-                              "name" : "CytologyInterpretedAsAtypicalEndometrialCells",
-                              "type" : "ExpressionRef"
-                           }
-                        } ]
-                     }, {
-                        "type" : "Not",
-                        "operand" : {
-                           "name" : "Pregnant",
-                           "libraryName" : "Dash",
-                           "type" : "ExpressionRef"
-                        }
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For pregnant patients of all ages with all subcategories of AGC and AIS, except when atypical endometrial cells are specified, colposcopy is recommended regardless of HPV test result; endocervical sampling is recommended at initial colposcopy except in pregnancy (for management in pregnancy, see Section K.2) (AII). Accordingly, triage by reflex HPV testing is not recommended, and triage by repeat cytology is unacceptable (DII). Endometrial sampling is also recommended for non-pregnant patients younger than 35 years at increased risk of endometrial neoplasia based on clinical indications (e.g., abnormal uterine bleeding, conditions suggesting chronic anovulation, or obesity) (AII).",
-                           "type" : "Literal"
-                        }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "And",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "GreaterOrEqual",
-                                 "operand" : [ {
-                                    "precision" : "Year",
-                                    "type" : "CalculateAge",
-                                    "operand" : {
-                                       "path" : "birthDate.value",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "Patient",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }
-                                 }, {
-                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                    "value" : "35",
-                                    "type" : "Literal"
-                                 } ]
-                              }, {
-                                 "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
-                                 "type" : "ExpressionRef"
-                              } ]
-                           }, {
-                              "name" : "CytologyInterpretedAsAgcOrAis",
-                              "type" : "ExpressionRef"
-                           } ]
-                        }, {
-                           "type" : "Not",
-                           "operand" : {
-                              "name" : "CytologyInterpretedAsAtypicalEndometrialCells",
-                              "type" : "ExpressionRef"
-                           }
-                        } ]
-                     }, {
-                        "type" : "Not",
-                        "operand" : {
-                           "name" : "Pregnant",
-                           "libraryName" : "Dash",
-                           "type" : "ExpressionRef"
-                        }
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For non-pregnant patients of all ages with all subcategories of AGC and AIS, except when atypical endometrial cells are specified, colposcopy is recommended regardless of HPV test result; endocervical sampling is recommended at initial colposcopy except in pregnancy (for management in pregnancy, see Section K.2) (AII). Accordingly, triage by reflex HPV testing is not recommended, and triage by repeat cytology is unacceptable (DII). Endometrial sampling is recommended in conjunction with colposcopy and endocervical sampling in non-pregnant patients 35 years or older with all categories of AGC and AIS (AII).",
-                           "type" : "Literal"
-                        }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "And",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
-                              "type" : "ExpressionRef"
-                           }, {
-                              "name" : "CytologyInterpretedAsAgcOrAis",
-                              "type" : "ExpressionRef"
-                           } ]
-                        }, {
-                           "name" : "CytologyInterpretedAsAtypicalEndometrialCells",
-                           "type" : "ExpressionRef"
-                        } ]
-                     }, {
-                        "type" : "Not",
-                        "operand" : {
-                           "name" : "Pregnant",
-                           "libraryName" : "Dash",
-                           "type" : "ExpressionRef"
-                        }
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with atypical endometrial cells specified, initial evaluation limited to endometrial and endocervical sampling is preferred, with colposcopy acceptable at the time of initial evaluation. If colposcopy was deferred and no endometrial pathology is identified, additional evaluation with colposcopy is then recommended.",
-                           "type" : "Literal"
-                        }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "And",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
                               "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
                               "type" : "ExpressionRef"
                            }, {
@@ -2246,18 +2010,42 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Surveillance",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Add",
+                           "operand" : [ {
+                              "name" : "DateOfMostRecentReport",
+                              "libraryName" : "Collate",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "value" : 1,
+                              "unit" : "year",
+                              "type" : "Quantity"
+                           } ]
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with cytology showing AGC not otherwise specified or atypical endocervical cells not otherwise specified in whom histologic HSIL (CIN 2+) or AIS/cancer is not identified, cotesting at one and two years is recommended. If both cotests are negative, repeat cotesting at 3 years is recommended. If any test is abnormal, then colposcopy is recommended (BII).",
+                           "value" : "Rare Cytology (G.1.4)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with cytology showing AGC not otherwise specified or atypical endocervical cells not otherwise specified in whom histologic HSIL (CIN 2+) or AIS/cancer is not identified, cotesting at one and two years is recommended. If both cotests are negative, repeat cotesting at 3 years is recommended. If any test is abnormal, then colposcopy is recommended (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2323,18 +2111,261 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with atypical glandular or endocervical cells “favor neoplasia” or endocervical AIS cytology, if invasive disease is not identified during initial colposcopic workup, a diagnostic excisional procedure is recommended. The diagnostic excisional procedure used in this setting should provide an intact specimen with interpretable margins (BII). Endocervical sampling above the excisional bed is preferred (BII).",
+                           "value" : "Rare Cytology (G.1.5)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with atypical glandular or endocervical cells 'favor neoplasia' or endocervical AIS cytology, if invasive disease is not identified during initial colposcopic workup, a diagnostic excisional procedure is recommended. The diagnostic excisional procedure used in this setting should provide an intact specimen with interpretable margins (BII). Endocervical sampling above the excisional bed is preferred (BII).",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "Less",
+                                 "operand" : [ {
+                                    "precision" : "Year",
+                                    "type" : "CalculateAge",
+                                    "operand" : {
+                                       "path" : "birthDate.value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Patient",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "35",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }, {
+                              "name" : "CytologyInterpretedAsAgcOrAis",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "type" : "Not",
+                           "operand" : {
+                              "name" : "CytologyInterpretedAsAtypicalEndometrialCells",
+                              "type" : "ExpressionRef"
+                           }
+                        } ]
+                     }, {
+                        "type" : "Not",
+                        "operand" : {
+                           "name" : "Pregnant",
+                           "libraryName" : "Dash",
+                           "type" : "ExpressionRef"
+                        }
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Rare Cytology (G.1.1)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For nonpregnant patients of all ages with all subcategories of AGC and AIS, except when atypical endometrial cells are specified, colposcopy is recommended regardless of HPV test result; endocervical sampling is recommended at initial colposcopy except in pregnancy (for management in pregnancy, see Section K.2) (AII). Accordingly, triage by reflex HPV testing is not recommended, and triage by repeat cytology is unacceptable (DII). Endometrial sampling is also recommended for nonpregnant patients younger than 35 years at increased risk of endometrial neoplasia based on clinical indications (e.g., abnormal uterine bleeding, conditions suggesting chronic anovulation, or obesity) (AII).",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "GreaterOrEqual",
+                                 "operand" : [ {
+                                    "precision" : "Year",
+                                    "type" : "CalculateAge",
+                                    "operand" : {
+                                       "path" : "birthDate.value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Patient",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "35",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }, {
+                              "name" : "CytologyInterpretedAsAgcOrAis",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "type" : "Not",
+                           "operand" : {
+                              "name" : "CytologyInterpretedAsAtypicalEndometrialCells",
+                              "type" : "ExpressionRef"
+                           }
+                        } ]
+                     }, {
+                        "type" : "Not",
+                        "operand" : {
+                           "name" : "Pregnant",
+                           "libraryName" : "Dash",
+                           "type" : "ExpressionRef"
+                        }
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Rare Cytology (G.1.2)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For nonpregnant patients of all ages with all subcategories of AGC and AIS, except when atypical endometrial cells are specified, colposcopy is recommended regardless of HPV test result; endocervical sampling is recommended at initial colposcopy except in pregnancy (for management in pregnancy, see Section K.2) (AII). Accordingly, triage by reflex HPV testing is not recommended, and triage by repeat cytology is unacceptable (DII). Endometrial sampling is recommended in conjunction with colposcopy and endocervical sampling in nonpregnant patients 35 years or older with all categories of AGC and AIS (AII).",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "CytologyInterpretedAsAgcOrAis",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "name" : "CytologyInterpretedAsAtypicalEndometrialCells",
+                           "type" : "ExpressionRef"
+                        } ]
+                     }, {
+                        "type" : "Not",
+                        "operand" : {
+                           "name" : "Pregnant",
+                           "libraryName" : "Dash",
+                           "type" : "ExpressionRef"
+                        }
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Rare Cytology (G.1.3)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with atypical endometrial cells specified, initial evaluation limited to endometrial and endocervical sampling is preferred, with colposcopy acceptable at the time of initial evaluation. If colposcopy was deferred and no endometrial pathology is identified, additional evaluation with colposcopy is then recommended.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2367,18 +2398,40 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Repeat Screening",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Add",
+                           "operand" : [ {
+                              "type" : "Today"
+                           }, {
+                              "value" : 2,
+                              "unit" : "months",
+                              "type" : "Quantity"
+                           } ]
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with an unsatisfactory cytology result and no, unknown, or a negative HPV test result, repeat age-based screening (cytology, cotest, or primary HPV test) in 2 to 4 months is recommended (BIII). Triage using HPV testing is not recommended (DIII). Before repeat cytology, treatment to resolve atrophy or obscuring inflammation when a specific infection is present is acceptable (CIII).",
+                           "value" : "Rare Cytology (G.2.1)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with an unsatisfactory cytology result and no, unknown, or a negative HPV test result, repeat age-based screening (cytology, cotest, or primary HPV test) in 2 to 4 months is recommended (BIII). Triage using HPV testing is not recommended (DIII). Before repeat cytology, treatment to resolve atrophy or obscuring inflammation when a specific infection is present is acceptable (CIII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2423,18 +2476,40 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Cytology/Colposcopy",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Add",
+                           "operand" : [ {
+                              "type" : "Today"
+                           }, {
+                              "value" : 2,
+                              "unit" : "months",
+                              "type" : "Quantity"
+                           } ]
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients 25 years and older who are cotested and have unsatisfactory cytology and a positive HPV test without genotyping for HPV 16 or HPV 18, repeat cytology in 2 to 4 months or colposcopy is acceptable (BII).",
+                           "value" : "Rare Cytology (G.2.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients 25 years and older who are cotested and have unsatisfactory cytology and a positive HPV test without genotyping for HPV 16 or HPV 18, repeat cytology in 2 to 4 months or colposcopy is acceptable (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2479,18 +2554,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Colposcopy",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients 25 years and older who are cotested and have unsatisfactory cytology and a positive HPV test with partial genotyping is positive for HPV 16 or HPV 18, direct referral for colposcopy is recommended (BII).",
+                           "value" : "Rare Cytology (G.2.3)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients 25 years and older who are cotested and have unsatisfactory cytology and a positive HPV test with partial genotyping is positive for HPV 16 or HPV 18, direct referral for colposcopy is recommended (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2545,18 +2635,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Routine screening is recommended (BIII). When cervical cytology alone is performed for screening, HPV testing as a triage test after negative cytology and absent endocervical cells/transformation zone component in this age group is unacceptable (DIII).",
+                           "value" : "Rare Cytology (G.3.1)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Routine screening is recommended (BIII). When cervical cytology alone is performed for screening, HPV testing as a triage test after negative cytology and absent endocervical cells/transformation zone component in this age group is unacceptable (DIII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2616,18 +2721,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "HPV testing is preferred (BIII). Repeat cytology in 3 years is acceptable if HPV testing is not performed (BIII). If HPV testing is performed, manage using Clinical Action Thresholds according to 2019 consensus guidelines.",
+                           "value" : "Rare Cytology (G.3.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "HPV testing is preferred (BIII). Repeat cytology in 3 years is acceptable if HPV testing is not performed (BIII). If HPV testing is performed, manage using Clinical Action Thresholds according to 2019 consensus guidelines.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2639,8 +2759,17 @@ export const ManageRareAbnormality = {
                         "operand" : [ {
                            "type" : "And",
                            "operand" : [ {
-                              "name" : "HasPremenopausalObservation",
-                              "type" : "ExpressionRef"
+                              "type" : "And",
+                              "operand" : [ {
+                                 "name" : "HasPremenopausalObservationOrCondition",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "name" : "HasPostmenopausalObservationOrCondition",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
                            }, {
                               "type" : "Not",
                               "operand" : {
@@ -2673,18 +2802,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For asymptomatic premenopausal patients with benign endometrial cells, endometrial stromal cells, or histiocytes, no further evaluation is recommended (BII).",
+                           "value" : "Rare Cytology (G.4.1)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For asymptomatic premenopausal patients with benign endometrial cells, endometrial stromal cells, or histiocytes, no further evaluation is recommended (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2694,7 +2838,7 @@ export const ManageRareAbnormality = {
                      "operand" : [ {
                         "type" : "And",
                         "operand" : [ {
-                           "name" : "HasPostmenopausalObservation",
+                           "name" : "HasPostmenopausalObservationOrCondition",
                            "type" : "ExpressionRef"
                         }, {
                            "name" : "MostRecentCytologyReportWasWithinPastFiveYears",
@@ -2708,18 +2852,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For postmenopausal patient with benign endometrial cells found via cytology, endometrial assessment is recommended (BII).",
+                           "value" : "Rare Cytology (G.4.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For postmenopausal patient with benign endometrial cells found via cytology, endometrial assessment is recommended (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2743,18 +2902,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients “post-hysterectomy” with benign glandular cells identified via cytology, no further evaluation is recommended (BII).",
+                           "value" : "Rare Cytology (G.4.3)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients 'post-hysterectomy' with benign glandular cells identified via cytology, no further evaluation is recommended (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2767,16 +2941,31 @@ export const ManageRareAbnormality = {
                   "asTypeSpecifier" : {
                      "type" : "TupleTypeSpecifier",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}Date",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "group",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "details",
+                        "type" : {
+                           "type" : "ListTypeSpecifier",
+                           "elementType" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
                         }
                      } ]
                   }
@@ -2951,18 +3140,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Colposcopy",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with ASC-H cytology, colposcopy is recommended regardless of hrHPV result (AII).",
+                           "value" : "Exception to Colposcopy Threshold (H.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with ASC-H cytology, colposcopy is recommended regardless of hrHPV result (AII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -2986,18 +3190,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Colposcopy",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with hrHPV 18–positive NILM or hrHPV 16-positive NILM, colposcopy is recommended (AII).",
+                           "value" : "Exception to Colposcopy Threshold (H.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with hrHPV 18-positive NILM or hrHPV 16-positive NILM, colposcopy is recommended (AII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -3027,18 +3246,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Colposcopy",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Colposcopy should be performed after 2 consecutive unsatisfactory screening tests (CIII).",
+                           "value" : "Exception to Colposcopy Threshold",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Colposcopy should be performed after 2 consecutive unsatisfactory screening tests (CIII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -3051,16 +3285,31 @@ export const ManageRareAbnormality = {
                   "asTypeSpecifier" : {
                      "type" : "TupleTypeSpecifier",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}Date",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "group",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "details",
+                        "type" : {
+                           "type" : "ListTypeSpecifier",
+                           "elementType" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
                         }
                      } ]
                   }
@@ -5627,11 +5876,11 @@ export const ManageRareAbnormality = {
                "operand" : [ {
                   "type" : "Union",
                   "operand" : [ {
-                     "name" : "CervicalExcisionProcedures",
+                     "name" : "CervicalAblationProcedures",
                      "libraryName" : "Dash",
                      "type" : "ExpressionRef"
                   }, {
-                     "name" : "CervicalAblationProcedures",
+                     "name" : "CervicalExcisionProcedures",
                      "libraryName" : "Dash",
                      "type" : "ExpressionRef"
                   } ]
@@ -5759,22 +6008,31 @@ export const ManageRareAbnormality = {
                      "operand" : [ {
                         "type" : "And",
                         "operand" : [ {
-                           "type" : "GreaterOrEqual",
+                           "type" : "And",
                            "operand" : [ {
-                              "precision" : "Year",
-                              "type" : "CalculateAge",
-                              "operand" : {
-                                 "path" : "birthDate.value",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "name" : "Patient",
-                                    "type" : "ExpressionRef"
+                              "type" : "GreaterOrEqual",
+                              "operand" : [ {
+                                 "precision" : "Year",
+                                 "type" : "CalculateAge",
+                                 "operand" : {
+                                    "path" : "birthDate.value",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "Patient",
+                                       "type" : "ExpressionRef"
+                                    }
                                  }
-                              }
+                              }, {
+                                 "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                 "value" : "25",
+                                 "type" : "Literal"
+                              } ]
                            }, {
-                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                              "value" : "25",
-                              "type" : "Literal"
+                              "type" : "Not",
+                              "operand" : {
+                                 "name" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
+                                 "type" : "ExpressionRef"
+                              }
                            } ]
                         }, {
                            "name" : "MostRecentBiopsyReportWasWithinPastYear",
@@ -5788,18 +6046,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Treatment is preferred if histologic HSIL cannot be specified (e.g., reported as histologic HSIL or histologic HSIL [CIN 2,3]) (CIII), but observation is acceptable if there are concerns related to future pregnancies (CIII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.",
+                           "value" : "Managing Histology (I.1)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Treatment is preferred if histologic HSIL cannot be specified (e.g., reported as histologic HSIL or histologic HSIL [CIN 2,3]) (CIII), but observation is acceptable if there are concerns related to future pregnancies (CIII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -5848,78 +6121,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Treatment is recommended, and observation is unacceptable (AII). When treatment of histologic HSIL is planned, excisional treatment is preferred, and treatment with ablation is acceptable (BI). Outside of the setting of a clinical research trial, nonsurgical therapies, including topical agents, therapeutic vaccines, and other biologics, are unacceptable for the treatment of histologic HSIL (CIN 2 or CIN 3) (DIII). Hysterectomy is unacceptable as primary therapy solely for the treatment of histologic HSIL (CIN 2, CIN 3, or unqualified) (EII). When considering ablative therapy, in particular cryotherapy, ablation is unacceptable in the following circumstances as defined by the WHO: (a) the lesion extends into the canal and (b) when the lesion covers more than 75% of the surface area of the ectocervix or extends beyond the cryotip being used.97 Additional situations for which cryotherapy is not recommended include the following: (a) the squamocolumnar junction or the upper limit of any lesion is not fully visualized; (b) endocervical canal sample is diagnosed as CIN 2+ or CIN that cannot be graded; (c) after previous treatment for CIN 2+; (d) in the setting of inadequate biopsies of the cervix to confirm histologic diagnosis; and (e) if cancer is suspected (EIII).",
+                           "value" : "Managing Histology (I.2)",
                            "type" : "Literal"
                         }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "And",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "GreaterOrEqual",
-                              "operand" : [ {
-                                 "precision" : "Year",
-                                 "type" : "CalculateAge",
-                                 "operand" : {
-                                    "path" : "birthDate.value",
-                                    "type" : "Property",
-                                    "source" : {
-                                       "name" : "Patient",
-                                       "type" : "ExpressionRef"
-                                    }
-                                 }
-                              }, {
-                                 "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                 "value" : "25",
-                                 "type" : "Literal"
-                              } ]
-                           }, {
-                              "type" : "Not",
-                              "operand" : {
-                                 "name" : "Pregnant",
-                                 "libraryName" : "Dash",
-                                 "type" : "ExpressionRef"
-                              }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Treatment is recommended, and observation is unacceptable (AII). When treatment of histologic HSIL is planned, excisional treatment is preferred, and treatment with ablation is acceptable (BI). Outside of the setting of a clinical research trial, nonsurgical therapies, including topical agents, therapeutic vaccines, and other biologics, are unacceptable for the treatment of histologic HSIL (CIN 2 or CIN 3) (DIII). Hysterectomy is unacceptable as primary therapy solely for the treatment of histologic HSIL (CIN 2, CIN 3, or unqualified) (EII). When considering ablative therapy, in particular cryotherapy, ablation is unacceptable in the following circumstances as defined by the WHO: (a) the lesion extends into the canal and (b) when the lesion covers more than 75% of the surface area of the ectocervix or extends beyond the cryotip being used. Additional situations for which cryotherapy is not recommended include the following: (a) the squamocolumnar junction or the upper limit of any lesion is not fully visualized; (b) endocervical canal sample is diagnosed as CIN 2+ or CIN that cannot be graded; (c) after previous treatment for CIN 2+; (d) in the setting of inadequate biopsies of the cervix to confirm histologic diagnosis; and (e) if cancer is suspected (EIII).",
+                              "type" : "Literal"
                            } ]
-                        }, {
-                           "name" : "MostRecentBiopsyReportWasWithinPastYear",
-                           "type" : "ExpressionRef"
-                        } ]
-                     }, {
-                        "name" : "HistologyInterpretedAsCin2",
-                        "type" : "ExpressionRef"
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Treatment is recommended unless the patient's concerns about the effect of treatment on future pregnancy outweigh concerns about cancer (BII). Observation is unacceptable when the squamocolumnar junction or the upper limit of the lesion is not fully visualized or when the results of an endocervical sampling, if performed, is CIN 2+ or ungraded (EIII). For patients with a diagnosis of histologic HSIL (CIN 2) whose concerns about the effects of treatment on a future pregnancy outweigh their concerns about cancer, either observation or treatment is acceptable provided the squamocolumnar junction is visible and CIN 2+ or ungraded CIN is not identified on endocervical sampling (CII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.\n\nWhen treatment of histologic HSIL is planned, excisional treatment is preferred, and treatment with ablation is acceptable (BI). Outside of the setting of a clinical research trial, nonsurgical therapies, including topical agents, therapeutic vaccines, and other biologics, are unacceptable for the treatment of histologic HSIL (CIN 2 or CIN 3) (DIII). Hysterectomy is unacceptable as primary therapy solely for the treatment of histologic HSIL (CIN 2, CIN 3, or unqualified) (EII). When considering ablative therapy, in particular cryotherapy, ablation is unacceptable in the following circumstances as defined by the WHO: (a) the lesion extends into the canal and (b) when the lesion covers more than 75% of the surface area of the ectocervix or extends beyond the cryotip being used.97 Additional situations for which cryotherapy is not recommended include the following: (a) the squamocolumnar junction or the upper limit of any lesion is not fully visualized; (b) endocervical canal sample is diagnosed as CIN 2+ or CIN that cannot be graded; (c) after previous treatment for CIN 2+; (d) in the setting of inadequate biopsies of the cervix to confirm histologic diagnosis; and (e) if cancer is suspected (EIII).",
-                           "type" : "Literal"
                         }
                      } ]
                   }
@@ -5951,52 +6179,59 @@ export const ManageRareAbnormality = {
                                     "type" : "Literal"
                                  } ]
                               }, {
-                                 "type" : "LessOrEqual",
-                                 "operand" : [ {
-                                    "precision" : "Year",
-                                    "type" : "CalculateAge",
-                                    "operand" : {
-                                       "path" : "birthDate.value",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "Patient",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }
-                                 }, {
-                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                    "value" : "50",
-                                    "type" : "Literal"
-                                 } ]
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "name" : "Pregnant",
+                                    "libraryName" : "Dash",
+                                    "type" : "ExpressionRef"
+                                 }
                               } ]
                            }, {
-                              "name" : "MostRecentBiopsyReportWasWithinPastYear",
-                              "type" : "ExpressionRef"
+                              "type" : "Not",
+                              "operand" : {
+                                 "name" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
+                                 "type" : "ExpressionRef"
+                              }
                            } ]
                         }, {
-                           "name" : "HistologyInterpretedAsCin2",
+                           "name" : "MostRecentBiopsyReportWasWithinPastYear",
                            "type" : "ExpressionRef"
                         } ]
                      }, {
-                        "name" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
+                        "name" : "HistologyInterpretedAsCin2",
                         "type" : "ExpressionRef"
                      } ]
                   },
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients with a diagnosis of histologic HSIL (CIN 2) whose concerns about the effects of treatment on a future pregnancy outweigh their concerns about cancer, either observation or treatment is acceptable provided the squamocolumnar junction is visible and CIN 2+ or ungraded CIN is not identified on endocervical sampling (CII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.",
+                           "value" : "Managing Histology (I.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Treatment is recommended unless the patient's concerns about the effect of treatment on future pregnancy outweigh concerns about cancer (BII). Observation is unacceptable when the squamocolumnar junction or the upper limit of the lesion is not fully visualized or when the results of an endocervical sampling, if performed, is CIN 2+ or ungraded (EIII). For patients with a diagnosis of histologic HSIL (CIN 2) whose concerns about the effects of treatment on a future pregnancy outweigh their concerns about cancer, either observation or treatment is acceptable provided the squamocolumnar junction is visible and CIN 2+ or ungraded CIN is not identified on endocervical sampling (CII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.\n\nWhen treatment of histologic HSIL is planned, excisional treatment is preferred, and treatment with ablation is acceptable (BI). Outside of the setting of a clinical research trial, nonsurgical therapies, including topical agents, therapeutic vaccines, and other biologics, are unacceptable for the treatment of histologic HSIL (CIN 2 or CIN 3) (DIII). Hysterectomy is unacceptable as primary therapy solely for the treatment of histologic HSIL (CIN 2, CIN 3, or unqualified) (EII). When considering ablative therapy, in particular cryotherapy, ablation is unacceptable in the following circumstances as defined by the WHO: (a) the lesion extends into the canal and (b) when the lesion covers more than 75% of the surface area of the ectocervix or extends beyond the cryotip being used. Additional situations for which cryotherapy is not recommended include the following: (a) the squamocolumnar junction or the upper limit of any lesion is not fully visualized; (b) endocervical canal sample is diagnosed as CIN 2+ or CIN that cannot be graded; (c) after previous treatment for CIN 2+; (d) in the setting of inadequate biopsies of the cervix to confirm histologic diagnosis; and (e) if cancer is suspected (EIII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -6045,36 +6280,174 @@ export const ManageRareAbnormality = {
                               } ]
                            } ]
                         }, {
-                           "name" : "MostRecentBiopsyReportWasWithinPastYear",
-                           "type" : "ExpressionRef"
-                        } ]
-                     }, {
-                        "type" : "Query",
-                        "source" : [ {
-                           "alias" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
-                           "expression" : {
+                           "type" : "Or",
+                           "operand" : [ {
                               "name" : "HistologyInterpretedAsUnspecifiedHsil",
                               "type" : "ExpressionRef"
-                           }
-                        } ],
-                        "relationship" : [ ]
+                           }, {
+                              "name" : "HistologyInterpretedAsCin2",
+                              "type" : "ExpressionRef"
+                           } ]
+                        } ]
+                     }, {
+                        "name" : "HasHistologyInterpretedAsUnspecifiedHsilOrCin2BeforeMostRecentBiopsy",
+                        "type" : "ExpressionRef"
                      } ]
                   },
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "If the histologic HSIL cannot be specified as CIN 2, treatment is preferred, but observation is acceptable if there are concerns related to future pregnancies (CIII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.",
+                           "value" : "Managing Histology (I.3)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "If CIN 2 remains present for a 2-year period, treatment is recommended (CII).",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "And",
+                                 "operand" : [ {
+                                    "type" : "GreaterOrEqual",
+                                    "operand" : [ {
+                                       "precision" : "Year",
+                                       "type" : "CalculateAge",
+                                       "operand" : {
+                                          "path" : "birthDate.value",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "Patient",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }
+                                    }, {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                       "value" : "25",
+                                       "type" : "Literal"
+                                    } ]
+                                 }, {
+                                    "type" : "LessOrEqual",
+                                    "operand" : [ {
+                                       "precision" : "Year",
+                                       "type" : "CalculateAge",
+                                       "operand" : {
+                                          "path" : "birthDate.value",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "Patient",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }
+                                    }, {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                       "value" : "50",
+                                       "type" : "Literal"
+                                    } ]
+                                 } ]
+                              }, {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "name" : "InitialCervicalHistologyInterpretedAsUnspecifiedHsilOrCin2InLast6Years",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 }
+                              } ]
+                           }, {
+                              "type" : "Equal",
+                              "operand" : [ {
+                                 "type" : "Count",
+                                 "source" : {
+                                    "name" : "SubsequentLowGradeHistologyReportsSinceInitialUnspecifiedHsilOrCin2InLast6Years",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }, {
+                                 "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                 "value" : "5",
+                                 "type" : "Literal"
+                              } ]
+                           } ]
+                        }, {
+                           "type" : "GreaterOrEqual",
+                           "operand" : [ {
+                              "type" : "Count",
+                              "source" : {
+                                 "name" : "SubsequentLowGradeCytologyReportsSinceInitialUnspecifiedHsilOrCin2InLast6Years",
+                                 "type" : "ExpressionRef"
+                              }
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "5",
+                              "type" : "Literal"
+                           } ]
+                        } ]
+                     }, {
+                        "name" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
+                        "type" : "ExpressionRef"
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Managing Histology (I.3)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Surveillance with HPV-based testing is recommended every 3 years for 25 years after histologic HSIL (unspecified or CIN2) even if beyond the age of 65 (BII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -6153,127 +6526,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Subsequent surveillance with colposcopy and HPV-based testing should occur every year since the patient has demonstrated less than CIN2 and less than ASC-H during surveillance following a histologic unspecified or CIN2 result.",
+                           "value" : "Managing Histology (I.3)",
                            "type" : "Literal"
                         }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "And",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "type" : "GreaterOrEqual",
-                                    "operand" : [ {
-                                       "precision" : "Year",
-                                       "type" : "CalculateAge",
-                                       "operand" : {
-                                          "path" : "birthDate.value",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "Patient",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }
-                                    }, {
-                                       "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                       "value" : "25",
-                                       "type" : "Literal"
-                                    } ]
-                                 }, {
-                                    "type" : "LessOrEqual",
-                                    "operand" : [ {
-                                       "precision" : "Year",
-                                       "type" : "CalculateAge",
-                                       "operand" : {
-                                          "path" : "birthDate.value",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "Patient",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }
-                                    }, {
-                                       "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                       "value" : "50",
-                                       "type" : "Literal"
-                                    } ]
-                                 } ]
-                              }, {
-                                 "type" : "Not",
-                                 "operand" : {
-                                    "type" : "IsNull",
-                                    "operand" : {
-                                       "name" : "InitialCervicalHistologyInterpretedAsUnspecifiedHsilOrCin2InLast6Years",
-                                       "type" : "ExpressionRef"
-                                    }
-                                 }
-                              } ]
-                           }, {
-                              "type" : "GreaterOrEqual",
-                              "operand" : [ {
-                                 "type" : "Count",
-                                 "source" : {
-                                    "name" : "SubsequentLowGradeHistologyReportsSinceInitialUnspecifiedHsilOrCin2InLast6Years",
-                                    "type" : "ExpressionRef"
-                                 }
-                              }, {
-                                 "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                 "value" : "5",
-                                 "type" : "Literal"
-                              } ]
-                           } ]
-                        }, {
-                           "type" : "GreaterOrEqual",
-                           "operand" : [ {
-                              "type" : "Count",
-                              "source" : {
-                                 "name" : "SubsequentLowGradeCytologyReportsSinceInitialUnspecifiedHsilOrCin2InLast6Years",
-                                 "type" : "ExpressionRef"
-                              }
-                           }, {
-                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                              "value" : "5",
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Subsequent surveillance with HPV-based testing should occur every year since the patient has demonstrated less than CIN2 and less than ASC-H during surveillance following a histologic unspecified or CIN2 result.",
                               "type" : "Literal"
                            } ]
-                        } ]
-                     }, {
-                        "name" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
-                        "type" : "ExpressionRef"
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Surveillance testing with colposcopy and HPV-based testing is recommended every 3 years for 25 years after histologic HSIL (unspecified or CIN2) even if beyond the age of 65 (BII).",
-                           "type" : "Literal"
                         }
                      } ]
                   }
@@ -6322,35 +6601,143 @@ export const ManageRareAbnormality = {
                               } ]
                            } ]
                         }, {
-                           "type" : "Or",
-                           "operand" : [ {
-                              "name" : "HistologyInterpretedAsUnspecifiedHsil",
-                              "type" : "ExpressionRef"
-                           }, {
-                              "name" : "HistologyInterpretedAsCin2",
-                              "type" : "ExpressionRef"
-                           } ]
+                           "name" : "MostRecentBiopsyReportWasWithinPastYear",
+                           "type" : "ExpressionRef"
                         } ]
                      }, {
-                        "name" : "HasHistologyInterpretedAsUnspecifiedHsilOrCin2BeforeMostRecentBiopsy",
+                        "type" : "Query",
+                        "source" : [ {
+                           "alias" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
+                           "expression" : {
+                              "name" : "HistologyInterpretedAsUnspecifiedHsil",
+                              "type" : "ExpressionRef"
+                           }
+                        } ],
+                        "relationship" : [ ]
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Managing Histology (I.3)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "If the histologic HSIL cannot be specified as CIN 2, treatment is preferred, but observation is acceptable if there are concerns related to future pregnancies (CIII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "GreaterOrEqual",
+                                 "operand" : [ {
+                                    "precision" : "Year",
+                                    "type" : "CalculateAge",
+                                    "operand" : {
+                                       "path" : "birthDate.value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Patient",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "25",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "type" : "LessOrEqual",
+                                 "operand" : [ {
+                                    "precision" : "Year",
+                                    "type" : "CalculateAge",
+                                    "operand" : {
+                                       "path" : "birthDate.value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Patient",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "50",
+                                    "type" : "Literal"
+                                 } ]
+                              } ]
+                           }, {
+                              "name" : "MostRecentBiopsyReportWasWithinPastYear",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "name" : "HistologyInterpretedAsCin2",
+                           "type" : "ExpressionRef"
+                        } ]
+                     }, {
+                        "name" : "RecentlyRespondedYesToFuturePregnancyConcernsQuestion",
                         "type" : "ExpressionRef"
                      } ]
                   },
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "If CIN 2 remains present for a 2-year period, treatment is recommended (CII).",
+                           "value" : "Managing Histology (I.3)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients with a diagnosis of histologic HSIL (CIN 2) whose concerns about the effects of treatment on a future pregnancy outweigh their concerns about cancer, either observation or treatment is acceptable provided the squamocolumnar junction is visible and CIN 2+ or ungraded CIN is not identified on endocervical sampling (CII). For patients 25 years or older, observation includes colposcopy and HPV-based testing with cotest or primary hrHPV testing at 6-month intervals for up to 2 years.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -6395,18 +6782,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "When CIN 2+ is not identified, HSIL cytology is managed more aggressively than ASC-H cytology. For cytology showing HSIL, but biopsy showing histologic LSIL (CIN 1) or less, either an immediate diagnostic excisional procedure or observation with HPV-based testing and colposcopy at 1 year is acceptable, provided in the latter case that the initial colposcopic examination fully visualized the squamocolumnar junction and the upper limit of any lesion, and that the endocervical sampling, if collected, was less than CIN 2 (BII). When CIN2+ is not identified histologically after an ASC-H or HSIL cytology result, it is acceptable to review the cytologic, histologic, and colposcopic findings. If the review yields a revised interpretation, management should follow guidelines for the revised diagnosis (CIII).",
+                           "value" : "Managing Histology (I.4.1)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "When CIN 2+ is not identified, HSIL cytology is managed more aggressively than ASC-H cytology. For cytology showing HSIL, but biopsy showing histologic LSIL (CIN 1) or less, either an immediate diagnostic excisional procedure or observation with HPV-based testing and colposcopy at 1 year is acceptable, provided in the latter case that the initial colposcopic examination fully visualized the squamocolumnar junction and the upper limit of any lesion, and that the endocervical sampling, if collected, was less than CIN 2 (BII). When CIN2+ is not identified histologically after an ASC-H or HSIL cytology result, it is acceptable to review the cytologic, histologic, and colposcopic findings. If the review yields a revised interpretation, management should follow guidelines for the revised diagnosis (CIII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -6451,382 +6853,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For ASC-H, if the colposcopic examination can fully visualize the squamocolumnar junction and the upper limit of any lesion and that the endocervical sampling, if collected, is negative, observation at 1 year with HPV-based testing with cotesting or primary hrHPV testing is recommended; a diagnostic excisional procedure is not recommended (BII).",
+                           "value" : "Managing Histology (I.4.2)",
                            "type" : "Literal"
                         }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "GreaterOrEqual",
-                        "operand" : [ {
-                           "precision" : "Year",
-                           "type" : "CalculateAge",
-                           "operand" : {
-                              "path" : "birthDate.value",
-                              "type" : "Property",
-                              "source" : {
-                                 "name" : "Patient",
-                                 "type" : "ExpressionRef"
-                              }
-                           }
-                        }, {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                           "value" : "25",
-                           "type" : "Literal"
-                        } ]
                      }, {
-                        "type" : "Or",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "type" : "And",
-                                    "operand" : [ {
-                                       "type" : "And",
-                                       "operand" : [ {
-                                          "name" : "MostRecentBiopsyReportWasWithinPast18months",
-                                          "type" : "ExpressionRef"
-                                       }, {
-                                          "name" : "HistologyInterpretedAsNormal",
-                                          "type" : "ExpressionRef"
-                                       } ]
-                                    }, {
-                                       "name" : "TwoMostRecentBiopsyReportsWithin18monthsApart",
-                                       "type" : "ExpressionRef"
-                                    } ]
-                                 }, {
-                                    "type" : "And",
-                                    "operand" : [ {
-                                       "type" : "And",
-                                       "operand" : [ {
-                                          "name" : "HasFirstNegativeSurveillanceTestAfterSecondMostRecentBiopsy",
-                                          "type" : "ExpressionRef"
-                                       }, {
-                                          "type" : "Greater",
-                                          "operand" : [ {
-                                             "path" : "date",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "FirstNegativeSurveillanceTestAfterSecondMostRecentBiopsy",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          }, {
-                                             "type" : "Subtract",
-                                             "operand" : [ {
-                                                "type" : "Now"
-                                             }, {
-                                                "value" : 18,
-                                                "unit" : "months",
-                                                "type" : "Quantity"
-                                             } ]
-                                          } ]
-                                       } ]
-                                    }, {
-                                       "type" : "And",
-                                       "operand" : [ {
-                                          "type" : "In",
-                                          "operand" : [ {
-                                             "path" : "date",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "FirstNegativeSurveillanceTestAfterSecondMostRecentBiopsy",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          }, {
-                                             "lowClosed" : false,
-                                             "highClosed" : true,
-                                             "type" : "Interval",
-                                             "low" : {
-                                                "path" : "date",
-                                                "type" : "Property",
-                                                "source" : {
-                                                   "name" : "SecondMostRecentBiopsyReport",
-                                                   "type" : "ExpressionRef"
-                                                }
-                                             },
-                                             "high" : {
-                                                "type" : "Add",
-                                                "operand" : [ {
-                                                   "path" : "date",
-                                                   "type" : "Property",
-                                                   "source" : {
-                                                      "name" : "SecondMostRecentBiopsyReport",
-                                                      "type" : "ExpressionRef"
-                                                   }
-                                                }, {
-                                                   "value" : 18,
-                                                   "unit" : "months",
-                                                   "type" : "Quantity"
-                                                } ]
-                                             }
-                                          } ]
-                                       }, {
-                                          "type" : "Not",
-                                          "operand" : {
-                                             "type" : "IsNull",
-                                             "operand" : {
-                                                "path" : "date",
-                                                "type" : "Property",
-                                                "source" : {
-                                                   "name" : "SecondMostRecentBiopsyReport",
-                                                   "type" : "ExpressionRef"
-                                                }
-                                             }
-                                          }
-                                       } ]
-                                    } ]
-                                 } ]
-                              }, {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "name" : "SecondMostRecentHistologyInterpretedAsCin1OrNormal",
-                                    "type" : "ExpressionRef"
-                                 }, {
-                                    "name" : "PrecedingCytologyBeforeSecondMostRecentBiopsyIsHsil",
-                                    "type" : "ExpressionRef"
-                                 } ]
-                              } ]
-                           }, {
-                              "type" : "Not",
-                              "operand" : {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "type" : "In",
-                                    "operand" : [ {
-                                       "name" : "MostRecentTreatmentDate",
-                                       "type" : "ExpressionRef"
-                                    }, {
-                                       "lowClosed" : false,
-                                       "highClosed" : true,
-                                       "type" : "Interval",
-                                       "low" : {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "SecondMostRecentBiopsyReport",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       },
-                                       "high" : {
-                                          "type" : "Add",
-                                          "operand" : [ {
-                                             "path" : "date",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "SecondMostRecentBiopsyReport",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          }, {
-                                             "value" : 1,
-                                             "unit" : "year",
-                                             "type" : "Quantity"
-                                          } ]
-                                       }
-                                    } ]
-                                 }, {
-                                    "type" : "Not",
-                                    "operand" : {
-                                       "type" : "IsNull",
-                                       "operand" : {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "SecondMostRecentBiopsyReport",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }
-                                    }
-                                 } ]
-                              }
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For ASC-H, if the colposcopic examination can fully visualize the squamocolumnar junction and the upper limit of any lesion and that the endocervical sampling, if collected, is negative, observation at 1 year with HPV-based testing with cotesting or primary hrHPV testing is recommended; a diagnostic excisional procedure is not recommended (BII).",
+                              "type" : "Literal"
                            } ]
-                        }, {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "type" : "And",
-                                    "operand" : [ {
-                                       "name" : "HasFirstNegativeSurveillanceTestAfterMostRecentBiopsy",
-                                       "type" : "ExpressionRef"
-                                    }, {
-                                       "type" : "Greater",
-                                       "operand" : [ {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "FirstNegativeSurveillanceTestAfterMostRecentBiopsy",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }, {
-                                          "type" : "Subtract",
-                                          "operand" : [ {
-                                             "type" : "Now"
-                                          }, {
-                                             "value" : 18,
-                                             "unit" : "months",
-                                             "type" : "Quantity"
-                                          } ]
-                                       } ]
-                                    } ]
-                                 }, {
-                                    "type" : "And",
-                                    "operand" : [ {
-                                       "type" : "In",
-                                       "operand" : [ {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "FirstNegativeSurveillanceTestAfterMostRecentBiopsy",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }, {
-                                          "lowClosed" : false,
-                                          "highClosed" : true,
-                                          "type" : "Interval",
-                                          "low" : {
-                                             "path" : "date",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "MostRecentBiopsyReport",
-                                                "libraryName" : "Collate",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          },
-                                          "high" : {
-                                             "type" : "Add",
-                                             "operand" : [ {
-                                                "path" : "date",
-                                                "type" : "Property",
-                                                "source" : {
-                                                   "name" : "MostRecentBiopsyReport",
-                                                   "libraryName" : "Collate",
-                                                   "type" : "ExpressionRef"
-                                                }
-                                             }, {
-                                                "value" : 18,
-                                                "unit" : "months",
-                                                "type" : "Quantity"
-                                             } ]
-                                          }
-                                       } ]
-                                    }, {
-                                       "type" : "Not",
-                                       "operand" : {
-                                          "type" : "IsNull",
-                                          "operand" : {
-                                             "path" : "date",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "MostRecentBiopsyReport",
-                                                "libraryName" : "Collate",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          }
-                                       }
-                                    } ]
-                                 } ]
-                              }, {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "name" : "HistologyInterpretedAsCin1OrNormal",
-                                    "type" : "ExpressionRef"
-                                 }, {
-                                    "name" : "PrecedingCytologyIsAscH",
-                                    "type" : "ExpressionRef"
-                                 } ]
-                              } ]
-                           }, {
-                              "type" : "Not",
-                              "operand" : {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "type" : "In",
-                                    "operand" : [ {
-                                       "name" : "MostRecentTreatmentDate",
-                                       "type" : "ExpressionRef"
-                                    }, {
-                                       "lowClosed" : false,
-                                       "highClosed" : true,
-                                       "type" : "Interval",
-                                       "low" : {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "MostRecentBiopsyReport",
-                                             "libraryName" : "Collate",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       },
-                                       "high" : {
-                                          "type" : "Add",
-                                          "operand" : [ {
-                                             "path" : "date",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "MostRecentBiopsyReport",
-                                                "libraryName" : "Collate",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          }, {
-                                             "value" : 1,
-                                             "unit" : "year",
-                                             "type" : "Quantity"
-                                          } ]
-                                       }
-                                    } ]
-                                 }, {
-                                    "type" : "Not",
-                                    "operand" : {
-                                       "type" : "IsNull",
-                                       "operand" : {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "MostRecentBiopsyReport",
-                                             "libraryName" : "Collate",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }
-                                    }
-                                 } ]
-                              }
-                           } ]
-                        } ]
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "HPV-based testing (i.e., cotesting or primary hrHPV testing) is recommended 1 year after the initial negative follow up result(s) when observation is elected after a histologic LSIL (CIN1) preceded by ASC-H or HSIL cytology.",
-                           "type" : "Literal"
                         }
                      } ]
                   }
@@ -7087,57 +7140,69 @@ export const ManageRareAbnormality = {
                                  } ]
                               } ]
                            }, {
-                              "type" : "Not",
-                              "operand" : {
-                                 "type" : "And",
-                                 "operand" : [ {
-                                    "type" : "In",
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "And",
                                     "operand" : [ {
-                                       "name" : "MostRecentTreatmentDate",
-                                       "type" : "ExpressionRef"
-                                    }, {
-                                       "lowClosed" : false,
-                                       "highClosed" : true,
-                                       "type" : "Interval",
-                                       "low" : {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "SecondMostRecentBiopsyReport",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       },
-                                       "high" : {
-                                          "type" : "Add",
-                                          "operand" : [ {
+                                       "type" : "In",
+                                       "operand" : [ {
+                                          "name" : "MostRecentTreatmentDate",
+                                          "type" : "ExpressionRef"
+                                       }, {
+                                          "lowClosed" : false,
+                                          "highClosed" : true,
+                                          "type" : "Interval",
+                                          "low" : {
                                              "path" : "date",
                                              "type" : "Property",
                                              "source" : {
-                                                "name" : "SecondMostRecentBiopsyReport",
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
                                                 "type" : "ExpressionRef"
                                              }
-                                          }, {
-                                             "value" : 1,
-                                             "unit" : "year",
-                                             "type" : "Quantity"
-                                          } ]
-                                       }
-                                    } ]
-                                 }, {
-                                    "type" : "Not",
-                                    "operand" : {
-                                       "type" : "IsNull",
+                                          },
+                                          "high" : {
+                                             "type" : "Add",
+                                             "operand" : [ {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "MostRecentBiopsyReport",
+                                                   "libraryName" : "Collate",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             }, {
+                                                "value" : 1,
+                                                "unit" : "year",
+                                                "type" : "Quantity"
+                                             } ]
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Not",
                                        "operand" : {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "SecondMostRecentBiopsyReport",
-                                             "type" : "ExpressionRef"
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
                                           }
                                        }
-                                    }
-                                 } ]
-                              }
+                                    } ]
+                                 }
+                              }, {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "MostRecentTreatment",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
                            } ]
                         }, {
                            "type" : "And",
@@ -7275,6 +7340,547 @@ export const ManageRareAbnormality = {
                                  } ]
                               } ]
                            }, {
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "type" : "In",
+                                       "operand" : [ {
+                                          "name" : "MostRecentTreatmentDate",
+                                          "type" : "ExpressionRef"
+                                       }, {
+                                          "lowClosed" : false,
+                                          "highClosed" : true,
+                                          "type" : "Interval",
+                                          "low" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          },
+                                          "high" : {
+                                             "type" : "Add",
+                                             "operand" : [ {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "MostRecentBiopsyReport",
+                                                   "libraryName" : "Collate",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             }, {
+                                                "value" : 1,
+                                                "unit" : "year",
+                                                "type" : "Quantity"
+                                             } ]
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Not",
+                                       "operand" : {
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }
+                                       }
+                                    } ]
+                                 }
+                              }, {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "MostRecentTreatment",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
+                           } ]
+                        } ]
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Managing Histology (I.4.3.2)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Retest with HPV-based testing (i.e., cotesting or primary hrHPV testing) every 3 years after surveillance tests are negative during the 2-year observation period following histologic LSIL (CIN1) or less preceded by ASC-H or HSIL cytology. Proceed with long-term surveillance (i.e., HPV-based testing every 3 years for at least 25 years, even if this is beyond the age of 65 years (BII).",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "GreaterOrEqual",
+                        "operand" : [ {
+                           "precision" : "Year",
+                           "type" : "CalculateAge",
+                           "operand" : {
+                              "path" : "birthDate.value",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Patient",
+                                 "type" : "ExpressionRef"
+                              }
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "25",
+                           "type" : "Literal"
+                        } ]
+                     }, {
+                        "type" : "Or",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "And",
+                                 "operand" : [ {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "type" : "And",
+                                       "operand" : [ {
+                                          "name" : "MostRecentBiopsyReportWasWithinPast18months",
+                                          "type" : "ExpressionRef"
+                                       }, {
+                                          "name" : "HistologyInterpretedAsNormal",
+                                          "type" : "ExpressionRef"
+                                       } ]
+                                    }, {
+                                       "name" : "TwoMostRecentBiopsyReportsWithin18monthsApart",
+                                       "type" : "ExpressionRef"
+                                    } ]
+                                 }, {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "type" : "And",
+                                       "operand" : [ {
+                                          "name" : "HasFirstNegativeSurveillanceTestAfterSecondMostRecentBiopsy",
+                                          "type" : "ExpressionRef"
+                                       }, {
+                                          "type" : "Greater",
+                                          "operand" : [ {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "FirstNegativeSurveillanceTestAfterSecondMostRecentBiopsy",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }, {
+                                             "type" : "Subtract",
+                                             "operand" : [ {
+                                                "type" : "Now"
+                                             }, {
+                                                "value" : 18,
+                                                "unit" : "months",
+                                                "type" : "Quantity"
+                                             } ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "type" : "And",
+                                       "operand" : [ {
+                                          "type" : "In",
+                                          "operand" : [ {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "FirstNegativeSurveillanceTestAfterSecondMostRecentBiopsy",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }, {
+                                             "lowClosed" : false,
+                                             "highClosed" : true,
+                                             "type" : "Interval",
+                                             "low" : {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "SecondMostRecentBiopsyReport",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             },
+                                             "high" : {
+                                                "type" : "Add",
+                                                "operand" : [ {
+                                                   "path" : "date",
+                                                   "type" : "Property",
+                                                   "source" : {
+                                                      "name" : "SecondMostRecentBiopsyReport",
+                                                      "type" : "ExpressionRef"
+                                                   }
+                                                }, {
+                                                   "value" : 18,
+                                                   "unit" : "months",
+                                                   "type" : "Quantity"
+                                                } ]
+                                             }
+                                          } ]
+                                       }, {
+                                          "type" : "Not",
+                                          "operand" : {
+                                             "type" : "IsNull",
+                                             "operand" : {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "SecondMostRecentBiopsyReport",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             }
+                                          }
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "type" : "And",
+                                 "operand" : [ {
+                                    "name" : "SecondMostRecentHistologyInterpretedAsCin1OrNormal",
+                                    "type" : "ExpressionRef"
+                                 }, {
+                                    "name" : "PrecedingCytologyBeforeSecondMostRecentBiopsyIsHsil",
+                                    "type" : "ExpressionRef"
+                                 } ]
+                              } ]
+                           }, {
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "type" : "In",
+                                       "operand" : [ {
+                                          "name" : "MostRecentTreatmentDate",
+                                          "type" : "ExpressionRef"
+                                       }, {
+                                          "lowClosed" : false,
+                                          "highClosed" : true,
+                                          "type" : "Interval",
+                                          "low" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "SecondMostRecentBiopsyReport",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          },
+                                          "high" : {
+                                             "type" : "Add",
+                                             "operand" : [ {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "SecondMostRecentBiopsyReport",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             }, {
+                                                "value" : 1,
+                                                "unit" : "year",
+                                                "type" : "Quantity"
+                                             } ]
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Not",
+                                       "operand" : {
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "SecondMostRecentBiopsyReport",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }
+                                       }
+                                    } ]
+                                 }
+                              }, {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "MostRecentTreatment",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
+                           } ]
+                        }, {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "And",
+                                 "operand" : [ {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "name" : "HasFirstNegativeSurveillanceTestAfterMostRecentBiopsy",
+                                       "type" : "ExpressionRef"
+                                    }, {
+                                       "type" : "Greater",
+                                       "operand" : [ {
+                                          "path" : "date",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "FirstNegativeSurveillanceTestAfterMostRecentBiopsy",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }, {
+                                          "type" : "Subtract",
+                                          "operand" : [ {
+                                             "type" : "Now"
+                                          }, {
+                                             "value" : 18,
+                                             "unit" : "months",
+                                             "type" : "Quantity"
+                                          } ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "type" : "In",
+                                       "operand" : [ {
+                                          "path" : "date",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "FirstNegativeSurveillanceTestAfterMostRecentBiopsy",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }, {
+                                          "lowClosed" : false,
+                                          "highClosed" : true,
+                                          "type" : "Interval",
+                                          "low" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          },
+                                          "high" : {
+                                             "type" : "Add",
+                                             "operand" : [ {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "MostRecentBiopsyReport",
+                                                   "libraryName" : "Collate",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             }, {
+                                                "value" : 18,
+                                                "unit" : "months",
+                                                "type" : "Quantity"
+                                             } ]
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Not",
+                                       "operand" : {
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }
+                                       }
+                                    } ]
+                                 } ]
+                              }, {
+                                 "type" : "And",
+                                 "operand" : [ {
+                                    "name" : "HistologyInterpretedAsCin1OrNormal",
+                                    "type" : "ExpressionRef"
+                                 }, {
+                                    "name" : "PrecedingCytologyIsAscH",
+                                    "type" : "ExpressionRef"
+                                 } ]
+                              } ]
+                           }, {
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "And",
+                                    "operand" : [ {
+                                       "type" : "In",
+                                       "operand" : [ {
+                                          "name" : "MostRecentTreatmentDate",
+                                          "type" : "ExpressionRef"
+                                       }, {
+                                          "lowClosed" : false,
+                                          "highClosed" : true,
+                                          "type" : "Interval",
+                                          "low" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          },
+                                          "high" : {
+                                             "type" : "Add",
+                                             "operand" : [ {
+                                                "path" : "date",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "MostRecentBiopsyReport",
+                                                   "libraryName" : "Collate",
+                                                   "type" : "ExpressionRef"
+                                                }
+                                             }, {
+                                                "value" : 1,
+                                                "unit" : "year",
+                                                "type" : "Quantity"
+                                             } ]
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Not",
+                                       "operand" : {
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }
+                                       }
+                                    } ]
+                                 }
+                              }, {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "MostRecentTreatment",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
+                           } ]
+                        } ]
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Managing Histology (I.4.3.1)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "HPV-based testing (i.e., cotesting or primary hrHPV testing) is recommended 1 year after the initial negative follow up result(s) when observation is elected after a histologic LSIL (CIN1) preceded by ASC-H or HSIL cytology.",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "GreaterOrEqual",
+                                 "operand" : [ {
+                                    "precision" : "Year",
+                                    "type" : "CalculateAge",
+                                    "operand" : {
+                                       "path" : "birthDate.value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Patient",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "25",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "name" : "HistologyInterpretedAsCin1OrNormal",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }, {
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "name" : "PrecedingCytologyIsHsil",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "name" : "PrecedingCytologyIsAscH",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           } ]
+                        }, {
+                           "type" : "Or",
+                           "operand" : [ {
                               "type" : "Not",
                               "operand" : {
                                  "type" : "And",
@@ -7329,6 +7935,161 @@ export const ManageRareAbnormality = {
                                     }
                                  } ]
                               }
+                           }, {
+                              "type" : "IsNull",
+                              "operand" : {
+                                 "name" : "MostRecentTreatment",
+                                 "type" : "ExpressionRef"
+                              }
+                           } ]
+                        } ]
+                     }, {
+                        "type" : "Or",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "name" : "CytologyInterpretedAsHsil",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "type" : "SameOrAfter",
+                                 "operand" : [ {
+                                    "path" : "date",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "MostRecentCytologyReport",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 }, {
+                                    "type" : "Add",
+                                    "operand" : [ {
+                                       "path" : "date",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "MostRecentBiopsyReport",
+                                          "libraryName" : "Collate",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }, {
+                                       "value" : 1,
+                                       "unit" : "year",
+                                       "type" : "Quantity"
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "type" : "In",
+                              "operand" : [ {
+                                 "path" : "date",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "MostRecentCytologyReport",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }, {
+                                 "lowClosed" : false,
+                                 "highClosed" : false,
+                                 "type" : "Interval",
+                                 "low" : {
+                                    "path" : "date",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "MostRecentBiopsyReport",
+                                       "libraryName" : "Collate",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 },
+                                 "high" : {
+                                    "type" : "Add",
+                                    "operand" : [ {
+                                       "path" : "date",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "MostRecentBiopsyReport",
+                                          "libraryName" : "Collate",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }, {
+                                       "value" : 3,
+                                       "unit" : "years",
+                                       "type" : "Quantity"
+                                    } ]
+                                 }
+                              } ]
+                           } ]
+                        }, {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "name" : "CytologyInterpretedAsAscH",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "type" : "SameOrAfter",
+                                 "operand" : [ {
+                                    "path" : "date",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "MostRecentCytologyReport",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 }, {
+                                    "type" : "Add",
+                                    "operand" : [ {
+                                       "path" : "date",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "MostRecentBiopsyReport",
+                                          "libraryName" : "Collate",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }, {
+                                       "value" : 2,
+                                       "unit" : "years",
+                                       "type" : "Quantity"
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "type" : "In",
+                              "operand" : [ {
+                                 "path" : "date",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "MostRecentCytologyReport",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }, {
+                                 "lowClosed" : false,
+                                 "highClosed" : false,
+                                 "type" : "Interval",
+                                 "low" : {
+                                    "path" : "date",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "MostRecentBiopsyReport",
+                                       "libraryName" : "Collate",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 },
+                                 "high" : {
+                                    "type" : "Add",
+                                    "operand" : [ {
+                                       "path" : "date",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "MostRecentBiopsyReport",
+                                          "libraryName" : "Collate",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }, {
+                                       "value" : 3,
+                                       "unit" : "years",
+                                       "type" : "Quantity"
+                                    } ]
+                                 }
+                              } ]
                            } ]
                         } ]
                      } ]
@@ -7336,18 +8097,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Retest with HPV-based testing (i.e., cotesting or primary hrHPV testing) every 3 years after surveillance tests are negative during the 2-year observation period following histologic LSIL (CIN1) or less preceded by ASC-H or HSIL cytology. Proceed with long-term surveillance (i.e., HPV-based testing every 3 years for at least 25 years, even if this is beyond the age of 65 years (BII).",
+                           "value" : "Managing Histology (I.4.5)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "A diagnostic excisional procedure is recommended for patients with HSIL cytology results at either the 1- or 2-year visit, or ASC-H results that persist at the 2-year visit (CIII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -7393,30 +8169,21 @@ export const ManageRareAbnormality = {
                               } ]
                            } ]
                         }, {
-                           "type" : "Not",
-                           "operand" : {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "In",
+                           "type" : "Or",
+                           "operand" : [ {
+                              "type" : "Not",
+                              "operand" : {
+                                 "type" : "And",
                                  "operand" : [ {
-                                    "name" : "MostRecentTreatmentDate",
-                                    "type" : "ExpressionRef"
-                                 }, {
-                                    "lowClosed" : false,
-                                    "highClosed" : true,
-                                    "type" : "Interval",
-                                    "low" : {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    },
-                                    "high" : {
-                                       "type" : "Add",
-                                       "operand" : [ {
+                                    "type" : "In",
+                                    "operand" : [ {
+                                       "name" : "MostRecentTreatmentDate",
+                                       "type" : "ExpressionRef"
+                                    }, {
+                                       "lowClosed" : false,
+                                       "highClosed" : true,
+                                       "type" : "Interval",
+                                       "low" : {
                                           "path" : "date",
                                           "type" : "Property",
                                           "source" : {
@@ -7424,29 +8191,47 @@ export const ManageRareAbnormality = {
                                              "libraryName" : "Collate",
                                              "type" : "ExpressionRef"
                                           }
-                                       }, {
-                                          "value" : 1,
-                                          "unit" : "year",
-                                          "type" : "Quantity"
-                                       } ]
-                                    }
-                                 } ]
-                              }, {
-                                 "type" : "Not",
-                                 "operand" : {
-                                    "type" : "IsNull",
+                                       },
+                                       "high" : {
+                                          "type" : "Add",
+                                          "operand" : [ {
+                                             "path" : "date",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "MostRecentBiopsyReport",
+                                                "libraryName" : "Collate",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }, {
+                                             "value" : 1,
+                                             "unit" : "year",
+                                             "type" : "Quantity"
+                                          } ]
+                                       }
+                                    } ]
+                                 }, {
+                                    "type" : "Not",
                                     "operand" : {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
+                                       "type" : "IsNull",
+                                       "operand" : {
+                                          "path" : "date",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "MostRecentBiopsyReport",
+                                             "libraryName" : "Collate",
+                                             "type" : "ExpressionRef"
+                                          }
                                        }
                                     }
-                                 }
-                              } ]
-                           }
+                                 } ]
+                              }
+                           }, {
+                              "type" : "IsNull",
+                              "operand" : {
+                                 "name" : "MostRecentTreatment",
+                                 "type" : "ExpressionRef"
+                              }
+                           } ]
                         } ]
                      }, {
                         "type" : "Or",
@@ -7746,284 +8531,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Colposcopy",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
                         "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "If any test is abnormal during the observation period after a HSIL and ASC-H cytology, a repeat colposcopy is recommended, and management based on resulting biopsies is recommended.",
-                           "type" : "Literal"
+                           "type" : "Today"
                         }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "type" : "And",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "GreaterOrEqual",
-                                 "operand" : [ {
-                                    "precision" : "Year",
-                                    "type" : "CalculateAge",
-                                    "operand" : {
-                                       "path" : "birthDate.value",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "Patient",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }
-                                 }, {
-                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
-                                    "value" : "25",
-                                    "type" : "Literal"
-                                 } ]
-                              }, {
-                                 "name" : "HistologyInterpretedAsCin1OrNormal",
-                                 "type" : "ExpressionRef"
-                              } ]
-                           }, {
-                              "type" : "Or",
-                              "operand" : [ {
-                                 "name" : "PrecedingCytologyIsHsil",
-                                 "type" : "ExpressionRef"
-                              }, {
-                                 "name" : "PrecedingCytologyIsAscH",
-                                 "type" : "ExpressionRef"
-                              } ]
-                           } ]
-                        }, {
-                           "type" : "Not",
-                           "operand" : {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "type" : "In",
-                                 "operand" : [ {
-                                    "name" : "MostRecentTreatmentDate",
-                                    "type" : "ExpressionRef"
-                                 }, {
-                                    "lowClosed" : false,
-                                    "highClosed" : true,
-                                    "type" : "Interval",
-                                    "low" : {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    },
-                                    "high" : {
-                                       "type" : "Add",
-                                       "operand" : [ {
-                                          "path" : "date",
-                                          "type" : "Property",
-                                          "source" : {
-                                             "name" : "MostRecentBiopsyReport",
-                                             "libraryName" : "Collate",
-                                             "type" : "ExpressionRef"
-                                          }
-                                       }, {
-                                          "value" : 1,
-                                          "unit" : "year",
-                                          "type" : "Quantity"
-                                       } ]
-                                    }
-                                 } ]
-                              }, {
-                                 "type" : "Not",
-                                 "operand" : {
-                                    "type" : "IsNull",
-                                    "operand" : {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }
-                                 }
-                              } ]
-                           }
-                        } ]
                      }, {
-                        "type" : "Or",
-                        "operand" : [ {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "name" : "CytologyInterpretedAsHsil",
-                                 "type" : "ExpressionRef"
-                              }, {
-                                 "type" : "SameOrAfter",
-                                 "operand" : [ {
-                                    "path" : "date",
-                                    "type" : "Property",
-                                    "source" : {
-                                       "name" : "MostRecentCytologyReport",
-                                       "type" : "ExpressionRef"
-                                    }
-                                 }, {
-                                    "type" : "Add",
-                                    "operand" : [ {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }, {
-                                       "value" : 1,
-                                       "unit" : "year",
-                                       "type" : "Quantity"
-                                    } ]
-                                 } ]
-                              } ]
-                           }, {
-                              "type" : "In",
-                              "operand" : [ {
-                                 "path" : "date",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "name" : "MostRecentCytologyReport",
-                                    "type" : "ExpressionRef"
-                                 }
-                              }, {
-                                 "lowClosed" : false,
-                                 "highClosed" : false,
-                                 "type" : "Interval",
-                                 "low" : {
-                                    "path" : "date",
-                                    "type" : "Property",
-                                    "source" : {
-                                       "name" : "MostRecentBiopsyReport",
-                                       "libraryName" : "Collate",
-                                       "type" : "ExpressionRef"
-                                    }
-                                 },
-                                 "high" : {
-                                    "type" : "Add",
-                                    "operand" : [ {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }, {
-                                       "value" : 3,
-                                       "unit" : "years",
-                                       "type" : "Quantity"
-                                    } ]
-                                 }
-                              } ]
-                           } ]
-                        }, {
-                           "type" : "And",
-                           "operand" : [ {
-                              "type" : "And",
-                              "operand" : [ {
-                                 "name" : "CytologyInterpretedAsAscH",
-                                 "type" : "ExpressionRef"
-                              }, {
-                                 "type" : "SameOrAfter",
-                                 "operand" : [ {
-                                    "path" : "date",
-                                    "type" : "Property",
-                                    "source" : {
-                                       "name" : "MostRecentCytologyReport",
-                                       "type" : "ExpressionRef"
-                                    }
-                                 }, {
-                                    "type" : "Add",
-                                    "operand" : [ {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }, {
-                                       "value" : 2,
-                                       "unit" : "years",
-                                       "type" : "Quantity"
-                                    } ]
-                                 } ]
-                              } ]
-                           }, {
-                              "type" : "In",
-                              "operand" : [ {
-                                 "path" : "date",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "name" : "MostRecentCytologyReport",
-                                    "type" : "ExpressionRef"
-                                 }
-                              }, {
-                                 "lowClosed" : false,
-                                 "highClosed" : false,
-                                 "type" : "Interval",
-                                 "low" : {
-                                    "path" : "date",
-                                    "type" : "Property",
-                                    "source" : {
-                                       "name" : "MostRecentBiopsyReport",
-                                       "libraryName" : "Collate",
-                                       "type" : "ExpressionRef"
-                                    }
-                                 },
-                                 "high" : {
-                                    "type" : "Add",
-                                    "operand" : [ {
-                                       "path" : "date",
-                                       "type" : "Property",
-                                       "source" : {
-                                          "name" : "MostRecentBiopsyReport",
-                                          "libraryName" : "Collate",
-                                          "type" : "ExpressionRef"
-                                       }
-                                    }, {
-                                       "value" : 3,
-                                       "unit" : "years",
-                                       "type" : "Quantity"
-                                    } ]
-                                 }
-                              } ]
-                           } ]
-                        } ]
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "Managing Histology (I.4.4)",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "details",
                         "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "A diagnostic excisional procedure is recommended for patients with HSIL cytology results at either the 1- or 2-year visit, or ASC-H results that persist at the 2-year visit (CIII).",
-                           "type" : "Literal"
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "If any test is abnormal during the observation period after a HSIL and ASC-H cytology, a repeat colposcopy is recommended, and management based on resulting biopsies is recommended.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -8074,18 +8608,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "For patients 25 years or older with histologic LSIL (CIN 1) who is diagnosed at consecutive visits for at least 2 years, observation is preferred (BII) but treatment is acceptable (CIII). If treatment is selected and the entire squamocolumnar junction and all lesions were fully visualized during colposcopic examination, either excision or ablation treatments are acceptable (CII).",
+                           "value" : "Managing Histology (I.5)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "For patients 25 years or older with histologic LSIL (CIN 1) who is diagnosed at consecutive visits for at least 2 years, observation is preferred (BII) but treatment is acceptable (CIII). If treatment is selected and the entire squamocolumnar junction and all lesions were fully visualized during colposcopic examination, either excision or ablation treatments are acceptable (CII).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -8124,18 +8673,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "A diagnostic excisional procedure is recommended for all patients with a diagnosis of AIS on cervical biopsy to rule out invasive adenocarcinoma, even when definitive hysterectomy is planned. Excisional procedures should optimally remove an intact specimen to facilitate accurate interpretation of margin status. Although there is no preference for cold knife conization versus LEEP, intentional disruption of the specimen by performance of a LEEP followed by a “top hat” endocervical excision to achieve the desired specimen length is unacceptable. An excisional specimen length of at least 10 mm is preferred, and this can be increased to 18 to 20 mm for patients who are not concerned about the effect of treatment on future pregnancy. These dimensions are preferred regardless of whether hysterectomy is planned. After the initial diagnostic procedure, hysterectomy is the preferred management for all patients who have a histologic diagnosis of AIS, although fertility-sparing management for appropriately selected patients is acceptable. For patients with confirmed AIS with negative margins on the excisional specimen, simple hysterectomy is preferred. For patients with confirmed AIS with positive margins on the excisional specimen, re-excision to achieve negative margins is preferred, even if hysterectomy is planned. For patients with AIS and persistent positive margins for whom additional excisional procedures are not feasible, either a simple or modified radical hysterectomy is acceptable. After hysterectomy, surveillance per the ASCCP surveillance guidelines for treated CIN 2+ is recommended (Section J.3).\n\nFor patients of reproductive age who desire future pregnancy, fertility-sparing management with an excisional procedure is acceptable provided that negative margins have been achieved on the excisional specimen, and the patient is willing and able to adhere to surveillance recommendations. If negative margins cannot be achieved after maximal excisional attempts, fertility-sparing management is not recommended. For patients who undergo fertility-sparing management, surveillance with cotesting and endocervical sampling is recommended every 6 months for at least 3 years, then annually for at least 2 years, or until hysterectomy is performed. For patients who have consistently negative cotesting and endocervical sampling results for 5 years, extending the surveillance interval to every 3 years starting in the sixth year of surveillance is acceptable. Small retrospective studies have shown HPV test results to be the best predictor for recurrent disease. Therefore, for patients who have consistently negative cotesting and endocervical sampling results, continued surveillance is acceptable after completion of childbearing. For patients who have had positive HPV test results or abnormal cytology/histologic results during surveillance, hysterectomy at the completion of childbearing is preferred (see Figure 11).",
+                           "value" : "Managing Histology (I.6)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "A diagnostic excisional procedure is recommended for all patients with a diagnosis of AIS on cervical biopsy to rule out invasive adenocarcinoma, even when definitive hysterectomy is planned. Excisional procedures should optimally remove an intact specimen to facilitate accurate interpretation of margin status. Although there is no preference for cold knife conization versus LEEP, intentional disruption of the specimen by performance of a LEEP followed by a 'top hat' endocervical excision to achieve the desired specimen length is unacceptable. An excisional specimen length of at least 10 mm is preferred, and this can be increased to 18 to 20 mm for patients who are not concerned about the effect of treatment on future pregnancy. These dimensions are preferred regardless of whether hysterectomy is planned. After the initial diagnostic procedure, hysterectomy is the preferred management for all patients who have a histologic diagnosis of AIS, although fertility-sparing management for appropriately selected patients is acceptable. For patients with confirmed AIS with negative margins on the excisional specimen, simple hysterectomy is preferred. For patients with confirmed AIS with positive margins on the excisional specimen, re-excision to achieve negative margins is preferred, even if hysterectomy is planned. For patients with AIS and persistent positive margins for whom additional excisional procedures are not feasible, either a simple or modified radical hysterectomy is acceptable. After hysterectomy, surveillance per the ASCCP surveillance guidelines for treated CIN 2+ is recommended (Section J.3).\n\nFor patients of reproductive age who desire future pregnancy, fertility-sparing management with an excisional procedure is acceptable provided that negative margins have been achieved on the excisional specimen, and the patient is willing and able to adhere to surveillance recommendations. If negative margins cannot be achieved after maximal excisional attempts, fertility-sparing management is not recommended. For patients who undergo fertility-sparing management, surveillance with cotesting and endocervical sampling is recommended every 6 months for at least 3 years, then annually for at least 2 years, or until hysterectomy is performed. For patients who have consistently negative cotesting and endocervical sampling results for 5 years, extending the surveillance interval to every 3 years starting in the sixth year of surveillance is acceptable. Small retrospective studies have shown HPV test results to be the best predictor for recurrent disease. Therefore, for patients who have consistently negative cotesting and endocervical sampling results, continued surveillance is acceptable after completion of childbearing. For patients who have had positive HPV test results or abnormal cytology/histologic results during surveillance, hysterectomy at the completion of childbearing is preferred (see Figure 11).",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -8148,16 +8712,31 @@ export const ManageRareAbnormality = {
                   "asTypeSpecifier" : {
                      "type" : "TupleTypeSpecifier",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}Date",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "group",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "details",
+                        "type" : {
+                           "type" : "ListTypeSpecifier",
+                           "elementType" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
                         }
                      } ]
                   }
@@ -9465,7 +10044,7 @@ export const ManageRareAbnormality = {
                                  } ]
                               }
                            }, {
-                              "value" : 3,
+                              "value" : 2,
                               "unit" : "years",
                               "type" : "Quantity"
                            } ]
@@ -9509,7 +10088,7 @@ export const ManageRareAbnormality = {
                                        } ]
                                     }
                                  }, {
-                                    "value" : 5,
+                                    "value" : 3,
                                     "unit" : "years",
                                     "type" : "Quantity"
                                  } ]
@@ -9587,7 +10166,7 @@ export const ManageRareAbnormality = {
                                  } ]
                               }
                            }, {
-                              "value" : 3,
+                              "value" : 2,
                               "unit" : "years",
                               "type" : "Quantity"
                            } ]
@@ -9631,7 +10210,7 @@ export const ManageRareAbnormality = {
                                        } ]
                                     }
                                  }, {
-                                    "value" : 5,
+                                    "value" : 3,
                                     "unit" : "years",
                                     "type" : "Quantity"
                                  } ]
@@ -9689,64 +10268,6 @@ export const ManageRareAbnormality = {
             "expression" : {
                "type" : "Case",
                "caseItem" : [ {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "name" : "HasTreatmentInLastYear",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "name" : "HasHistologicHsilWithin12MonthsBeforeTreatment",
-                        "type" : "ExpressionRef"
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "After treatment, hrHPV-based testing is preferred at 6 months regardless of the margin status of the excisional specimen (BII). hrHPV-based testing includes cotesting and primary hrHPV testing. Follow-up at 6 months with colposcopy and ECC is acceptable (BIII). When margins are positive for CIN 2+ or ECC performed at the time of the excisional procedure shows CIN 2+ in patients 25 years or older who are not concerned about the potential effect of treatment on future pregnancy outcomes, repeat excision or observation is acceptable. For observation, HPV-based testing in 6 months is preferred; it is also acceptable to perform a colposcopy and ECC at 6 months.",
-                           "type" : "Literal"
-                        }
-                     } ]
-                  }
-               }, {
-                  "when" : {
-                     "type" : "And",
-                     "operand" : [ {
-                        "name" : "PositiveHrHpvTestAfterTreatment",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "name" : "HasHistologicHsilWithin12MonthsBeforeTreatment",
-                        "type" : "ExpressionRef"
-                     } ]
-                  },
-                  "then" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "action",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
-                           "type" : "Literal"
-                        }
-                     }, {
-                        "name" : "text",
-                        "value" : {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "Colposcopy and appropriate biopsies should be performed if an hrHPV “positive” result after treatment for histologic HSIL (AIII).",
-                           "type" : "Literal"
-                        }
-                     } ]
-                  }
-               }, {
                   "when" : {
                      "type" : "And",
                      "operand" : [ {
@@ -9849,18 +10370,121 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "If recurrent histologic HSIL (CIN 2+) develops after excisional treatment, and repeat excision is not feasible or not desired, hysterectomy is recommended.",
+                           "value" : "Management Surveillance (J.2.3)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "If recurrent histologic HSIL (CIN 2+) develops after excisional treatment, and repeat excision is not feasible or not desired, hysterectomy is recommended.",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "name" : "PositiveHrHpvTestAfterTreatment",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "HasHistologicHsilWithin12MonthsBeforeTreatment",
+                        "type" : "ExpressionRef"
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Management Surveillance (J.2.2)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Colposcopy and appropriate biopsies should be performed if an hrHPV 'positive' result after treatment for histologic HSIL (AIII).",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "name" : "HasTreatmentInLastYear",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "HasHistologicHsilWithin12MonthsBeforeTreatment",
+                        "type" : "ExpressionRef"
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Management Surveillance (J.2.1)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "After treatment, hrHPV-based testing is preferred at 6 months regardless of the margin status of the excisional specimen (BII). hrHPV-based testing includes cotesting and primary hrHPV testing. Follow-up at 6 months with colposcopy and ECC is acceptable (BIII). When margins are positive for CIN 2+ or ECC performed at the time of the excisional procedure shows CIN 2+ in patients 25 years or older who are not concerned about the potential effect of treatment on future pregnancy outcomes, repeat excision or observation is acceptable. For observation, HPV-based testing in 6 months is preferred; it is also acceptable to perform a colposcopy and ECC at 6 months.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -9899,18 +10523,33 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "In patients treated for histologic or cytologic HSIL, after the initial HPV-based test at 6 months, annual HPV or cotesting is preferred until 3 consecutive negative tests have been obtained (AII). Discontinuation of screening is recommended if a patient has a limited life expectancy. Management according to the highest-grade abnormality found on histology or cytology is recommended.",
+                           "value" : "Management Surveillance (J.3.1)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "In patients treated for histologic or cytologic HSIL, after the initial HPV-based test at 6 months, annual HPV or cotesting is preferred until 3 consecutive negative tests have been obtained (AII). Discontinuation of screening is recommended if a patient has a limited life expectancy. Management according to the highest-grade abnormality found on histology or cytology is recommended.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -9946,18 +10585,95 @@ export const ManageRareAbnormality = {
                   "then" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "",
+                           "value" : "See Details",
                            "type" : "Literal"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
                         "value" : {
                            "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "In patients treated for histologic or cytologic HSIL, after the initial intensive surveillance period, continued surveillance at 3-year intervals is recommended for at least 25 years after treatment of high-grade histology (histologic HSIL, CIN 2, CIN 3, or AIS) or high-grade cytology (HSIL, AGC, or persistent ASC-H) even if this is beyond the age of 65 years (BII). When patients with a history of treated high-grade histology or cytology reach the age of 65 years, if they have completed the initial 25-year surveillance period, continued surveillance at 3-year intervals is acceptable and may continue as long as the patient is in reasonably good health (BIII). Discontinuation of screening is recommended if a patient has a limited life expectancy. Management according to the highest-grade abnormality found on histology or cytology is recommended.",
+                           "value" : "Management Surveillance (J.3.2)",
                            "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "In patients treated for histologic or cytologic HSIL, after the initial intensive surveillance period, continued surveillance at 3-year intervals is recommended for at least 25 years after treatment of high-grade histology (histologic HSIL, CIN 2, CIN 3, or AIS) or high-grade cytology (HSIL, AGC, or persistent ASC-H) even if this is beyond the age of 65 years (BII). When patients with a history of treated high-grade histology or cytology reach the age of 65 years, if they have completed the initial 25-year surveillance period, continued surveillance at 3-year intervals is acceptable and may continue as long as the patient is in reasonably good health (BIII). Discontinuation of screening is recommended if a patient has a limited life expectancy. Management according to the highest-grade abnormality found on histology or cytology is recommended.",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "when" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "And",
+                        "operand" : [ {
+                           "name" : "HasTreatmentForHighGradeHistologyOrCytology",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "type" : "Less",
+                           "operand" : [ {
+                              "name" : "TreatmentForHighGradeHistologyOrCytologyDate",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "type" : "Subtract",
+                              "operand" : [ {
+                                 "type" : "Now"
+                              }, {
+                                 "value" : 25,
+                                 "unit" : "years",
+                                 "type" : "Quantity"
+                              } ]
+                           } ]
+                        } ]
+                     }, {
+                        "name" : "InitialIntensiveSurveillancePeriod",
+                        "type" : "ExpressionRef"
+                     } ]
+                  },
+                  "then" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "short",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "See Details",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "date",
+                        "value" : {
+                           "type" : "Today"
+                        }
+                     }, {
+                        "name" : "group",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Management Surveillance (J.3.2)",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "details",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Continued surveillance with HPV testing or cotesting at 3-year intervals for at least 25 years is recommended after treatment and initial post-treatment management of histologic HSIL, CIN 2, CIN 3, or AIS.",
+                              "type" : "Literal"
+                           } ]
                         }
                      } ]
                   }
@@ -9970,16 +10686,31 @@ export const ManageRareAbnormality = {
                   "asTypeSpecifier" : {
                      "type" : "TupleTypeSpecifier",
                      "element" : [ {
-                        "name" : "action",
+                        "name" : "short",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
                         }
                      }, {
-                        "name" : "text",
+                        "name" : "date",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}Date",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "group",
                         "type" : {
                            "name" : "{urn:hl7-org:elm-types:r1}String",
                            "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "details",
+                        "type" : {
+                           "type" : "ListTypeSpecifier",
+                           "elementType" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
                         }
                      } ]
                   }

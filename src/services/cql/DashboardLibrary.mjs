@@ -209,6 +209,10 @@ export const DashboardLibrary = {
             "id" : "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.198",
             "accessLevel" : "Public"
          }, {
+            "name" : "Premenopausal",
+            "id" : "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.254",
+            "accessLevel" : "Public"
+         }, {
             "name" : "Diagnosis of Absence of cervix",
             "id" : "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.201",
             "accessLevel" : "Public"
@@ -233,8 +237,12 @@ export const DashboardLibrary = {
             "id" : "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.241",
             "accessLevel" : "Public"
          }, {
-            "name" : "Removal of Cervix Procedures",
+            "name" : "SNOMED Value Set for Removal of Cervix Procedures",
             "id" : "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.198.11.1027",
+            "accessLevel" : "Public"
+         }, {
+            "name" : "CPT Value Set for Removal of Cervix Procedures",
+            "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.198.11.1026",
             "accessLevel" : "Public"
          }, {
             "name" : "HPV Test",
@@ -440,6 +448,78 @@ export const DashboardLibrary = {
                "name" : "SNOMED-CT"
             }
          }, {
+            "name" : "SCC",
+            "id" : "1162767002",
+            "display" : "Squamous cell carcinoma (morphologic abnormality)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Atypical Endocervical Cells",
+            "id" : "441094005",
+            "display" : "Atypical endocervical cells on cervical Papanicolaou smear (finding)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Benign Endometrial Cells",
+            "id" : "125155008",
+            "display" : "Endometrial cells, cytologically benign, in a postmenopausal woman (finding)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Premenopausal Menorrhagia",
+            "id" : "627.0",
+            "display" : "Premenopausal menorrhagia",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "ICD-9"
+            }
+         }, {
+            "name" : "Excessive Bleeding in the Premenopausal Period",
+            "id" : "N92.4",
+            "display" : "Excessive bleeding in the premenopausal period",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "ICD-10"
+            }
+         }, {
+            "name" : "Postmenopausal",
+            "id" : "76498008",
+            "display" : "Postmenopausal state (finding)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Histiocytes",
+            "id" : "14295007",
+            "display" : "Resident tissue macrophage (cell)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "AGC Favor Neoplasia",
+            "id" : "373883009",
+            "display" : "Atypical glandular cells, favor neoplastic (morphologic abnormality)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Endocervical Cells Favor Neoplasia",
+            "id" : "373882004",
+            "display" : "Atypical endocervical cells, favor neoplastic (morphologic abnormality)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
             "name" : "Diagnosis of Genital GvHD",
             "id" : "GenitalGvHD",
             "display" : "Diagnosis of Genital GvHD",
@@ -475,6 +555,22 @@ export const DashboardLibrary = {
             "name" : "Future Pregnancy Concerns Question",
             "id" : "FPCQ",
             "display" : "Does the patient have future pregnancy concerns related to treatment options?",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOCAL"
+            }
+         }, {
+            "name" : "Benign Glandular Cells",
+            "id" : "BGC",
+            "display" : "Benign Glandular Cells",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOCAL"
+            }
+         }, {
+            "name" : "Endometrial Stromal Cells",
+            "id" : "ESC",
+            "display" : "Endometrial stromal cells",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOCAL"
@@ -694,15 +790,30 @@ export const DashboardLibrary = {
                            }
                         }, {
                            "when" : {
-                              "type" : "InValueSet",
-                              "code" : {
-                                 "name" : "c",
-                                 "type" : "AliasRef"
-                              },
-                              "valueset" : {
-                                 "name" : "HSIL",
-                                 "type" : "ValueSetRef"
-                              }
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "InValueSet",
+                                 "code" : {
+                                    "name" : "c",
+                                    "type" : "AliasRef"
+                                 },
+                                 "valueset" : {
+                                    "name" : "HSIL",
+                                    "type" : "ValueSetRef"
+                                 }
+                              }, {
+                                 "type" : "Equivalent",
+                                 "operand" : [ {
+                                    "name" : "c",
+                                    "type" : "AliasRef"
+                                 }, {
+                                    "type" : "ToConcept",
+                                    "operand" : {
+                                       "name" : "SCC",
+                                       "type" : "CodeRef"
+                                    }
+                                 } ]
+                              } ]
                            },
                            "then" : {
                               "type" : "Tuple",
@@ -1267,75 +1378,100 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Diagnosis of Cervical cancer",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Diagnosis of Cervical cancer",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "CervicalPrecancerDisorders",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Cervical Precancer Disorders",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Cervical Precancer Disorders",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "CervicalOrVaginalLesionDiagnoses",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Observed Cervical and/or Vaginal Lesions",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Observed Cervical and/or Vaginal Lesions",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "DesExposureDiagnoses",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Diethylstilbestrol (DES) exposure",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Diethylstilbestrol (DES) exposure",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "AbsenceOfCervixDiagnoses",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Diagnosis of Absence of cervix",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Diagnosis of Absence of cervix",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "PregnancyDiagnoses",
@@ -1346,7 +1482,7 @@ export const DashboardLibrary = {
                "libraryName" : "C3F",
                "type" : "FunctionRef",
                "operand" : [ {
-                  "name" : "ActiveOrRecurring",
+                  "name" : "ActiveCondition",
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
@@ -1389,30 +1525,40 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "HIV",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "HIV",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "SolidOrganTransplantDiagnoses",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Solid Organ Transplant Diagnosis Codes",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Solid Organ Transplant Diagnosis Codes",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "SystemicLupusErythematosusDiagnoses",
@@ -1421,28 +1567,38 @@ export const DashboardLibrary = {
             "expression" : {
                "type" : "Union",
                "operand" : [ {
-                  "dataType" : "{http://hl7.org/fhir}Condition",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                  "codeProperty" : "code",
-                  "codeComparator" : "in",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "name" : "Systemic Lupus Erythematosus",
-                     "type" : "ValueSetRef"
-                  }
-               }, {
-                  "dataType" : "{http://hl7.org/fhir}Condition",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                  "codeProperty" : "code",
-                  "codeComparator" : "~",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "type" : "ToList",
-                     "operand" : {
-                        "name" : "Systemic lupus erythematosus ICD-9-CM Code",
-                        "type" : "CodeRef"
+                  "name" : "ValidCondition",
+                  "libraryName" : "Common",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Systemic Lupus Erythematosus",
+                        "type" : "ValueSetRef"
                      }
-                  }
+                  } ]
+               }, {
+                  "name" : "ValidCondition",
+                  "libraryName" : "Common",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                     "codeProperty" : "code",
+                     "codeComparator" : "~",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "type" : "ToList",
+                        "operand" : {
+                           "name" : "Systemic lupus erythematosus ICD-9-CM Code",
+                           "type" : "CodeRef"
+                        }
+                     }
+                  } ]
                } ]
             }
          }, {
@@ -1450,15 +1606,20 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Hematopoietic stem cell transplant",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Hematopoietic stem cell transplant",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "InflammatoryBowelDisease",
@@ -1469,48 +1630,68 @@ export const DashboardLibrary = {
                "operand" : [ {
                   "type" : "Union",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}Condition",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                     "codeProperty" : "code",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "ICD10CM Value Set for Crohn's Disease",
-                        "type" : "ValueSetRef"
-                     }
+                     "name" : "ValidCondition",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "ICD10CM Value Set for Crohn's Disease",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
-                     "dataType" : "{http://hl7.org/fhir}Condition",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                     "codeProperty" : "code",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "SNOMED Value Set for Crohn's Disease",
-                        "type" : "ValueSetRef"
-                     }
+                     "name" : "ValidCondition",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "SNOMED Value Set for Crohn's Disease",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   } ]
                }, {
                   "type" : "Union",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}Condition",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                     "codeProperty" : "code",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "ICD10CM Value Set for Ulcerative Colitis",
-                        "type" : "ValueSetRef"
-                     }
+                     "name" : "ValidCondition",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "ICD10CM Value Set for Ulcerative Colitis",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
-                     "dataType" : "{http://hl7.org/fhir}Condition",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                     "codeProperty" : "code",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "SNOMED Value Set for Ulcerative Colitis",
-                        "type" : "ValueSetRef"
-                     }
+                     "name" : "ValidCondition",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "SNOMED Value Set for Ulcerative Colitis",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   } ]
                } ]
             }
@@ -1521,25 +1702,35 @@ export const DashboardLibrary = {
             "expression" : {
                "type" : "Union",
                "operand" : [ {
-                  "dataType" : "{http://hl7.org/fhir}Condition",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                  "codeProperty" : "code",
-                  "codeComparator" : "in",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "name" : "ICD10CM Value Set Adult Rheumatoid Arthritis",
-                     "type" : "ValueSetRef"
-                  }
+                  "name" : "ValidCondition",
+                  "libraryName" : "Common",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "ICD10CM Value Set Adult Rheumatoid Arthritis",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
                }, {
-                  "dataType" : "{http://hl7.org/fhir}Condition",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                  "codeProperty" : "code",
-                  "codeComparator" : "in",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "name" : "SNOMED Value Set for Adult Rheumatoid Arthritis",
-                     "type" : "ValueSetRef"
-                  }
+                  "name" : "ValidCondition",
+                  "libraryName" : "Common",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "SNOMED Value Set for Adult Rheumatoid Arthritis",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
                } ]
             }
          }, {
@@ -1561,26 +1752,31 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "name" : "CompletedMedicationRequest",
+               "name" : "MedicationRequestsWithOrderIntent",
                "libraryName" : "Common",
                "type" : "FunctionRef",
                "operand" : [ {
-                  "name" : "MedicationRequestLookBack",
-                  "libraryName" : "C3F",
+                  "name" : "CompletedMedicationRequest",
+                  "libraryName" : "Common",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Immunosuppressant medications for inflammatory bowel disease or rheumatoid arthritis",
-                        "type" : "ValueSetRef"
-                     }
-                  }, {
-                     "name" : "MedicationLookbackPeriod",
-                     "type" : "ParameterRef"
+                     "name" : "MedicationRequestLookBack",
+                     "libraryName" : "C3F",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Immunosuppressant medications for inflammatory bowel disease or rheumatoid arthritis",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "name" : "MedicationLookbackPeriod",
+                        "type" : "ParameterRef"
+                     } ]
                   } ]
                } ]
             }
@@ -1747,16 +1943,44 @@ export const DashboardLibrary = {
                "operand" : [ {
                   "type" : "Union",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}Condition",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                     "codeProperty" : "code",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Chronic Graft versus Host Disease",
-                        "type" : "ValueSetRef"
-                     }
+                     "name" : "ValidCondition",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Chronic Graft versus Host Disease",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
+                     "name" : "ValidCondition",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "~",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "type" : "ToList",
+                           "operand" : {
+                              "name" : "Chronic GvHD ICD-9 Code",
+                              "type" : "CodeRef"
+                           }
+                        }
+                     } ]
+                  } ]
+               }, {
+                  "name" : "ValidCondition",
+                  "libraryName" : "Common",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
                      "dataType" : "{http://hl7.org/fhir}Condition",
                      "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
                      "codeProperty" : "code",
@@ -1765,24 +1989,11 @@ export const DashboardLibrary = {
                      "codes" : {
                         "type" : "ToList",
                         "operand" : {
-                           "name" : "Chronic GvHD ICD-9 Code",
+                           "name" : "Chronic GvHD ICD-10 Code",
                            "type" : "CodeRef"
                         }
                      }
                   } ]
-               }, {
-                  "dataType" : "{http://hl7.org/fhir}Condition",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-                  "codeProperty" : "code",
-                  "codeComparator" : "~",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "type" : "ToList",
-                     "operand" : {
-                        "name" : "Chronic GvHD ICD-10 Code",
-                        "type" : "CodeRef"
-                     }
-                  }
                } ]
             }
          }, {
@@ -1866,18 +2077,23 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "~",
-               "type" : "Retrieve",
-               "codes" : {
-                  "type" : "ToList",
-                  "operand" : {
-                     "name" : "Diagnosis of Genital GvHD",
-                     "type" : "CodeRef"
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "~",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "type" : "ToList",
+                     "operand" : {
+                        "name" : "Diagnosis of Genital GvHD",
+                        "type" : "CodeRef"
+                     }
                   }
-               }
+               } ]
             }
          }, {
             "name" : "GenitalGraftVersusHostDiseaseDiagnosesAfterStemCell",
@@ -1964,15 +2180,100 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Condition",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
-               "codeProperty" : "code",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "Abnormal Uterine or Vaginal Bleeding Disorders",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "Abnormal Uterine or Vaginal Bleeding Disorders",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "PremenopausalConditions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveOrRecurring",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "ValidCondition",
+                  "libraryName" : "Common",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "type" : "Union",
+                        "operand" : [ {
+                           "dataType" : "{http://hl7.org/fhir}Condition",
+                           "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                           "codeProperty" : "code",
+                           "codeComparator" : "in",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "name" : "Premenopausal",
+                              "type" : "ValueSetRef"
+                           }
+                        }, {
+                           "dataType" : "{http://hl7.org/fhir}Condition",
+                           "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                           "codeProperty" : "code",
+                           "codeComparator" : "~",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "type" : "ToList",
+                              "operand" : {
+                                 "name" : "Premenopausal Menorrhagia",
+                                 "type" : "CodeRef"
+                              }
+                           }
+                        } ]
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}Condition",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                        "codeProperty" : "code",
+                        "codeComparator" : "~",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "type" : "ToList",
+                           "operand" : {
+                              "name" : "Excessive Bleeding in the Premenopausal Period",
+                              "type" : "CodeRef"
+                           }
+                        }
+                     } ]
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "PostmenopausalConditions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ValidCondition",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Condition",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                  "codeProperty" : "code",
+                  "codeComparator" : "~",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "type" : "ToList",
+                     "operand" : {
+                        "name" : "Postmenopausal",
+                        "type" : "CodeRef"
+                     }
+                  }
+               } ]
             }
          }, {
             "name" : "PertinentConditions",
@@ -1987,35 +2288,53 @@ export const DashboardLibrary = {
                      "operand" : [ {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "CervicalCancerDiagnoses",
-                           "type" : "ExpressionRef"
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "CervicalCancerDiagnoses",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "CervicalPrecancerDisorders",
+                              "type" : "ExpressionRef"
+                           } ]
                         }, {
-                           "name" : "CervicalPrecancerDisorders",
-                           "type" : "ExpressionRef"
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "CervicalOrVaginalLesionDiagnoses",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "DesExposureDiagnoses",
+                              "type" : "ExpressionRef"
+                           } ]
                         } ]
                      }, {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "DesExposureDiagnoses",
+                           "name" : "AbsenceOfCervixDiagnoses",
                            "type" : "ExpressionRef"
                         }, {
-                           "name" : "AbsenceOfCervixDiagnoses",
+                           "name" : "PregnancyDiagnoses",
                            "type" : "ExpressionRef"
                         } ]
                      } ]
                   }, {
                      "type" : "Union",
                      "operand" : [ {
-                        "name" : "PregnancyDiagnoses",
+                        "name" : "ImmunocompromisedConditions",
                         "type" : "ExpressionRef"
                      }, {
-                        "name" : "ImmunocompromisedConditions",
+                        "name" : "AbnormalUterineOrVaginalBleedingDiagnoses",
                         "type" : "ExpressionRef"
                      } ]
                   } ]
                }, {
-                  "name" : "AbnormalUterineOrVaginalBleedingDiagnoses",
-                  "type" : "ExpressionRef"
+                  "type" : "Union",
+                  "operand" : [ {
+                     "name" : "PremenopausalConditions",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "PostmenopausalConditions",
+                     "type" : "ExpressionRef"
+                  } ]
                } ]
             }
          }, {
@@ -2305,6 +2624,81 @@ export const DashboardLibrary = {
                } ]
             }
          }, {
+            "name" : "PremenopausalObservations",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "Verified",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "type" : "Union",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Observation",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Premenopausal",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}Observation",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
+                        "codeProperty" : "code",
+                        "codeComparator" : "~",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "type" : "ToList",
+                           "operand" : {
+                              "name" : "Premenopausal Menorrhagia",
+                              "type" : "CodeRef"
+                           }
+                        }
+                     } ]
+                  }, {
+                     "dataType" : "{http://hl7.org/fhir}Observation",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
+                     "codeProperty" : "code",
+                     "codeComparator" : "~",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "type" : "ToList",
+                        "operand" : {
+                           "name" : "Excessive Bleeding in the Premenopausal Period",
+                           "type" : "CodeRef"
+                        }
+                     }
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "PostmenopausalObservations",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "Verified",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Observation",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
+                  "codeProperty" : "code",
+                  "codeComparator" : "~",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "type" : "ToList",
+                     "operand" : {
+                        "name" : "Postmenopausal",
+                        "type" : "CodeRef"
+                     }
+                  }
+               } ]
+            }
+         }, {
             "name" : "ResponsesToAbnormalBleedingQuestion",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -2418,26 +2812,38 @@ export const DashboardLibrary = {
                         "operand" : [ {
                            "type" : "Union",
                            "operand" : [ {
-                              "name" : "AbnormalUterineOrVaginalBleedingObservations",
-                              "type" : "ExpressionRef"
+                              "type" : "Union",
+                              "operand" : [ {
+                                 "name" : "AbnormalUterineOrVaginalBleedingObservations",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "name" : "CervicalOrVaginalLesionObservations",
+                                 "type" : "ExpressionRef"
+                              } ]
                            }, {
-                              "name" : "CervicalOrVaginalLesionObservations",
-                              "type" : "ExpressionRef"
+                              "type" : "Union",
+                              "operand" : [ {
+                                 "name" : "PregnancyObservations",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "name" : "DesExposureObservations",
+                                 "type" : "ExpressionRef"
+                              } ]
                            } ]
                         }, {
                            "type" : "Union",
                            "operand" : [ {
-                              "name" : "PregnancyObservations",
+                              "name" : "AbsenceOfCervixObservations",
                               "type" : "ExpressionRef"
                            }, {
-                              "name" : "DesExposureObservations",
+                              "name" : "PremenopausalObservations",
                               "type" : "ExpressionRef"
                            } ]
                         } ]
                      }, {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "AbsenceOfCervixObservations",
+                           "name" : "PostmenopausalObservations",
                            "type" : "ExpressionRef"
                         }, {
                            "name" : "ResponsesToAbnormalBleedingQuestion",
@@ -3215,15 +3621,28 @@ export const DashboardLibrary = {
                "libraryName" : "C3F",
                "type" : "FunctionRef",
                "operand" : [ {
-                  "dataType" : "{http://hl7.org/fhir}Procedure",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Procedure",
-                  "codeProperty" : "code",
-                  "codeComparator" : "in",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "name" : "Removal of Cervix Procedures",
-                     "type" : "ValueSetRef"
-                  }
+                  "type" : "Union",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Procedure",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Procedure",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "SNOMED Value Set for Removal of Cervix Procedures",
+                        "type" : "ValueSetRef"
+                     }
+                  }, {
+                     "dataType" : "{http://hl7.org/fhir}Procedure",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Procedure",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "CPT Value Set for Removal of Cervix Procedures",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
                } ]
             }
          }, {
@@ -4384,15 +4803,20 @@ export const DashboardLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "dataType" : "{http://hl7.org/fhir}Immunization",
-               "templateId" : "http://hl7.org/fhir/StructureDefinition/Immunization",
-               "codeProperty" : "vaccineCode",
-               "codeComparator" : "in",
-               "type" : "Retrieve",
-               "codes" : {
-                  "name" : "HPV Immunization",
-                  "type" : "ValueSetRef"
-               }
+               "name" : "CompletedImmunization",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "dataType" : "{http://hl7.org/fhir}Immunization",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Immunization",
+                  "codeProperty" : "vaccineCode",
+                  "codeComparator" : "in",
+                  "type" : "Retrieve",
+                  "codes" : {
+                     "name" : "HPV Immunization",
+                     "type" : "ValueSetRef"
+                  }
+               } ]
             }
          }, {
             "name" : "PertinentImmunizations",
@@ -4611,6 +5035,202 @@ export const DashboardLibrary = {
                } ]
             }
          }, {
+            "name" : "RecentRareCytologyResults",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "LookBack",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "R",
+                     "expression" : {
+                        "name" : "CervicalCytologyReports",
+                        "type" : "ExpressionRef"
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "type" : "AnyTrue",
+                     "source" : {
+                        "type" : "Query",
+                        "source" : [ {
+                           "alias" : "cC",
+                           "expression" : {
+                              "path" : "conclusionCode",
+                              "scope" : "R",
+                              "type" : "Property"
+                           }
+                        } ],
+                        "relationship" : [ ],
+                        "return" : {
+                           "expression" : {
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "Or",
+                                 "operand" : [ {
+                                    "type" : "Or",
+                                    "operand" : [ {
+                                       "type" : "Or",
+                                       "operand" : [ {
+                                          "type" : "Or",
+                                          "operand" : [ {
+                                             "type" : "Or",
+                                             "operand" : [ {
+                                                "type" : "Or",
+                                                "operand" : [ {
+                                                   "type" : "Equivalent",
+                                                   "operand" : [ {
+                                                      "name" : "ToConcept",
+                                                      "libraryName" : "FHIRHelpers",
+                                                      "type" : "FunctionRef",
+                                                      "operand" : [ {
+                                                         "name" : "cC",
+                                                         "type" : "AliasRef"
+                                                      } ]
+                                                   }, {
+                                                      "type" : "ToConcept",
+                                                      "operand" : {
+                                                         "name" : "Benign Glandular Cells",
+                                                         "type" : "CodeRef"
+                                                      }
+                                                   } ]
+                                                }, {
+                                                   "type" : "Equivalent",
+                                                   "operand" : [ {
+                                                      "name" : "ToConcept",
+                                                      "libraryName" : "FHIRHelpers",
+                                                      "type" : "FunctionRef",
+                                                      "operand" : [ {
+                                                         "name" : "cC",
+                                                         "type" : "AliasRef"
+                                                      } ]
+                                                   }, {
+                                                      "type" : "ToConcept",
+                                                      "operand" : {
+                                                         "name" : "Benign Endometrial Cells",
+                                                         "type" : "CodeRef"
+                                                      }
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "type" : "Equivalent",
+                                                "operand" : [ {
+                                                   "name" : "ToConcept",
+                                                   "libraryName" : "FHIRHelpers",
+                                                   "type" : "FunctionRef",
+                                                   "operand" : [ {
+                                                      "name" : "cC",
+                                                      "type" : "AliasRef"
+                                                   } ]
+                                                }, {
+                                                   "type" : "ToConcept",
+                                                   "operand" : {
+                                                      "name" : "Endometrial Stromal Cells",
+                                                      "type" : "CodeRef"
+                                                   }
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "type" : "Equivalent",
+                                             "operand" : [ {
+                                                "name" : "ToConcept",
+                                                "libraryName" : "FHIRHelpers",
+                                                "type" : "FunctionRef",
+                                                "operand" : [ {
+                                                   "name" : "cC",
+                                                   "type" : "AliasRef"
+                                                } ]
+                                             }, {
+                                                "type" : "ToConcept",
+                                                "operand" : {
+                                                   "name" : "Histiocytes",
+                                                   "type" : "CodeRef"
+                                                }
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "type" : "Equivalent",
+                                          "operand" : [ {
+                                             "name" : "ToConcept",
+                                             "libraryName" : "FHIRHelpers",
+                                             "type" : "FunctionRef",
+                                             "operand" : [ {
+                                                "name" : "cC",
+                                                "type" : "AliasRef"
+                                             } ]
+                                          }, {
+                                             "type" : "ToConcept",
+                                             "operand" : {
+                                                "name" : "AGC Favor Neoplasia",
+                                                "type" : "CodeRef"
+                                             }
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "type" : "Equivalent",
+                                       "operand" : [ {
+                                          "name" : "ToConcept",
+                                          "libraryName" : "FHIRHelpers",
+                                          "type" : "FunctionRef",
+                                          "operand" : [ {
+                                             "name" : "cC",
+                                             "type" : "AliasRef"
+                                          } ]
+                                       }, {
+                                          "type" : "ToConcept",
+                                          "operand" : {
+                                             "name" : "Endocervical Cells Favor Neoplasia",
+                                             "type" : "CodeRef"
+                                          }
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "type" : "Equivalent",
+                                    "operand" : [ {
+                                       "name" : "ToConcept",
+                                       "libraryName" : "FHIRHelpers",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "name" : "cC",
+                                          "type" : "AliasRef"
+                                       } ]
+                                    }, {
+                                       "type" : "ToConcept",
+                                       "operand" : {
+                                          "name" : "Atypical Endocervical Cells",
+                                          "type" : "CodeRef"
+                                       }
+                                    } ]
+                                 } ]
+                              }, {
+                                 "type" : "InValueSet",
+                                 "code" : {
+                                    "name" : "ToConcept",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "name" : "cC",
+                                       "type" : "AliasRef"
+                                    } ]
+                                 },
+                                 "valueset" : {
+                                    "name" : "AIS",
+                                    "type" : "ValueSetRef"
+                                 }
+                              } ]
+                           }
+                        }
+                     }
+                  }
+               }, {
+                  "name" : "AbnormalTestLookbackPeriod",
+                  "type" : "ParameterRef"
+               } ]
+            }
+         }, {
             "name" : "HasRecentAbnormalCytologyResults",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -4622,16 +5242,33 @@ export const DashboardLibrary = {
                }
             }
          }, {
+            "name" : "HasRecentRareCytologyResults",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "RecentRareCytologyResults",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
             "name" : "HasRecentAbnormalScreening",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
                "type" : "Or",
                "operand" : [ {
-                  "name" : "HasRecentPositiveHpv",
-                  "type" : "ExpressionRef"
+                  "type" : "Or",
+                  "operand" : [ {
+                     "name" : "HasRecentPositiveHpv",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "HasRecentAbnormalCytologyResults",
+                     "type" : "ExpressionRef"
+                  } ]
                }, {
-                  "name" : "HasRecentAbnormalCytologyResults",
+                  "name" : "HasRecentRareCytologyResults",
                   "type" : "ExpressionRef"
                } ]
             }
@@ -5521,31 +6158,45 @@ export const DashboardLibrary = {
                         "value" : {
                            "type" : "Concatenate",
                            "operand" : [ {
-                              "name" : "ToString",
-                              "libraryName" : "FHIRHelpers",
-                              "type" : "FunctionRef",
+                              "type" : "Concatenate",
                               "operand" : [ {
-                                 "type" : "First",
-                                 "source" : {
-                                    "type" : "Flatten",
-                                    "operand" : {
-                                       "type" : "Query",
-                                       "source" : [ {
-                                          "alias" : "$this",
-                                          "expression" : {
-                                             "path" : "name",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "Patient",
-                                                "type" : "ExpressionRef"
+                                 "name" : "ToString",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "type" : "First",
+                                    "source" : {
+                                       "type" : "Flatten",
+                                       "operand" : {
+                                          "type" : "Query",
+                                          "source" : [ {
+                                             "alias" : "$this",
+                                             "expression" : {
+                                                "path" : "name",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "Patient",
+                                                   "type" : "ExpressionRef"
+                                                }
                                              }
-                                          }
-                                       } ],
-                                       "where" : {
-                                          "type" : "Not",
-                                          "operand" : {
-                                             "type" : "IsNull",
+                                          } ],
+                                          "where" : {
+                                             "type" : "Not",
                                              "operand" : {
+                                                "type" : "IsNull",
+                                                "operand" : {
+                                                   "path" : "given",
+                                                   "type" : "Property",
+                                                   "source" : {
+                                                      "name" : "$this",
+                                                      "type" : "AliasRef"
+                                                   }
+                                                }
+                                             }
+                                          },
+                                          "return" : {
+                                             "distinct" : false,
+                                             "expression" : {
                                                 "path" : "given",
                                                 "type" : "Property",
                                                 "source" : {
@@ -5554,20 +6205,13 @@ export const DashboardLibrary = {
                                                 }
                                              }
                                           }
-                                       },
-                                       "return" : {
-                                          "distinct" : false,
-                                          "expression" : {
-                                             "path" : "given",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "name" : "$this",
-                                                "type" : "AliasRef"
-                                             }
-                                          }
                                        }
                                     }
-                                 }
+                                 } ]
+                              }, {
+                                 "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                 "value" : " ",
+                                 "type" : "Literal"
                               } ]
                            }, {
                               "name" : "ToString",

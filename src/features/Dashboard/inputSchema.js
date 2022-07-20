@@ -153,67 +153,67 @@ export const inputSchema = {
             "name": { "type": "string" },
             "reference": { "type": "string" }
           }
-        }
-      },
-      "logicSummary": {
-        "description": "description",
-        "type": "string"
-      },
-      "logicCriteria": {
-        "description": "description",
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "title": {"type": "string" },
-            "groups": {
-              "description": "description",
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "description": "description",
-                    "type": "string"
-                  },
-                  "items": {
-                    "description": "description",
-                    "type": "array",
-                    "items": { "$ref": "#/$defs/historyItem" }
+        },
+        "logicSummary": {
+          "description": "description",
+          "type": "string"
+        },
+        "logicCriteria": {
+          "description": "description",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {"type": "string" },
+              "groups": {
+                "description": "description",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "description": "description",
+                      "type": "string"
+                    },
+                    "items": {
+                      "description": "description",
+                      "type": "array",
+                      "items": { "$ref": "#/$defs/historyItem" }
+                    }
                   }
                 }
               }
             }
           }
-        }
-      },
-      "timeline": {
-        "description": "description",
-        "type": "object",
-        "properties": {
-          "explanation": { "type": "string" },
-          "projection": {
-            "description": "description",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "era": {
-                  "description": "description",
-                  "type": "string"
-                },
-                "status": {
-                  "description": "description",
-                  "type": "string"
-                },
-                "options": {
-                  "description": "description",
-                  "type": "object",
-                  "properties": {
-                    "activity": { "type": "string" },
-                    "period": { "type": "string" },
-                    "detail": { "type": "string" },
-                    "duration": { "type": "string" }
+        },
+        "timeline": {
+          "description": "description",
+          "type": "object",
+          "properties": {
+            "explanation": { "type": "string" },
+            "projection": {
+              "description": "description",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "era": {
+                    "description": "description",
+                    "type": "string"
+                  },
+                  "status": {
+                    "description": "description",
+                    "type": "string"
+                  },
+                  "options": {
+                    "description": "description",
+                    "type": "object",
+                    "properties": {
+                      "activity": { "type": "string" },
+                      "period": { "type": "string" },
+                      "detail": { "type": "string" },
+                      "duration": { "type": "string" }
+                    }
                   }
                 }
               }

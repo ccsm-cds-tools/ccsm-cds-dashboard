@@ -6,7 +6,6 @@ import './style.scss';
 
 function Dashboard(props) {
 
-  console.log(props);
   const {
     input: {
       patientInfo={},

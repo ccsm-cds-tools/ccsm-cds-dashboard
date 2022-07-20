@@ -12,6 +12,7 @@ import {
 import TestPatientSelector from 'test/basic/TestPatientSelector';
 import TestPatient from 'test/basic/TestPatient';
 import { TestPatient as FhirTestPatient } from 'test/fhir/TestPatient';
+import { TestPatientSelector as FhirTestPatientSelector } from 'test/fhir/TestPatientSelector';
 
 document.body.className = 'bg-light';
 
@@ -26,6 +27,7 @@ function App() {
           </Route>
           <Route path="/tests-fhir" >
             <Route path=":testName" element={<FhirTestPatient />} />
+            <Route index element={<FhirTestPatientSelector/>} />
           </Route>
         </Routes>
       </Router>

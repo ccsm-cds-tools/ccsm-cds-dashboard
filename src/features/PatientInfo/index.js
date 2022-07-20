@@ -5,7 +5,10 @@ function PatientInfo(props) {
   const {input} = props;
 
   console.log(input);
+
   const dob = formatDateOfBirth(input?.dateOfBirth?.value);
+  const ids = input.id ?? [];
+  const actNum = ids.length > 0 ? ids[0]?.value : '';
 
   return (
     <section className="patient-info">
@@ -13,7 +16,7 @@ function PatientInfo(props) {
       <div className="patient-detail">
         <div className="id">
           <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div>
-          <div><b>Account Number:</b> <span>{input.id}</span></div>
+          <div><b>Account Number:</b> <span>{actNum}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant}</span></div>
         </div>
         <div className="info-items">
@@ -56,8 +59,6 @@ function formatDateOfBirth(dateOfBirth) {
   const day = String(dateOfBirth?.day ?? '');
   const month = String(dateOfBirth?.month ?? '');
   const year = String(dateOfBirth?.year ?? '');
-
-  console.log(day,month,year);
 
   const dobString = 
     month.padStart(2,'0') + ' / ' +

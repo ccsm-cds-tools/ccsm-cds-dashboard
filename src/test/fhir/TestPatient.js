@@ -16,6 +16,7 @@ export function TestPatient() {
   
   // Extract the data for the requested test patient
   if (params.testName in testData) {
+    console.log(params);
     if (patientData.length === 0) {
       const newData = testData[params.testName].entry.reduce((acc,cv) => {
         return [...acc, cv.resource];
@@ -36,7 +37,7 @@ export function TestPatient() {
     )
   } else {
     // TODO: Route back to TestPatientSelector
-    return <Navigate to="/tests-basic" replace={true} />
+    return <Navigate to="/tests-fhir" replace={true} />
   }
   
 }

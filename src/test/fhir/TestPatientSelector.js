@@ -3,7 +3,7 @@ import '../basic/TestPatientSelector.scss';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const commonData = [
+const screeningData = [
   {
     key: 'susan',
     name: 'Susan21 Holden65',
@@ -12,7 +12,18 @@ const commonData = [
     updated: '7/20/2022'
   }
 ];
-const commonPad = 1;
+const screeningPad = 1;
+
+const managementData = [
+  {
+    key: 'joanne',
+    name: 'Joanne42 Smith657',
+    age: '31',
+    scenario: 'Management Table 4.',
+    updated: '7/21/2022'
+  }
+];
+const managementPad = screeningPad + screeningData.length;
 
 const incompleteData = [
   {
@@ -30,7 +41,7 @@ const incompleteData = [
     updated: '7/20/2022'
   }
 ];
-const incompletePad = commonPad + commonData.length;
+const incompletePad = managementPad + managementData.length;
 
 export function TestPatientSelector() {
   return (
@@ -61,12 +72,17 @@ export function TestPatientSelector() {
 
           <tbody>
             <tr className="group">
-              <td colSpan="6">Common Scenario Patients</td>
+              <td colSpan="6">Screening Scenarios</td>
             </tr>
-            { commonData.map((rd,idx) => <IndexRow key={idx} index={commonPad+idx} rowData={rd} />) }
+            { screeningData.map((rd,idx) => <IndexRow key={idx} index={screeningPad+idx} rowData={rd} />) }
+            
+            <tr className="group">
+              <td colSpan="6">Management Scenarios</td>
+            </tr>
+            { managementData.map((rd,idx) => <IndexRow key={idx} index={managementPad+idx} rowData={rd} />) }
 
             <tr className="group">
-              <td colSpan="6">Missing/Incomplete Patient Data</td>
+              <td colSpan="6">Missing/Incomplete Data Scenarios</td>
             </tr>
             { incompleteData.map((rd,idx) => <IndexRow key={idx} index={incompletePad+idx} rowData={rd} />) }
 

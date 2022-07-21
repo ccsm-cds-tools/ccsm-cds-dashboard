@@ -28,7 +28,7 @@ export const useCds = (patientData) => {
 const applyCds = async function(patientData, setOutput) {
   console.log('patient data: ', patientData);
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
-  const planDefinition = resolver('PlanDefinition/CervicalCancerManagement')[0];
+  const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
   // TODO: Throw error if there is anything other than 1 patient resource
   const patientReference = 'Patient/' + patientData.filter(pd => pd.resourceType === 'Patient').map(pd => pd.id)[0];
   const WorkerFactory = () => {
@@ -45,8 +45,8 @@ const applyCds = async function(patientData, setOutput) {
   let DisplayCervicalCancerMedicalHistory = CommunicationRequests.filter(cr => {
     return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
   })[0];
-  let CervicalCancerManagementDecisionAids = CommunicationRequests.filter(cr => {
-    return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerManagementDecisionAids';
+  let CervicalCancerDecisionAids = CommunicationRequests.filter(cr => {
+    return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids';
   })[0];
   
   console.log('CDS output: ', CarePlan);
@@ -66,8 +66,8 @@ const applyCds = async function(patientData, setOutput) {
     thereAreOutputs = true;
   }
 
-  if (CervicalCancerManagementDecisionAids?.payload?.length > 0) {
-    let decisionsString = CervicalCancerManagementDecisionAids.payload[0].contentString;
+  if (CervicalCancerDecisionAids?.payload?.length > 0) {
+    let decisionsString = CervicalCancerDecisionAids.payload[0].contentString;
     let decisions = JSON.parse(decisionsString);
     decisionAids = decisions;
     thereAreOutputs = true;

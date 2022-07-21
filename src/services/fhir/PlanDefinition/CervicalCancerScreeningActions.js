@@ -1,6 +1,6 @@
-export const CervicalCancerManagementActions = {
+export const CervicalCancerScreeningActions = {
   "resourceType": "PlanDefinition",
-  "id": "CervicalCancerManagementActions",
+  "id": "CervicalCancerScreeningActions",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
@@ -44,9 +44,9 @@ export const CervicalCancerManagementActions = {
       "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
     }
   ],
-  "url": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerManagementActions",
-  "name": "CervicalCancerManagementActions",
-  "title": "CervicalCancerManagementActions",
+  "url": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerScreeningActions",
+  "name": "CervicalCancerScreeningActions",
+  "title": "CervicalCancerScreeningActions",
   "type": {
     "coding": [
       {
@@ -67,18 +67,18 @@ export const CervicalCancerManagementActions = {
   "relatedArtifact": [
     {
       "type": "citation",
-      "label": "ASCCP Recommendation",
-      "display": "ASCCP recommendation statement on cervical management (TODO: INSERT DATE HERE)"
+      "label": "USPSTF Recommendation",
+      "display": "U.S. Preventive Services Task Force's final recommendation statement on cervical cancer screening (August 21, 2018)"
     }
   ],
   "library": [
-    "http://OUR-PLACEHOLDER-URL.com/Library/ManagementLibrary|1.0.0"
+    "http://OUR-PLACEHOLDER-URL.com/Library/ScreeningLibrary|1.0.0"
   ],
   "action": [
     {
-      "title": "Management Decision Aids",
-      "description": "Management Decision Aids",
-      "textEquivalent": "Management Decision Aids",
+      "title": "Screening Decision Aids",
+      "description": "Screening Decision Aids",
+      "textEquivalent": "Screening Decision Aids",
       "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids|1.0.0",
       "dynamicValue": [
         {
@@ -86,27 +86,27 @@ export const CervicalCancerManagementActions = {
           "expression": {
             "language": "text/cql",
             "expression": "DecisionAids",
-            "reference": "Library/ManagementLibrary|1.0"
+            "reference": "Library/ScreeningLibrary|1.0"
           }
         }
       ]
     },
     {
-      "title": "Recommended Management Activities",
-      "description": "Recommended Management Activities",
-      "textEquivalent": "Recommended Management Activities",
+      "title": "Recommended Screening Activities",
+      "description": "Recommended Screening Activities",
+      "textEquivalent": "Recommended Screening Activities",
       "groupingBehavior": "visual-group",
       "selectionBehavior": "at-most-one",
       "action": [
         {
-          "title": "Colposcopy",
+          "title": "Primary HPV",
           "condition": [
             {
               "kind": "applicability",
               "expression": {
                 "language": "text/cql",
-                "expression": "RecommendColposcopy",
-                "reference": "Library/ManagementLibrary|1.0"
+                "expression": "RecommendPrimaryHpv",
+                "reference": "Library/ScreeningLibrary|1.0"
               }
             }
           ],
@@ -115,22 +115,22 @@ export const CervicalCancerManagementActions = {
               "path": "code",
               "expression": {
                 "language": "text/cql",
-                "expression": "ColposcopyOrderCode",
-                "reference": "Library/ManagementLibrary|1.0"
+                "expression": "PrimaryHpvOrderCode",
+                "reference": "Library/ScreeningLibrary|1.0"
               }
             }
           ],
-          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerManagementActivity|1.0.0"
+          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerScreeningActivity|1.0.0"
         },
         {
-          "title": "Surveillance",
+          "title": "Cytology",
           "condition": [
             {
               "kind": "applicability",
               "expression": {
                 "language": "text/cql",
-                "expression": "RecommendSurveillance",
-                "reference": "Library/ManagementLibrary|1.0"
+                "expression": "RecommendCytology",
+                "reference": "Library/ScreeningLibrary|1.0"
               }
             }
           ],
@@ -139,22 +139,22 @@ export const CervicalCancerManagementActions = {
               "path": "code",
               "expression": {
                 "language": "text/cql",
-                "expression": "SurveillanceOrderCode",
-                "reference": "Library/ManagementLibrary|1.0"
+                "expression": "CytologyOrderCode",
+                "reference": "Library/ScreeningLibrary|1.0"
               }
             }
           ],
-          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerManagementActivity|1.0.0"
+          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerScreeningActivity|1.0.0"
         },
         {
-          "title": "Treatment",
+          "title": "Cotesting",
           "condition": [
             {
               "kind": "applicability",
               "expression": {
                 "language": "text/cql",
-                "expression": "RecommendTreatment",
-                "reference": "Library/ManagementLibrary|1.0"
+                "expression": "RecommendCotesting",
+                "reference": "Library/ScreeningLibrary|1.0"
               }
             }
           ],
@@ -163,12 +163,12 @@ export const CervicalCancerManagementActions = {
               "path": "code",
               "expression": {
                 "language": "text/cql",
-                "expression": "TreatmentOrderCode",
-                "reference": "Library/ManagementLibrary|1.0"
+                "expression": "CotestingOrderCode",
+                "reference": "Library/ScreeningLibrary|1.0"
               }
             }
           ],
-          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerManagementActivity|1.0.0"
+          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerScreeningActivity|1.0.0"
         }
       ]
     }

@@ -1,6 +1,6 @@
-export const CervicalCytologyScreeningRecommendation = {
+export const CervicalCancerDecisionAids = {
   "resourceType": "ActivityDefinition",
-  "id": "CervicalCytologyScreeningRecommendation",
+  "id": "CervicalCancerDecisionAids",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableactivity"
@@ -44,9 +44,9 @@ export const CervicalCytologyScreeningRecommendation = {
       "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
     }
   ],
-  "url": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCytologyScreeningRecommendation",
-  "name": "CervicalCytologyScreeningRecommendation",
-  "title": "USPSTF Cervical Cancer Screening Recommendations: Cervical Cytology",
+  "url": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids",
+  "name": "CervicalCancerDecisionAids",
+  "title": "CervicalCancerDecisionAids",
   "description": "Natural language description of the activity definition",
   "purpose": "Why this activity definition is defined",
   "usage": "Describes the clinical usage of the activity definition",
@@ -55,35 +55,10 @@ export const CervicalCytologyScreeningRecommendation = {
       "text": "Insert mesh terms here"
     }
   ],
-  "relatedArtifact": [
-    {
-      "type": "citation",
-      "label": "USPSTF Recommendation",
-      "display": "U.S. Preventive Services Task Force's final recommendation statement on cervical cancer screening (August 21, 2018)"
-    }
-  ],
   "library": [
-    "http://OUR-PLACEHOLDER-URL.com/Library/ScreeningLibrary|1.0.0"
+    "http://OUR-PLACEHOLDER-URL.com/Library/ManagementLibrary|1.0.0"
   ],
-  "kind": "ServiceRequest",
+  "kind": "CommunicationRequest",
   "intent": "proposal",
-  "priority": "routine",
-  "dynamicValue": [
-    {
-      "path": "code",
-      "expression": {
-        "language": "text/cql",
-        "expression": "ServiceRequestCode",
-        "reference": "Library/ScreeningLibrary|1.0"
-      }
-    },
-    {
-      "path": "orderDetail",
-      "expression": {
-        "language": "text/cql",
-        "expression": "ServiceRequestOrderDetail",
-        "reference": "Library/ScreeningLibrary|1.0"
-      }
-    }
-  ]
+  "priority": "routine"
 }

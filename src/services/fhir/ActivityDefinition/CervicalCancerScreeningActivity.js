@@ -1,6 +1,6 @@
-export const CervicalCytologyScreeningRecommendation = {
+export const CervicalCancerScreeningActivity = {
   "resourceType": "ActivityDefinition",
-  "id": "CervicalCytologyScreeningRecommendation",
+  "id": "CervicalCancerScreeningActivity",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableactivity"
@@ -44,9 +44,9 @@ export const CervicalCytologyScreeningRecommendation = {
       "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
     }
   ],
-  "url": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCytologyScreeningRecommendation",
-  "name": "CervicalCytologyScreeningRecommendation",
-  "title": "USPSTF Cervical Cancer Screening Recommendations: Cervical Cytology",
+  "url": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerScreeningActivity",
+  "name": "CervicalCancerScreeningActivity",
+  "title": "CervicalCancerScreeningActivity",
   "description": "Natural language description of the activity definition",
   "purpose": "Why this activity definition is defined",
   "usage": "Describes the clinical usage of the activity definition",
@@ -69,14 +69,6 @@ export const CervicalCytologyScreeningRecommendation = {
   "intent": "proposal",
   "priority": "routine",
   "dynamicValue": [
-    {
-      "path": "code",
-      "expression": {
-        "language": "text/cql",
-        "expression": "ServiceRequestCode",
-        "reference": "Library/ScreeningLibrary|1.0"
-      }
-    },
     {
       "path": "orderDetail",
       "expression": {

@@ -1,6 +1,6 @@
-export const CervicalCancerScreening = {
+export const CervicalCancerScreeningAndManagementClinicalDecisionSupport = {
   "resourceType": "PlanDefinition",
-  "id": "CervicalCancerScreening",
+  "id": "CervicalCancerScreeningAndManagementClinicalDecisionSupport",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
@@ -44,9 +44,9 @@ export const CervicalCancerScreening = {
       "name": "Division of Cancer Prevention and Control, Centers for Disease Control and Prevention"
     }
   ],
-  "url": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerScreening",
-  "name": "CervicalCancerScreening",
-  "title": "Cervical Cancer Screening",
+  "url": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport",
+  "name": "CervicalCancerScreeningAndManagementClinicalDecisionSupport",
+  "title": "Cervical Cancer Screening And Management Clinical Decision Support",
   "type": {
     "coding": [
       {
@@ -96,72 +96,16 @@ export const CervicalCancerScreening = {
   ],
   "action": [
     {
-      "title": "Cervical Cancer Screening Actions",
+      "title": "Screening",
       "description": "Top level action that defines trigger and criteria for inclusion and exclusion.",
       "textEquivalent": "Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system",
-      "documentation": [
-        {
-          "type": "documentation",
-          "label": "Inclusions",
-          "display": "Appropriate for individuals whose sex at birth is recorded as Female or whose gender identity is recorded as Transgender Male."
-        }
-      ],
-      "trigger": [
-        {
-          "type": "named-event",
-          "name": "encounter-start"
-        }
-      ],
-      "condition": [
-        {
-          "kind": "applicability",
-          "expression": {
-            "language": "text/cql",
-            "expression": "IsIncludedAndNotExcluded",
-            "reference": "Library/ScreeningLibrary|1.0"
-          }
-        }
-      ],
-      "action": [
-        {
-          "title": "Display pertinent medical history",
-          "description": "DISPLAY data elements used in the Cervical Cancer Screening and Management Dashboard",
-          "textEquivalent": "Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system",
-          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory|1.0.0"
-        },
-        {
-          "title": "Screening Recommendations",
-          "description": "Brief description of the action",
-          "textEquivalent": "Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system",
-          "condition": [
-            {
-              "kind": "applicability",
-              "expression": {
-                "language": "text/cql",
-                "expression": "HasRecommendation",
-                "reference": "Library/ScreeningLibrary|1.0"
-              }
-            }
-          ],
-          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerScreeningActions|1.0.0"
-        },
-        {
-          "title": "Handle Errors",
-          "description": "Brief description of the action",
-          "textEquivalent": "Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system",
-          "condition": [
-            {
-              "kind": "applicability",
-              "expression": {
-                "language": "text/cql",
-                "expression": "ErrorsHaveOccurred",
-                "reference": "Library/ScreeningLibrary|1.0"
-              }
-            }
-          ],
-          "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/HandleErrors|1.0.0"
-        }
-      ]
+      "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerScreening|1.0.0"
+    },
+    {
+      "title": "Management",
+      "description": "Top level action that defines trigger and criteria for inclusion and exclusion.",
+      "textEquivalent": "Static text equivalent of the action, used if the dynamic aspects cannot be interpreted by the receiving system",
+      "definitionCanonical": "http://OUR-PLACEHOLDER-URL.com/PlanDefinition/CervicalCancerManagement|1.0.0"
     }
   ]
 }

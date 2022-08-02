@@ -1,39 +1,28 @@
 // ActivityDefinition resources
-import { CervicalCancerManagementActivity } from "./ActivityDefinition/CervicalCancerManagementActivity";
 import { CervicalCancerDecisionAids } from "./ActivityDefinition/CervicalCancerDecisionAids";
-import { CervicalCytologyScreeningRecommendation } from "./ActivityDefinition/CervicalCytologyScreeningRecommendation";
-import { ColposcopyActivityDefinition } from "./ActivityDefinition/ColposcopyActivityDefinition";
-import { CommunicateErrors } from "./ActivityDefinition/CommunicateErrors";
-import { CommunicateUnstructuredRecommendations } from "./ActivityDefinition/CommunicateUnstructuredRecommendations";
-import { CotestingScreeningRecommendation } from "./ActivityDefinition/CotestingScreeningRecommendation";
-import { DisplayCervicalCancerMedicalHistory } from "./ActivityDefinition/DisplayCervicalCancerMedicalHistory";
-import { PrimaryHpvScreeningRecommendation } from "./ActivityDefinition/PrimaryHpvScreeningRecommendation";
-import { SurveillanceActivityDefinition } from "./ActivityDefinition/SurveillanceActivityDefinition";
-import { TreatmentActivityDefinition } from "./ActivityDefinition/TreatmentActivityDefinition";
+import { CervicalCancerManagementActivity } from "./ActivityDefinition/CervicalCancerManagementActivity";
 import { CervicalCancerScreeningActivity } from "./ActivityDefinition/CervicalCancerScreeningActivity";
+import { CommunicateErrors } from "./ActivityDefinition/CommunicateErrors";
+import { DisplayCervicalCancerMedicalHistory } from "./ActivityDefinition/DisplayCervicalCancerMedicalHistory";
 
 // Library resources
 import { DashboardLibrary } from "./Library/DashboardLibrary";
 import { ManagementLibrary } from "./Library/ManagementLibrary";
+import { OrderSetLibrary } from "./Library/OrderSetLibrary";
 import { ScreeningAverageRiskLibrary } from "./Library/ScreeningAverageRiskLibrary";
 import { ScreeningDesExposureLibrary } from "./Library/ScreeningDesExposureLibrary";
 import { ScreeningImmunocompromisedLibrary } from "./Library/ScreeningImmunocompromisedLibrary";
 import { ScreeningLibrary } from "./Library/ScreeningLibrary";
+import { ScreeningSymptomaticLibrary } from "./Library/ScreeningSymptomaticLibrary";
 
 // PlanDefinition resources
 import { CervicalCancerManagement } from "./PlanDefinition/CervicalCancerManagement";
 import { CervicalCancerManagementActions } from "./PlanDefinition/CervicalCancerManagementActions";
 import { CervicalCancerScreening } from "./PlanDefinition/CervicalCancerScreening";
-import { CervicalCancerScreeningAverageRisk } from "./PlanDefinition/CervicalCancerScreeningAverageRisk";
-import { CervicalCancerScreeningDesExposure } from "./PlanDefinition/CervicalCancerScreeningDesExposure";
-import { CervicalCancerScreeningImmunocompromisedIndividuals } from "./PlanDefinition/CervicalCancerScreeningImmunocompromisedIndividuals";
-import { CervicalCancerScreeningSymptomaticIndividuals } from "./PlanDefinition/CervicalCancerScreeningSymptomaticIndividuals";
-import { HandleErrors } from "./PlanDefinition/HandleErrors";
-import { ManageCervicalCommonAbnormalities } from "./PlanDefinition/ManageCervicalCommonAbnormalities";
-import { ManageCervicalRareAbnormalities } from "./PlanDefinition/ManageCervicalRareAbnormalities";
-import { ManageCervicalSpecialPopulations } from "./PlanDefinition/ManageCervicalSpecialPopulations";
 import { CervicalCancerScreeningActions } from "./PlanDefinition/CervicalCancerScreeningActions";
-import { CervicalCancerScreeningAndManagementClinicalDecisionSupport } from "./PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport";
+import { 
+  CervicalCancerScreeningAndManagementClinicalDecisionSupport 
+} from "./PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport";
 
 // Questionnaire resources
 import { ProvideMoreInformation } from "./Questionnaire/ProvideMoreInformation";
@@ -49,35 +38,22 @@ import { HpvTestResult } from "./ValueSet/HpvTestResult";
 import { CervicalHistologyResult } from "./ValueSet/CervicalHistologyResult";
 
 export const cdsResources = [
-  CervicalCancerManagementActivity,
   CervicalCancerDecisionAids,
-  CervicalCytologyScreeningRecommendation,
-  ColposcopyActivityDefinition,
-  CommunicateErrors,
-  CommunicateUnstructuredRecommendations,
-  CotestingScreeningRecommendation,
-  DisplayCervicalCancerMedicalHistory,
-  PrimaryHpvScreeningRecommendation,
-  SurveillanceActivityDefinition,
-  TreatmentActivityDefinition,
+  CervicalCancerManagementActivity,
   CervicalCancerScreeningActivity,
+  CommunicateErrors,
+  DisplayCervicalCancerMedicalHistory,
   DashboardLibrary,
   ManagementLibrary,
+  OrderSetLibrary,
   ScreeningAverageRiskLibrary,
   ScreeningDesExposureLibrary,
   ScreeningImmunocompromisedLibrary,
   ScreeningLibrary,
+  ScreeningSymptomaticLibrary,
   CervicalCancerManagement,
   CervicalCancerManagementActions,
   CervicalCancerScreening,
-  CervicalCancerScreeningAverageRisk,
-  CervicalCancerScreeningDesExposure,
-  CervicalCancerScreeningImmunocompromisedIndividuals,
-  CervicalCancerScreeningSymptomaticIndividuals,
-  HandleErrors,
-  ManageCervicalCommonAbnormalities,
-  ManageCervicalRareAbnormalities,
-  ManageCervicalSpecialPopulations,
   CervicalCancerScreeningActions,
   CervicalCancerScreeningAndManagementClinicalDecisionSupport,
   ProvideMoreInformation,

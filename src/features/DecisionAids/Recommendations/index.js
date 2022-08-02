@@ -19,6 +19,7 @@ function Recommendations(props) {
   const [show, setShow] = useState(disclaimer !== '');
 
   const errorsExist = errors.length > 0;
+  if (show === false && errorsExist) setShow(true);
 
   return (
     <div>
@@ -30,7 +31,11 @@ function Recommendations(props) {
               <i className='bi bi-exclamation-triangle-fill text-danger'></i> :
               null
             }
-            { recommendation }
+            { 
+              errorsExist ?
+              'Cannot make recommendation' :
+              recommendation
+            }
           </Card.Title>
           <Card.Subtitle as='h4'>{recommendationGroup}</Card.Subtitle>
           {
@@ -41,7 +46,8 @@ function Recommendations(props) {
           <Alert 
             show={show} 
             variant={errorsExist ? 'danger' : 'warning'}
-            dismissible onClose={() => setShow(false)}
+            dismissible={!errorsExist}
+            onClose={() => setShow(false)}
           >
             {
               errorsExist ?

@@ -26,7 +26,6 @@ export const useCds = (patientData) => {
  * @param {function} setOutput 
  */
 const applyCds = async function(patientData, setOutput) {
-  console.log('patient data: ', patientData);
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
   // TODO: Throw error if there is anything other than 1 patient resource
@@ -47,6 +46,9 @@ const applyCds = async function(patientData, setOutput) {
   })[0];
   let CervicalCancerDecisionAids = CommunicationRequests.filter(cr => {
     return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids';
+  })[0];
+  let Errors = CommunicationRequests.filter(cr => {
+    return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
   })[0];
   
   console.log('CDS output: ', CarePlan);
@@ -70,6 +72,11 @@ const applyCds = async function(patientData, setOutput) {
     let decisionsString = CervicalCancerDecisionAids.payload[0].contentString;
     let decisions = JSON.parse(decisionsString);
     decisionAids = decisions;
+    thereAreOutputs = true;
+  } else if (Errors?.payload?.length > 0) {
+    let errorString = Errors.payload[0].contentString;
+    let errors = JSON.parse(errorString);
+    decisionAids = { errors };
     thereAreOutputs = true;
   }
 

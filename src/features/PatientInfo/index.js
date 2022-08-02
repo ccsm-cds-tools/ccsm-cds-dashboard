@@ -4,8 +4,6 @@ function PatientInfo(props) {
 
   const {input} = props;
 
-  console.log(input);
-
   const dob = formatDateOfBirth(input?.dateOfBirth?.value);
   const ids = input.id ?? [];
   const actNum = ids.length > 0 ? ids[0]?.value : '';

@@ -32,7 +32,10 @@ function Dashboard(props) {
           />
         </div>
         <div className="col-xl-6">
-          <DecisionAids input={decisionAids} />
+          <DecisionAids 
+            input={decisionAids}
+            resolver={resolver}
+          />
         </div>
       </div>
     </div>

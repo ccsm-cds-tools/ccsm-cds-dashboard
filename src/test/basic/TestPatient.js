@@ -60,7 +60,7 @@ function reshapeTestData(testData) {
       recommendationDetails: testData.recdetails,
       errors: testData.errors,
       disclaimer: testData.disclaimer,
-      suggestedOrder: testData.order,
+      suggestedOrders: testData.order,
       riskTable: testData.risk,
       references: testData.references,
       logicPath: testData.logicpath,

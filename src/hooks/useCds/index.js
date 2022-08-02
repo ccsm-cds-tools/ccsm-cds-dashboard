@@ -50,6 +50,24 @@ const applyCds = async function(patientData, setOutput) {
   let Errors = CommunicationRequests.filter(cr => {
     return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
   })[0];
+
+  let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');
+  let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.display === 'Primary HPV')[0];
+  let CytologyRequest = ServiceRequests.filter(sr => sr.code.display === 'Cytology')[0];
+  let CotestRequest = ServiceRequests.filter(sr => sr.code.display === 'Cotest')[0];
+  let ColposcopyRequest = ServiceRequests.filter(sr => sr.code.display === 'Colposcopy')[0];
+  let SurveillanceRequest = ServiceRequests.filter(sr => sr.code.display === 'Surveillance')[0];
+  let TreatmentRequest = ServiceRequests.filter(sr => sr.code.display === 'Treatment')[0];
+
+  resolver = simpleResolver(
+    [
+      ...cdsResources, 
+      ...patientData,
+      ...CommunicationRequests,
+      ...ServiceRequests
+    ], 
+    false
+  );
   
   console.log('CDS output: ', CarePlan);
   console.log('CDS output: ', RequestGroup);
@@ -72,6 +90,17 @@ const applyCds = async function(patientData, setOutput) {
     let decisionsString = CervicalCancerDecisionAids.payload[0].contentString;
     let decisions = JSON.parse(decisionsString);
     decisionAids = decisions;
+    decisionAids.suggestedOrders = decisionAids.suggestedOrders.map(so => {
+      switch (so) {
+        case 'Primary HPV': return {'Primary HPV': 'ServiceRequest/' + PrimaryHpvRequest.id};
+        case 'Cytology': return {'Cytology': 'ServiceRequest/' + CytologyRequest.id};
+        case 'Cotest': return {'Cotest': 'ServiceRequest/' + CotestRequest.id};
+        case 'Colposcopy': return {'Colposcopy': 'ServiceRequest/' + ColposcopyRequest.id};
+        case 'Surveillance': return {'Surveillance': 'ServiceRequest/' + SurveillanceRequest.id};
+        case 'Treatment': return {'Treatment': 'ServiceRequest/' + TreatmentRequest.id};
+        default: return null;
+      }
+    });
     thereAreOutputs = true;
   } else if (Errors?.payload?.length > 0) {
     let errorString = Errors.payload[0].contentString;
@@ -79,6 +108,9 @@ const applyCds = async function(patientData, setOutput) {
     decisionAids = { errors };
     thereAreOutputs = true;
   }
+
+  console.log(TreatmentRequest);
+  console.log(decisionAids.suggestedOrders);
 
   if (thereAreOutputs) {
     setOutput(

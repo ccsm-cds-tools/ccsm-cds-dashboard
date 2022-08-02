@@ -2,12 +2,17 @@ import { Button, Modal } from 'react-bootstrap';
 
 function ViewDataDialog(props) {
 
-  const { resolver, dataToView, setDataToView } = props;
+  const { 
+    resolver, 
+    dataToView,
+    setDataToView,
+    postLink=''
+  } = props;
 
   return (
     <Modal size="lg" show={dataToView !== ''} onHide={() => setDataToView('')}>
       <Modal.Header closeButton>
-          <Modal.Title>{'title'}</Modal.Title>
+          <Modal.Title>{'Details'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <pre>
@@ -15,9 +20,13 @@ function ViewDataDialog(props) {
           </pre>
         </Modal.Body>
         <Modal.Footer>
-          {/*<Button variant="primary" onClick={handleClose}>
-            Submit
-  </Button>*/}
+          {
+            postLink !== '' ?
+              <Button variant="primary" onClick={()=>{}}>
+                Order
+              </Button>
+            : null
+          }
           <Button variant="secondary" onClick={() => setDataToView('')}>
             Close
           </Button>

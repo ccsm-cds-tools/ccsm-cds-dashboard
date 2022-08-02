@@ -12,6 +12,9 @@ function RiskEstimates(props) {
       clarifications=[]
     }
   } = props;
+  const { input } = props;
+
+  if (Object.keys(input).length === 0) return null;
 
   return (
     <div className='risk'>

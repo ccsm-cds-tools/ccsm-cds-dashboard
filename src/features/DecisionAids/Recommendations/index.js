@@ -5,7 +5,7 @@ import RiskEstimates from 'features/DecisionAids/RiskEstimates';
 import './style.scss';
 
 function Recommendations(props) {
-  const { 
+  let { 
     input: {
       recommendation='',
       recommendationGroup='',
@@ -17,6 +17,16 @@ function Recommendations(props) {
     },
     resolver=()=>{}
   } = props;
+
+  if (riskTable === null) riskTable = {};
+  else {
+    if (riskTable?.relevant?.immediateRisk && riskTable.relevant.immediateRisk === -1) {
+      riskTable.relevant.immediateRisk =  'N/A';
+    }
+    if (riskTable?.relevant?.fiveYearRisk && riskTable.relevant.fiveYearRisk === -1) {
+      riskTable.relevant.fiveYearRisk =  'N/A';
+    }
+  }
 
   const [show, setShow] = useState(disclaimer !== '');
 
@@ -75,7 +85,7 @@ function RecommendationFooter(props) {
     setDataToView
   } = props;
   if (areErrs) return null
-  else if (sugOrds.length === 0) return <Alert variant='info'>No Action Necessary</Alert>
+  else if (sugOrds.length === 0) return null //return <Alert variant='info'>No Action Necessary</Alert>
   else return sugOrds.map(sugOrds => {
     let [order,reference] = Object.entries(sugOrds)[0];
     return <Button key={order} onClick={() => setDataToView(reference)}> Review {order} </Button>

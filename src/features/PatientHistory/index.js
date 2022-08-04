@@ -35,7 +35,14 @@ function PatientHistory(props) {
 function collateTableData(tables, input) {
   return tables.reduce((acc,table) => {
     const key = table.name;
-    const value = input[key];
+    let value = input[key] ?? [];
+    // Set status based upon whether there is a value
+    value = value.map(v => {
+      return {
+        ...v,
+        status: v.value ? 'complete' : 'incomplete'
+      };
+    });
     return {
       ...acc,
       [key]: value ?? []

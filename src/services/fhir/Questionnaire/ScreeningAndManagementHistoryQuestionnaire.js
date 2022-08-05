@@ -22,6 +22,22 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
   ],
   "item": [
     {
+      "linkId": "diagnostic-report-to-amend",
+      "text": "ID",
+      "type": "string",
+      "readOnly": "true",
+      "initial": {
+        "valueString": "n/a"
+      },
+      "enableWhen": [
+        {
+          "question": "diagnostic-report-to-amend",
+          "operator": "!=",
+          "answerString": "n/a"
+        }
+      ]
+    },
+    {
       "linkId": "test-type",
       "text": "Test Type",
       "required": true,

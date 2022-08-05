@@ -7,7 +7,8 @@ export function Questionnaire(props) {
     handleClose, 
     setPatientData,
     resolver,
-    patientReference
+    patientReference,
+    dataToEdit
   } = props;
 
   const saveResponses = (fhirQR) => {
@@ -23,6 +24,7 @@ export function Questionnaire(props) {
       questionnaire={fhirQuestionnaire}
       saveResponses={rsp => saveResponses(rsp)}
       resolver={resolver}
+      dataToEdit={dataToEdit}
     /> 
   )
 }

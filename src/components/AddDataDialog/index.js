@@ -1,7 +1,7 @@
 import { Modal } from 'react-bootstrap';
 import { Questionnaire } from './Questionnaire.js';
 
-function AddDataDialog(fhirQuestionnaire, meta, resolver=()=>{}, patientReference='') {
+function AddDataDialog(fhirQuestionnaire, meta, resolver=()=>{}, patientReference='', dataToEdit={form: '', data: ''}) {
 
   const { title, preamble } = meta;
 
@@ -25,6 +25,7 @@ function AddDataDialog(fhirQuestionnaire, meta, resolver=()=>{}, patientReferenc
             setPatientData={setPatientData}
             resolver={resolver}
             patientReference={patientReference}
+            dataToEdit={dataToEdit}
           />
         </Modal.Body>
       </Modal>

@@ -4,7 +4,12 @@ import "survey-react/defaultV2.min.css";
 import "./SurveyComponent.scss";
 
 export default function SurveyComponent(props) {
-  let {questionnaire, saveResponses, resolver} = props;
+  let {
+    questionnaire, 
+    saveResponses, 
+    resolver,
+    dataToEdit
+  } = props;
 
   // Create SurveyJS object from a FHIR Questionnaire
   const reactConverter = converter(FunctionFactory, Model, Serializer, StylesManager, resolver);
@@ -18,6 +23,16 @@ export default function SurveyComponent(props) {
   model.completeText = 'Submit';
   model.clearInvisibleValues = 'onHidden';
   model.requiredText = '';
+
+  let resourceToEdit = resolver(dataToEdit.data);
+  if (resourceToEdit.length > 0) {
+    resourceToEdit = resourceToEdit[0];
+    model.data = {
+      "diagnostic-report-to-amend": 'DiagnosticReport/' + resourceToEdit.id
+    };
+  }
+
+  // model.setValue('test-type', ['HPV', 'Cervical Cytlogy (Pap)']);
 
   return (
     <Survey

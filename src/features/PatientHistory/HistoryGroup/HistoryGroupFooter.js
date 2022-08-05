@@ -2,7 +2,12 @@ import { Button } from 'react-bootstrap';
 import plusSquare from 'assets/plus-square.svg';
 
 function HistoryGroupFooter(props) {
-  const { addButtonInfo, setWhichModal } = props;
+  const { 
+    addButtonInfo, 
+    formInfo,
+    setDataToEdit 
+  } = props;
+
   return (
     <div>
       {
@@ -11,7 +16,7 @@ function HistoryGroupFooter(props) {
           return (
             <span key={idx}>
               {idx > 0 ? '|' : ''}
-              <Button variant='link' onClick={() => setWhichModal(formId)} tabIndex={0} className='link-button'>
+              <Button variant='link' onClick={() => setDataToEdit({form: formInfo[formId], data: ''})} tabIndex={0} className='link-button'>
                 <img src={plusSquare} alt='' role='presentation' />
                 {buttonText}
               </Button>

@@ -109,9 +109,6 @@ const applyCds = async function(patientData, setOutput) {
     thereAreOutputs = true;
   }
 
-  console.log(TreatmentRequest);
-  console.log(decisionAids.suggestedOrders);
-
   if (thereAreOutputs) {
     setOutput(
       {

@@ -5,7 +5,8 @@ import './style.scss';
 function SortableTable(props) {
   const {
     header=[], 
-    rowData=[], 
+    rowData=[],
+    formInfo={},
     setDataToView=()=>{}
   } = props;
   const { items, requestSort, sortConfig } = useSortableData(rowData);
@@ -17,7 +18,7 @@ function SortableTable(props) {
   else return(
     <Table className='sortable'>
       <thead>
-        <tr>{ 
+        <tr>{
           header.map((hdr,idx) => {
             const ascOrDes = ascendingOrDescending(hdr.key);
             return (
@@ -48,7 +49,7 @@ function SortableTable(props) {
           const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
           return (
             <tr className={incompleteClass} key={idx}>
-              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm,setDataToView)}</td>) }
+              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm,formInfo,setDataToView)}</td>) }
             </tr>
           )
         })
@@ -62,7 +63,7 @@ function SortableTable(props) {
   )
 }
 
-function RenderRowElement(hdr, itm, setDataToView) {
+function RenderRowElement(hdr, itm, formInfo, setDataToView) {
   const { 
     key,
     detailKey=null
@@ -75,7 +76,7 @@ function RenderRowElement(hdr, itm, setDataToView) {
   )
   else if (key === 'status') {
     return (
-      <Button variant="link" onClick={() => setDataToView(itm?.reference)}>
+      <Button variant="link" onClick={() => setDataToView({form: formInfo, data: itm?.reference})}>
         {
           itm?.status === 'incomplete' ? 'Review' : 'View'
         }

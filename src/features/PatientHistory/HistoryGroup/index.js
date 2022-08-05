@@ -23,8 +23,8 @@ function HistoryGroup(props) {
     patientReference
   } = props;
 
-  const [whichModal, setWhichModal] = useState('');
-  const [dataToView, setDataToView] = useState('');
+  const [dataToView, setDataToView] = useState({form: '', data: ''});
+  const [dataToEdit, setDataToEdit] = useState({form: '', data: ''});
 
   const addButtonInfo = tables.reduce((acc,tbl) => ({...acc, [tbl.name]: tbl.addButtonText}), {});
   const formInfo = tables.reduce((acc,tbl) => ({...acc, [tbl.name]: tbl.form}), {});
@@ -42,20 +42,29 @@ function HistoryGroup(props) {
           const [tableName,rowData] = data;
           const header = tables.find(tbl => tbl.name === tableName).header;
           return (
-            <SortableTable key={idx} header={header} rowData={rowData} setDataToView={setDataToView}/>
+            <SortableTable key={idx} header={header} rowData={rowData} formInfo={formInfo[tableName]} setDataToView={setDataToView}/>
           )
         })
       }
-      <HistoryGroupFooter addButtonInfo={addButtonInfo} setWhichModal={setWhichModal} />
+      <HistoryGroupFooter 
+        addButtonInfo={addButtonInfo} 
+        formInfo={formInfo}
+        setDataToEdit={setDataToEdit} 
+      />
       <HistoryGroupModals 
         formInfo={formInfo} 
-        whichModal={whichModal} 
-        setWhichModal={setWhichModal} 
+        dataToEdit={dataToEdit} 
+        setDataToEdit={setDataToEdit} 
         setPatientData={setPatientData}
         resolver={resolver}
         patientReference={patientReference}
       />
-      <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} />
+      <ViewDataDialog 
+        resolver={resolver} 
+        dataToView={dataToView} 
+        setDataToView={setDataToView} 
+        setDataToEdit={setDataToEdit}
+      />
    </div>
   )
 

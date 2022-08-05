@@ -33,7 +33,7 @@ function Recommendations(props) {
   const errorsExist = errors.length > 0;
   if (show === false && errorsExist) setShow(true);
 
-  const [dataToView, setDataToView] = useState('');
+  const [dataToView, setDataToView] = useState({form: '', data: ''});
 
   return (
     <div>
@@ -88,7 +88,7 @@ function RecommendationFooter(props) {
   else if (sugOrds.length === 0) return null //return <Alert variant='info'>No Action Necessary</Alert>
   else return sugOrds.map(sugOrds => {
     let [order,reference] = Object.entries(sugOrds)[0];
-    return <Button key={order} onClick={() => setDataToView(reference)}> Review {order} </Button>
+    return <Button key={order} onClick={() => setDataToView({form: '', data: reference})}> Review {order} </Button>
   });
 }
 

@@ -340,7 +340,7 @@ export const testData = {
             "text": "Cervix Pathology biopsy report"
           },
           "conclusionCode": [],
-          "effectiveDateTime": "2021-10-25T00:00:00.000Z"
+          "effectiveDateTime": "2021-08-25T00:00:00.000Z"
         }
       },
       {

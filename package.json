@@ -1,6 +1,6 @@
 {
   "name": "ccsm-cds-dashboard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "homepage": "https://ccsm-cds-tools.github.io/ccsm-cds-dashboard/",
   "dependencies": {
@@ -45,7 +45,7 @@
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.0.1",
     "prompts": "^2.4.2",
-    "questionnaire-to-survey": "github:asbi-cds-tools/questionnaire-to-survey#valueset-support",
+    "questionnaire-to-survey": "^2.3.1",
     "react": "^18.1.0",
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap": "^2.3.1",

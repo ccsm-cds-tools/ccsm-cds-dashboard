@@ -8,14 +8,15 @@ function ViewDataDialog(props) {
     dataToView,
     setDataToView,
     postLink='',
-    allowEdit=true,
     setDataToEdit=()=>{}
   } = props;
 
   let [jsonString, setJsonString] = useState('');
+  let [allowEdit, setAllowEdit] = useState(false);
 
   useEffect(() => {
     setJsonString(JSON.stringify(resolver(dataToView.data), null, 2));
+    if (dataToView.form !== '') setAllowEdit(true);
   }, [dataToView]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

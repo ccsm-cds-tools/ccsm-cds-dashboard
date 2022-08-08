@@ -76,7 +76,12 @@ function RenderRowElement(hdr, itm, formInfo, setDataToView) {
   )
   else if (key === 'status') {
     return (
-      <Button variant="link" onClick={() => setDataToView({form: formInfo, data: itm?.reference})}>
+      <Button variant="link" onClick={() => setDataToView(
+        {
+          form: itm?.status === 'incomplete' ? formInfo : '',
+          data: itm?.reference
+        }
+      )}>
         {
           itm?.status === 'incomplete' ? 'Review' : 'View'
         }

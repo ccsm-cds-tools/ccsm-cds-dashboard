@@ -45,13 +45,51 @@ export const valueSetDb = {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.233": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "708298003",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
+      {
+        "code": "720005005",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
+      {
+        "code": "787724008",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.234": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "708298003",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
+      {
+        "code": "720005005",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.235": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "441087007",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
+      {
+        "code": "62051000119105",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.241": {
     "Latest": []
@@ -84,10 +122,22 @@ export const valueSetDb = {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.263": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "720005005",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.268": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "787724008",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.269": {
     "Latest": []
@@ -96,9 +146,6 @@ export const valueSetDb = {
     "Latest": []
   },
   "2.16.840.1.113883.3.3157.1315": {
-    "Latest": []
-  },
-  "2.16.840.1.113883.3.3616.200.110.102.3061": {
     "Latest": []
   },
   "2.16.840.1.113883.3.3616.200.110.102.3072": {
@@ -120,13 +167,30 @@ export const valueSetDb = {
     "Latest": []
   },
   "2.16.840.1.113883.3.464.1003.108.12.1017": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "10524-7",//KEEP
+        "system": "http://loinc.org",
+        "version": "2.72"
+      }
+    ]
   },
   "2.16.840.1.113883.3.464.1003.109.11.1025": {
     "Latest": []
   },
   "2.16.840.1.113883.3.464.1003.110.12.1059": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "21440-3",//KEEP
+        "system": "http://loinc.org",
+        "version": "2.72"
+      },
+      {
+        "code": "77379-6",//KEEP
+        "system": "http://loinc.org",
+        "version": "2.72"
+      }
+    ]
   },
   "2.16.840.1.113883.3.464.1003.120.12.1003": {
     "Latest": []

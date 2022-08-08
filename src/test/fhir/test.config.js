@@ -112,7 +112,7 @@ export const config = {
           form: {
             canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
             title: 'Add Result',
-            preamble: 'NOTIONAL - meant to represent simple form for adding data'
+            preamble: null
           }
         } 
       ]

@@ -27,12 +27,18 @@ export default function SurveyComponent(props) {
   let resourceToEdit = resolver(dataToEdit.data);
   if (resourceToEdit.length > 0) {
     resourceToEdit = resourceToEdit[0];
+
+    let testTypeValueSet = resolver('ValueSet/ScreeningAndManagementTestType')[0];
+    let testTypeKey = testTypeValueSet.compose.include[0].concept.filter(cnpt => {
+      return resourceToEdit.code.coding.map(cdng => cdng.code).includes(cnpt.code);
+    }).map(cnpt => cnpt.display);
+
     model.data = {
-      "diagnostic-report-to-amend": 'DiagnosticReport/' + resourceToEdit.id
+      'diagnostic-report-to-amend': 'DiagnosticReport/' + resourceToEdit.id,
+      'test-type': testTypeKey,
+      'test-date': resourceToEdit.effectiveDateTime.split('T')[0]
     };
   }
-
-  // model.setValue('test-type', ['HPV', 'Cervical Cytlogy (Pap)']);
 
   return (
     <Survey

@@ -8,6 +8,13 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
     .flatMap(itm => itm.answer)
     [0].valueDate;
 
+  let existingId = questionnaireResponse.item
+    .filter(itm => itm.linkId === 'diagnostic-report-to-amend')
+    .flatMap(itm => itm.answer)
+  
+  if (existingId.length > 0) existingId = existingId[0]?.valueString;
+  else existingId = null;
+
   let codeConclusionPair = [];
   const testTypes = questionnaireResponse.item.filter(itm => itm.linkId === 'test-type').map(itm => itm.answer)[0];
   testTypes.forEach(tt => {
@@ -20,7 +27,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
     
     const linkId = ScreeningAndManagementHistoryQuestionnaire.item
       .filter(itm => itm?.enableWhen?.filter(ew => ew?.answerString === shortHandDisplay)?.length > 0)
-      .map (itm => itm?.linkId)[0];
+      .map(itm => itm?.linkId)[0];
 
     const conclusion = questionnaireResponse.item
       .filter(itm => itm.linkId === linkId)
@@ -34,7 +41,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
   codeConclusionPair.forEach(ccp => {
     resources.push({
       resourceType: 'DiagnosticReport',
-      id: getIncrementalId(),
+      id: existingId ?? getIncrementalId(),
       status: "amended",
       subject: {
         reference: patientReference

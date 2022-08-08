@@ -15,7 +15,19 @@ export function Questionnaire(props) {
     fhirQR.id = getIncrementalId();
     fhirQR.subject = patientReference;
     const convertedResources = resourceConverter(fhirQR, patientReference, getIncrementalId);
-    setPatientData(existingData => [...existingData, fhirQR, ...convertedResources]);
+    const convertedIds = convertedResources.map(rsrc => rsrc.id);
+    setPatientData(existingData => {
+      let amendedData = [];
+      existingData.forEach(ed =>{
+        if (!convertedIds.includes(ed.id)) amendedData = [...amendedData, ed];
+      });
+
+      return [
+        ...amendedData, 
+        fhirQR, 
+        ...convertedResources
+      ];
+    });
     handleClose();
   }
 

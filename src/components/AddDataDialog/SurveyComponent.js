@@ -34,7 +34,7 @@ export default function SurveyComponent(props) {
     }).map(cnpt => cnpt.display);
 
     model.data = {
-      'diagnostic-report-to-amend': 'DiagnosticReport/' + resourceToEdit.id,
+      'diagnostic-report-to-amend': resourceToEdit.id,
       'test-type': testTypeKey,
       'test-date': resourceToEdit.effectiveDateTime.split('T')[0]
     };

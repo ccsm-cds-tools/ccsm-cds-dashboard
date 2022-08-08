@@ -1,7 +1,15 @@
 import AddDataDialog from 'components/AddDataDialog';
 
 function HistoryGroupModals(props) {
-  const { formInfo, whichModal, setWhichModal } = props;
+  const { 
+    formInfo, 
+    dataToEdit, 
+    setDataToEdit, 
+    setPatientData,
+    resolver,
+    patientReference
+  } = props;
+  
   return (
     <div>
       {
@@ -9,15 +17,21 @@ function HistoryGroupModals(props) {
           const [
             formId, 
             {
-              handle = ()=>{}, 
+              canonicalUri = '', 
               title = '', 
               preamble = ''
             }
           ] = form;
-          const DataEntryForm = AddDataDialog(handle, {title,preamble});
-          return (
-            <DataEntryForm key={idx} show={whichModal === formId} handleClose={() => setWhichModal('')} />
-          )
+          let fhirQuestionnaire = resolver(canonicalUri);
+          if (fhirQuestionnaire) {
+            fhirQuestionnaire = fhirQuestionnaire.length > 0 ? fhirQuestionnaire[0] : {};
+            const DataEntryForm = AddDataDialog(fhirQuestionnaire, {title,preamble}, resolver, patientReference, dataToEdit);
+            return (
+              <DataEntryForm key={idx} show={dataToEdit.form.canonicalUri === canonicalUri} handleClose={() => setDataToEdit({form: '', data: ''})} setPatientData={setPatientData} />
+            )
+          } else {
+            return <div key={idx}></div>
+          }
         })
       }
     </div>

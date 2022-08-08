@@ -16,3 +16,7 @@ The dashboard is under active development, but a demonstration with basic synthe
 (C) 2022 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 21-1556. Distribution Unlimited.
 
 Unless otherwise noted, the CCSM CDS Dashboard is available under an [Apache 2.0 license](./LICENSE.txt). It was produced by the MITRE Corporation for the Division of Cancer Prevention and Control, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30120F09743.
+
+Any LOINC (http://loinc.org) content is copyright &copy; 1995+, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC<sup>&reg;</sup> is a registered United States trademark of Regenstrief Institute, Inc.
+
+The CCSM CDS makes reference to several clinical terminology systems and value sets available through the [Unified Medical Language System (UMLS)](https://www.nlm.nih.gov/research/umls/index.html) and the [Value Set Authority Center (VSAC)](https://vsac.nlm.nih.gov/), both operated by the United States National Library of Medicine. These resources require an account and license through [UMLS Terminology Services (UTS)](https://uts.nlm.nih.gov/uts/).

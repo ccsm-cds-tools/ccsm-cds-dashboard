@@ -1,9 +1,14 @@
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { useSortableData } from './useSortableData.js';
 import './style.scss';
 
 function SortableTable(props) {
-  const {header=[], rowData=[]} = props;
+  const {
+    header=[], 
+    rowData=[],
+    formInfo={},
+    setDataToView=()=>{}
+  } = props;
   const { items, requestSort, sortConfig } = useSortableData(rowData);
   const ascendingOrDescending = (name) => {
     return sortConfig?.key === name ? sortConfig.direction : 'none';
@@ -13,7 +18,7 @@ function SortableTable(props) {
   else return(
     <Table className='sortable'>
       <thead>
-        <tr>{ 
+        <tr>{
           header.map((hdr,idx) => {
             const ascOrDes = ascendingOrDescending(hdr.key);
             return (
@@ -39,12 +44,12 @@ function SortableTable(props) {
           }) 
         }</tr>
       </thead>
-      <tbody>{ // TODO: Pipe in View link
+      <tbody>{
         items.map((itm,idx) => {
           const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
           return (
             <tr className={incompleteClass} key={idx}>
-              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm)}</td>) }
+              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm,formInfo,setDataToView)}</td>) }
             </tr>
           )
         })
@@ -58,8 +63,11 @@ function SortableTable(props) {
   )
 }
 
-function RenderRowElement(hdr, itm) {
-  const { key } = hdr;
+function RenderRowElement(hdr, itm, formInfo, setDataToView) {
+  const { 
+    key,
+    detailKey=null
+  } = hdr;
   const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
   if (key === 'date') return (
     <time className={incompleteClass} dateTime={itm.date}>
@@ -68,12 +76,23 @@ function RenderRowElement(hdr, itm) {
   )
   else if (key === 'status') {
     return (
-      <a className={incompleteClass} href='#'>
+      <Button variant="link" onClick={() => setDataToView(
+        {
+          form: itm?.status === 'incomplete' ? formInfo : '',
+          data: itm?.reference
+        }
+      )}>
         {
           itm?.status === 'incomplete' ? 'Review' : 'View'
         }
-      </a>
+      </Button>
     )
+  } else if (detailKey) {
+    const details = itm[detailKey];
+    const detailText = Array.isArray(details) ?
+      details.map(d => d?.value).join('; ') :
+      details;
+    return <span className={incompleteClass} title={detailText}>{itm[key] ?? ''}</span>
   }
   else return <span className={incompleteClass}>{itm[key] ?? ''}</span>
 }

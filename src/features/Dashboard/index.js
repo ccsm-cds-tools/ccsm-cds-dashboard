@@ -5,23 +5,37 @@ import DecisionAids from 'features/DecisionAids';
 import './style.scss';
 
 function Dashboard(props) {
+
   const {
     input: {
-      patientInfo,
-      patientHistory,
-      decisionAids
+      patientInfo={},
+      patientHistory={},
+      decisionAids={},
+      resolver=()=>{},
+      patientReference=''
     },
-    config 
+    config={},
+    setPatientData=()=>{}
   } = props;
+
   return (
     <div className="main">
       <div className="row">
         <div className="col-xl-6">
           <PatientInfo input={patientInfo} />
-          <PatientHistory input={patientHistory} config={config} />
+          <PatientHistory 
+            input={patientHistory} 
+            resolver={resolver} 
+            config={config} 
+            setPatientData={setPatientData}
+            patientReference={patientReference}
+          />
         </div>
         <div className="col-xl-6">
-          <DecisionAids input={decisionAids} />
+          <DecisionAids 
+            input={decisionAids}
+            resolver={resolver}
+          />
         </div>
       </div>
     </div>

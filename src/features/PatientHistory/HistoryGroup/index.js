@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SortableTable from 'components/SortableTable';
+import ViewDataDialog from 'components/ViewDataDialog';
 import HistoryGroupFooter from './HistoryGroupFooter.js';
 import HistoryGroupModals from './HistoryGroupModals.js';
 
@@ -16,10 +17,14 @@ function HistoryGroup(props) {
       },
       tables=[]
     }, 
-    tableData
+    tableData,
+    resolver,
+    setPatientData,
+    patientReference
   } = props;
 
-  const [whichModal, setWhichModal] = useState('');
+  const [dataToView, setDataToView] = useState({form: '', data: ''});
+  const [dataToEdit, setDataToEdit] = useState({form: '', data: ''});
 
   const addButtonInfo = tables.reduce((acc,tbl) => ({...acc, [tbl.name]: tbl.addButtonText}), {});
   const formInfo = tables.reduce((acc,tbl) => ({...acc, [tbl.name]: tbl.form}), {});
@@ -37,12 +42,29 @@ function HistoryGroup(props) {
           const [tableName,rowData] = data;
           const header = tables.find(tbl => tbl.name === tableName).header;
           return (
-            <SortableTable key={idx} header={header} rowData={rowData} />
+            <SortableTable key={idx} header={header} rowData={rowData} formInfo={formInfo[tableName]} setDataToView={setDataToView}/>
           )
         })
       }
-      <HistoryGroupFooter addButtonInfo={addButtonInfo} setWhichModal={setWhichModal} />
-      <HistoryGroupModals formInfo={formInfo} whichModal={whichModal} setWhichModal={setWhichModal} />
+      <HistoryGroupFooter 
+        addButtonInfo={addButtonInfo} 
+        formInfo={formInfo}
+        setDataToEdit={setDataToEdit} 
+      />
+      <HistoryGroupModals 
+        formInfo={formInfo} 
+        dataToEdit={dataToEdit} 
+        setDataToEdit={setDataToEdit} 
+        setPatientData={setPatientData}
+        resolver={resolver}
+        patientReference={patientReference}
+      />
+      <ViewDataDialog 
+        resolver={resolver} 
+        dataToView={dataToView} 
+        setDataToView={setDataToView} 
+        setDataToEdit={setDataToEdit}
+      />
    </div>
   )
 

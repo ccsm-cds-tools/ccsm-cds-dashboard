@@ -6,13 +6,11 @@ function Timeline(props) {
     input: {
       recommendation='',
       recommendationGroup='',
-      logicPath={},
-      timeline: {
-        explanation='',
-        projection=[]
-      }
+      logicPath={}
     }
   } = props;
+  const explanation = props.input?.timeline?.explanation ?? '';
+  const projection = props.input?.timeline?.projection ?? [];
   return (
     <div>
       <h3>{recommendation}</h3>

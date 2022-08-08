@@ -9,9 +9,10 @@ import {
   Route
 } from 'react-router-dom';
 
-import TestPatientSelector from 'test/TestPatientSelector';
-import TestPatient from 'test/TestPatient';
-import Dashboard from 'features/Dashboard';
+import TestPatientSelector from 'test/basic/TestPatientSelector';
+import TestPatient from 'test/basic/TestPatient';
+import { TestPatient as FhirTestPatient } from 'test/fhir/TestPatient';
+import { TestPatientSelector as FhirTestPatientSelector } from 'test/fhir/TestPatientSelector';
 
 document.body.className = 'bg-light';
 
@@ -20,11 +21,14 @@ function App() {
     <Container fluid>
       <Router>
         <Routes>
-          <Route path="/tests" >
+          <Route path="/tests-basic" >
             <Route path=":testName" element={<TestPatient />} />
             <Route index element={<TestPatientSelector/>} />
           </Route>
-          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/tests-fhir" >
+            <Route path=":testName" element={<FhirTestPatient />} />
+            <Route index element={<FhirTestPatientSelector/>} />
+          </Route>
         </Routes>
       </Router>
     </Container>

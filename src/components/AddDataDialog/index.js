@@ -1,29 +1,33 @@
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { Questionnaire } from './Questionnaire.js';
 
-function AddDataDialog(DataEntryComponent, meta) {
+function AddDataDialog(fhirQuestionnaire, meta, resolver=()=>{}, patientReference='', dataToEdit={form: '', data: ''}) {
 
   const { title, preamble } = meta;
 
   return function(props) {
-    const { show, handleClose } = props;
+    const { 
+      show, 
+      handleClose, 
+      setPatientData=()=>{}
+    } = props;
 
     return (
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} >
         <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>{preamble}</p>
-            <DataEntryComponent />
-          </Modal.Body>
-          <Modal.Footer> {/* TODO: Submitting should create data. */}
-            <Button variant="primary" onClick={handleClose}>
-              Submit
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
-              Cancel
-            </Button>
-          </Modal.Footer>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{preamble}</p>
+          <Questionnaire 
+            fhirQuestionnaire={fhirQuestionnaire} 
+            handleClose={handleClose} 
+            setPatientData={setPatientData}
+            resolver={resolver}
+            patientReference={patientReference}
+            dataToEdit={dataToEdit}
+          />
+        </Modal.Body>
       </Modal>
     )
   }

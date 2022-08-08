@@ -3,9 +3,12 @@ import HistoryGroup from 'features/PatientHistory/HistoryGroup';
 function PatientHistory(props) {
   const {
     input,
+    resolver,
     config: {
       histories=[]
-    }
+    },
+    setPatientData,
+    patientReference
   } = props;
 
   return (
@@ -14,7 +17,14 @@ function PatientHistory(props) {
         histories.map((h,idx) => {
           const tableData = collateTableData(h.tables, input);
           return (
-            <HistoryGroup key={idx} meta={h} tableData={tableData} />
+            <HistoryGroup 
+              key={idx} 
+              meta={h} 
+              tableData={tableData} 
+              resolver={resolver} 
+              setPatientData={setPatientData} 
+              patientReference={patientReference}
+            />
           )
         })
       }
@@ -25,7 +35,14 @@ function PatientHistory(props) {
 function collateTableData(tables, input) {
   return tables.reduce((acc,table) => {
     const key = table.name;
-    const value = input[key];
+    let value = input[key] ?? [];
+    // Set status based upon whether there is a value
+    value = value.map(v => {
+      return {
+        ...v,
+        status: v.value ? 'complete' : 'incomplete'
+      };
+    });
     return {
       ...acc,
       [key]: value ?? []

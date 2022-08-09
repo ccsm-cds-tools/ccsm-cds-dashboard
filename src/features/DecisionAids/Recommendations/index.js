@@ -1,5 +1,5 @@
 import { Alert, Button, Card } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ViewDataDialog from 'components/ViewDataDialog';
 import RiskEstimates from 'features/DecisionAids/RiskEstimates';
 import './style.scss';
@@ -10,6 +10,7 @@ function Recommendations(props) {
       recommendation='',
       recommendationGroup='',
       recommendationDetails=[],
+      recommendationDate='',
       errors=[],
       disclaimer='',
       suggestedOrders='',
@@ -28,10 +29,12 @@ function Recommendations(props) {
     }
   }
 
-  const [show, setShow] = useState(disclaimer !== '');
+  const [show, setShow] = useState(errors.length > 0 || disclaimer !== '');
 
-  const errorsExist = errors.length > 0;
-  if (show === false && errorsExist) setShow(true);
+  useEffect(() => {
+    if (errors.length > 0 || disclaimer !== '') setShow(true);
+    else setShow(false);
+  },[errors, disclaimer]);
 
   const [dataToView, setDataToView] = useState({form: '', data: ''});
 
@@ -41,17 +44,22 @@ function Recommendations(props) {
         <Card.Body>
           <Card.Title as='h3'>
             { 
-              errorsExist ?
+              errors.length > 0 ?
               <i className='bi bi-exclamation-triangle-fill text-danger'></i> :
               null
             }
             { 
-              errorsExist ?
-              'Cannot Make Recommendation' :
-              recommendation
+              errors.length > 0 ?
+                'Cannot Make Recommendation' :
+                recommendation === '' ?
+                  'No Recommendation' :
+                  recommendation
             }
           </Card.Title>
-          <Card.Subtitle as='h4'>{recommendationGroup}</Card.Subtitle>
+          <Card.Subtitle as='h4'>
+            <div>{recommendationGroup}</div>
+            <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
+          </Card.Subtitle>
           {
             recommendationDetails.map((detail,idx) => {
               return <Card.Text key={idx}>{detail}</Card.Text>
@@ -59,17 +67,17 @@ function Recommendations(props) {
           }
           <Alert 
             show={show} 
-            variant={errorsExist ? 'danger' : 'warning'}
-            dismissible={!errorsExist}
+            variant={errors.length > 0 ? 'danger' : 'warning'}
+            dismissible={errors.length === 0}
             onClose={() => setShow(false)}
           >
             {
-              errorsExist ?
+              errors.length > 0 ?
                 errors.map((err,idx) => <span key={idx}>{err}</span>) :
                 disclaimer
             }
           </Alert>
-          <RecommendationFooter areErrs={errorsExist} sugOrds={suggestedOrders} setDataToView={setDataToView} />
+          <RecommendationFooter areErrs={errors.length > 0} sugOrds={suggestedOrders} setDataToView={setDataToView} />
           <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} />
         </Card.Body>
       </Card>

@@ -369,9 +369,16 @@ export const ScreeningLibrary = {
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "name" : "RecommendImmediateScreening",
-               "libraryName" : "Average",
-               "type" : "ExpressionRef"
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "RecommendImmediateScreening",
+                  "libraryName" : "Average",
+                  "type" : "ExpressionRef"
+               }, {
+                  "name" : "Age30Through65",
+                  "libraryName" : "Average",
+                  "type" : "ExpressionRef"
+               } ]
             }
          }, {
             "name" : "RecommendCytology",
@@ -396,9 +403,16 @@ export const ScreeningLibrary = {
             "expression" : {
                "type" : "Or",
                "operand" : [ {
-                  "name" : "RecommendImmediateScreening",
-                  "libraryName" : "Average",
-                  "type" : "ExpressionRef"
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "RecommendImmediateScreening",
+                     "libraryName" : "Average",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Age30Through65",
+                     "libraryName" : "Average",
+                     "type" : "ExpressionRef"
+                  } ]
                }, {
                   "name" : "RecommendImmediateCotesting",
                   "libraryName" : "Immuno",

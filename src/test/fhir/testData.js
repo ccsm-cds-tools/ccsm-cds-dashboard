@@ -18,6 +18,7 @@ export const testData = {
           ],
           "gender": "female",
           "birthDate": "1980-07-10",
+          "language": "fr",
           "identifier": [
             {
               "system": "http://my.medical.record.number.org",
@@ -236,6 +237,7 @@ export const testData = {
           ],
           "gender": "female",
           "birthDate": "1994-01-20",
+          "language": "en",
           "identifier": [
             {
               "system": "http://my.medical.record.number.org",

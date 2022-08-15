@@ -43,7 +43,7 @@ function ViewDataDialog(props) {
         }
         {
           postLink !== '' ?
-            <Button variant="primary" onClick={()=>{}}>
+            <Button variant="success" onClick={()=>{}}>
               Submit
             </Button>
           : null

@@ -10,7 +10,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
 
   let existingId = questionnaireResponse.item
     .filter(itm => itm.linkId === 'diagnostic-report-to-amend')
-    .flatMap(itm => itm.answer)
+    .flatMap(itm => itm.answer);
   
   if (existingId.length > 0) existingId = existingId[0]?.valueString;
   else existingId = null;
@@ -39,9 +39,17 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
 
   let resources = [];
   codeConclusionPair.forEach(ccp => {
+    let id = getIncrementalId();
     resources.push({
       resourceType: 'DiagnosticReport',
-      id: existingId ?? getIncrementalId(),
+      id: existingId ?? id,
+      identifier: [
+        {
+          use: ["secondary"],
+          system: "http://OUR-PLACEHOLDER-URL.com",
+          value: id
+        }
+      ],
       status: "amended",
       subject: {
         reference: patientReference

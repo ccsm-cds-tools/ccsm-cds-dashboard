@@ -14,12 +14,28 @@ export function Questionnaire(props) {
   const saveResponses = (fhirQR) => {
     fhirQR.id = getIncrementalId();
     fhirQR.subject = patientReference;
-    const convertedResources = resourceConverter(fhirQR, patientReference, getIncrementalId);
-    const convertedIds = convertedResources.map(rsrc => rsrc.id);
+    let convertedResources = resourceConverter(fhirQR, patientReference, getIncrementalId);
+    let convertedIds = convertedResources.map(rsrc => rsrc.id);
     setPatientData(existingData => {
       let amendedData = [];
       existingData.forEach(ed =>{
-        if (!convertedIds.includes(ed.id)) amendedData = [...amendedData, ed];
+        if (convertedIds.includes(ed.id)) {
+          const match =  convertedResources.filter(cr => cr.id === ed.id)[0];
+          const resourceToMerge = {
+            ...ed,
+            ...match,
+            identifier: [
+              ...(ed?.identifier ?? []),
+              ...(match?.identifier ?? [])
+            ]
+          };
+          convertedResources = [
+            ...convertedResources.filter(cr => cr.id !== ed.id),
+            resourceToMerge
+          ];
+          convertedIds = convertedResources.map(rsrc => rsrc.id);
+        }
+        else amendedData = [...amendedData, ed];
       });
 
       return [

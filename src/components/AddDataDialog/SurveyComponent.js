@@ -32,12 +32,34 @@ export default function SurveyComponent(props) {
     let testTypeKey = testTypeValueSet.compose.include[0].concept.filter(cnpt => {
       return resourceToEdit.code.coding.map(cdng => cdng.code).includes(cnpt.code);
     }).map(cnpt => cnpt.display);
+    
+    console.log(resourceToEdit);
+
+    let hpvResultValueSet = resolver('ValueSet/HpvTestResult')[0];
+    let hpvResultKey = hpvResultValueSet.compose.include[0].concept.filter(cnpt => {
+      return resourceToEdit.conclusionCode.map(cc => cc.coding.map(cdng => cdng.code)).flat().includes(cnpt.code);
+    }).map(cnpt => cnpt.display);
+
+    let cytologyResultValueSet = resolver('ValueSet/CervicalCytologyResult')[0];
+    let cytologyResultKey = cytologyResultValueSet.compose.include[0].concept.filter(cnpt => {
+      return resourceToEdit.conclusionCode.map(cc => cc.coding.map(cdng => cdng.code)).flat().includes(cnpt.code);
+    }).map(cnpt => cnpt.display);
+
+    let histologyResultValueSet = resolver('ValueSet/CervicalHistologyResult')[0];
+    let histologyResultKey = histologyResultValueSet.compose.include[0].concept.filter(cnpt => {
+      return resourceToEdit.conclusionCode.map(cc => cc.coding.map(cdng => cdng.code)).flat().includes(cnpt.code);
+    }).map(cnpt => cnpt.display);
 
     model.data = {
       'diagnostic-report-to-amend': resourceToEdit.id,
       'test-type': testTypeKey,
+      'hpv-results': hpvResultKey[0],
+      'cytology-results': cytologyResultKey[0],
+      'histology-results': histologyResultKey[0],
       'test-date': resourceToEdit.effectiveDateTime.split('T')[0]
     };
+
+    console.log(model.data);
   }
 
   return (

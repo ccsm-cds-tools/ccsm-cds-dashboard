@@ -327,10 +327,28 @@ export const testData = {
         "resource": {
           "resourceType": "DiagnosticReport",
           "id": "48fd8a49-eac2-47c9-8fcd-e4c593c3f16d",
+          "identifier": [
+            {
+              "use": ["usual"],
+              system: "http://example.com",
+              value: "some-identifier"
+            }
+          ],
           "subject": {
             "reference": "Patient/2d0c1024-dee6-416f-af57-9e7544745e80"
           },
           "status": "final",
+          "category": [
+            {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+                  "code": "PAT",
+                  "display": "Pathology (gross & histopath, not surgical)"
+                }
+              ]
+            }
+          ],
           "code": {
             "coding": [
               {

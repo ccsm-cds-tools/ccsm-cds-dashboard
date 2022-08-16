@@ -56,7 +56,7 @@ function SortableTable(props) {
       }</tbody>
       <tfoot>{/* TODO: Make this appear only if manual data has been added */}
         <tr>
-          <td colSpan="5"><span className="is_manual">*</span> indicates manually entered patient test history result</td>
+          <td colSpan="5"><span className="is_manual">*</span> indicates manually entered or modified test result</td>
         </tr>
       </tfoot>
     </Table>
@@ -78,7 +78,7 @@ function RenderRowElement(hdr, itm, formInfo, setDataToView) {
     return (
       <Button variant="link" onClick={() => setDataToView(
         {
-          form: itm?.status === 'incomplete' ? formInfo : '',
+          form: formInfo,
           data: itm?.reference
         }
       )}>
@@ -92,7 +92,12 @@ function RenderRowElement(hdr, itm, formInfo, setDataToView) {
     const detailText = Array.isArray(details) ?
       details.map(d => d?.value).join('; ') :
       details;
-    return <span className={incompleteClass} title={detailText}>{itm[key] ?? ''}</span>
+    return <span className={incompleteClass} title={detailText}>
+      {itm[key] ?? ''}
+      {
+        itm.edited ? <span className="is_manual">*</span> : null
+      }
+      </span>
   }
   else return <span className={incompleteClass}>{itm[key] ?? ''}</span>
 }

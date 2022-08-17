@@ -72,9 +72,9 @@ export const config = {
           ],
           addButtonText: 'Add procedure',
           form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
-            title: 'Add Condition',
-            preamble: 'NOTIONAL - meant to represent simple form for adding data'
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentProcedureQuestionnaire',
+            title: 'Add Procedure',
+            preamble: null
           }
         },
         {

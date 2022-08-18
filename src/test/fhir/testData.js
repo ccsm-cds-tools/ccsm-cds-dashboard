@@ -537,27 +537,6 @@ export const testData = {
     "entry": [
       {
         "resource": {
-          "resourceType": "Procedure",
-          "id": "d9d0e890-30bb-4c7f-87a5-1c8658228a42",
-          "subject": {
-            "reference": "Patient/2d0c1024-dee6-416f-af57-9e7544745e83"
-          },
-          "status": "completed",
-          "code": {
-            "coding": [
-              {
-                "system": "http://snomed.info/sct",
-                "code": "116140006",
-                "display": "Total hysterectomy (procedure)"
-              }
-            ],
-            "text": "Total hysterectomy (procedure)"
-          },
-          "performedDateTime": "2000-05-01T00:00:00.000Z"
-        }
-      },
-      {
-        "resource": {
           "resourceType": "Patient",
           "id": "2d0c1024-dee6-416f-af57-9e7544745e83",
           "name": [

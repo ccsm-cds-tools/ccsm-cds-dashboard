@@ -26,7 +26,7 @@ export const config = {
           ],
           addButtonText: 'Add condition',
           form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentConditionQuestionnaire',
             title: 'Add Condition',
             preamble: null
           }

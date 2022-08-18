@@ -99,7 +99,12 @@ function RenderRowElement(hdr, itm, formInfo, setDataToView) {
       }
       </span>
   }
-  else return <span className={incompleteClass}>{itm[key] ?? ''}</span>
+  else return <span className={incompleteClass}>
+    {itm[key] ?? ''}
+    {
+      itm.edited ? <span className="is_manual">*</span> : null
+    }
+  </span>
 }
 
 export default SortableTable;

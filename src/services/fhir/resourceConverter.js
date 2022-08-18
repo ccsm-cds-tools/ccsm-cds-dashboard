@@ -1,7 +1,7 @@
 import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
 import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
 import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortList";
-import { PertinentProcedureQuestionnaire } from "./Questionnaire/PertinentProcedureQuestionnaire";
+import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
 
 export function resourceConverter(questionnaireResponse, patientReference, getIncrementalId) {
 
@@ -107,6 +107,51 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
         reference: patientReference
       },
       performedDateTime: procedureDate,
+      code: {
+        coding: [coding],
+        text: coding.display
+      }
+    });
+
+  } else if (linkIds.includes('condition-date')) {
+
+    const conditionDate = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'condition-date')
+      .flatMap(itm => itm.answer)
+      [0].valueDate;
+
+    let coding = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'condition-type')
+      .flatMap(itm => itm.answer)
+      [0].valueCoding;
+
+    const concepts = [
+      PertinentConditionShortList.compose.include[0].concept,
+      PertinentConditionShortList.compose.include[1].concept
+    ].flat();
+    console.log(concepts);
+    const display = concepts
+      .filter(cpt => cpt.code === coding.code)
+      .map(cpt => cpt.designation[0].value)[0];
+
+    coding.display = display;
+
+    let id = getIncrementalId();
+    resources.push({
+      resourceType: 'Condition',
+      id: id,
+      identifier: [
+        {
+          use: ["secondary"],
+          system: "http://OUR-PLACEHOLDER-URL.com",
+          value: id
+        }
+      ],
+      clinicalStatus: "active",
+      subject: {
+        reference: patientReference
+      },
+      onsetDateTime: conditionDate,
       code: {
         coding: [coding],
         text: coding.display

@@ -26,8 +26,15 @@ function HistoryGroup(props) {
   const [dataToView, setDataToView] = useState({form: '', data: ''});
   const [dataToEdit, setDataToEdit] = useState({form: '', data: ''});
 
-  const addButtonInfo = tables.reduce((acc,tbl) => ({...acc, [tbl.name]: tbl.addButtonText}), {});
-  const formInfo = tables.reduce((acc,tbl) => ({...acc, [tbl.name]: tbl.form}), {});
+  const addButtonInfo = tables.reduce((acc,tbl) => {
+    if (tbl?.addButtonText) return {...acc, [tbl.name]: tbl.addButtonText}
+    else return acc
+  }, {});
+  
+  const formInfo = tables.reduce((acc,tbl) => {
+    if (tbl?.form) return {...acc, [tbl.name]: tbl.form}
+    else return acc
+  }, {});
   
   const noHistory = Object.values(tableData).reduce((acc,tbl) => {
     return acc && tbl.length === 0;

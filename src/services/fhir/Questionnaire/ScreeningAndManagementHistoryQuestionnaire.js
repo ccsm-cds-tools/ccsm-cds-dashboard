@@ -6,10 +6,10 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire"
     ]
   },
-  "url": "http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistory",
+  "url": "http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire",
   "version": "1.0.0",
   "name": "ScreeningAndManagementHistoryQuestionnaire",
-  "title": "Form for capturing additional information from the provider",
+  "title": "ScreeningAndManagementHistoryQuestionnaire",
   "status": "draft",
   "subjectType": [
     "Practitioner"
@@ -25,10 +25,12 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       "linkId": "diagnostic-report-to-amend",
       "text": "ID",
       "type": "string",
-      "readOnly": "true",
-      "initial": {
-        "valueString": "n/a"
-      },
+      "readOnly": true,
+      "initial": [
+        {
+          "valueString": "n/a"
+        }
+      ],
       "enableWhen": [
         {
           "question": "diagnostic-report-to-amend",
@@ -43,7 +45,7 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       "required": true,
       "type": "choice",
       "repeats": true,
-      "answerValueSet": "ValueSet/ScreeningAndManagementTestType"
+      "answerValueSet": "http://OUR-PLACEHOLDER-URL.com/ValueSet/ScreeningAndManagementTestType"
     },
     {
       "linkId": "hpv-results",
@@ -57,7 +59,8 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       ],
       "enableBehavior": "any",
       "type": "choice",
-      "answerValueSet": "ValueSet/HpvTestResult"
+      "repeats": true,
+      "answerValueSet": "http://OUR-PLACEHOLDER-URL.com/ValueSet/HpvTestResult"
     },
     {
       "linkId": "cytology-results",
@@ -71,7 +74,8 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       ],
       "enableBehavior": "any",
       "type": "choice",
-      "answerValueSet": "ValueSet/CervicalCytologyResult"
+      "repeats": true,
+      "answerValueSet": "http://OUR-PLACEHOLDER-URL.com/ValueSet/CervicalCytologyResult"
     },
     {
       "linkId": "histology-results",
@@ -85,7 +89,8 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       ],
       "enableBehavior": "any",
       "type": "choice",
-      "answerValueSet": "ValueSet/CervicalHistologyResult"
+      "repeats": true,
+      "answerValueSet": "http://OUR-PLACEHOLDER-URL.com/ValueSet/CervicalHistologyResult"
     },
     {
       "linkId": "test-date",
@@ -94,15 +99,18 @@ export const ScreeningAndManagementHistoryQuestionnaire = {
       "enableWhen": [
         {
           "question": "hpv-results",
-          "operator": "exists"
+          "operator": "exists",
+          "answerBoolean": true
         },
         {
           "question": "cytology-results",
-          "operator": "exists"
+          "operator": "exists",
+          "answerBoolean": true
         },
         {
           "question": "histology-results",
-          "operator": "exists"
+          "operator": "exists",
+          "answerBoolean": true
         }
       ],
       "enableBehavior": "any",

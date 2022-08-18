@@ -26,9 +26,36 @@ export const config = {
           ],
           addButtonText: 'Add condition',
           form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentConditionQuestionnaire',
             title: 'Add Condition',
-            preamble: 'NOTIONAL - meant to represent simple form for adding data'
+            preamble: null
+          }
+        },
+        {
+          name: 'observations',
+          header: [
+            {
+              key: 'name',
+              display: 'Observation'
+            },
+            {
+              key: 'date',
+              display: 'Date'
+            },
+            {
+              key: 'value',
+              display: 'Value'
+            },
+            {
+              key: 'status',
+              display: 'Action'
+            }
+          ],
+          addButtonText: 'Add observation',
+          form: {
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentObservationQuestionnaire',
+            title: 'Add Observation',
+            preamble: null
           }
         },
         {
@@ -49,9 +76,9 @@ export const config = {
           ],
           addButtonText: 'Add procedure',
           form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
-            title: 'Add Condition',
-            preamble: 'NOTIONAL - meant to represent simple form for adding data'
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentProcedureQuestionnaire',
+            title: 'Add Procedure',
+            preamble: null
           }
         },
         {
@@ -70,12 +97,8 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add medication',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
-            title: 'Add Condition',
-            preamble: 'NOTIONAL - meant to represent simple form for adding data'
-          }
+          addButtonText: null,
+          form: null
         }
       ]
     },

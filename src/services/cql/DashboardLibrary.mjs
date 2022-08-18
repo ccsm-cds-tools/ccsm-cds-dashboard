@@ -6152,6 +6152,78 @@ export const DashboardLibrary = {
                } ]
             }
          }, {
+            "name" : "HasBeenLocallyEdited",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "IsNull",
+                     "operand" : {
+                        "path" : "identifier",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "C",
+                           "type" : "OperandRef"
+                        }
+                     }
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "value" : "false",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "type" : "AnyTrue",
+                  "source" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "I",
+                        "expression" : {
+                           "path" : "identifier",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "C",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "return" : {
+                        "expression" : {
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "system",
+                                 "scope" : "I",
+                                 "type" : "Property"
+                              } ]
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "http://OUR-PLACEHOLDER-URL.com",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "C",
+               "operandTypeSpecifier" : {
+                  "name" : "{http://hl7.org/fhir}Condition",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
             "name" : "PertinentConditionsSummary",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -6250,6 +6322,16 @@ export const DashboardLibrary = {
                                  "scope" : "C",
                                  "type" : "Property"
                               } ]
+                           } ]
+                        }
+                     }, {
+                        "name" : "edited",
+                        "value" : {
+                           "name" : "HasBeenLocallyEdited",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "C",
+                              "type" : "AliasRef"
                            } ]
                         }
                      } ]
@@ -6680,6 +6762,78 @@ export const DashboardLibrary = {
                } ]
             }
          }, {
+            "name" : "HasBeenLocallyEdited",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "IsNull",
+                     "operand" : {
+                        "path" : "identifier",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Obs",
+                           "type" : "OperandRef"
+                        }
+                     }
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "value" : "false",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "type" : "AnyTrue",
+                  "source" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "I",
+                        "expression" : {
+                           "path" : "identifier",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Obs",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "return" : {
+                        "expression" : {
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "system",
+                                 "scope" : "I",
+                                 "type" : "Property"
+                              } ]
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "http://OUR-PLACEHOLDER-URL.com",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "Obs",
+               "operandTypeSpecifier" : {
+                  "name" : "{http://hl7.org/fhir}Observation",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
             "name" : "PertinentObservationsSummary",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -6752,6 +6906,16 @@ export const DashboardLibrary = {
                                  "scope" : "Obs",
                                  "type" : "Property"
                               } ]
+                           } ]
+                        }
+                     }, {
+                        "name" : "edited",
+                        "value" : {
+                           "name" : "HasBeenLocallyEdited",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "Obs",
+                              "type" : "AliasRef"
                            } ]
                         }
                      } ]
@@ -7468,30 +7632,101 @@ export const DashboardLibrary = {
                "operand" : [ {
                   "type" : "Union",
                   "operand" : [ {
-                     "type" : "Query",
-                     "source" : [ {
-                        "alias" : "ColposcopyProcedures",
-                        "expression" : {
-                           "name" : "ImmunocompromisedProcedures",
-                           "type" : "ExpressionRef"
-                        }
-                     } ],
-                     "relationship" : [ ]
+                     "type" : "Union",
+                     "operand" : [ {
+                        "name" : "ImmunocompromisedProcedures",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "ColposcopyProcedures",
+                        "type" : "ExpressionRef"
+                     } ]
                   }, {
-                     "name" : "CervicalExcisionProcedures",
-                     "type" : "ExpressionRef"
+                     "type" : "Union",
+                     "operand" : [ {
+                        "name" : "CervicalExcisionProcedures",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "CervicalAblationProcedures",
+                        "type" : "ExpressionRef"
+                     } ]
                   } ]
                }, {
-                  "type" : "Union",
-                  "operand" : [ {
-                     "name" : "CervicalAblationProcedures",
-                     "type" : "ExpressionRef"
-                  }, {
-                     "name" : "RemovalOfCervixProcedures",
-                     "type" : "ExpressionRef"
-                  } ]
+                  "name" : "RemovalOfCervixProcedures",
+                  "type" : "ExpressionRef"
                } ]
             }
+         }, {
+            "name" : "HasBeenLocallyEdited",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "IsNull",
+                     "operand" : {
+                        "path" : "identifier",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "P",
+                           "type" : "OperandRef"
+                        }
+                     }
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "value" : "false",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "type" : "AnyTrue",
+                  "source" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "I",
+                        "expression" : {
+                           "path" : "identifier",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "P",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "return" : {
+                        "expression" : {
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "system",
+                                 "scope" : "I",
+                                 "type" : "Property"
+                              } ]
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "http://OUR-PLACEHOLDER-URL.com",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "P",
+               "operandTypeSpecifier" : {
+                  "name" : "{http://hl7.org/fhir}Procedure",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
          }, {
             "name" : "PertinentProceduresSummary",
             "context" : "Patient",
@@ -7562,8 +7797,25 @@ export const DashboardLibrary = {
                               } ]
                            } ]
                         }
+                     }, {
+                        "name" : "edited",
+                        "value" : {
+                           "name" : "HasBeenLocallyEdited",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "P",
+                              "type" : "AliasRef"
+                           } ]
+                        }
                      } ]
                   }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "date",
+                     "type" : "ByColumn"
+                  } ]
                }
             }
          }, {

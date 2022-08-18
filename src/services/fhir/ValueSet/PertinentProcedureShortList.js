@@ -1,8 +1,8 @@
-export const CervicalHistologyResult = {
+export const PertinentProcedureShortList = {
   "resourceType": "ValueSet",
-  "id": "CervicalHistologyResult",
-  "url": "http://OUR-PLACEHOLDER-URL.com/ValueSet/CervicalHistologyResult",
-  "name": "CervicalHistologyResult",
+  "id": "PertinentProcedureShortList",
+  "url": "http://OUR-PLACEHOLDER-URL.com/ValueSet/PertinentProcedureShortList",
+  "name": "PertinentProcedureShortList",
   "status": "draft",
   "experimental": true,
   "date": "2022-06-27",
@@ -24,11 +24,11 @@ export const CervicalHistologyResult = {
     "include": [
       {
         "system": "http://snomed.info/sct",
-        "version": "20220301",
+        "version": "2022-03",
         "concept": [
           {
-            "code": "165324008",
-            "display": "Normal",
+            "code": "392003006",
+            "display": "Colposcopy",
             "designation": [
               {
                 "use": {
@@ -36,13 +36,13 @@ export const CervicalHistologyResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Biopsy result normal (finding)"
+                "value": "Colposcopy (procedure)"
               }
             ]
           },
           {
-            "code": "285836003",
-            "display": "CIN 1",
+            "code": "120038005",
+            "display": "Cervix Excision",
             "designation": [
               {
                 "use": {
@@ -50,13 +50,13 @@ export const CervicalHistologyResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Cervical intraepithelial neoplasia grade 1 (disorder)"
+                "value": "Cervix excision (procedure)"
               }
             ]
           },
           {
-            "code": "285838002",
-            "display": "CIN 2",
+            "code": "74580009",
+            "display": "Cervix Ablation",
             "designation": [
               {
                 "use": {
@@ -64,13 +64,13 @@ export const CervicalHistologyResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Cervical intraepithelial neoplasia grade 2 (disorder)"
+                "value": "Cauterization of lesion of cervix (procedure)"
               }
             ]
           },
           {
-            "code": "20365006",
-            "display": "CIN 3",
+            "code": "116140006",
+            "display": "Hysterectomy",
             "designation": [
               {
                 "use": {
@@ -78,35 +78,7 @@ export const CervicalHistologyResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Squamous intraepithelial neoplasia, grade III (morphologic abnormality)"
-              }
-            ]
-          },
-          {
-            "code": "254890008",
-            "display": "AIS",
-            "designation": [
-              {
-                "use": {
-                  "code": "900000000000003001",
-                  "system": "http://snomed.info/sct",
-                  "display": "Fully specified name"
-                },
-                "value": "Adenocarcinoma in situ of cervix (disorder)"
-              }
-            ]
-          },
-          {
-            "code": "363354003",
-            "display": "Cancer",
-            "designation": [
-              {
-                "use": {
-                  "code": "900000000000003001",
-                  "system": "http://snomed.info/sct",
-                  "display": "Fully specified name"
-                },
-                "value": "Malignant tumor of cervix (disorder)"
+                "value": "Total hysterectomy (procedure)"
               }
             ]
           }

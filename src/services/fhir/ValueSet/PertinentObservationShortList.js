@@ -1,8 +1,8 @@
-export const HpvTestResult = {
+export const PertinentObservationShortList = {
   "resourceType": "ValueSet",
-  "id": "HpvTestResult",
-  "url": "http://OUR-PLACEHOLDER-URL.com/ValueSet/HpvTestResult",
-  "name": "HpvTestResult",
+  "id": "PertinentObservationShortList",
+  "url": "http://OUR-PLACEHOLDER-URL.com/ValueSet/PertinentObservationShortList",
+  "name": "PertinentObservationShortList",
   "status": "draft",
   "experimental": true,
   "date": "2022-06-27",
@@ -19,16 +19,16 @@ export const HpvTestResult = {
   ],
   "description": "description",
   "purpose": "purpose",
-  "copyright": "Licensees of the UMLS Metathesaurus have free access to SNOMED CT. The IHTSDO license terms for SNOMED CT cover use and distribution worldwide, but fees may be applicable outside IHTSDO Member countries.",
+  "copyright": "None",
   "compose": {
     "include": [
       {
-        "system": "http://snomed.info/sct",
-        "version": "20220301",
+        "system": "http://OUR-PLACEHOLDER-URL.com",
+        "version": "2022-08",
         "concept": [
           {
-            "code": "260385009",
-            "display": "Negative",
+            "code": "AUVBQ",
+            "display": "Is the patient experiencing abnormal uterine or vaginal bleeding today?",
             "designation": [
               {
                 "use": {
@@ -36,13 +36,13 @@ export const HpvTestResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Negative (qualifier value)"
+                "value": "Is the patient experiencing abnormal uterine or vaginal bleeding today?"
               }
             ]
           },
           {
-            "code": "10828004",
-            "display": "Positive (Not Type 16/18)",
+            "code": "VUVLQ",
+            "display": "Does the patient have visible uterine or vaginal lesions?",
             "designation": [
               {
                 "use": {
@@ -50,13 +50,13 @@ export const HpvTestResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Positive (qualifier value)"
+                "value": "Does the patient have visible uterine or vaginal lesions?"
               }
             ]
           },
           {
-            "code": "708298003",
-            "display": "Positive (Type 16)",
+            "code": "DESEQ",
+            "display": "Did the patient experience in utero exposure to diethylstilbesterol (DES)?",
             "designation": [
               {
                 "use": {
@@ -64,13 +64,13 @@ export const HpvTestResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Deoxyribonucleic acid of Human papillomavirus 16 (substance)"
+                "value": "Did the patient experience in utero exposure to diethylstilbesterol (DES)?"
               }
             ]
           },
           {
-            "code": "708299006",
-            "display": "Positive (Type 18)",
+            "code": "FPCQ",
+            "display": "Does the patient have future pregnancy concerns related to treatment options?",
             "designation": [
               {
                 "use": {
@@ -78,7 +78,7 @@ export const HpvTestResult = {
                   "system": "http://snomed.info/sct",
                   "display": "Fully specified name"
                 },
-                "value": "Deoxyribonucleic acid of Human papillomavirus 18 (substance)"
+                "value": "Does the patient have future pregnancy concerns related to treatment options?"
               }
             ]
           }

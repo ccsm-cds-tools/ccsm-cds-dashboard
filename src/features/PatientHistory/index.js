@@ -40,7 +40,7 @@ function collateTableData(tables, input) {
     value = value.map(v => {
       return {
         ...v,
-        status: v.value ? 'complete' : 'incomplete'
+        status: v.value || !table.header.some(h => h.key === 'value') ? 'complete' : 'incomplete'
       };
     });
     return {

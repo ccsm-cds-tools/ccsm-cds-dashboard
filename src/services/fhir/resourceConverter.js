@@ -93,10 +93,17 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
 
     coding.display = display;
 
+    let existingId = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'procedure-to-amend')
+      .flatMap(itm => itm.answer);
+    
+    if (existingId.length > 0) existingId = existingId[0]?.valueString;
+    else existingId = null;
     let id = getIncrementalId();
+
     resources.push({
       resourceType: 'Procedure',
-      id: id,
+      id: existingId ?? id,
       identifier: [
         {
           use: ["secondary"],
@@ -138,10 +145,17 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
 
     coding.display = display;
 
+    let existingId = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'condition-to-amend')
+      .flatMap(itm => itm.answer);
+    
+    if (existingId.length > 0) existingId = existingId[0]?.valueString;
+    else existingId = null;
     let id = getIncrementalId();
+
     resources.push({
       resourceType: 'Condition',
-      id: id,
+      id: existingId ?? id,
       identifier: [
         {
           use: ["secondary"],
@@ -196,10 +210,17 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
 
     coding.display = display;
 
+    let existingId = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'observation-to-amend')
+      .flatMap(itm => itm.answer);
+    
+    if (existingId.length > 0) existingId = existingId[0]?.valueString;
+    else existingId = null;
     let id = getIncrementalId();
+
     resources.push({
       resourceType: 'Observation',
-      id: id,
+      id: existingId ?? id,
       identifier: [
         {
           use: ["secondary"],

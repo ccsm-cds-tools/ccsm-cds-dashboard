@@ -18,6 +18,8 @@ export function Questionnaire(props) {
     let convertedIds = convertedResources.map(rsrc => rsrc.id);
     setPatientData(existingData => {
       let amendedData = [];
+      console.log('existing data: ', existingData);
+      console.log('convertedResources: ', convertedResources);
       existingData.forEach(ed =>{
         if (convertedIds.includes(ed.id)) {
           const match =  convertedResources.filter(cr => cr.id === ed.id)[0];

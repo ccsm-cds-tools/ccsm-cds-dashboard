@@ -45,11 +45,15 @@ export const config = {
             {
               key: 'value',
               display: 'Value'
+            },
+            {
+              key: 'status',
+              display: 'Action'
             }
           ],
           addButtonText: 'Add observation',
           form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/RelevantHistoryQuestionnaire',
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentObservationQuestionnaire',
             title: 'Add Observation',
             preamble: null
           }

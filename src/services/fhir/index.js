@@ -30,6 +30,7 @@ import { CervicalCancerQuestionnaire } from "./Questionnaire/CervicalCancerQuest
 import { RelevantHistoryQuestionnaire } from "./Questionnaire/RelevantHistoryQuestionnaire";
 import { PertinentProcedureQuestionnaire } from "./Questionnaire/PertinentProcedureQuestionnaire";
 import { PertinentConditionQuestionnaire } from "./Questionnaire/PertinentConditionQuestionnaire";
+import { PertinentObservationQuestionnaire } from "./Questionnaire/PertinentObservationQuestionnaire";
 import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
 import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHistoryQuestionnaire";
 
@@ -40,6 +41,8 @@ import { HpvTestResult } from "./ValueSet/HpvTestResult";
 import { CervicalHistologyResult } from "./ValueSet/CervicalHistologyResult";
 import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortList";
 import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
+import { PertinentObservationShortList } from "./ValueSet/PertinentObservationShortList";
+import { QualifierValuesShortList } from "./ValueSet/QualifierValuesShortList";
 
 export const cdsResources = [
   CervicalCancerDecisionAids,
@@ -65,6 +68,7 @@ export const cdsResources = [
   RelevantHistoryQuestionnaire,
   PertinentProcedureQuestionnaire,
   PertinentConditionQuestionnaire,
+  PertinentObservationQuestionnaire,
   ScreeningAndManagementHistoryQuestionnaire,
   VaccinationHistoryQuestionnaire,
   ScreeningAndManagementTestType,
@@ -72,7 +76,9 @@ export const cdsResources = [
   HpvTestResult,
   CervicalHistologyResult,
   PertinentProcedureShortList,
-  PertinentConditionShortList
+  PertinentConditionShortList,
+  PertinentObservationShortList,
+  QualifierValuesShortList
 ];
 
 export { resourceConverter } from './resourceConverter.js';

@@ -2,6 +2,8 @@ import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagemen
 import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
 import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortList";
 import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
+import { PertinentObservationShortList } from "./ValueSet/PertinentObservationShortList";
+import { QualifierValuesShortList } from "./ValueSet/QualifierValuesShortList";
 
 export function resourceConverter(questionnaireResponse, patientReference, getIncrementalId) {
 
@@ -129,7 +131,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
       PertinentConditionShortList.compose.include[0].concept,
       PertinentConditionShortList.compose.include[1].concept
     ].flat();
-    console.log(concepts);
+
     const display = concepts
       .filter(cpt => cpt.code === coding.code)
       .map(cpt => cpt.designation[0].value)[0];
@@ -156,6 +158,63 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
         coding: [coding],
         text: coding.display
       }
+    });
+
+  } else if (linkIds.includes('observation-date')) {
+
+    const observationDate = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'observation-date')
+      .flatMap(itm => itm.answer)
+      [0].valueDate;
+
+    let coding = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'observation-type')
+      .flatMap(itm => itm.answer)
+      [0].valueCoding;
+
+    const display = PertinentObservationShortList.compose.include[0].concept
+      .filter(cpt => cpt.code === coding.code)
+      .map(cpt => cpt.designation[0].value)[0];
+
+    let valueCoding = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'observation-value')
+      .flatMap(itm => itm.answer)
+      [0].valueCoding;
+
+    const concepts = QualifierValuesShortList.compose.include[0].concept;
+
+    const valueDisplay = concepts
+      .filter(cpt => cpt.code === valueCoding.code)
+      .map(cpt => cpt.designation[0].value)[0];
+
+    valueCoding.display = valueDisplay;
+
+    coding.display = display;
+
+    let id = getIncrementalId();
+    resources.push({
+      resourceType: 'Observation',
+      id: id,
+      identifier: [
+        {
+          use: ["secondary"],
+          system: "http://OUR-PLACEHOLDER-URL.com",
+          value: id
+        }
+      ],
+      status: "final",
+      subject: {
+        reference: patientReference
+      },
+      effectiveDateTime: observationDate,
+      code: {
+        coding: [coding],
+        text: coding.display
+      },
+      valueCodeableConcept: {
+        coding: [valueCoding],
+        text: valueCoding.display
+      },
     });
 
   }

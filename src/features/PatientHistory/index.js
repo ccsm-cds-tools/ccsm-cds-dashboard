@@ -38,7 +38,6 @@ function collateTableData(tables, input) {
     let value = input[key] ?? [];
     // Set status based upon whether there is a value
     value = value.map(v => {
-      console.log(v.value, table.header.some(h => h.key === 'value'));
       return {
         ...v,
         status: v.value || !table.header.some(h => h.key === 'value') ? 'complete' : 'incomplete'

@@ -34,6 +34,43 @@ export function configureModel(model, resolver, resourceToEdit) {
         'test-date': resourceToEdit.effectiveDateTime.split('T')[0]
       };
       
+    } else if (resourceType === 'Observation') {
+
+      let observationTypeValueSet = resolver('ValueSet/PertinentObservationShortList')[0];
+      let observationTypeKey = matchCode(observationTypeValueSet, resourceToEdit);
+
+      let qualifierValuesValueSet = resolver('ValueSet/QualifierValuesShortList')[0];
+      let observationValueKey = matchValueCodeableConcept(qualifierValuesValueSet, resourceToEdit);
+
+      model.data = {
+        'observation-to-amend': resourceToEdit.id,
+        'observation-type': observationTypeKey[0],
+        'observation-value': observationValueKey[0],
+        'observation-date': resourceToEdit.effectiveDateTime.split('T')[0]
+      };
+
+    } else if (resourceType === 'Condition') {
+
+      let conditionTypeValueSet = resolver('ValueSet/PertinentConditionShortList')[0];
+      let conditionTypeKey = matchCode(conditionTypeValueSet, resourceToEdit);
+
+      model.data = {
+        'condition-to-amend': resourceToEdit.id,
+        'condition-type': conditionTypeKey[0],
+        'condition-date': resourceToEdit.onsetDateTime.split('T')[0]
+      };
+
+    } else if (resourceType === 'Procedure') {
+
+      let procedureTypeValueSet = resolver('ValueSet/PertinentProcedureShortList')[0];
+      let procedureTypeKey = matchCode(procedureTypeValueSet, resourceToEdit);
+
+      model.data = {
+        'procedure-to-amend': resourceToEdit.id,
+        'procedure-type': procedureTypeKey[0],
+        'procedure-date': resourceToEdit.performedDateTime.split('T')[0]
+      };
+
     }
 
     
@@ -44,13 +81,25 @@ export function configureModel(model, resolver, resourceToEdit) {
 }
 
 function matchCode(vset,rsrc) {
-  return vset.compose.include[0].concept.filter(cnpt => {
-    return rsrc.code.coding.map(cdng => cdng.code).includes(cnpt.code);
-  }).map(cnpt => cnpt.display);
+  return vset.compose.include.reduce((acc,cv) => {
+    if (acc.length > 0) {
+      return acc;
+    } else {
+      return cv.concept.filter(cnpt => {
+        return rsrc.code.coding.map(cdng => cdng.code).includes(cnpt.code);
+      }).map(cnpt => cnpt.display);
+    }
+  }, []);
 }
 
 function matchConclusionCode(vset,rsrc) {
   return vset.compose.include[0].concept.filter(cnpt => {
     return rsrc.conclusionCode.map(cc => cc.coding.map(cdng => cdng.code)).flat().includes(cnpt.code);
+  }).map(cnpt => cnpt.display);
+}
+
+function matchValueCodeableConcept(vset,rsrc) {
+  return vset.compose.include[0].concept.filter(cnpt => {
+    return rsrc.valueCodeableConcept.coding.map(cdng => cdng.code).includes(cnpt.code);
   }).map(cnpt => cnpt.display);
 }

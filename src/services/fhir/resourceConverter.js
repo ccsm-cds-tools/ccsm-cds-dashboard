@@ -149,7 +149,12 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
           value: id
         }
       ],
-      clinicalStatus: "active",
+      clinicalStatus: {
+        coding: [{
+          code: "active",
+          system: "http://terminology.hl7.org/CodeSystem/condition-clinical"
+        }]
+      },
       subject: {
         reference: patientReference
       },

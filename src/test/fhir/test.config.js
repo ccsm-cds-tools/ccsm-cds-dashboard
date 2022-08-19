@@ -148,7 +148,7 @@ export const config = {
       },
       tables: [
         {
-          name: 'vaccinations',
+          name: 'immunizations',
           header: [
             {
               key: 'name',
@@ -165,9 +165,9 @@ export const config = {
           ],
           addButtonText: 'Add HPV vaccination',
           form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/VaccinationHistoryQuestionnaire',
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentVaccinationQuestionnaire',
             title: 'Add Vaccination',
-            preamble: 'NOTIONAL - meant to represent simple form for adding data'
+            preamble: null
           }
         }
       ]

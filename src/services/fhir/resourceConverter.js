@@ -4,6 +4,7 @@ import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortL
 import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
 import { PertinentObservationShortList } from "./ValueSet/PertinentObservationShortList";
 import { QualifierValuesShortList } from "./ValueSet/QualifierValuesShortList";
+import { PertinentVaccinationShortList } from "./ValueSet/PertinentVaccinationShortList";
 
 export function resourceConverter(questionnaireResponse, patientReference, getIncrementalId) {
 
@@ -241,6 +242,53 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
         coding: [valueCoding],
         text: valueCoding.display
       },
+    });
+
+  } else if (linkIds.includes('immunization-date')) {
+
+    const immunizationDate = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'immunization-date')
+      .flatMap(itm => itm.answer)
+      [0].valueDate;
+
+    let coding = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'immunization-type')
+      .flatMap(itm => itm.answer)
+      [0].valueCoding;
+
+    const display = PertinentVaccinationShortList.compose.include[0].concept
+      .filter(cpt => cpt.code === coding.code)
+      .map(cpt => cpt.designation[0].value)[0];
+
+    coding.display = display;
+
+    let existingId = questionnaireResponse.item
+      .filter(itm => itm.linkId === 'immunization-to-amend')
+      .flatMap(itm => itm.answer);
+    
+    if (existingId.length > 0) existingId = existingId[0]?.valueString;
+    else existingId = null;
+    let id = getIncrementalId();
+
+    resources.push({
+      resourceType: 'Immunization',
+      id: existingId ?? id,
+      identifier: [
+        {
+          use: ["secondary"],
+          system: "http://OUR-PLACEHOLDER-URL.com",
+          value: id
+        }
+      ],
+      status: "completed",
+      subject: {
+        reference: patientReference
+      },
+      occurrenceDateTime: immunizationDate,
+      vaccineCode: {
+        coding: [coding],
+        text: coding.display
+      }
     });
 
   }

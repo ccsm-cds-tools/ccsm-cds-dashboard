@@ -15,7 +15,7 @@ function PatientInfo(props) {
         <div className="id">
           <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div>
           <div><b>Account Number:</b> <span>{actNum}</span></div>
-          <div><b>Pregnant:</b> <span>{input.isPregnant}</span></div>
+          <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
         </div>
         <div className="info-items">
           <div className="row">
@@ -63,5 +63,5 @@ function formatDateOfBirth(dateOfBirth) {
     day.padStart(2,'0') + ' / ' +
     year;
 
-  return dobString;
+  return dateOfBirth ? dobString : null;
 }

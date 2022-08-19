@@ -25,12 +25,10 @@ import {
 } from "./PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport";
 
 // Questionnaire resources
-import { ProvideMoreInformation } from "./Questionnaire/ProvideMoreInformation";
-import { CervicalCancerQuestionnaire } from "./Questionnaire/CervicalCancerQuestionnaire";
-import { RelevantHistoryQuestionnaire } from "./Questionnaire/RelevantHistoryQuestionnaire";
 import { PertinentProcedureQuestionnaire } from "./Questionnaire/PertinentProcedureQuestionnaire";
 import { PertinentConditionQuestionnaire } from "./Questionnaire/PertinentConditionQuestionnaire";
 import { PertinentObservationQuestionnaire } from "./Questionnaire/PertinentObservationQuestionnaire";
+import { PertinentVaccinationQuestionnaire } from "./Questionnaire/PertinentVaccinationQuestionnaire";
 import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
 import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHistoryQuestionnaire";
 
@@ -43,6 +41,7 @@ import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortL
 import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
 import { PertinentObservationShortList } from "./ValueSet/PertinentObservationShortList";
 import { QualifierValuesShortList } from "./ValueSet/QualifierValuesShortList";
+import { PertinentVaccinationShortList } from "./ValueSet/PertinentVaccinationShortList";
 
 export const cdsResources = [
   CervicalCancerDecisionAids,
@@ -63,12 +62,10 @@ export const cdsResources = [
   CervicalCancerScreening,
   CervicalCancerScreeningActions,
   CervicalCancerScreeningAndManagementClinicalDecisionSupport,
-  ProvideMoreInformation,
-  CervicalCancerQuestionnaire,
-  RelevantHistoryQuestionnaire,
   PertinentProcedureQuestionnaire,
   PertinentConditionQuestionnaire,
   PertinentObservationQuestionnaire,
+  PertinentVaccinationQuestionnaire,
   ScreeningAndManagementHistoryQuestionnaire,
   VaccinationHistoryQuestionnaire,
   ScreeningAndManagementTestType,
@@ -78,6 +75,7 @@ export const cdsResources = [
   PertinentProcedureShortList,
   PertinentConditionShortList,
   PertinentObservationShortList,
+  PertinentVaccinationShortList,
   QualifierValuesShortList
 ];
 

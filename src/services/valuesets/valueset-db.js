@@ -1,24 +1,48 @@
 export const valueSetDb = {
   "2.16.840.1.113762.1.4.1032.182": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "120038005",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.187": {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.189": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "N93.0",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2023"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.191": {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.196": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "289794001",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.197": {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.198": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "716005004",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.201": {
     "Latest": []
@@ -42,7 +66,13 @@ export const valueSetDb = {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.228": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "D06",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2023"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.233": {
     "Latest": [
@@ -92,22 +122,46 @@ export const valueSetDb = {
     ]
   },
   "2.16.840.1.113762.1.4.1032.241": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "74580009",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.244": {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.246": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "C53",//KEEP
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2023"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.250": {
     "Latest": []
   },
   "2.16.840.1.113762.1.4.1032.252": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "392003006",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.254": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "22636003",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.256": {
     "Latest": []
@@ -153,6 +207,15 @@ export const valueSetDb = {
   },
   "2.16.840.1.113883.3.3157.1315": {
     "Latest": []
+  },
+  "2.16.840.1.113883.3.3616.200.110.102.3061": {
+    "Latest": [
+      {
+        "code": "M05",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2023"
+      }
+    ]
   },
   "2.16.840.1.113883.3.3616.200.110.102.3072": {
     "Latest": []
@@ -202,9 +265,21 @@ export const valueSetDb = {
     "Latest": []
   },
   "2.16.840.1.113883.3.464.1003.198.11.1027": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "116140006",
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      }
+    ]
   },
   "2.16.840.1.113883.3.526.3.378": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "Z33.1",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2023"
+      }
+    ]
   }
 }

@@ -71,6 +71,17 @@ export function configureModel(model, resolver, resourceToEdit) {
         'procedure-date': resourceToEdit.performedDateTime.split('T')[0]
       };
 
+    } else if (resourceType === 'Immunization') {
+
+      let immunizationTypeValueSet = resolver('ValueSet/PertinentVaccinationShortList')[0];
+      let immunizationTypeKey = matchCode(immunizationTypeValueSet, {...resourceToEdit, code: resourceToEdit?.vaccineCode});
+
+      model.data = {
+        'immunization-to-amend': resourceToEdit.id,
+        'immunization-type': immunizationTypeKey[0],
+        'immunization-date': resourceToEdit.occurrenceDateTime.split('T')[0]
+      };
+
     }
 
     

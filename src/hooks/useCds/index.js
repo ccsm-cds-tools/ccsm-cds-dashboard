@@ -14,7 +14,7 @@ export const useCds = (patientData) => {
   const [output, setOutput] = useState({});
 
   useEffect(() => {
-    // console.log('patientData: ', patientData);
+    console.log('patientData: ', patientData);
     applyCds(patientData, setOutput);
   }, [patientData]);
 
@@ -70,9 +70,9 @@ const applyCds = async function(patientData, setOutput) {
     false
   );
   
-  // console.log('CDS output: ', CarePlan);
-  // console.log('CDS output: ', RequestGroup);
-  // console.log('CDS output: ', otherResources);
+  console.log('CarePlan: ', CarePlan);
+  console.log('RequestGroup: ', RequestGroup);
+  console.log('otherResources: ', otherResources);
 
   let patientInfo={};
   let patientHistory={};

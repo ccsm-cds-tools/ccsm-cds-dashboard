@@ -21,7 +21,28 @@ export const valueSetDb = {
     ]
   },
   "2.16.840.1.113762.1.4.1032.191": {
-    "Latest": []
+    "Latest": [
+      {
+        "code": "118",
+        "system": "http://hl7.org/fhir/sid/cvx",
+        "version": "2022-06-15"
+      },
+      {
+        "code": "137",
+        "system": "http://hl7.org/fhir/sid/cvx",
+        "version": "2022-06-15"
+      },
+      {
+        "code": "165",
+        "system": "http://hl7.org/fhir/sid/cvx",
+        "version": "2022-06-15"
+      },
+      {
+        "code": "62",
+        "system": "http://hl7.org/fhir/sid/cvx",
+        "version": "2022-06-15"
+      }
+    ]
   },
   "2.16.840.1.113762.1.4.1032.196": {
     "Latest": [

@@ -3,7 +3,6 @@ import FHIR from 'fhirclient';
 
 export function LaunchSmart() {
 
-
   useEffect(() => {
     FHIR.oauth2.authorize({
       clientId: 'my-client-id',

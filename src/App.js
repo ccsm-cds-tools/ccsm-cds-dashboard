@@ -11,8 +11,10 @@ import {
 
 import TestPatientSelector from 'test/basic/TestPatientSelector';
 import TestPatient from 'test/basic/TestPatient';
-import { TestPatient as FhirTestPatient } from 'test/fhir/TestPatient';
 import { TestPatientSelector as FhirTestPatientSelector } from 'test/fhir/TestPatientSelector';
+import { TestPatient as FhirTestPatient } from 'test/fhir/TestPatient';
+import { LaunchSmart } from 'smart/LaunchSmart';
+import { SmartPatient } from 'smart/SmartPatient';
 
 document.body.className = 'bg-light';
 
@@ -29,6 +31,8 @@ function App() {
             <Route path=":testName" element={<FhirTestPatient />} />
             <Route index element={<FhirTestPatientSelector/>} />
           </Route>
+          <Route path="/launch" element={<LaunchSmart />} />
+          <Route index element={<SmartPatient />} />
         </Routes>
       </Router>
     </Container>

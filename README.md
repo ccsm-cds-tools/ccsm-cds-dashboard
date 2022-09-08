@@ -8,8 +8,22 @@ This dashboard and the underlying CDS definitions are both under *active develop
 
 ## Demo
 
-The dashboard is under active development, but a demonstration with basic synthentic test data can be be found 
-[here](https://ccsm-cds-tools.github.io/ccsm-cds-dashboard/#/tests-fhir).
+The dashboard is under active development, but demonstrations are available with various kinds of synthetic test data:
+1. Demo with [basic synthentic test patients](https://ccsm-cds-tools.github.io/ccsm-cds-dashboard/#/tests-basic) - Currently broken
+2. Demo with [synthentic FHIR data](https://ccsm-cds-tools.github.io/ccsm-cds-dashboard/#/tests-fhir)
+3. Public SMART sandbox [demo](https://ccsm-cds-tools.github.io/ccsm-cds-dashboard/#/launch)
+
+## Development
+
+This project was initially developed using the Create React App tool.
+
+You can run the dashboard locally by following these steps:
+1. Clone this repo
+2. Run `npm install` in this directory
+3. Run `npm start` and going to any of the following URLs:
+    - http://localhost:3000/tests-basic (currently broken)
+    - http://localhost:3000/tests-fhir
+    - http://localhost:3000/launch
 
 ## Licenses
 

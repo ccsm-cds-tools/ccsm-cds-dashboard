@@ -64,7 +64,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
         subject: {
           reference: patientReference
         },
-        effectiveDateTime: testDate,
+        effectiveDateTime: testDate + 'T00:00:00.000Z',
         code: {
           coding: [
             ccp.code
@@ -116,7 +116,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
       subject: {
         reference: patientReference
       },
-      performedDateTime: procedureDate,
+      performedDateTime: procedureDate + 'T00:00:00.000Z',
       code: {
         coding: [coding],
         text: coding.display
@@ -173,7 +173,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
       subject: {
         reference: patientReference
       },
-      onsetDateTime: conditionDate,
+      onsetDateTime: conditionDate + 'T00:00:00.000Z',
       code: {
         coding: [coding],
         text: coding.display
@@ -233,7 +233,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
       subject: {
         reference: patientReference
       },
-      effectiveDateTime: observationDate,
+      effectiveDateTime: observationDate + 'T00:00:00.000Z',
       code: {
         coding: [coding],
         text: coding.display
@@ -284,7 +284,7 @@ export function resourceConverter(questionnaireResponse, patientReference, getIn
       subject: {
         reference: patientReference
       },
-      occurrenceDateTime: immunizationDate,
+      occurrenceDateTime: immunizationDate + 'T00:00:00.000Z',
       vaccineCode: {
         coding: [coding],
         text: coding.display

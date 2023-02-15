@@ -78,7 +78,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=false node scripts/start.js",
-    "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true node scripts/build.js && cp serve.json ./build/serve.json",
+    "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true node scripts/build.js",
+    "build-windows": "set \"DISABLE_ESLINT_PLUGIN=true\" && set \"BROWSER=none\" && set \"GENERATE_SOURCEMAP=true\"  && node scripts/build.js",
     "test": "node scripts/test.js",
     "download-value-sets": "node src/services/valuesets/updateValueSetDb.mjs $UMLS_API_KEY"
   },

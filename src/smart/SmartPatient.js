@@ -39,24 +39,29 @@ export function SmartPatient() {
         }
       });
 
-      await client.request('/Observation?patient=' + pid).then(function(ob) {
-        if (ob) {
-          console.log(ob);
-          if (ob.resourceType == 'Bundle' &&  ob.entry) {
-            ob.entry.forEach(o => {
-              if (o.resource) newData.push(o.resource);
-            });
-          } else if (Array.isArray(ob)) {
-            ob.forEach(o => {
-              if (o.resourceType) newData.push(o);
-            });
-          } else {
-            newData.push(o);
-          }
-        }
-      });
+      let obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
+      let obsCatArr = obsCatStr.split(';');
 
-      await client.request('/DiagnosticReport?patient=' + pid).then(function(dr) {
+      await Promise.all(obsCatArr.map(cat => {
+        return client.request('/Observation?patient=' + pid + '&category=' + cat).then(function(ob) {
+          if (ob) {
+            console.log(ob);
+            if (ob.resourceType == 'Bundle' &&  ob.entry) {
+              ob.entry.forEach(o => {
+                if (o.resource) newData.push(o.resource);
+              });
+            } else if (Array.isArray(ob)) {
+              ob.forEach(o => {
+                if (o.resourceType) newData.push(o);
+              });
+            } else {
+              newData.push(ob);
+            }
+          }
+        });
+      }));
+
+      await client.request('/Procedure?patient=' + pid).then(function(dr) {
         if (dr) {
           console.log(dr);
           if (dr.resourceType == 'Bundle' &&  dr.entry) {

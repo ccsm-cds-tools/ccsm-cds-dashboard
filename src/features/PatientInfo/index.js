@@ -13,7 +13,7 @@ function PatientInfo(props) {
       <div className="patient-name">{input.name}</div>
       <div className="patient-detail">
         <div className="id">
-          <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div>
+          {/* <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div> */}
           <div><b>Account Number:</b> <span>{actNum}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
         </div>

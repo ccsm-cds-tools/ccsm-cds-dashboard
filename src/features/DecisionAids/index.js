@@ -21,12 +21,12 @@ function DecisionAids(props) {
         <Tab eventKey={'refs'} title={'References'} disabled={errorsExist}>
           <References input={input} />
         </Tab>
-        <Tab eventKey={'logx'} title={'Logic'} disabled={errorsExist}>
+        {/* <Tab eventKey={'logx'} title={'Logic'} disabled={errorsExist}>
           <Logic input={input} />
         </Tab>
         <Tab eventKey={'time'} title={'Timeline'} disabled={errorsExist}>
           <Timeline input={input} />
-        </Tab>
+        </Tab> */}
       </Tabs>
     </section>
   )

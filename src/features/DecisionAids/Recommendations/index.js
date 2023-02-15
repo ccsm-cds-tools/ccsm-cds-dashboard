@@ -77,8 +77,8 @@ function Recommendations(props) {
                 disclaimer
             }
           </Alert>
-          <RecommendationFooter areErrs={errors.length > 0} sugOrds={suggestedOrders} setDataToView={setDataToView} />
-          <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} />
+          {/* <RecommendationFooter areErrs={errors.length > 0} sugOrds={suggestedOrders} setDataToView={setDataToView} />
+          <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} /> */}
         </Card.Body>
       </Card>
       <RiskEstimates input={riskTable} />

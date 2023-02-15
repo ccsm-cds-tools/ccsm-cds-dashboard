@@ -24,12 +24,8 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add condition',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentConditionQuestionnaire',
-            title: 'Add Condition',
-            preamble: null
-          }
+          addButtonText: null,
+          form: null
         },
         {
           name: 'observations',
@@ -51,12 +47,8 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add observation',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentObservationQuestionnaire',
-            title: 'Add Observation',
-            preamble: null
-          }
+          addButtonText: null,
+          form: null
         },
         {
           name: 'procedures',
@@ -74,12 +66,8 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add procedure',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentProcedureQuestionnaire',
-            title: 'Add Procedure',
-            preamble: null
-          }
+          addButtonText: null,
+          form: null
         },
         {
           name: 'medications',
@@ -131,12 +119,8 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add result',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
-            title: 'Add Result',
-            preamble: null
-          }
+          addButtonText: null,
+          form: null
         } 
       ]
     },
@@ -163,12 +147,8 @@ export const config = {
               display: 'Action'
             }
           ],
-          addButtonText: 'Add HPV vaccination',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/PertinentVaccinationQuestionnaire',
-            title: 'Add Vaccination',
-            preamble: null
-          }
+          addButtonText: null,
+          form: null
         }
       ]
     }

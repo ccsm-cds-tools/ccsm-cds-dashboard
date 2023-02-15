@@ -20,8 +20,6 @@ function Dashboard(props) {
 
   return (
     <div className="main">
-      <div className="row">
-        <div className="col-xl-6">
           <PatientInfo input={patientInfo} />
           <PatientHistory 
             input={patientHistory} 
@@ -30,15 +28,11 @@ function Dashboard(props) {
             setPatientData={setPatientData}
             patientReference={patientReference}
           />
-        </div>
-        <div className="col-xl-6">
           <DecisionAids 
             input={decisionAids}
             resolver={resolver}
           />
         </div>
-      </div>
-    </div>
   )
 }
 

@@ -40,6 +40,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "node-cmd": "^5.0.0",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -81,7 +82,8 @@
     "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true node scripts/build.js",
     "build-windows": "set \"DISABLE_ESLINT_PLUGIN=true\" && set \"BROWSER=none\" && set \"GENERATE_SOURCEMAP=true\"  && node scripts/build.js",
     "test": "node scripts/test.js",
-    "download-value-sets": "node src/services/valuesets/updateValueSetDb.mjs $UMLS_API_KEY"
+    "download-value-sets": "node src/services/valuesets/updateValueSetDb.mjs $UMLS_API_KEY",
+    "serve": "serve ./build --ssl-cert https.crt --ssl-key https.key"
   },
   "eslintConfig": {
     "extends": [

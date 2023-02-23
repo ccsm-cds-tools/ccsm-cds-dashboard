@@ -83,15 +83,25 @@ export function SmartPatient() {
     smartOnFhir();
   },[]);
 
-  // Return the Dashboard
-  return (
-    <div className="content">
-      <Dashboard 
-        input={dashboardInput} 
-        config={config} 
-        setPatientData={setPatientData}
-      />
-    </div>
-  )
+  if (process.env?.REACT_APP_DEBUG_FHIR) {
+
+    return (
+      <div className="debug">
+        <pre>
+          {JSON.stringify(patientData.filter(p => p?.resourceType != 'OperationOutcome'), null, 2)}
+        </pre>
+      </div>
+    ) 
+  } else {
+    return (
+      <div className="content">
+        <Dashboard 
+          input={dashboardInput} 
+          config={config} 
+          setPatientData={setPatientData}
+        />
+      </div>
+    )
+  }
   
 }

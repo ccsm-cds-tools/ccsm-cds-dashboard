@@ -24,22 +24,84 @@ export function SmartPatient() {
         return pt.id;
       });
 
-      await client.request('/Condition?patient=' + pid).then(async function(cd) {
-        await fhirParser(cd);
-      });
+      try {
+        await client.request('/Condition?patient=' + pid).then(async function(cd) {
+          await fhirParser(cd);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/DiagnosticReport?patient=' + pid).then(async function(dr) {
+          await fhirParser(dr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/DocumentReference?patient=' + pid).then(async function(dr) {
+          await fhirParser(dr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/Encounter?patient=' + pid).then(async function(en) {
+          await fhirParser(en);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/Immunization?patient=' + pid).then(async function(dr) {
+          await fhirParser(dr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+        
+      try {
+        await client.request('/MedicationRequest?patient=' + pid).then(async function(mr) {
+          await fhirParser(mr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
 
       let obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
       let obsCatArr = obsCatStr.split(';');
 
-      await Promise.all(obsCatArr.map(cat => {
-        return client.request('/Observation?patient=' + pid + '&category=' + cat).then(async function(ob) {
-          await fhirParser(ob);
+      try {
+        await Promise.all(obsCatArr.map(cat => {
+          return client.request('/Observation?patient=' + pid + '&category=' + cat).then(async function(ob) {
+            await fhirParser(ob);
+          });
+        }));
+      } catch(e) {
+        console.log(e);
+      }
+        
+      try {
+        await client.request('/Procedure?patient=' + pid).then(async function(pr) {
+          await fhirParser(pr);
         });
-      }));
+      } catch(e) {
+        console.log(e);
+      }
 
-      await client.request('/Procedure?patient=' + pid).then(async function(pr) {
-        await fhirParser(pr);
-      });
+      try {
+        await client.request('/QuestionnaireResponse?patient=' + pid).then(async function(qr) {
+          await fhirParser(qr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+
 
       setPatientData(newData);
     }

@@ -5,7 +5,7 @@ import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
 
 // import { config } from './smart.config.js';
-import { runGoFSH } from './FSHHelpers';
+// import { runGoFSH } from './FSHHelpers';
 
 export function SmartPatient() {
 
@@ -108,7 +108,7 @@ export function SmartPatient() {
     smartOnFhir();
   },[]);
 
-  if (process.env?.REACT_APP_DEBUG_FHIR) {
+  if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
     return (
       <div className="debug">
         {
@@ -141,17 +141,23 @@ export function SmartPatient() {
 
 function boundParser(data) {
 
+  const options = { dependencies: [], indent: true };
+  let convert = (c) => { return new Promise(c); };
+  if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+    import('./FSHHelpers').then(module => {
+      convert = c => module.runGoFSH([JSON.stringify(c)],options);
+    });
+  }
+
   return async function parseFhir(rsrc) {
 
-    const options = { dependencies: [], indent: true };
-
     if (rsrc) {
-      if (rsrc.resourceType == 'Bundle' && rsrc.entry) {
+      if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
         await Promise.all(rsrc.entry.map(async c => {
           if (c.resource) {
             console.log(c.resource.resourceType);
-            if (process.env?.REACT_APP_DEBUG_FHIR) {
-              await runGoFSH([JSON.stringify(c.resource)], options).then(({fsh,_config}) => {
+            if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+              await convert(c.resource).then(({fsh,_config}) => {
                 const cleanedFsh = fsh.replaceAll('undefined',',').replaceAll(',','\n');
                 data.push(cleanedFsh);
               });
@@ -164,8 +170,8 @@ function boundParser(data) {
         await Promise.all(rsrc.map(async c => {
           if (c.resourceType) {
             console.log(c.resourceType);
-            if (process.env?.REACT_APP_DEBUG_FHIR) {
-              await runGoFSH([JSON.stringify(c)], options).then(({fsh,_config}) => {
+            if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+              await convert(c).then(({fsh,_config}) => {
                 const cleanedFsh = fsh.replaceAll('undefined',',').replaceAll(',','\n');
                 data.push(cleanedFsh);
               });
@@ -176,8 +182,8 @@ function boundParser(data) {
         }));
       } else {
         console.log(rsrc.resourceType);
-        if (process.env?.REACT_APP_DEBUG_FHIR) {
-          await runGoFSH([JSON.stringify(rsrc)], options).then(({fsh,_config}) => {
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+          await convert(rsrc).then(({fsh,_config}) => {
             const cleanedFsh = fsh.replaceAll('undefined',',').replaceAll(',','\n');
             data.push(cleanedFsh);
           });

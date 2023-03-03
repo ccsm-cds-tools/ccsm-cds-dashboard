@@ -14,6 +14,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const paths = require('./paths');
@@ -360,7 +361,7 @@ module.exports = function (webpackEnv) {
           babelRuntimeEntry,
           babelRuntimeEntryHelpers,
           babelRuntimeRegenerator,
-        ]),
+        ])
       ],
     },
     module: {
@@ -618,6 +619,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new BundleAnalyzerPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -735,6 +737,18 @@ module.exports = function (webpackEnv) {
       new webpack.IgnorePlugin(
         {
           resourceRegExp: /(\.d\.ts)$/
+        }
+      ),
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: process.env?.REACT_APP_DEBUG_FHIR==='true' ? /a^/ : /.?$/,
+          contextRegExp: /fsh-sushi/
+        }
+      ),
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: process.env?.REACT_APP_DEBUG_FHIR==='true' ? /a^/ : /.?$/, 
+          contextRegExp: /gofsh/
         }
       ),
       // NOTE: Replacing older modelinfos included in cql-exec-fhir with v4.0.1.

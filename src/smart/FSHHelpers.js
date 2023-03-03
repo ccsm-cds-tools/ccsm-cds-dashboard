@@ -30,7 +30,7 @@ const FHIRDefinitions = fhirdefs.FHIRDefinitions;
  * @param {FHIRDefinitions} testDefs - this should only be used by the unit tests so they can provide their own definitions.
  * @returns {string} the FSH
  */
-export async function runGoFSH(input, options) {
+async function punGoFSH(input, options) {
   stats.reset();
 
   // Read in the resources as strings
@@ -74,6 +74,10 @@ export async function runGoFSH(input, options) {
   return { fsh, config: configuration?.config ?? {} };
 }
 
+export async function runGoFSH(input, options) {
+  return process.env?.REACT_APP_DEBUG_FHIR==='true' ? punGoFSH(input, options) : ()=>{};
+}
+
 /**
  * Load dependencies (FHIR R4) and run SUSHI on provided text
  *
@@ -86,7 +90,7 @@ export async function runGoFSH(input, options) {
  *
  * @returns Package with FHIR resources
  */
-export async function runSUSHI(input, config, dependencyArr) {
+async function punSUSHI(input, config, dependencyArr) {
   stats.reset();
 
   // Load dependencies
@@ -142,6 +146,10 @@ export async function runSUSHI(input, config, dependencyArr) {
   outPackage.instances = outPackage.instances.filter((i) => i._instanceMeta.usage !== 'Inline');
 
   return outPackage;
+}
+
+export async function runSUSHI(input, config, dependencyArr) {
+  return process.env?.REACT_APP_DEBUG_FHIR==='true' ? punSUSHI(input, config, dependencyArr) : ()=>{};
 }
 
 function printSUSHIResults(pkg) {
@@ -225,3 +233,4 @@ function printGoFSHresults(pkg) {
   console.log(' ');
   results.forEach((r) => console.log(r));
 }
+

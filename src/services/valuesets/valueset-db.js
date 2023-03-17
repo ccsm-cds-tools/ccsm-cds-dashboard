@@ -125,6 +125,21 @@ export const valueSetDb = {
         "code": "720005005",//KEEP
         "system": "http://snomed.info/sct",
         "version": "2022-03"
+      },
+      {
+        "code": "10828004",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
+      {
+        "code": "708298003",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
+      {
+        "code": "708299006",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
       }
     ]
   },
@@ -217,7 +232,12 @@ export const valueSetDb = {
         "code": "787724008",//KEEP
         "system": "http://snomed.info/sct",
         "version": "2022-03"
-      }
+      },
+      {
+        "code": "260385009",//KEEP
+        "system": "http://snomed.info/sct",
+        "version": "2022-03"
+      },
     ]
   },
   "2.16.840.1.113762.1.4.1032.269": {

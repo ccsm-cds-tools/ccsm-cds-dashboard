@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/ccsm-cds-dashboard/static/css/main.a16820ba.css",
-    "main.js": "/ccsm-cds-dashboard/static/js/main.ca0c2898.js",
-    "static/js/157.5c787311.chunk.js": "/ccsm-cds-dashboard/static/js/157.5c787311.chunk.js",
+    "main.css": "/ccsm-cds-dashboard/static/css/main.f92d9a1e.css",
+    "main.js": "/ccsm-cds-dashboard/static/js/main.c01e7f81.js",
+    "static/js/157.b2c49aa9.chunk.js": "/ccsm-cds-dashboard/static/js/157.b2c49aa9.chunk.js",
     "static/js/402.d29d292b.chunk.js": "/ccsm-cds-dashboard/static/js/402.d29d292b.chunk.js",
     "static/js/787.a01c6e21.chunk.js": "/ccsm-cds-dashboard/static/js/787.a01c6e21.chunk.js",
-    "static/js/67.c6445605.chunk.js": "/ccsm-cds-dashboard/static/js/67.c6445605.chunk.js",
+    "static/js/67.4feeaa19.chunk.js": "/ccsm-cds-dashboard/static/js/67.4feeaa19.chunk.js",
     "static/media/bootstrap-icons.woff?": "/ccsm-cds-dashboard/static/media/bootstrap-icons.7ff3ca6fa798de3f8ac2.woff",
     "static/media/bootstrap-icons.woff2?": "/ccsm-cds-dashboard/static/media/bootstrap-icons.f2539a501be3a673de05.woff2",
     "static/media/ccsm-tulip.svg": "/ccsm-cds-dashboard/static/media/ccsm-tulip.37d75b6e92b9f5adbfe85f3cc8dc1bf8.svg",
     "static/media/certificate-paper.svg": "/ccsm-cds-dashboard/static/media/certificate-paper.00d544fc7c3da2661bcc.svg",
     "index.html": "/ccsm-cds-dashboard/index.html",
     "static/media/plus-square.svg": "/ccsm-cds-dashboard/static/media/plus-square.1254f9745b42217d16e8c047e1aea764.svg",
-    "main.a16820ba.css.map": "/ccsm-cds-dashboard/static/css/main.a16820ba.css.map",
-    "main.ca0c2898.js.map": "/ccsm-cds-dashboard/static/js/main.ca0c2898.js.map",
-    "157.5c787311.chunk.js.map": "/ccsm-cds-dashboard/static/js/157.5c787311.chunk.js.map",
+    "main.f92d9a1e.css.map": "/ccsm-cds-dashboard/static/css/main.f92d9a1e.css.map",
+    "main.c01e7f81.js.map": "/ccsm-cds-dashboard/static/js/main.c01e7f81.js.map",
+    "157.b2c49aa9.chunk.js.map": "/ccsm-cds-dashboard/static/js/157.b2c49aa9.chunk.js.map",
     "402.d29d292b.chunk.js.map": "/ccsm-cds-dashboard/static/js/402.d29d292b.chunk.js.map",
     "787.a01c6e21.chunk.js.map": "/ccsm-cds-dashboard/static/js/787.a01c6e21.chunk.js.map",
-    "67.c6445605.chunk.js.map": "/ccsm-cds-dashboard/static/js/67.c6445605.chunk.js.map"
+    "67.4feeaa19.chunk.js.map": "/ccsm-cds-dashboard/static/js/67.4feeaa19.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a16820ba.css",
-    "static/js/main.ca0c2898.js"
+    "static/css/main.f92d9a1e.css",
+    "static/js/main.c01e7f81.js"
   ]
 }

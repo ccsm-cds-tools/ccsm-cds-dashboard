@@ -2,7 +2,7 @@ import { Table } from 'react-bootstrap';
 import './style.scss';
 
 function RiskEstimates(props) {
-  const {
+  let {
     input: {
       title='',
       subtitle='',
@@ -15,6 +15,11 @@ function RiskEstimates(props) {
   const { input } = props;
 
   if (Object.keys(input).length === 0) return null;
+
+  headers = headers ?? [];
+  relevant = relevant ?? {};
+  adjacent = adjacent ?? [];
+  clarifications = clarifications ?? [];
 
   return (
     <div className='risk'>

@@ -14,7 +14,7 @@ export const valueSetDb = {
   "2.16.840.1.113762.1.4.1032.189": {
     "Latest": [
       {
-        "code": "N93.0",
+        "code": "N93",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2023"
       }

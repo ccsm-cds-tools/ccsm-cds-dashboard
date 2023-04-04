@@ -45,13 +45,13 @@ const applyCds = async function(patientData, setOutput) {
     
     let CommunicationRequests = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest');
     let DisplayCervicalCancerMedicalHistory = CommunicationRequests.filter(cr => {
-      return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
     })[0];
     let CervicalCancerDecisionAids = CommunicationRequests.filter(cr => {
-      return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids';
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids';
     })[0];
     let Errors = CommunicationRequests.filter(cr => {
-      return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
     })[0];
 
     let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');

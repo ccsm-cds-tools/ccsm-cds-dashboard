@@ -1,47 +1,46 @@
 // ActivityDefinition resources
-import { CervicalCancerDecisionAids } from "./ActivityDefinition/CervicalCancerDecisionAids";
-import { CervicalCancerManagementActivity } from "./ActivityDefinition/CervicalCancerManagementActivity";
-import { CervicalCancerScreeningActivity } from "./ActivityDefinition/CervicalCancerScreeningActivity";
-import { CommunicateErrors } from "./ActivityDefinition/CommunicateErrors";
-import { DisplayCervicalCancerMedicalHistory } from "./ActivityDefinition/DisplayCervicalCancerMedicalHistory";
+import { CervicalCancerDecisionAids } from 'ccsm-cds-with-tests/fhir/ActivityDefinition/CervicalCancerDecisionAids.js';
+import { CervicalCancerManagementActivity } from 'ccsm-cds-with-tests/fhir/ActivityDefinition/CervicalCancerManagementActivity.js';
+import { CervicalCancerScreeningActivity } from 'ccsm-cds-with-tests/fhir/ActivityDefinition/CervicalCancerScreeningActivity.js';
+import { CommunicateErrors } from 'ccsm-cds-with-tests/fhir/ActivityDefinition/CommunicateErrors.js';
+import { DisplayCervicalCancerMedicalHistory } from 'ccsm-cds-with-tests/fhir/ActivityDefinition/DisplayCervicalCancerMedicalHistory.js';
 
 // Library resources
-import { DashboardLibrary } from "./Library/DashboardLibrary";
-import { ManagementLibrary } from "./Library/ManagementLibrary";
-import { OrderSetLibrary } from "./Library/OrderSetLibrary";
-import { ScreeningAverageRiskLibrary } from "./Library/ScreeningAverageRiskLibrary";
-import { ScreeningDesExposureLibrary } from "./Library/ScreeningDesExposureLibrary";
-import { ScreeningImmunocompromisedLibrary } from "./Library/ScreeningImmunocompromisedLibrary";
-import { ScreeningLibrary } from "./Library/ScreeningLibrary";
-import { ScreeningSymptomaticLibrary } from "./Library/ScreeningSymptomaticLibrary";
+import { DashboardLibrary } from 'ccsm-cds-with-tests/fhir/Library/DashboardLibrary.js';
+import { ManagementLibrary } from 'ccsm-cds-with-tests/fhir/Library/ManagementLibrary.js';
+import { OrderSetLibrary } from 'ccsm-cds-with-tests/fhir/Library/OrderSetLibrary.js';
+import { ScreeningAverageRiskLibrary } from 'ccsm-cds-with-tests/fhir/Library/ScreeningAverageRiskLibrary.js';
+import { ScreeningDesExposureLibrary } from 'ccsm-cds-with-tests/fhir/Library/ScreeningDesExposureLibrary.js';
+import { ScreeningImmunocompromisedLibrary } from 'ccsm-cds-with-tests/fhir/Library/ScreeningImmunocompromisedLibrary.js';
+import { ScreeningLibrary } from 'ccsm-cds-with-tests/fhir/Library/ScreeningLibrary.js';
+import { ScreeningSymptomaticLibrary } from 'ccsm-cds-with-tests/fhir/Library/ScreeningSymptomaticLibrary.js';
 
 // PlanDefinition resources
-import { CervicalCancerManagement } from "./PlanDefinition/CervicalCancerManagement";
-import { CervicalCancerManagementActions } from "./PlanDefinition/CervicalCancerManagementActions";
-import { CervicalCancerScreening } from "./PlanDefinition/CervicalCancerScreening";
-import { CervicalCancerScreeningActions } from "./PlanDefinition/CervicalCancerScreeningActions";
+import { CervicalCancerManagement } from 'ccsm-cds-with-tests/fhir/PlanDefinition/CervicalCancerManagement.js';
+import { CervicalCancerManagementActions } from 'ccsm-cds-with-tests/fhir/PlanDefinition/CervicalCancerManagementActions.js';
+import { CervicalCancerScreening } from 'ccsm-cds-with-tests/fhir/PlanDefinition/CervicalCancerScreening.js';
+import { CervicalCancerScreeningActions } from 'ccsm-cds-with-tests/fhir/PlanDefinition/CervicalCancerScreeningActions.js';
 import { 
   CervicalCancerScreeningAndManagementClinicalDecisionSupport 
-} from "./PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport";
+} from 'ccsm-cds-with-tests/fhir/PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport.js';
 
 // Questionnaire resources
-import { PertinentProcedureQuestionnaire } from "./Questionnaire/PertinentProcedureQuestionnaire";
-import { PertinentConditionQuestionnaire } from "./Questionnaire/PertinentConditionQuestionnaire";
-import { PertinentObservationQuestionnaire } from "./Questionnaire/PertinentObservationQuestionnaire";
-import { PertinentVaccinationQuestionnaire } from "./Questionnaire/PertinentVaccinationQuestionnaire";
-import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
-import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHistoryQuestionnaire";
+import { PertinentProcedureQuestionnaire } from 'ccsm-cds-with-tests/fhir/Questionnaire/PertinentProcedureQuestionnaire.js';
+import { PertinentConditionQuestionnaire } from 'ccsm-cds-with-tests/fhir/Questionnaire/PertinentConditionQuestionnaire.js';
+import { PertinentObservationQuestionnaire } from 'ccsm-cds-with-tests/fhir/Questionnaire/PertinentObservationQuestionnaire.js';
+import { PertinentVaccinationQuestionnaire } from 'ccsm-cds-with-tests/fhir/Questionnaire/PertinentVaccinationQuestionnaire.js';
+import { ScreeningAndManagementHistoryQuestionnaire } from 'ccsm-cds-with-tests/fhir/Questionnaire/ScreeningAndManagementHistoryQuestionnaire.js';
 
 // ValueSet resources
-import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
-import { CervicalCytologyResult } from "./ValueSet/CervicalCytologyResult";
-import { HpvTestResult } from "./ValueSet/HpvTestResult";
-import { CervicalHistologyResult } from "./ValueSet/CervicalHistologyResult";
-import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortList";
-import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
-import { PertinentObservationShortList } from "./ValueSet/PertinentObservationShortList";
-import { QualifierValuesShortList } from "./ValueSet/QualifierValuesShortList";
-import { PertinentVaccinationShortList } from "./ValueSet/PertinentVaccinationShortList";
+import { ScreeningAndManagementTestType } from 'ccsm-cds-with-tests/fhir/ValueSet/ScreeningAndManagementTestType.js';
+import { CervicalCytologyResult } from 'ccsm-cds-with-tests/fhir/ValueSet/CervicalCytologyResult.js';
+import { HpvTestResult } from 'ccsm-cds-with-tests/fhir/ValueSet/HpvTestResult.js';
+import { CervicalHistologyResult } from 'ccsm-cds-with-tests/fhir/ValueSet/CervicalHistologyResult.js';
+import { PertinentProcedureShortList } from 'ccsm-cds-with-tests/fhir/ValueSet/PertinentProcedureShortList.js';
+import { PertinentConditionShortList } from 'ccsm-cds-with-tests/fhir/ValueSet/PertinentConditionShortList.js';
+import { PertinentObservationShortList } from 'ccsm-cds-with-tests/fhir/ValueSet/PertinentObservationShortList.js';
+import { QualifierValuesShortList } from 'ccsm-cds-with-tests/fhir/ValueSet/QualifierValuesShortList.js';
+import { PertinentVaccinationShortList } from 'ccsm-cds-with-tests/fhir/ValueSet/PertinentVaccinationShortList.js';
 
 export const cdsResources = [
   CervicalCancerDecisionAids,
@@ -67,7 +66,6 @@ export const cdsResources = [
   PertinentObservationQuestionnaire,
   PertinentVaccinationQuestionnaire,
   ScreeningAndManagementHistoryQuestionnaire,
-  VaccinationHistoryQuestionnaire,
   ScreeningAndManagementTestType,
   CervicalCytologyResult,
   HpvTestResult,
@@ -79,4 +77,4 @@ export const cdsResources = [
   QualifierValuesShortList
 ];
 
-export { resourceConverter } from './resourceConverter.js';
+export { resourceConverter } from 'ccsm-cds-with-tests/fhir/resourceConverter.js';

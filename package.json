@@ -21,13 +21,13 @@
     "browserslist": "^4.18.1",
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
-    "ccsm-cds-with-tests": "^0.3.3",
-    "cql-exec-vsac": "^2.0.0",
+    "ccsm-cds-with-tests": "^0.3.4",
+    "cql-exec-vsac": "^2.0.1",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
-    "encender": "^0.6.2",
+    "encender": "^0.6.3",
     "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
@@ -178,6 +178,7 @@
     ]
   },
   "overrides": {
-    "json5": ">=1.0.2"
+    "json5": ">=1.0.2",
+    "xml2js": ">=0.5.0"
   }
 }

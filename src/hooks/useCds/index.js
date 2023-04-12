@@ -55,12 +55,12 @@ const applyCds = async function(patientData, setOutput) {
     })[0];
 
     let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');
-    let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.display === 'Primary HPV')[0];
-    let CytologyRequest = ServiceRequests.filter(sr => sr.code.display === 'Cytology')[0];
-    let CotestRequest = ServiceRequests.filter(sr => sr.code.display === 'Cotest')[0];
-    let ColposcopyRequest = ServiceRequests.filter(sr => sr.code.display === 'Colposcopy')[0];
-    let SurveillanceRequest = ServiceRequests.filter(sr => sr.code.display === 'Surveillance')[0];
-    let TreatmentRequest = ServiceRequests.filter(sr => sr.code.display === 'Treatment')[0];
+    let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.text === 'Primary HPV')[0];
+    let CytologyRequest = ServiceRequests.filter(sr => sr.code.text === 'Cytology')[0];
+    let CotestRequest = ServiceRequests.filter(sr => sr.code.text === 'Cotest')[0];
+    let ColposcopyRequest = ServiceRequests.filter(sr => sr.code.text === 'Colposcopy')[0];
+    let SurveillanceRequest = ServiceRequests.filter(sr => sr.code.text === 'Surveillance')[0];
+    let TreatmentRequest = ServiceRequests.filter(sr => sr.code.text === 'Treatment')[0];
 
     resolver = simpleResolver(
       [

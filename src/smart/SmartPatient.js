@@ -152,12 +152,14 @@ async function boundParser(data) {
     convert = (c) => module.runGoFSH([JSON.stringify(c)], options);
   }
 
+async function boundParser(data) {
   const options = { dependencies: [], indent: true };
-  let convert = (c) => { return new Promise(c); };
-  if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-    import('./FSHHelpers').then(module => {
-      convert = c => module.runGoFSH([JSON.stringify(c)],options);
-    });
+
+  let convert = (c) => Promise.resolve(c);
+
+  if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+    const module = await import('./FSHHelpers');
+    convert = (c) => module.runGoFSH([JSON.stringify(c)], options);
   }
 
   return async function parseFhir(rsrc) {

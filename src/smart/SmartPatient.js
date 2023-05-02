@@ -18,7 +18,7 @@ export function SmartPatient() {
       let client = await FHIR.oauth2.ready();
 
       const fhirParser = boundParser(newData);
-      
+
       let pid = await client.patient.read().then(async function(pt) {
         await fhirParser(pt);
         return pt.id;
@@ -63,7 +63,7 @@ export function SmartPatient() {
       } catch(e) {
         console.log(e);
       }
-        
+
       try {
         await client.request('/MedicationRequest?patient=' + pid).then(async function(mr) {
           await fhirParser(mr);
@@ -84,7 +84,7 @@ export function SmartPatient() {
       } catch(e) {
         console.log(e);
       }
-        
+
       try {
         await client.request('/Procedure?patient=' + pid).then(async function(pr) {
           await fhirParser(pr);
@@ -128,69 +128,68 @@ export function SmartPatient() {
   } else {
     return (
       <div className="content">
-        <Dashboard 
-          input={dashboardInput} 
-          config={{}} 
+        <Dashboard
+          input={dashboardInput}
+          config={{}}
           setPatientData={setPatientData}
         />
       </div>
     )
   }
-  
+
 }
 
-function boundParser(data) {
+function cleanFsh(fsh) {
+  return fsh.replaceAll('undefined', ',').replaceAll(',', '\n');
+}
 
+async function boundParser(data) {
   const options = { dependencies: [], indent: true };
-  let convert = (c) => { return new Promise(c); };
-  if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-    import('./FSHHelpers').then(module => {
-      convert = c => module.runGoFSH([JSON.stringify(c)],options);
-    });
+
+  let convert = (c) => Promise.resolve(c);
+
+  if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+    const module = await import('./FSHHelpers');
+    convert = (c) => module.runGoFSH([JSON.stringify(c)], options);
   }
 
   return async function parseFhir(rsrc) {
+    if (!rsrc) return;
 
-    if (rsrc) {
-      if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
-        await Promise.all(rsrc.entry.map(async c => {
-          if (c.resource) {
-            console.log(c.resource.resourceType);
-            if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-              await convert(c.resource).then(({fsh,_config}) => {
-                const cleanedFsh = fsh.replaceAll('undefined',',').replaceAll(',','\n');
-                data.push(cleanedFsh);
-              });
-            } else {
-              data.push(c.resource);
-            }
-          }
-        }));
-      } else if (Array.isArray(rsrc)) {
-        await Promise.all(rsrc.map(async c => {
-          if (c.resourceType) {
-            console.log(c.resourceType);
-            if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-              await convert(c).then(({fsh,_config}) => {
-                const cleanedFsh = fsh.replaceAll('undefined',',').replaceAll(',','\n');
-                data.push(cleanedFsh);
-              });
-            } else {
-              data.push(c);
-            }
-          }
-        }));
-      } else {
-        console.log(rsrc.resourceType);
-        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-          await convert(rsrc).then(({fsh,_config}) => {
-            const cleanedFsh = fsh.replaceAll('undefined',',').replaceAll(',','\n');
-            data.push(cleanedFsh);
-          });
+    if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
+      await Promise.all(rsrc.entry.map(async (c) => {
+        if (!c.resource || !c.resource.resource) return;
+        console.log(c.resource.resourceType);
+
+        if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c.resource);
+          data.push(cleanFsh(fsh));
         } else {
-          data.push(rsrc);
+          data.push(c.resource);
         }
+      }));
+    } else if (Array.isArray(rsrc)) {
+      await Promise.all(rsrc.map(async (c) => {
+        if (!c.resourceType) return;
+        console.log(c.resourceType);
+
+        if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c);
+          data.push(cleanFsh(fsh));
+        } else {
+          data.push(c);
+        }
+      }));
+    } else {
+      if (!rsrc.resourceType) return;
+      console.log(rsrc.resourceType);
+
+      if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+        const fsh = await convert(rsrc);
+        data.push(cleanFsh(fsh));
+      } else {
+        data.push(rsrc);
       }
     }
-  }
+  };
 }

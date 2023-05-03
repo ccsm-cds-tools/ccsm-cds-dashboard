@@ -148,7 +148,7 @@ async function boundParser(data) {
 
   let convert = (c) => Promise.resolve(c);
 
-  if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+  if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
     const module = await import('./FSHHelpers');
     convert = (c) => module.runGoFSH([JSON.stringify(c)], options);
   }
@@ -161,7 +161,7 @@ async function boundParser(data) {
         if (!c.resource || !c.resource.resource) return;
         console.log(c.resource.resourceType);
 
-        if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
           const fsh = await convert(c.resource);
           data.push(cleanFsh(fsh));
         } else {
@@ -173,7 +173,7 @@ async function boundParser(data) {
         if (!c.resourceType) return;
         console.log(c.resourceType);
 
-        if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
           const fsh = await convert(c);
           data.push(cleanFsh(fsh));
         } else {
@@ -184,7 +184,7 @@ async function boundParser(data) {
       if (!rsrc.resourceType) return;
       console.log(rsrc.resourceType);
 
-      if (process.env.REACT_APP_DEBUG_FHIR === 'true') {
+      if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
         const fsh = await convert(rsrc);
         data.push(cleanFsh(fsh));
       } else {

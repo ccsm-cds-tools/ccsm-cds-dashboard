@@ -158,7 +158,7 @@ async function boundParser(data) {
 
     if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
       await Promise.all(rsrc.entry.map(async (c) => {
-        if (!c.resource || !c.resource.resource) return;
+        if (!c.resource?.resource) return;
         console.log(c.resource.resourceType);
 
         if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {

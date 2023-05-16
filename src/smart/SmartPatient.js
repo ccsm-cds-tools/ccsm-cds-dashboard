@@ -17,7 +17,7 @@ export function SmartPatient() {
       let newData = [];
       let client = await FHIR.oauth2.ready();
 
-      const fhirParser = boundParser(newData);
+      const fhirParser = await boundParser(newData);
 
       let pid = await client.patient.read().then(async function(pt) {
         await fhirParser(pt);
@@ -140,6 +140,10 @@ export function SmartPatient() {
 }
 
 function cleanFsh(fsh) {
+  if (typeof fsh != "string") {
+    let fshString = fsh.fsh;
+    return fshString.replaceAll('undefined', ',').replaceAll(',', '\n');
+  }
   return fsh.replaceAll('undefined', ',').replaceAll(',', '\n');
 }
 

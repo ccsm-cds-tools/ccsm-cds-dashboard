@@ -107,6 +107,7 @@ checkBrowsers(paths.appPath, isInteractive)
         buildFolder,
         useYarn
       );
+      process.exit(0);
     },
     err => {
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';

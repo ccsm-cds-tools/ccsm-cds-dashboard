@@ -140,11 +140,8 @@ export function SmartPatient() {
 }
 
 function cleanFsh(fsh) {
-  if (typeof fsh != "string") {
-    let fshString = fsh.fsh;
-    return fshString.replaceAll('undefined', ',').replaceAll(',', '\n');
-  }
-  return fsh.replaceAll('undefined', ',').replaceAll(',', '\n');
+  const fshString = typeof fsh === "string" ? fsh : fsh.fsh;
+  return fshString.replaceAll('undefined', '\n').replaceAll(',', '\n');
 }
 
 async function boundParser(data) {

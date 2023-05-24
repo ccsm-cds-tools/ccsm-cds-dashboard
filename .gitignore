@@ -29,3 +29,7 @@ yarn-error.log*
 valueset-db.json
 valueset-db.js
 /src/services/valueset/vsac-cache
+
+# vscode
+/.vscode
+.env

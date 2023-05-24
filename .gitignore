@@ -31,5 +31,4 @@ valueset-db.js
 /src/services/valueset/vsac-cache
 
 # vscode
-/.vscode
-.env
+

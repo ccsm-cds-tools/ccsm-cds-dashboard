@@ -93,19 +93,15 @@ const SCT_URL = 'http://snomed.info/sct'
  * @param {Object[]} patientDatea - Array of FHIR resources
  * @returns {Object[]} - patientData updated with the results from terminology mapping
  */
-export function translateResponse (patientData) {
-  patientData.forEach(pd => {
-    if (pd.resourceType === 'Observation') {
-      if (pd.code.some(coding => coding.code === '47527-7')) {
-        mapResult(pd, customCytologyCodes)
-      }
-    }
-  });
+export function translateResponse(patientData) {
+  patientData
+    .filter(pd => pd.resourceType === 'Observation' && pd.code.coding.some(coding => coding.code === '47527-7'))
+    .forEach(pd => mapResult(pd, customCytologyCodes));
 }
 
 function mapResult(result, customCodes) {
   if (!result.valueCodeableConcept && result.valueString) {
-    let targetCode = customCodes.filter(cc => cc.text === result.valueString);
+    const targetCode = customCodes.find(cc => cc.text === result.valueString);
 
     if (targetCode) {
       result.valueCodeableConcept = {
@@ -114,7 +110,7 @@ function mapResult(result, customCodes) {
           system: SCT_URL
         },
         text: targetCode.text
-      }
+      };
     }
   }
 }

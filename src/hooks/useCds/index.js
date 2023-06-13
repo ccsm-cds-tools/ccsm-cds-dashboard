@@ -3,10 +3,12 @@ import { applyPlan, simpleResolver } from 'encender';
 import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
+import { translateResponse } from './translate';
+
 
 /**
- * 
- * @param {Object[]} patientData 
+ *
+ * @param {Object[]} patientData
  * @returns {Object}
  */
 export const useCds = (patientData) => {
@@ -15,16 +17,17 @@ export const useCds = (patientData) => {
 
   useEffect(() => {
     console.log('patientData: ', patientData);
+    translateResponse(patientData);
     applyCds(patientData, setOutput);
   }, [patientData]);
 
-  return output; 
+  return output;
 }
 
 /**
- * 
- * @param {Object[]} patientData 
- * @param {function} setOutput 
+ *
+ * @param {Object[]} patientData
+ * @param {function} setOutput
  */
 const applyCds = async function(patientData, setOutput) {
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
@@ -42,7 +45,7 @@ const applyCds = async function(patientData, setOutput) {
       WorkerFactory,
     };
     const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
-    
+
     let CommunicationRequests = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest');
     let DisplayCervicalCancerMedicalHistory = CommunicationRequests.filter(cr => {
       return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
@@ -64,14 +67,14 @@ const applyCds = async function(patientData, setOutput) {
 
     resolver = simpleResolver(
       [
-        ...cdsResources, 
+        ...cdsResources,
         ...patientData,
         ...CommunicationRequests,
         ...ServiceRequests
-      ], 
+      ],
       false
     );
-    
+
     console.log('CarePlan: ', CarePlan);
     console.log('RequestGroup: ', RequestGroup);
     console.log('otherResources: ', otherResources);
@@ -124,5 +127,5 @@ const applyCds = async function(patientData, setOutput) {
       );
     }
   }
-    
+
 }

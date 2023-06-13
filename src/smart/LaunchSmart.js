@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import FHIR from 'fhirclient';
 
 export function LaunchSmart() {
@@ -16,5 +16,5 @@ export function LaunchSmart() {
     <div className="content">
     </div>
   )
-  
+
 }

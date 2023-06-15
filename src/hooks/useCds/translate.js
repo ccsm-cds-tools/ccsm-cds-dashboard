@@ -94,11 +94,19 @@ const testCodeResultMapping = [
     test_name: 'HPV',
     map: [
       {
-        text: "Not detected, negative",
+        text: "Not detected",
         code: "260415000"
       },
       {
-        text: "Detected, postive",
+        text: "negative",
+        code: "260415000"
+      },
+      {
+        text: "Detected",
+        code: "260373001"
+      },
+      {
+        text: "postive",
         code: "260373001"
       }
     ]

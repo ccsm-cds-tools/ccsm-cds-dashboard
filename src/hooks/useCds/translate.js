@@ -94,7 +94,7 @@ const testCodeResultMapping = [
     test_name: 'HPV',
     map: [
       {
-        text: "Not detected",
+        text: "Not Detected",
         code: "260415000"
       },
       {
@@ -145,7 +145,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   );
 
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
-    const mappedCode = customCodes.map.find(cc => cc.text === result.valueString);
+    const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(result.valueString, undefined, { sensitivity: 'base' }) === 0);
 
     if (mappedCode) {
       result.valueCodeableConcept = {

@@ -153,8 +153,10 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
           code: mappedCode.code,
           system: SCT_URL
         },
-        text: mappedCode.text
+        text: result.valueString
       };
+
+      delete result.valueString
     }
   }
 }

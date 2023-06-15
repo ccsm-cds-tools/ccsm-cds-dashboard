@@ -98,7 +98,7 @@ const testCodeResultMapping = [
         code: "260415000"
       },
       {
-        text: "negative",
+        text: "Negative",
         code: "260415000"
       },
       {
@@ -106,7 +106,7 @@ const testCodeResultMapping = [
         code: "260373001"
       },
       {
-        text: "postive",
+        text: "Postive",
         code: "260373001"
       }
     ]

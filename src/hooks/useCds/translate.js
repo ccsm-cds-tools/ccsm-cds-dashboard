@@ -1,4 +1,4 @@
-const testCodeMapping = [
+const testCodeResultMapping = [
   {
     test_code: ['47527-7'],
     test_name: 'Cytology',
@@ -98,12 +98,17 @@ const testCodeMapping = [
         code: "260415000"
       },
       {
-        test: "Detected, postive",
+        text: "Detected, postive",
         code: "260373001"
       }
     ]
   }
 ]
+
+const loincMapping = new Map([
+  ['61372-9', '77399-4'],
+  ['61373-7', '77400-0']
+]);
 
 const SCT_URL = 'http://snomed.info/sct'
 
@@ -116,23 +121,33 @@ const SCT_URL = 'http://snomed.info/sct'
 export function translateResponse(patientData) {
   patientData
     .filter(pd => pd.resourceType === 'Observation')
-    .forEach(pd => mapResult(pd, testCodeMapping));
+    .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
 }
 
-function mapResult(result, testCodeMapping) {
-  const customCodes = testCodeMapping.find(ts => result.code.coding.some(coding => ts.test_code.includes(coding.code)));
+function mapResult(result, loincMapping, testCodeResultMapping) {
+  result.code.coding.forEach(coding => {
+    const mappedLoinc = loincMapping.get(coding.code);
+    if (mappedLoinc) {
+      coding.code = mappedLoinc;
+    }
+  });
+
+  const customCodes = testCodeResultMapping.find(ts =>
+    result.code.coding.some(coding => ts.test_code.includes(coding.code))
+  );
 
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
-    const targetCode = customCodes.find(cc => cc.text === result.valueString);
+    const mappedCode = customCodes.map.find(cc => cc.text === result.valueString);
 
-    if (targetCode) {
+    if (mappedCode) {
       result.valueCodeableConcept = {
         coding: {
-          code: targetCode.code,
+          code: mappedCode.code,
           system: SCT_URL
         },
-        text: targetCode.text
+        text: mappedCode.text
       };
     }
   }
 }
+

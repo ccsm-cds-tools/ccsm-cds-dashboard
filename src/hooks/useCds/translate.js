@@ -1,7 +1,7 @@
 const testCodeResultMapping = [
   {
-    test_code: ['47527-7'],
-    test_name: 'Cytology',
+    testCode: ['47527-7'],
+    testName: 'Cytology',
     map: [
       {
         text: "Negative for intraepithelial lesion or malignancy, atrophic pattern",
@@ -90,8 +90,8 @@ const testCodeResultMapping = [
     ]
   },
   {
-    test_code: ['71431-1', '77399-4', '77400-0'],
-    test_name: 'HPV',
+    testCode: ['71431-1', '77399-4', '77400-0'],
+    testName: 'HPV',
     map: [
       {
         text: "Not Detected",
@@ -113,18 +113,24 @@ const testCodeResultMapping = [
   }
 ]
 
-const loincMapping = new Map([
-  ['61372-9', '77399-4'],
-  ['61373-7', '77400-0']
-]);
+const loincMapping = [
+  {
+    oldCode: '61372-9',
+    newCode: '77399-4'
+  },
+  {
+    oldCode: '61373-7',
+    newCode: '77400-0'
+  }
+];
 
 const SCT_URL = 'http://snomed.info/sct'
+const LOINC_URL = 'http://loinc.org'
 
 
 /**
  * Translate terminologies in Observation and DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
- * @returns {Object[]} - patientData updated with the results from terminology mapping
  */
 export function translateResponse(patientData) {
   patientData
@@ -132,16 +138,30 @@ export function translateResponse(patientData) {
     .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
 }
 
-function mapResult(result, loincMapping, testCodeResultMapping) {
-  result.code.coding.forEach(coding => {
-    const mappedLoinc = loincMapping.get(coding.code);
-    if (mappedLoinc) {
-      coding.code = mappedLoinc;
+/**
+ *
+ * @param {*} result - Observation resource to be mapping
+ * @param {*} loincMapping - Loinc old_code => new_code mapping
+ */
+function mapLoincCode(result, loincMapping) {
+  const existingCodes = new Set(result.code.coding.map(coding => coding.code));
+
+  for (const { oldCode, newCode } of loincMapping) {
+    if (existingCodes.has(oldCode) && !existingCodes.has(newCode)) {
+      result.code.coding.push({
+        system: LOINC_URL,
+        code: newCode
+      });
+      break;
     }
-  });
+  }
+}
+
+function mapResult(result, loincMapping, testCodeResultMapping) {
+  mapLoincCode(result, loincMapping);
 
   const customCodes = testCodeResultMapping.find(ts =>
-    result.code.coding.some(coding => ts.test_code.includes(coding.code))
+    result.code.coding.some(coding => ts.testCode.includes(coding.code))
   );
 
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
@@ -150,14 +170,16 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
     if (mappedCode) {
       result.valueCodeableConcept = {
         coding: {
-          code: mappedCode.code,
-          system: SCT_URL
+          system: SCT_URL,
+          code: mappedCode.code
         },
         text: result.valueString
       };
 
-      delete result.valueString
+      delete result.valueString;
     }
   }
 }
+
+
 

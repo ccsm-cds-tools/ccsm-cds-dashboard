@@ -14,6 +14,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const paths = require('./paths');
@@ -306,11 +307,26 @@ module.exports = function (webpackEnv) {
       ),
       // NOTE: Not polyfilling here, just ignoring these node modules.
       fallback: {
-        buffer: false,
-        fs: false,
+        buffer: require.resolve('buffer'),
+        fs: require.resolve('browserify-fs'),
         module: false,
         timers: false,
-        worker_threads: false
+        worker_threads: false,
+        process: require.resolve('process'),
+        path: require.resolve('path-browserify'),
+        os: require.resolve('os-browserify'),
+        util: require.resolve('util'),
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        url: require.resolve('url'),
+        assert: require.resolve('assert'),
+        constants: require.resolve('constants-browserify'),
+        zlib: require.resolve('browserify-zlib'),
+        crypto: require.resolve('crypto-browserify'),
+        child_process: false,
+        tls: false,
+        net: false,
+        stream: require.resolve('stream-browserify')
       },
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
@@ -345,12 +361,40 @@ module.exports = function (webpackEnv) {
           babelRuntimeEntry,
           babelRuntimeEntryHelpers,
           babelRuntimeRegenerator,
-        ]),
+        ])
       ],
     },
     module: {
       strictExportPresence: true,
       rules: [
+        {
+          test: /.*fs-extra.*/,
+          use: 'null-loader'
+        },
+        {
+          test: /.*fs-minipass.*/,
+          use: 'null-loader'
+        },
+        {
+          test: /.*readline-sync.*/,
+          use: 'null-loader'
+        },
+        {
+          test: /.*tar(\\|\/).*/,
+          use: 'null-loader'
+        },
+        {
+          test: /.*uglify.*/,
+          use: 'null-loader'
+        },
+        {
+          test: /.*gofsh.*.d\.ts$/,
+          use: 'null-loader'
+        },
+        {
+          test: /.*temp.*/,
+          use: 'null-loader'
+        },
         // Handle node_modules packages that contain sourcemaps
         shouldUseSourceMap && {
           enforce: 'pre',
@@ -575,6 +619,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new BundleAnalyzerPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -622,6 +667,11 @@ module.exports = function (webpackEnv) {
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(env.stringified),
+      new webpack.ProvidePlugin({
+        // you must `npm install buffer` to use this.
+        process: 'process',
+        Buffer: ['buffer', 'Buffer']
+      }),
       // Experimental hot reloading for React .
       // https://github.com/facebook/react/tree/main/packages/react-refresh
       isEnvDevelopment &&
@@ -682,6 +732,23 @@ module.exports = function (webpackEnv) {
         {
           resourceRegExp: /^\.\/fhir\.schema\.json$/,
           contextRegExp: /fhir-json-schema-validator$/,
+        }
+      ),
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: /(\.d\.ts)$/
+        }
+      ),
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: process.env?.REACT_APP_DEBUG_FHIR==='true' ? /a^/ : /.?$/,
+          contextRegExp: /fsh-sushi/
+        }
+      ),
+      new webpack.IgnorePlugin(
+        {
+          resourceRegExp: process.env?.REACT_APP_DEBUG_FHIR==='true' ? /a^/ : /.?$/, 
+          contextRegExp: /gofsh/
         }
       ),
       // NOTE: Replacing older modelinfos included in cql-exec-fhir with v4.0.1.

@@ -4,7 +4,8 @@ import FHIR from 'fhirclient';
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
 
-import { config } from './smart.config.js';
+// import { config } from './smart.config.js';
+// import { runGoFSH } from './FSHHelpers';
 
 export function SmartPatient() {
 
@@ -15,93 +16,181 @@ export function SmartPatient() {
     async function smartOnFhir() {
       let newData = [];
       let client = await FHIR.oauth2.ready();
-      
-      let pid = await client.patient.read().then(function(pt) {
-        if (pt) newData.unshift(pt);
-        console.log(pt);
+
+      const fhirParser = await boundParser(newData);
+
+      let pid = await client.patient.read().then(async function(pt) {
+        await fhirParser(pt);
         return pt.id;
       });
 
-      await client.request('/Condition?patient=' + pid).then(function(cd) {
-        if (cd) {
-          console.log(cd);
-          if (cd.resourceType == 'Bundle' && cd.entry) {
-            cd.entry.forEach(c => {
-              if (c.resource) newData.push(c.resource);
-            });
-          } else if (Array.isArray(cd)) {
-            cd.forEach(c => {
-              if (c.resourceType) newData.push(c);
-            });
-          } else {
-            newData.push(cd);
-          }
-        }
-      });
+      try {
+        await client.request('/Condition?patient=' + pid).then(async function(cd) {
+          await fhirParser(cd);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/DiagnosticReport?patient=' + pid).then(async function(dr) {
+          await fhirParser(dr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/DocumentReference?patient=' + pid).then(async function(dr) {
+          await fhirParser(dr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/Encounter?patient=' + pid).then(async function(en) {
+          await fhirParser(en);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/Immunization?patient=' + pid).then(async function(dr) {
+          await fhirParser(dr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/MedicationRequest?patient=' + pid).then(async function(mr) {
+          await fhirParser(mr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
 
       let obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
       let obsCatArr = obsCatStr.split(';');
 
-      await Promise.all(obsCatArr.map(cat => {
-        return client.request('/Observation?patient=' + pid + '&category=' + cat).then(function(ob) {
-          if (ob) {
-            console.log(ob);
-            if (ob.resourceType == 'Bundle' &&  ob.entry) {
-              ob.entry.forEach(o => {
-                if (o.resource) newData.push(o.resource);
-              });
-            } else if (Array.isArray(ob)) {
-              ob.forEach(o => {
-                if (o.resourceType) newData.push(o);
-              });
-            } else {
-              newData.push(ob);
-            }
-          }
-        });
-      }));
+      try {
+        await Promise.all(obsCatArr.map(cat => {
+          return client.request('/Observation?patient=' + pid + '&category=' + cat).then(async function(ob) {
+            await fhirParser(ob);
+          });
+        }));
+      } catch(e) {
+        console.log(e);
+      }
 
-      await client.request('/Procedure?patient=' + pid).then(function(dr) {
-        if (dr) {
-          console.log(dr);
-          if (dr.resourceType == 'Bundle' &&  dr.entry) {
-            dr.entry.forEach(d => {
-              if (d.resource) newData.push(d.resource);
-            });
-          } else if (Array.isArray(dr)) {
-            dr.forEach(d => {
-              if (d.resourceType) newData.push(d);
-            });
-          } else {
-            newData.push(dr);
-          }
-        }
-      });
+      try {
+        await client.request('/Procedure?patient=' + pid).then(async function(pr) {
+          await fhirParser(pr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+      try {
+        await client.request('/QuestionnaireResponse?patient=' + pid).then(async function(qr) {
+          await fhirParser(qr);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
+
 
       setPatientData(newData);
     }
     smartOnFhir();
   },[]);
 
-  if (process.env?.REACT_APP_DEBUG_FHIR) {
-
+  if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
     return (
       <div className="debug">
-        <pre>
-          {JSON.stringify(patientData.filter(p => p?.resourceType != 'OperationOutcome'), null, 2)}
-        </pre>
+        {
+          patientData.map((pd,idx) => {
+            return(
+              <div key={idx}>
+                <pre>
+                  {pd}
+                </pre>
+                <hr></hr>
+              </div>
+            )
+          })
+        }
       </div>
-    ) 
+    )
   } else {
     return (
       <div className="content">
-        <Dashboard 
-          input={dashboardInput} 
-          config={config} 
+        <Dashboard
+          input={dashboardInput}
+          config={{}}
           setPatientData={setPatientData}
         />
       </div>
     )
   }
-  
+
+}
+
+function cleanFsh(fsh) {
+  const fshString = typeof fsh === "string" ? fsh : fsh.fsh;
+  return fshString.replaceAll('undefined', '\n').replaceAll(',', '\n');
+}
+
+async function boundParser(data) {
+  const options = { dependencies: [], indent: true };
+
+  let convert = (c) => Promise.resolve(c);
+
+  if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+    const module = await import('./FSHHelpers');
+    convert = (c) => module.runGoFSH([JSON.stringify(c)], options);
+  }
+
+  return async function parseFhir(rsrc) {
+    if (!rsrc) return;
+
+    if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
+      await Promise.all(rsrc.entry.map(async (c) => {
+        if (!c.resource) return;
+        console.log(c.resource.resourceType);
+
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c.resource);
+          data.push(cleanFsh(fsh));
+        } else {
+          data.push(c.resource);
+        }
+      }));
+    } else if (Array.isArray(rsrc)) {
+      await Promise.all(rsrc.map(async (c) => {
+        if (!c.resourceType) return;
+        console.log(c.resourceType);
+
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c);
+          data.push(cleanFsh(fsh));
+        } else {
+          data.push(c);
+        }
+      }));
+    } else {
+      if (!rsrc.resourceType) return;
+      console.log(rsrc.resourceType);
+
+      if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+        const fsh = await convert(rsrc);
+        data.push(cleanFsh(fsh));
+      } else {
+        data.push(rsrc);
+      }
+    }
+  };
 }

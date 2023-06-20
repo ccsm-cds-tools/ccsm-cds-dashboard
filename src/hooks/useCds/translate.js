@@ -121,6 +121,10 @@ const loincMapping = [
   {
     oldCode: '61373-7',
     newCode: '77400-0'
+  },
+  {
+    oldCode: '50595-8',
+    newCode: '47527-7'
   }
 ];
 

@@ -129,7 +129,8 @@ const LOINC_URL = 'http://loinc.org'
 
 
 /**
- * Translate terminologies in Observation and DiagnosticReport
+ * Translate terminology codings used in Observation
+ * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
 export function translateResponse(patientData) {

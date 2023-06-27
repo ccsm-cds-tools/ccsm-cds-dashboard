@@ -475,7 +475,7 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-                
+
                 plugins: [
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
@@ -509,7 +509,7 @@ module.exports = function (webpackEnv) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
@@ -726,7 +726,7 @@ module.exports = function (webpackEnv) {
         }
       ),
       // NOTE: The schema packaged with fhir-json-schema-validator is huge.
-      // Validation will not work, but removing this file drastically reduces 
+      // Validation will not work, but removing this file drastically reduces
       // bundle size.
       new webpack.IgnorePlugin(
         {
@@ -747,12 +747,12 @@ module.exports = function (webpackEnv) {
       ),
       new webpack.IgnorePlugin(
         {
-          resourceRegExp: process.env?.REACT_APP_DEBUG_FHIR==='true' ? /a^/ : /.?$/, 
+          resourceRegExp: process.env?.REACT_APP_DEBUG_FHIR==='true' ? /a^/ : /.?$/,
           contextRegExp: /gofsh/
         }
       ),
       // NOTE: Replacing older modelinfos included in cql-exec-fhir with v4.0.1.
-      // This significantly reduces the final bundle size by removing these 
+      // This significantly reduces the final bundle size by removing these
       // unnecessary files.
       new webpack.NormalModuleReplacementPlugin(
         /^\.\/modelInfos\/fhir-modelinfo-1\.0\.2\.xml\.js$/,

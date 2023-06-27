@@ -63,6 +63,7 @@ export function SmartPatient() {
       } catch(e) {
         console.log(e);
       }
+
       try {
         await client.request('/MedicationRequest?patient=' + pid).then(async function(mr) {
           await fhirParser(mr);
@@ -83,6 +84,7 @@ export function SmartPatient() {
       } catch(e) {
         console.log(e);
       }
+
       try {
         await client.request('/Procedure?patient=' + pid).then(async function(pr) {
           await fhirParser(pr);

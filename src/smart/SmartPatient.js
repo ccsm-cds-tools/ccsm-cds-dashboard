@@ -4,15 +4,11 @@ import FHIR from 'fhirclient';
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
 
-// import { config } from './smart.config.js';
-// import { runGoFSH } from './FSHHelpers';
-
 export function SmartPatient() {
 
   const [patientData, setPatientData] = useState([]);
   const [convertedData, setConvertedData] = useState([]);
   const dashboardInput = useCds(patientData);
-  //const convert = convert(resource);
 
   useEffect(() => {
     async function smartOnFhir() {

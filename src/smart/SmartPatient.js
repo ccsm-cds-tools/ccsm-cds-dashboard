@@ -148,16 +148,22 @@ export function SmartPatient() {
 }
 
 function displayRecommendations(decisionAids) {
-  let output = "Recommendations: "
-  if (decisionAids) {
-    output += `${decisionAids.recommendation}\n`;
-    output += `${decisionAids.recommendationGroup}\n`;
-    output += `Due: ${decisionAids.recommendationDate}\n`;
-    output += decisionAids.recommendationDetails.join("\n");
+  if (!decisionAids) {
+    return 'No Recommendation';
   }
+
+  const {
+    recommendation,
+    recommendationGroup,
+    recommendationDate,
+    recommendationDetails,
+  } = decisionAids;
+
+  const output = `Recommendations: ${recommendation}\n${recommendationGroup}\nDue: ${recommendationDate}\n${recommendationDetails.join('\n')}`;
 
   return output;
 }
+
 function cleanFsh(fsh) {
   const fshString = typeof fsh === "string" ? fsh : fsh.fsh;
   return fshString.replaceAll('undefined', '\n').replaceAll(',', '\n');
@@ -182,34 +188,35 @@ async function boundParser(data, fshData) {
         console.log(c.resource.resourceType);
 
         if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-           const fsh = await convert(c.resource);
-           fshData.push(cleanFsh(fsh));
-        } //else {
-          data.push(c.resource);
-        // }
+          const fsh = await convert(c.resource);
+          fshData.push(cleanFsh(fsh));
+        }
+
+        data.push(c.resource);
+
       }));
     } else if (Array.isArray(rsrc)) {
       await Promise.all(rsrc.map(async (c) => {
         if (!c.resourceType) return;
         console.log(c.resourceType);
 
-         if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-           const fsh = await convert(c);
-           fshData.push(cleanFsh(fsh));
-         } //else {
-          data.push(c);
-        // }
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c);
+          fshData.push(cleanFsh(fsh));
+        }
+
+        data.push(c);
       }));
     } else {
       if (!rsrc.resourceType) return;
       console.log(rsrc.resourceType);
 
-       if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-         const fsh = await convert(rsrc);
-         fshData.push(cleanFsh(fsh));
-       } //else {
-        data.push(rsrc);
-      // }
+      if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+        const fsh = await convert(rsrc);
+        fshData.push(cleanFsh(fsh));
+      }
+
+      data.push(rsrc);
     }
   };
 }

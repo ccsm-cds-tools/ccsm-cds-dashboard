@@ -109,6 +109,14 @@ export function SmartPatient() {
   if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
     return (
       <div className="debug">
+        <div key="recommendations">
+          {
+            <pre>
+              {displayRecommendations(dashboardInput.decisionAids)}
+            </pre>
+          }
+        </div>
+        <hr />
         <div key="patientData">
           {
             convertedData.map((converted, idx) => (
@@ -117,14 +125,6 @@ export function SmartPatient() {
                 <hr />
               </div>
             ))
-          }
-        </div>
-
-        <div key="recommendation">
-          {
-            <pre>
-              {displayRecommendations(dashboardInput.decisionAids)}
-            </pre>
           }
         </div>
       </div>
@@ -145,7 +145,7 @@ export function SmartPatient() {
 
 function displayRecommendations(decisionAids) {
   if (!decisionAids) {
-    return 'No Recommendation';
+    return 'Recommendation: ';
   }
 
   const {
@@ -155,7 +155,7 @@ function displayRecommendations(decisionAids) {
     recommendationDetails,
   } = decisionAids;
 
-  const output = `Recommendations: ${recommendation}\n${recommendationGroup}\nDue: ${recommendationDate}\n${recommendationDetails.join('\n')}`;
+  const output = `Recommendations: ${recommendation}\n${recommendationGroup}\nDue: ${recommendationDate}\n---\n${recommendationDetails.join('\n')}`;
 
   return output;
 }

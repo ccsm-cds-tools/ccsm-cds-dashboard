@@ -10,14 +10,17 @@ import { useCds } from 'hooks/useCds';
 export function SmartPatient() {
 
   const [patientData, setPatientData] = useState([]);
+  const [convertedData, setConvertedData] = useState([]);
   const dashboardInput = useCds(patientData);
+  //const convert = convert(resource);
 
   useEffect(() => {
     async function smartOnFhir() {
       let newData = [];
+      let newFshData = [];
       let client = await FHIR.oauth2.ready();
 
-      const fhirParser = await boundParser(newData);
+      const fhirParser = await boundParser(newData, newFshData);
 
       let pid = await client.patient.read().then(async function(pt) {
         await fhirParser(pt);
@@ -101,9 +104,8 @@ export function SmartPatient() {
         console.log(e);
       }
 
-
-
       setPatientData(newData);
+      setConvertedData(newFshData);
     }
     smartOnFhir();
   },[]);
@@ -111,18 +113,24 @@ export function SmartPatient() {
   if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
     return (
       <div className="debug">
-        {
-          patientData.map((pd,idx) => {
-            return(
+        <div key="patientData">
+          {
+            convertedData.map((converted, idx) => (
               <div key={idx}>
-                <pre>
-                  {pd}
-                </pre>
-                <hr></hr>
+                <pre>{converted}</pre>
+                <hr />
               </div>
-            )
-          })
-        }
+            ))
+          }
+        </div>
+
+        <div key="recommendation">
+          {
+            <pre>
+              {displayRecommendations(dashboardInput.decisionAids)}
+            </pre>
+          }
+        </div>
       </div>
     )
   } else {
@@ -139,12 +147,23 @@ export function SmartPatient() {
 
 }
 
+function displayRecommendations(decisionAids) {
+  let output = "Recommendations: "
+  if (decisionAids) {
+    output += `${decisionAids.recommendation}\n`;
+    output += `${decisionAids.recommendationGroup}\n`;
+    output += `Due: ${decisionAids.recommendationDate}\n`;
+    output += decisionAids.recommendationDetails.join("\n");
+  }
+
+  return output;
+}
 function cleanFsh(fsh) {
   const fshString = typeof fsh === "string" ? fsh : fsh.fsh;
   return fshString.replaceAll('undefined', '\n').replaceAll(',', '\n');
 }
 
-async function boundParser(data) {
+async function boundParser(data, fshData) {
   const options = { dependencies: [], indent: true };
 
   let convert = (c) => Promise.resolve(c);
@@ -163,34 +182,34 @@ async function boundParser(data) {
         console.log(c.resource.resourceType);
 
         if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-          const fsh = await convert(c.resource);
-          data.push(cleanFsh(fsh));
-        } else {
+           const fsh = await convert(c.resource);
+           fshData.push(cleanFsh(fsh));
+        } //else {
           data.push(c.resource);
-        }
+        // }
       }));
     } else if (Array.isArray(rsrc)) {
       await Promise.all(rsrc.map(async (c) => {
         if (!c.resourceType) return;
         console.log(c.resourceType);
 
-        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-          const fsh = await convert(c);
-          data.push(cleanFsh(fsh));
-        } else {
+         if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+           const fsh = await convert(c);
+           fshData.push(cleanFsh(fsh));
+         } //else {
           data.push(c);
-        }
+        // }
       }));
     } else {
       if (!rsrc.resourceType) return;
       console.log(rsrc.resourceType);
 
-      if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
-        const fsh = await convert(rsrc);
-        data.push(cleanFsh(fsh));
-      } else {
+       if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+         const fsh = await convert(rsrc);
+         fshData.push(cleanFsh(fsh));
+       } //else {
         data.push(rsrc);
-      }
+      // }
     }
   };
 }

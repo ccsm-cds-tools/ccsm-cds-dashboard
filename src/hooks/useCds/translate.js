@@ -118,6 +118,55 @@ const testCodeResultMapping = [
         code: "260373001"
       }
     ]
+  },
+  {
+    testName: 'Histology',
+    map: [
+      {
+        "text": "Insufficient",
+        "code": "112631006"
+      },
+      {
+        "text": "Negative",
+        "code": "309162003"
+      },
+      {
+        "text": "CIN1",
+        "code": "285836003"
+      },
+      {
+        "text": "CIN2",
+        "code": "285838002"
+      },
+      {
+        "text": "CIN2-3",
+        "code": "20365006"
+      },
+      {
+        "text": "CIN3",
+        "code": "20365006"
+      },
+      {
+        "text": "Cervical squamous in situ",
+        "code": "92564006"
+      },
+      {
+        "text": "Cervical adenocarcinoma in situ",
+        "code": "254890008"
+      },
+      {
+        "text": "Cervical Squamous Cell Carcinoma",
+        "code": "254886006"
+      },
+      {
+        "text": "Cervical Adenocarcinoma",
+        "code": "254887002"
+      },
+      {
+        "text": "Cervical, Malignant Other",
+        "code": "363354003"
+      }
+    ]
   }
 ]
 
@@ -136,6 +185,14 @@ const loincMapping = [
   }
 ];
 
+const pathologyMapping = [
+  {
+    text: 'Insufficient',
+
+  }
+]
+
+
 const SCT_URL = 'http://snomed.info/sct'
 const LOINC_URL = 'http://loinc.org'
 
@@ -145,10 +202,12 @@ const LOINC_URL = 'http://loinc.org'
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData) {
-  patientData
-    .filter(pd => pd.resourceType === 'Observation')
-    .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+export function translateResponse(patientData, stridesData) {
+    patientData
+      .filter(pd => pd.resourceType === 'Observation')
+      .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+
+    mapStrideResult(patientData, stridesData);
 }
 
 /**
@@ -174,7 +233,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   mapLoincCode(result, loincMapping);
 
   const customCodes = testCodeResultMapping.find(ts =>
-    result.code.coding.some(coding => ts.testCode.includes(coding.code))
+    result.code.coding.some(coding => ts.testCode?.includes(coding.code))
   );
 
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
@@ -193,6 +252,65 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
     }
   }
 }
+
+function mapStrideResult(patientData, stridesData) {
+  if (!patientData.length) {
+    return;
+  }
+
+  const diagnosticReports = [];
+  const observations = [];
+  let mrn = null;
+
+  for (const data of patientData) {
+    if (data.resourceType === 'Patient') {
+      mrn = data.identifier.find(id => id.type?.text === 'MRN')?.value;
+    } else if (data.resourceType === 'DiagnosticReport') {
+      diagnosticReports.push(data);
+    } else if (data.resourceType === 'Observation') {
+      observations.push(data);
+    }
+  }
+
+  if (!mrn || diagnosticReports.length === 0 || observations.length === 0) {
+    return;
+  }
+
+  for (const dr of diagnosticReports) {
+    const orderId = dr.identifier.find(id => id.system === 'https://open.epic.com/FHIR/284/order-accession-number/Beaker')?.value;
+
+    if (!orderId) {
+      continue;
+    }
+
+    const result = observations.find(ob => ob.valueString?.includes(`Case: ${orderId}`));
+
+    if (result) {
+      const mappedCode = searchStridesCode(orderId, stridesData);
+
+      if (mappedCode) {
+        result.valueCodeableConcept = {
+          coding: [{
+            system: SCT_URL,
+            code: mappedCode.code
+          }],
+          text: result.valueString
+        };
+
+        delete result.valueString;
+      }
+    }
+  }
+}
+
+
+function searchStridesCode(orderId, stridesData) {
+  const strideCode = 'CIN3';
+  const customCodes = testCodeResultMapping.find(ts => ts.testName === 'Histology')
+  const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(strideCode, undefined, { sensitivity: 'base' }) === 0);
+  return mappedCode;
+}
+
 
 
 

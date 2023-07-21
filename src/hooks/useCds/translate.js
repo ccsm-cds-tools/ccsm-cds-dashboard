@@ -203,11 +203,17 @@ const LOINC_URL = 'http://loinc.org'
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
 export function translateResponse(patientData, stridesData) {
-    patientData
-      .filter(pd => pd.resourceType === 'Observation')
-      .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  const patientDataMap = patientData.reduce((acc, pd) => {
+    if (!acc[pd.resourceType]) {
+      acc[pd.resourceType] = [];
+    }
+    acc[pd.resourceType].push(pd);
+    return acc;
+  }, {});
 
-    mapStrideResult(patientData, stridesData);
+  patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+
+  mapStrideResult(patientDataMap, stridesData);
 }
 
 /**

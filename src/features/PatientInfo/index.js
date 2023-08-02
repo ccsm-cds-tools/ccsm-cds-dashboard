@@ -3,10 +3,12 @@ import './style.scss';
 function PatientInfo(props) {
 
   const {input} = props;
+  console.log("Dashboard input: ", input)
 
   const dob = formatDateOfBirth(input?.dateOfBirth?.value);
   const ids = input.id ?? [];
-  const actNum = ids.length > 0 ? ids[0]?.value : '';
+  const mrn = getMrn(ids);
+  const gender = capitalizeGender(input.gender);
 
   return (
     <section className="patient-info">
@@ -14,7 +16,7 @@ function PatientInfo(props) {
       <div className="patient-detail">
         <div className="id">
           {/* <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div> */}
-          <div><b>Account Number:</b> <span>{actNum}</span></div>
+          <div><b>MRN:</b> <span>{mrn}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
         </div>
         <div className="info-items">
@@ -33,7 +35,7 @@ function PatientInfo(props) {
                 <b>Age</b> <span>{input.age}</span>
               </div>
               <div className="info-item">
-                <b>Gender</b> <span>{input.gender}</span>
+                <b>Gender</b> <span>{gender}</span>
               </div>
             </div>
             <div className="col-6">
@@ -64,4 +66,21 @@ function formatDateOfBirth(dateOfBirth) {
     year;
 
   return dateOfBirth ? dobString : null;
+}
+
+function getMrn(ids) {
+  if (ids.length > 0) {
+    const mrnTextValues = ["MRN", "MR", "Medical Record Number"]
+    const mrn = ids.find(id => 
+      mrnTextValues.includes(id.type?.text.value)||
+      (id.type?.coding && mrnTextValues.includes(id.type?.coding[0].code.value))
+    );
+    return mrn ? mrn.value.value : 'Unknown';  
+  } else {
+    return 'Unknown';
+  }
+}
+
+function capitalizeGender(inputGender) {
+  return inputGender ? inputGender.charAt(0).toUpperCase() + inputGender.slice(1) : '';
 }

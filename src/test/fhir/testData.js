@@ -789,5 +789,63 @@ export const testData = {
         }
       }
     ]
+  },
+  "empty26yo": {
+    "resourceType": "Bundle",
+    "id": "Empty Patient",
+    "type": "collection",
+    "entry": [
+      {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "2d0c1024-dee6-416f-af57-9e7544745e83",
+          "name": [
+            {
+              "given": [
+                "Emily26"
+              ],
+              "family": "Empty657"
+            }
+          ],
+          "gender": "female",
+          "birthDate": "1997-01-01",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+              "valueCode": "F"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "empty31yo": {
+    "resourceType": "Bundle",
+    "id": "Empty Patient",
+    "type": "collection",
+    "entry": [
+      {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "2d0c1024-dee6-416f-af57-9e7544745e83",
+          "name": [
+            {
+              "given": [
+                "Emily31"
+              ],
+              "family": "Empty657"
+            }
+          ],
+          "gender": "female",
+          "birthDate": "1992-01-01",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+              "valueCode": "F"
+            }
+          ]
+        }
+      }
+    ]
   }
 }

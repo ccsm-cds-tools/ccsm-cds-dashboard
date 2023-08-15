@@ -3,6 +3,31 @@ import '../basic/TestPatientSelector.scss';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+const emptyData = [
+  {
+    key: 'empty26yo',
+    name: 'Emily26 Empty657',
+    age: '26',
+    scenario: 'Empty 26yo patient has no history.',
+    updated: '8/07/2023'
+  },
+  {
+    key: 'empty31yo',
+    name: 'Emily31 Empty657',
+    age: '31',
+    scenario: 'Empty 31yo patient has no history.',
+    updated: '8/07/2023'
+  },
+  {
+    key: 'empty66yo',
+    name: 'Emily66 Empty657',
+    age: '66',
+    scenario: 'Empty 66yo patient has no history.',
+    updated: '8/07/2023'
+  }
+]
+const emptyPad = 1;
+
 const screeningData = [
   {
     key: 'susan',
@@ -12,7 +37,7 @@ const screeningData = [
     updated: '7/20/2022'
   }
 ];
-const screeningPad = 1;
+const screeningPad = emptyPad + emptyData.length;
 
 const managementData = [
   {
@@ -71,6 +96,11 @@ export function TestPatientSelector() {
           </thead>
 
           <tbody>
+            <tr className="group">
+              <td colSpan="6">Empty Scenarios</td>
+            </tr>
+            { emptyData.map((rd,idx) => <IndexRow key={idx} index={emptyPad+idx} rowData={rd} />) }
+
             <tr className="group">
               <td colSpan="6">Screening Scenarios</td>
             </tr>

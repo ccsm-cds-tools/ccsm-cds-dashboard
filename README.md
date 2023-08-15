@@ -17,6 +17,7 @@ The dashboard is under active development, but demonstrations are available with
 
 This project was initially developed using the Create React App tool.
 
+### Getting started
 You can run the dashboard locally by following these steps:
 1. Clone this repo
 2. Run `npm install` in this directory
@@ -24,6 +25,26 @@ You can run the dashboard locally by following these steps:
     - http://localhost:3000/tests-basic (currently broken)
     - http://localhost:3000/tests-fhir
     - http://localhost:3000/launch
+
+### Download Value Sets
+If your CDS uses value sets from the [Value Set Authority Center (VSAC)](https://vsac.nlm.nih.gov/) you must download your value sets from VSAC using your [Unified Medical Language System (UMLS)](https://www.nlm.nih.gov/research/umls/index.html) API key. This will require creating a free Unified Medical Language System (UMLS) account from the National Library of Medicine (NLM).  If you do not yet have an account, [sign up here](https://uts.nlm.nih.gov//license.html).
+
+Once you have your NLM credentials, you must assign your API Key to the `UMLS_API_KEY` environment variable.  Your API Key may be found in your [UMLS Profile](https://uts.nlm.nih.gov/uts/profile).
+
+Mac/Linux:
+```
+$ export UMLS_API_KEY=myapikey
+```
+
+Windows:
+```
+> set UMLS_API_KEY=myapikey
+```
+
+Once you have set the `UMLS_API_KEY` environment variable, you can use the following command to download your value sets to `src/services/valuesets/valueset-db.js`:
+```
+npm run download-value-sets
+```
 
 ## Licenses
 

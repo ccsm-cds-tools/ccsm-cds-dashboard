@@ -26,6 +26,9 @@ You can run the dashboard locally by following these steps:
     - http://localhost:3000/tests-fhir
     - http://localhost:3000/launch
 
+### Configuring Dashboard Environment
+CCSM CDS Dashboard relies on environment variables for configuration. Configuration options are described in the [Environment Setting for Dashboard](https://github.com/ccsm-cds-tools/ccsm-cds-dashboard/wiki/Environment-Setting-for-Dashboard) section of the Wiki.
+
 ### Download Value Sets
 If your CDS uses value sets from the [Value Set Authority Center (VSAC)](https://vsac.nlm.nih.gov/) you must download your value sets from VSAC using your [Unified Medical Language System (UMLS)](https://www.nlm.nih.gov/research/umls/index.html) API key. This will require creating a free Unified Medical Language System (UMLS) account from the National Library of Medicine (NLM).  If you do not yet have an account, [sign up here](https://uts.nlm.nih.gov//license.html).
 

@@ -145,7 +145,7 @@ export function SmartPatient() {
 
 function displayRecommendations(decisionAids) {
   if (!decisionAids) {
-    return 'Recommendation: ';
+    return 'Waiting for recommendations ...';
   }
 
   const {
@@ -155,7 +155,7 @@ function displayRecommendations(decisionAids) {
     recommendationDetails,
   } = decisionAids;
 
-  const output = `Recommendations: ${recommendation}\n${recommendationGroup}\nDue: ${recommendationDate}\n---\n${recommendationDetails.join('\n')}`;
+  const output = `Recommendations: ${recommendation}\n${recommendationGroup}\nDue: ${recommendationDate}\n---\n${recommendationDetails ? recommendationDetails.join('\n') : ''}`;
 
   return output;
 }

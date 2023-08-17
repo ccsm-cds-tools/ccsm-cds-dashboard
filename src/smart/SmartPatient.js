@@ -145,17 +145,27 @@ export function SmartPatient() {
 
 function displayRecommendations(decisionAids) {
   if (!decisionAids) {
-    return 'Recommendation: ';
+    return 'Waiting for recommendations ...';
   }
 
   const {
-    recommendation,
-    recommendationGroup,
-    recommendationDate,
-    recommendationDetails,
+    recommendation = '',
+    recommendationGroup = '',
+    recommendationDate = '',
+    recommendationDetails = [],
+    errors=[]
   } = decisionAids;
 
-  const output = `Recommendations: ${recommendation}\n${recommendationGroup}\nDue: ${recommendationDate}\n---\n${recommendationDetails.join('\n')}`;
+  let output = '';
+
+  if (errors.length > 0) {
+    output = `Cannot Make Recommendation.\n---\n${errors.join('\n')}`;
+  } else {
+    const formattedRecommendation = recommendation === '' ? 'No Recommendation' : recommendation;
+    const formattedRecommendationDate = recommendationDate !== '' ? `Due: ${recommendationDate}` : '';
+
+    output = `Recommendations: ${formattedRecommendation}\n${recommendationGroup}\n${formattedRecommendationDate}\n---\n${recommendationDetails.join('\n')}`;
+  }
 
   return output;
 }

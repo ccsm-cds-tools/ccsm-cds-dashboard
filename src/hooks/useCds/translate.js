@@ -1,3 +1,6 @@
+import {Papa} from 'papaparse'
+import {fs} from 'fs'
+
 const testCodeResultMapping = [
   {
     testCode: ['47527-7'],
@@ -212,6 +215,9 @@ export function translateResponse(patientData, stridesData) {
   }, {});
 
   patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+
+  const file = fs.createReadStream('./data/strides.csv');
+  stridesData = Papa.parse(file, {header:true}).data;
 
   mapStrideResult(patientDataMap, stridesData);
 }

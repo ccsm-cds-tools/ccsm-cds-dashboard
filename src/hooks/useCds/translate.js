@@ -1,5 +1,4 @@
-import {Papa} from 'papaparse'
-import {fs} from 'fs'
+import { stridesData } from "./strides";
 
 const testCodeResultMapping = [
   {
@@ -190,7 +189,7 @@ const loincMapping = [
 
 const pathologyMapping = [
   {
-    text: 'Insufficient',
+    text: 'Insufficient'
 
   }
 ]
@@ -205,7 +204,7 @@ const LOINC_URL = 'http://loinc.org'
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData, stridesData) {
+export function translateResponse(patientData) {
   const patientDataMap = patientData.reduce((acc, pd) => {
     if (!acc[pd.resourceType]) {
       acc[pd.resourceType] = [];
@@ -214,12 +213,11 @@ export function translateResponse(patientData, stridesData) {
     return acc;
   }, {});
 
-  patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  if (patientDataMap.Observation != null && patientDataMap.Observation.length > 0) {
+    patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
 
-  const file = fs.createReadStream('./data/strides.csv');
-  stridesData = Papa.parse(file, {header:true}).data;
-
-  mapStrideResult(patientDataMap, stridesData);
+    mapStrideResult(patientDataMap, stridesData);
+  }
 }
 
 /**

@@ -28,6 +28,8 @@
     "ccsm-cds-with-tests": "^0.4.11",
     "cql-exec-vsac": "^2.0.1",
     "constants-browserify": "^1.0.0",
+    "convert-csv-to-json": "^2.0.0",
+    "cql-exec-vsac": "^2.0.1",
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
@@ -103,7 +105,8 @@
     "build-windows": "set \"DISABLE_ESLINT_PLUGIN=true\" && set \"BROWSER=none\" && set \"GENERATE_SOURCEMAP=true\"  && node scripts/build.js",
     "test": "node scripts/test.js",
     "download-value-sets": "node src/services/valuesets/updateValueSetDb.mjs $UMLS_API_KEY",
-    "serve": "serve ./build --ssl-cert https.crt --ssl-key https.key"
+    "serve": "serve ./build --ssl-cert https.crt --ssl-key https.key",
+    "convert-csv": "node src/hooks/useCds/convert-strides.mjs"
   },
   "eslintConfig": {
     "extends": [

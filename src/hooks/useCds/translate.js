@@ -174,10 +174,10 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
 
     if (mappedCode) {
       result.valueCodeableConcept = {
-        coding: {
+        coding: [{
           system: SCT_URL,
           code: mappedCode.code
-        },
+        }],
         text: result.valueString
       };
 

@@ -4,6 +4,10 @@ const testCodeResultMapping = [
     testName: 'Cytology',
     map: [
       {
+        text: "Negative for intraepithelial lesion or malignancy",
+        code: "373887005"
+      },
+      {
         text: "Negative for intraepithelial lesion or malignancy, atrophic pattern",
         code: "373887005"
       },

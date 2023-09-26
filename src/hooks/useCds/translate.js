@@ -90,6 +90,10 @@ const testCodeResultMapping = [
       {
         text: "Reparative/reactive changes",
         code: "373887005"
+      },
+      {
+        text: "Other, see comment",
+        code: "126481000119106"
       }
     ]
   },

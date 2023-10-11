@@ -270,7 +270,7 @@ function mapStrideResult(patientData, stridesData) {
 
   const diagnosticReports = [];
   const observations = [];
-  let mrn = null;
+  let mrn;
 
   for (const data of patientData) {
     if (data.resourceType === 'Patient') {
@@ -313,8 +313,14 @@ function mapStrideResult(patientData, stridesData) {
   }
 }
 
-
-function searchStridesCode(orderId, stridesData) {
+/**
+ *
+ * @param {string} mrn
+ * @param {string} orderId
+ * @param {hash} stridesData
+ * @returns
+ */
+function searchStridesCode(mrn, orderId, stridesData) {
   const strideCode = 'CIN3';
   const customCodes = testCodeResultMapping.find(ts => ts.testName === 'Histology')
   const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(strideCode, undefined, { sensitivity: 'base' }) === 0);

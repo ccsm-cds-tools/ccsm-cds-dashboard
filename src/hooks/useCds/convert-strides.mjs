@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs';
 import { join } from 'path';
 import csvToJson from 'convert-csv-to-json';
 
-let keyColumn = 'UNIVESRAL_PAT_ID';
+let keyColumn = 'MRN';
 let groupedResults = {};
 
 const jsonFile = join('src/hooks/useCds/strides.js');

@@ -1,4 +1,4 @@
-import { stridesData } from "./strides";
+import { stridesData } from "./strides.js";
 
 const testCodeResultMapping = [
   {
@@ -263,64 +263,59 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   }
 }
 
-function mapStrideResult(patientData, stridesData) {
-  if (!patientData.length) {
+export function mapStrideResult(patientDataMap, stridesData) {
+  const mrn = patientDataMap.Patient[0].identifier.find(id => id.type?.text === 'MRN')?.value;
+
+  if (!mrn || patientDataMap.DiagnosticReport.length === 0) {
     return;
   }
 
-  const diagnosticReports = [];
-  const observations = [];
-  let mrn;
+  const stridesPatientData = stridesData[mrn];
 
-  for (const data of patientData) {
-    if (data.resourceType === 'Patient') {
-      mrn = data.identifier.find(id => id.type?.text === 'MRN')?.value;
-    } else if (data.resourceType === 'DiagnosticReport') {
-      diagnosticReports.push(data);
-    } else if (data.resourceType === 'Observation') {
-      observations.push(data);
-    }
-  }
+  stridesPatientData.forEach(row => {
+    const orderId = row['ORDER_ID'];
+    const diagnosticReport = patientDataMap.DiagnosticReport.find(
+      dr => dr.identifier.some(identifier => identifier.system === 'urn:oid:1.2.840.114350.1.13.284.3.7.2.798268' && identifier.value == orderId));
 
-  if (!mrn || diagnosticReports.length === 0 || observations.length === 0) {
-    return;
-  }
+    if (!diagnosticReport) return;
 
-  for (const dr of diagnosticReports) {
-    const orderId = dr.identifier.find(id => id.system === 'https://open.epic.com/FHIR/284/order-accession-number/Beaker')?.value;
+    const mappedCode = mapStridesCode(row);
 
-    if (!orderId) {
-      continue;
-    }
+    if (!mappedCode) return;
 
-    const result = observations.find(ob => ob.valueString?.includes(`Case: ${orderId}`));
+    diagnosticReport.conclusionCodes = diagnosticReport.conclusionCodes || [];
 
-    if (result) {
-      const mappedCode = searchStridesCode(orderId, stridesData);
+    diagnosticReport.conclusionCodes.push({
+      coding: [mappedCode]
+    });
 
-      if (mappedCode) {
-        result.valueCodeableConcept = {
-          coding: [{
-            system: SCT_URL,
-            code: mappedCode.code
-          }],
-          text: result.valueString
-        };
+    // const beakerId = diagnosticReport.identifier.find(id => id.system === 'https://open.epic.com/FHIR/284/order-accession-number/Beaker')?.value;
 
-        delete result.valueString;
-      }
-    }
-  }
+    // if (!beakerId) continue;
+
+    // const observation = observations.find(ob => ob.valueString?.includes(`Case: ${beakerId}`));
+
+    // if (!observation) continue;
+
+
+
+    // result.valueCodeableConcept = {
+    //   coding: [{
+    //     system: SCT_URL,
+    //     code: mappedCode.code
+    //   }],
+    //   text: result.valueString
+    // };
+  });
 }
 
 /**
  *
- * @param {string} mrn
- * @param {string} orderId
- * @param {hash} stridesData
+ * @param {*} stridesOrder - One row from STRIDES data table.
  * @returns
  */
-function searchStridesCode(mrn, orderId, stridesData) {
+function mapStridesCode(stridesOrder) {
+  // This is mocked to get the strideCode. There are several condidate columns. Need to identify which one to use.
   const strideCode = 'CIN3';
   const customCodes = testCodeResultMapping.find(ts => ts.testName === 'Histology')
   const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(strideCode, undefined, { sensitivity: 'base' }) === 0);

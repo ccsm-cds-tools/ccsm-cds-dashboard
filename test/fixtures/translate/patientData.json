@@ -1,5 +1,5 @@
 {
-  "Patient": [
+  "patientData": [
     {
       "resourceType": "Patient",
       "id": "e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3",
@@ -124,9 +124,7 @@
         "reference": "Organization/ezKWT.j8qUdkQGj9X8mntlA3",
         "display": "UNIV OF PITTSBURGH PHYSICIANS"
       }
-    }
-  ],
-  "DiagnosticReport": [
+    },
     {
       "resourceType": "DiagnosticReport",
       "id": "e2gMoxZyGn15L62a.WjKJz1sq2tRmEOu80LeVh5bgxjA3",
@@ -292,6 +290,98 @@
           "reference": "Organization/e1mUS-glo.mrDlUps4VX3tUa35CI5l-.O0BycLZreNyY3",
           "type": "Organization",
           "display": "COPATH"
+        }
+      ]
+    },
+    {
+      "resourceType": "Observation",
+      "id": "eUrGUNtzxT9id1SHtl3tpacHtu8tHcFVysvIu.pX25U.9uqPJrDlw20BL812chn6B3",
+      "extension": [
+        {
+          "valueString": "Electronically signed by Cynthia A Branch on 6/2/2023 at 0701",
+          "url": "http://open.epic.com/FHIR/StructureDefinition/extension/lab-e-signature"
+        }
+      ],
+      "basedOn": [
+        {
+          "reference": "ServiceRequest/eTIz4TR3sWOWgEbarJolJprh48aYPi5MwR-XpH3m8N0E3",
+          "display": "Pap Smear:"
+        }
+      ],
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "code": "laboratory",
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "display": "Laboratory"
+            }
+          ],
+          "text": "Laboratory"
+        },
+        {
+          "coding": [
+            {
+              "code": "Path-Cyt",
+              "system": "urn:oid:1.2.840.114350.1.13.284.3.7.10.798268.30",
+              "display": "Pathology and Cytology"
+            }
+          ],
+          "text": "Pathology and Cytology"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "code": "47527-7",
+            "system": "http://loinc.org",
+            "display": "Cytology report of Cervical or vaginal smear or scraping Cyto stain.thin prep"
+          },
+          {
+            "code": "12316",
+            "system": "urn:oid:1.2.840.114350.1.13.284.3.7.5.737384.88"
+          },
+          {
+            "code": "12316",
+            "system": "urn:oid:1.2.840.114350.1.13.284.3.7.2.768282",
+            "display": "Interpretation"
+          }
+        ],
+        "text": "Interpretation"
+      },
+      "subject": {
+        "reference": "Patient/e1S83RNdPiAD-yaxd0xvQZA3",
+        "display": "Testmit\n Twseven"
+      },
+      "encounter": {
+        "reference": "Encounter/ey1VmmdA7Y3EWse0th2Y1qg3",
+        "display": "Office Visit",
+        "identifier": {
+          "use": "usual",
+          "system": "urn:oid:1.2.840.114350.1.13.284.3.7.3.698084.8",
+          "value": "6000065122"
+        }
+      },
+      "effectiveDateTime": "2022-12-31T22:02:00Z",
+      "issued": "2023-06-02T12:01:10Z",
+      "performer": [
+        {
+          "reference": "Practitioner/egiXoQSv.MetRaicyKpUlSw3",
+          "display": "William P. Daley\n MD"
+        }
+      ],
+      "valueString": "Atypical squamous cells of undetermined significance",
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "code": "A",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "display": "Abnormal"
+            }
+          ],
+          "text": "Abnormal"
         }
       ]
     }

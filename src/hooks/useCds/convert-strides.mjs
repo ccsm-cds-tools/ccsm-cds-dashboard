@@ -17,4 +17,4 @@ results.forEach(row => {
   groupedResults[key].push(row);
 });
 
-writeFileSync(jsonFile, 'export const stridesDb = ' + JSON.stringify(groupedResults, null, 2));
+writeFileSync(jsonFile, 'export const stridesData = ' + JSON.stringify(groupedResults, null, 2));

@@ -27,6 +27,7 @@ describe('translate', () => {
       mapStrideResult(patientData, patientDataMap, stridesData);
       expect(patientDataMap.DiagnosticReport.some(dr => dr.conclusionCodes?.length > 0)).to.be.true;
       expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.length > 0)).to.be.true;
+      expect(patientData.some(resource => resource.resourceType === 'Procedure')).to.be.true;
     });
   });
 });

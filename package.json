@@ -3,7 +3,6 @@
   "version": "0.3.0",
   "license": "Apache-2.0",
   "homepage": "/",
-  "type": "module",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",

@@ -1,5 +1,3 @@
-import { stridesData } from "./strides.js";
-
 const testCodeResultMapping = [
   {
     testCode: ['47527-7'],
@@ -235,19 +233,21 @@ const LOINC_URL = 'http://loinc.org'
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData) {
+function translateResponse(patientData, stridesData) {
   const patientDataMap = patientDataToHash(patientData);
 
   if (patientDataMap.Observation != null && patientDataMap.Observation.length > 0) {
     patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
 
-    if (stridesData?.keys) {
+    if (stridesData && Object.keys(stridesData).length > 0) {
       mapStrideResult(patientData, patientDataMap, stridesData);
     }
   }
+
+  console.log("translate completed.")
 }
 
-export function patientDataToHash(patientData) {
+function patientDataToHash(patientData) {
   return patientData.reduce((hash, pd) => {
     if (!hash[pd.resourceType]) {
       hash[pd.resourceType] = [];
@@ -300,7 +300,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   }
 }
 
-export function mapStrideResult(patientData, patientDataMap, stridesData) {
+function mapStrideResult(patientData, patientDataMap, stridesData) {
   const mrn = patientDataMap.Patient[0].identifier.find(id => id.type?.text === 'MRN')?.value;
 
   if (!mrn || patientDataMap.DiagnosticReport.length === 0) {
@@ -365,6 +365,8 @@ function mapStridesCode(stridesOrder, column) {
     }
   }
 }
+
+module.exports.translateResponse = translateResponse;
 
 
 

@@ -4,6 +4,7 @@ import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
 import { translateResponse } from './translate';
+import { stridesData } from './strides';
 
 /**
  *
@@ -16,7 +17,7 @@ export const useCds = (patientData) => {
 
   useEffect(() => {
     console.log('patientData: ', patientData);
-    translateResponse(patientData);
+    translateResponse(patientData, stridesData);
     applyCds(patientData, setOutput);
   }, [patientData]);
 

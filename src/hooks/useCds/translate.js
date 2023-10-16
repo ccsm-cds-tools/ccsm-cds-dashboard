@@ -216,14 +216,6 @@ const loincMapping = [
   }
 ];
 
-const pathologyMapping = [
-  {
-    text: 'Insufficient'
-
-  }
-]
-
-
 const SCT_URL = 'http://snomed.info/sct'
 const LOINC_URL = 'http://loinc.org'
 

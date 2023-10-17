@@ -4,9 +4,14 @@ import csvToJson from 'convert-csv-to-json';
 
 let keyColumn = 'MRN';
 let groupedResults = {};
+let csvFile = 'data/strides.csv';
+
+if (process.argv.length === 3) {
+  csvFile = process.argv[2];
+}
 
 const jsonFile = join('src/hooks/useCds/strides.js');
-const results = csvToJson.fieldDelimiter(',').supportQuotedField(true).getJsonFromCsv('data/strides.csv');
+const results = csvToJson.fieldDelimiter(',').supportQuotedField(true).getJsonFromCsv(csvFile);
 results.forEach(row => {
   let key = row[keyColumn]
 

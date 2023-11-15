@@ -228,12 +228,12 @@ const LOINC_URL = 'http://loinc.org'
 function translateResponse(patientData, stridesData) {
   const patientDataMap = patientDataToHash(patientData);
 
-  if (patientDataMap.Observation != null && patientDataMap.Observation.length > 0) {
+  if (patientDataMap.Observation?.length) {
     patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  }
 
-    if (stridesData && Object.keys(stridesData).length > 0) {
-      mapStrideResult(patientData, patientDataMap, stridesData);
-    }
+  if (stridesData && Object.keys(stridesData).length > 0) {
+    mapStrideResult(patientData, patientDataMap, stridesData);
   }
 
   console.log("translate completed.")

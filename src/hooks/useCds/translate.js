@@ -171,6 +171,7 @@ function mapLoincCode(result, loincMapping) {
 }
 
 function mapResult(result, loincMapping, testCodeResultMapping) {
+  if (!result.code.coding?.length) { return; }
   mapLoincCode(result, loincMapping);
 
   const customCodes = testCodeResultMapping.find(ts =>

@@ -139,6 +139,17 @@ const loincMapping = [
 const SCT_URL = 'http://snomed.info/sct'
 const LOINC_URL = 'http://loinc.org'
 
+// EPIC Code System for EpisodeOfCare Type
+const episodeOfCareTypeCodeSystem = [
+  'urn:oid:1.2.840.114350.1.13.88.2.7.2.726668', // PROD
+  'urn:oid:1.2.840.114350.1.13.88.3.7.2.726668' // BLD & COP
+];
+
+const snomedPregnancyCare = {
+  'system': SCT_URL,
+  'code': '424525001',
+  'display': 'Antenatal care (regime/therapy)'
+};
 
 /**
  * Translate terminology codings used in Observation
@@ -149,6 +160,8 @@ export function translateResponse(patientData) {
   patientData
     .filter(pd => pd.resourceType === 'Observation')
     .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+
+  translateEpisodeOfCare(patientData);
 }
 
 /**
@@ -190,6 +203,44 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
       };
 
       delete result.valueString;
+    }
+  }
+}
+
+//
+// EpisodeOfCare
+//
+function translateEpisodeOfCare(patientData) {
+  patientData
+    .filter(resource => resource.resourceType === 'EpisodeOfCare')
+    .forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
+}
+
+/**
+ * If EpisodeOfCare.type has specific Epic Code,
+ * Add SNOMED CT Pregnancy coding to EpisdoeOfCare.type
+ * @param {EpisodeOfCare} episodeOfCare
+ */
+function mapEpisodeOfCare(episodeOfCare) {
+  let pregnancyType, epicCoding;
+
+  pregnancyType = episodeOfCare.type?.find(type =>
+    type.coding?.some(coding => {
+      const isEpicCoding = episodeOfCareTypeCodeSystem.includes(coding.system) && coding.code === '6';
+
+      if (isEpicCoding) {
+        epicCoding = coding;
+      }
+
+      return isEpicCoding;
+    })
+  );
+
+  if (pregnancyType && epicCoding) {
+    pregnancyType.coding.push(snomedPregnancyCare);
+
+    if (!pregnancyType.text) {
+      pregnancyType.text = epicCoding.display;
     }
   }
 }

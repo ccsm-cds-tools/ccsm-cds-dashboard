@@ -1,0 +1,405 @@
+{
+  "patientData": [
+    {
+      "resourceType": "Patient",
+      "id": "e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3",
+      "identifier": [
+        {
+          "use": "usual",
+          "type": {
+            "text": "MRN"
+          },
+          "system": "urn:oid:1.2.840.114350.1.13.284.3.7.5.737384.14",
+          "value": "11111111"
+        },
+        {
+          "use": "usual",
+          "type": {
+            "text": "EPIC"
+          },
+          "system": "urn:oid:2.16.840.1.113883.3.552.1.3.11.13.1.8.2",
+          "value": "741498905"
+        },
+        {
+          "use": "usual",
+          "type": {
+            "text": "EXTERNAL"
+          },
+          "system": "urn:oid:1.2.840.114350.1.13.88.3.7.2.698084",
+          "value": "691489958"
+        },
+        {
+          "use": "usual",
+          "type": {
+            "text": "FHIR"
+          },
+          "system": "http://open.epic.com/FHIR/StructureDefinition/patient-dstu2-fhir-id",
+          "value": "Td0LbOW-CVqPwRGMuUyldg9n-j61kb..Hls3CyZUKxFMB"
+        },
+        {
+          "use": "usual",
+          "type": {
+            "text": "FHIR STU3"
+          },
+          "system": "http://open.epic.com/FHIR/StructureDefinition/patient-fhir-id",
+          "value": "e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3"
+        },
+        {
+          "use": "usual",
+          "type": {
+            "text": "INTERNAL"
+          },
+          "system": "urn:oid:1.2.840.114350.1.13.88.3.7.2.698084",
+          "value": " 691489958"
+        },
+        {
+          "use": "usual",
+          "type": {
+            "text": "UPM"
+          },
+          "system": "urn:oid:2.16.840.1.113883.3.552.1.3.11.11.1.8.2",
+          "value": "100002220"
+        }
+      ],
+      "active": true,
+      "name": [
+        {
+          "use": "official",
+          "text": "Fiftyfour Mitre",
+          "family": "Mitre",
+          "given": [
+            "Fiftyfour"
+          ]
+        },
+        {
+          "use": "usual",
+          "text": "Fiftyfour Mitre",
+          "family": "Mitre",
+          "given": [
+            "Fiftyfour"
+          ]
+        }
+      ],
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "412-555-5858",
+          "use": "home"
+        },
+        {
+          "system": "phone",
+          "value": "412-555-5756",
+          "use": "work"
+        },
+        {
+          "system": "email",
+          "value": "none@upmc.edu",
+          "rank": 1
+        }
+      ],
+      "gender": "female",
+      "birthDate": "1952-03-04",
+      "deceasedBoolean": false,
+      "address": [
+        {
+          "use": "old",
+          "line": [
+            "6564 Elmwood Avenue"
+          ],
+          "city": "NEW KENSINGTON",
+          "state": "PA",
+          "postalCode": "15069"
+        },
+        {
+          "use": "home",
+          "line": [
+            "6564 Elmwood Avenue"
+          ],
+          "city": "NEW KENSINGTON",
+          "state": "PA",
+          "postalCode": "15069"
+        }
+      ],
+      "managingOrganization": {
+        "reference": "Organization/ezKWT.j8qUdkQGj9X8mntlA3",
+        "display": "UNIV OF PITTSBURGH PHYSICIANS"
+      }
+    },
+    {
+      "resourceType": "DiagnosticReport",
+      "id": "e2gMoxZyGn15L62a.WjKJz1sq2tRmEOu80LeVh5bgxjA3",
+      "identifier": [
+        {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "PLAC",
+                "display": "Placer Identifier"
+              }
+            ],
+            "text": "Placer Identifier"
+          },
+          "system": "urn:oid:1.2.840.114350.1.13.284.3.7.2.798268",
+          "value": "258954111"
+        },
+        {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "FILL",
+                "display": "Filler Identifier"
+              }
+            ],
+            "text": "Filler Identifier"
+          },
+          "system": "https://open.epic.com/FHIR/284/order-accession-number/Beaker",
+          "value": "S23-00039"
+        }
+      ],
+      "basedOn": [
+        {
+          "reference": "ServiceRequest/eNgWPV1gx9iLgF7OjV.JQMCvHBVL4JZWDWA1kUDFiqqE3",
+          "type": "ServiceRequest"
+        }
+      ],
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "urn:oid:1.2.840.114350.1.13.88.3.7.10.798268.30",
+              "code": "CYTOPATH"
+            }
+          ],
+          "text": "Cytopathology"
+        },
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0074",
+              "code": "LAB",
+              "display": "Laboratory"
+            }
+          ],
+          "text": "Laboratory"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.2.696580",
+            "code": "240637",
+            "display": "GYNECOLOGICAL PATHOLOGY REPORT, TISSUE"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.116",
+            "code": "78551"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.3000",
+            "code": "191189"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.3090",
+            "code": "GYN FINAL REPORT"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.157",
+            "code": "2890018"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.2011",
+            "code": "14516X"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.2016",
+            "code": "14516"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.16",
+            "code": "CP0141"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.3001",
+            "code": "191189"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.2100",
+            "code": "14516"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.196",
+            "code": "4900020OI"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.2200",
+            "code": "14516"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.2300",
+            "code": "14516"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.196",
+            "code": "OGHGYN"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.196",
+            "code": "4900009O"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.196",
+            "code": "UTERUS"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.594",
+            "code": "GYN"
+          },
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.88.3.7.5.737384.594",
+            "code": "PTHGYN"
+          }
+        ],
+        "text": "GYNECOLOGICAL PATHOLOGY REPORT, TISSUE"
+      },
+      "subject": {
+        "reference": "Patient/e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3",
+        "display": "Mitre, Fiftyfour"
+      },
+      "encounter": {
+        "identifier": {
+          "use": "usual",
+          "system": "urn:oid:1.2.840.114350.1.13.88.3.7.3.698084.8",
+          "value": "2590100137884"
+        },
+        "display": "Appointment"
+      },
+      "effectiveDateTime": "2018-12-31T05:00:00Z",
+      "issued": "2018-12-31T05:00:00Z",
+      "performer": [
+        {
+          "reference": "Practitioner/eGEuInPLqTUMy-J.CsQwE5w3",
+          "type": "Practitioner",
+          "display": "Historical Provider"
+        },
+        {
+          "reference": "Organization/e1mUS-glo.mrDlUps4VX3tUa35CI5l-.O0BycLZreNyY3",
+          "type": "Organization",
+          "display": "COPATH"
+        }
+      ]
+    },
+    {
+      "resourceType": "Observation",
+      "id": "eUrGUNtzxT9id1SHtl3tpacHtu8tHcFVysvIu.pX25U.9uqPJrDlw20BL812chn6B3",
+      "extension": [
+        {
+          "valueString": "Electronically signed by Cynthia A Branch on 6/2/2023 at 0701",
+          "url": "http://open.epic.com/FHIR/StructureDefinition/extension/lab-e-signature"
+        }
+      ],
+      "basedOn": [
+        {
+          "reference": "ServiceRequest/eTIz4TR3sWOWgEbarJolJprh48aYPi5MwR-XpH3m8N0E3",
+          "display": "Pap Smear:"
+        }
+      ],
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "code": "laboratory",
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "display": "Laboratory"
+            }
+          ],
+          "text": "Laboratory"
+        },
+        {
+          "coding": [
+            {
+              "code": "Path-Cyt",
+              "system": "urn:oid:1.2.840.114350.1.13.284.3.7.10.798268.30",
+              "display": "Pathology and Cytology"
+            }
+          ],
+          "text": "Pathology and Cytology"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "code": "47527-7",
+            "system": "http://loinc.org",
+            "display": "Cytology report of Cervical or vaginal smear or scraping Cyto stain.thin prep"
+          },
+          {
+            "code": "12316",
+            "system": "urn:oid:1.2.840.114350.1.13.284.3.7.5.737384.88"
+          },
+          {
+            "code": "12316",
+            "system": "urn:oid:1.2.840.114350.1.13.284.3.7.2.768282",
+            "display": "Interpretation"
+          }
+        ],
+        "text": "Interpretation"
+      },
+      "subject": {
+        "reference": "Patient/e1S83RNdPiAD-yaxd0xvQZA3",
+        "display": "Testmit\n Twseven"
+      },
+      "encounter": {
+        "reference": "Encounter/ey1VmmdA7Y3EWse0th2Y1qg3",
+        "display": "Office Visit",
+        "identifier": {
+          "use": "usual",
+          "system": "urn:oid:1.2.840.114350.1.13.284.3.7.3.698084.8",
+          "value": "6000065122"
+        }
+      },
+      "effectiveDateTime": "2022-12-31T22:02:00Z",
+      "issued": "2023-06-02T12:01:10Z",
+      "performer": [
+        {
+          "reference": "Practitioner/egiXoQSv.MetRaicyKpUlSw3",
+          "display": "William P. Daley\n MD"
+        }
+      ],
+      "valueString": "Atypical squamous cells of undetermined significance",
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "code": "A",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "display": "Abnormal"
+            }
+          ],
+          "text": "Abnormal"
+        }
+      ]
+    },
+    {
+      "resourceType" : "EpisodeOfCare",
+      "id" : "episdoeofcare-1",
+      "status" : "active",
+      "type" : [{
+        "coding" : [{
+          "system" : "urn:oid:1.2.840.114350.1.13.88.3.7.2.726668",
+          "code" : "6",
+          "display" : "PREGNANCY"
+        }]
+      }],
+      "patient" : {
+        "reference": "Patient/e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3",
+        "display": "Mitre, Fiftyfour"
+      }
+    }
+  ]
+}

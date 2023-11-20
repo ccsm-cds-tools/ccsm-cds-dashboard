@@ -3,6 +3,7 @@ import FHIR from 'fhirclient';
 
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
+import { config } from './smart.config.js';
 
 export function SmartPatient() {
 
@@ -134,7 +135,7 @@ export function SmartPatient() {
       <div className="content">
         <Dashboard
           input={dashboardInput}
-          config={{}}
+          config={config}
           setPatientData={setPatientData}
         />
       </div>

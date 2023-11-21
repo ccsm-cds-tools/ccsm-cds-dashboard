@@ -23,7 +23,7 @@ function RiskEstimates(props) {
 
   return (
     <div className='risk'>
-      <h4>{title} <a href='#info' className='fs-5'><i className='bi bi-info-circle-fill'></i></a></h4>
+      <h4>{title}</h4>
       <p className="text-secondary">{subtitle}</p>
       {
         Object.keys(relevant).length > 0 ? 

@@ -2,6 +2,44 @@
 export const config = {
   histories: [
     {
+      title: 'Screening and Management History',
+      heading: {
+        filled: '',
+        empty: 'No results found'
+      },
+      tables: [
+        {
+          name: 'diagnosticReports',
+          header: [
+            {
+              key: 'name',
+              display: 'Test Name/Procedure',
+              detailKey: 'longName'
+            },
+            {
+              key: 'value',
+              display: 'Result',
+              detailKey: 'longValue'
+            },
+            {
+              key: 'date',
+              display: 'Date'
+            },
+            {
+              key: 'status',
+              display: 'Action'
+            }
+          ],
+          addButtonText: 'Add result',
+          form: {
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
+            title: 'Add Result',
+            preamble: null
+          }
+        } 
+      ]
+    },
+    {
       title: 'Relevant Medical History',
       heading: {
         filled: 'Includes medical conditions, procedures, and medications that change screening risk',
@@ -100,44 +138,6 @@ export const config = {
           addButtonText: null,
           form: null
         }
-      ]
-    },
-    {
-      title: 'Screening and Management History',
-      heading: {
-        filled: '',
-        empty: 'No results found'
-      },
-      tables: [
-        {
-          name: 'diagnosticReports',
-          header: [
-            {
-              key: 'name',
-              display: 'Test Name/Procedure',
-              detailKey: 'longName'
-            },
-            {
-              key: 'value',
-              display: 'Result',
-              detailKey: 'longValue'
-            },
-            {
-              key: 'date',
-              display: 'Date'
-            },
-            {
-              key: 'status',
-              display: 'Action'
-            }
-          ],
-          addButtonText: 'Add result',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
-            title: 'Add Result',
-            preamble: null
-          }
-        } 
       ]
     },
     {

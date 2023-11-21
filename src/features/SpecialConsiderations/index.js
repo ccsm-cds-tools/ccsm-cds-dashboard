@@ -1,4 +1,4 @@
-import { Alert, Card } from 'react-bootstrap';
+import { Alert, Card, Button } from 'react-bootstrap';
 import IconTooltip from 'components/IconTooltip';
 import { useEffect, useState, useRef } from 'react';
 import './style.scss';
@@ -16,7 +16,7 @@ function SpecialConsiderations(props) {
 
   return (
     <section id="special_considerations">
-      <h2>Special Considerations (<a href="#specialConsiderationsNote" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={() => setShow(true)} aria-controls="specialConsiderationsNote">note</a>)</h2>
+      <h2>Special Considerations (<Button variant="link" className="btn-toggle-link" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={toggleNote} aria-controls="specialConsiderationsNote">note</Button>)</h2>
       <Alert 
         show={show} 
         variant={'info'}

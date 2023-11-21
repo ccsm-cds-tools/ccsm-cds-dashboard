@@ -15,7 +15,6 @@ export const useCds = (patientData) => {
   const [output, setOutput] = useState({});
 
   useEffect(() => {
-    console.log('patientData: ', patientData);
     translateResponse(patientData);
     applyCds(patientData, setOutput);
   }, [patientData]);

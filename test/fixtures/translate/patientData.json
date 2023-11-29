@@ -119,11 +119,7 @@
           "state": "PA",
           "postalCode": "15069"
         }
-      ],
-      "managingOrganization": {
-        "reference": "Organization/ezKWT.j8qUdkQGj9X8mntlA3",
-        "display": "UNIV OF PITTSBURGH PHYSICIANS"
-      }
+      ]
     },
     {
       "resourceType": "DiagnosticReport",

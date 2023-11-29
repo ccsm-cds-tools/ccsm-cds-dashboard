@@ -218,7 +218,7 @@ function translateEpisodeOfCare(patientData) {
 
 /**
  * If EpisodeOfCare.type has specific Epic Code,
- * Add SNOMED CT Pregnancy coding to EpisdoeOfCare.type
+ * Add SNOMED CT Pregnancy coding to EpisodeOfCare.type
  * @param {EpisodeOfCare} episodeOfCare
  */
 function mapEpisodeOfCare(episodeOfCare) {

@@ -32,4 +32,5 @@ valueset-db.js
 
 # vscode
 /.vscode
+/data
 .env

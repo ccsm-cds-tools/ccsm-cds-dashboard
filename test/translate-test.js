@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-expressions */
-const chai = require('chai');
-const expect = chai.expect;
-const fs = require('fs');
-const translate = require('../src/hooks/useCds/translate.js')
-
+//const chai = require('chai');
+//const expect = chai.expect;
+//const fs = require('fs');
+//const translateResponse = require('../src/hooks/useCds/translate.js').translateResponse
+import { expect } from 'chai';
+import { translateResponse } from '../src/hooks/useCds/translate.js';
+import fs from 'fs';
 
 describe('translate', () => {
   let patientData;
@@ -15,7 +17,7 @@ describe('translate', () => {
 
   describe('translate EpisodeOfCare', () => {
     it('should translate epic code to snomed code', () => {
-      translate.translateResponse(patientData);
+      translateResponse(patientData);
 
       const episodeOfCare = patientData.filter(pd => pd.resourceType === 'EpisodeOfCare');
       expect(episodeOfCare).to.not.be.empty;
@@ -25,7 +27,7 @@ describe('translate', () => {
 
     it('should skip if resource does not have EpisodeOfCare', () => {
       let patientDataWithoutEpisodeOfCare = patientData.filter(pd => pd.resourceType !== 'EpisodeOfCare');
-      translate.translateResponse(patientDataWithoutEpisodeOfCare);
+      translateResponse(patientDataWithoutEpisodeOfCare);
 
       const episodeOfCare = patientDataWithoutEpisodeOfCare.filter(pd => pd.resourceType === 'EpisodeOfCare');
       expect(episodeOfCare).to.be.empty;

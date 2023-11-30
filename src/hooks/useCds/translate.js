@@ -156,7 +156,7 @@ const snomedPregnancyCare = {
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-function translateResponse(patientData) {
+export function translateResponse(patientData) {
   patientData
     .filter(pd => pd.resourceType === 'Observation')
     .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
@@ -246,5 +246,5 @@ function mapEpisodeOfCare(episodeOfCare) {
   }
 }
 
-module.exports.translateResponse = translateResponse;
+//module.exports.translateResponse = translateResponse;
 

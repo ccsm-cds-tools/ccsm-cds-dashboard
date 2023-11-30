@@ -3,7 +3,8 @@ import { applyPlan, simpleResolver } from 'encender';
 import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
-import { translateResponse } from './translate';
+import { translateResponse } from './translate.js';
+//const translateResponse = require('./translate.js').translateResponse
 
 /**
  *

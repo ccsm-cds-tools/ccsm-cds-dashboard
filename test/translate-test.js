@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-expressions */
-//const chai = require('chai');
-//const expect = chai.expect;
-//const fs = require('fs');
-//const translateResponse = require('../src/hooks/useCds/translate.js').translateResponse
 import { expect } from 'chai';
-import { translateResponse } from '../src/hooks/useCds/translate.js';
 import fs from 'fs';
+import { translateResponse } from '../src/hooks/useCds/translate.js';
 
 describe('translate', () => {
   let patientData;

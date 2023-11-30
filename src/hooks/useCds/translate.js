@@ -246,5 +246,3 @@ function mapEpisodeOfCare(episodeOfCare) {
   }
 }
 
-//module.exports.translateResponse = translateResponse;
-

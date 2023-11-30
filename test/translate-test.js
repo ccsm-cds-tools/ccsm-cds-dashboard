@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
 import fs from 'fs';
-import { translateResponse } from '../src/hooks/useCds/translate.js';
+import { translateResponse } from '../src/hooks/useCds/translate';
 
 describe('translate', () => {
   let patientData;

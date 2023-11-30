@@ -16,14 +16,14 @@ function SpecialConsiderations(props) {
 
   return (
     <section id="special_considerations">
-      <h2>Special Considerations (<Button variant="link" className="btn-toggle-link" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={toggleNote} aria-controls="specialConsiderationsNote">note</Button>)</h2>
+      <h2>Patient Clinical Considerations (<Button variant="link" className="btn-toggle-link" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={toggleNote} aria-controls="specialConsiderationsNote">note</Button>)</h2>
       <Alert 
         show={show} 
         variant={'info'}
         dismissible
         onClose={() => setShow(false)}
       >
-      Selecting these options will cause the CDS to consider these situations when computing a recommendation. This <strong>may or may not</strong> cause the recommendation to be changed, depending on the specific patient history.
+      Use these options to indicate patient considerations that may not be documented or available to the CDS. Selecting one or more of these will cause the CDS to consider these when providing a recommendation. This <b>may or may not</b> cause the recommendation to change, depending on the specific patient history.
       </Alert>
       
       <div className="form-check form-switch">

@@ -54,11 +54,12 @@ function SortableTable(props) {
           )
         })
       }</tbody>
-      <tfoot>{/* TODO: Make this appear only if manual data has been added */}
+      {/* TODO: Make this appear only if manual data has been added
+      <tfoot>
         <tr>
           <td colSpan="5"><span className="is_manual">*</span> indicates manually entered or modified test result</td>
         </tr>
-      </tfoot>
+      </tfoot> */}
     </Table>
   )
 }

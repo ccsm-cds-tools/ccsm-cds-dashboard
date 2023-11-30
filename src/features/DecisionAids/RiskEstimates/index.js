@@ -32,7 +32,7 @@ function RiskEstimates(props) {
     <div className='risk'>
       <div className="risk-header">
       <h4>{title}</h4>
-      <Button variant="link" className="btn-toggle-link" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={toggleTable} aria-controls="risktable">Show</Button>
+      <Button variant="link" className="btn-toggle-link" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={toggleTable} aria-controls="risktable">{show ? "Hide" : "Show"}</Button>
       </div>
       <p className="text-secondary">{subtitle}</p>
       

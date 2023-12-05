@@ -293,7 +293,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
 }
 
 function mapStrideResult(patientData, patientDataMap, stridesData) {
-  const mrn = patientDataMap.Patient[0].identifier.find(id => id.type?.text === 'MRN')?.value;
+  const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === 'MRN')?.value;
 
   if (!mrn || patientDataMap.DiagnosticReport.length === 0) {
     return;

@@ -104,6 +104,7 @@
     "start": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=false node scripts/start.js",
     "prebuild": "node scripts/prebuild.js",
     "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true node scripts/build.js",
+    "prebuild-windows": "node scripts/prebuild.js",
     "build-windows": "set \"DISABLE_ESLINT_PLUGIN=true\" && set \"BROWSER=none\" && set \"GENERATE_SOURCEMAP=true\"  && node scripts/build.js",
     "test": "node scripts/test.js",
     "test-mocha": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --reporter spec --recursive",

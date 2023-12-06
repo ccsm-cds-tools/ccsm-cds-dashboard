@@ -225,7 +225,7 @@ const LOINC_URL = 'http://loinc.org'
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-function translateResponse(patientData, stridesData) {
+export function translateResponse(patientData, stridesData) {
   const patientDataMap = patientDataToHash(patientData);
 
   if (patientDataMap.Observation?.length) {
@@ -358,7 +358,6 @@ function mapStridesCode(stridesOrder, column) {
   }
 }
 
-module.exports.translateResponse = translateResponse;
 
 
 

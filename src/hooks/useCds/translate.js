@@ -219,6 +219,17 @@ const loincMapping = [
 const SCT_URL = 'http://snomed.info/sct'
 const LOINC_URL = 'http://loinc.org'
 
+// EPIC Code System for EpisodeOfCare Type
+const episodeOfCareTypeCodeSystem = [
+  'urn:oid:1.2.840.114350.1.13.88.2.7.2.726668', // PROD
+  'urn:oid:1.2.840.114350.1.13.88.3.7.2.726668' // BLD & COP
+];
+
+const snomedPregnancyCare = {
+  'system': SCT_URL,
+  'code': '424525001',
+  'display': 'Antenatal care (regime/therapy)'
+};
 
 /**
  * Translate terminology codings used in Observation
@@ -228,9 +239,8 @@ const LOINC_URL = 'http://loinc.org'
 export function translateResponse(patientData, stridesData) {
   const patientDataMap = patientDataToHash(patientData);
 
-  if (patientDataMap.Observation?.length) {
-    patientDataMap.Observation.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
-  }
+  patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  patientDataMap.EpisodeOfCare?.forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
 
   if (stridesData && Object.keys(stridesData).length > 0) {
     mapStrideResult(patientData, patientDataMap, stridesData);
@@ -247,7 +257,6 @@ function patientDataToHash(patientData) {
     hash[pd.resourceType].push(pd);
     return hash;
   }, {});
-}
 
 /**
  *
@@ -269,6 +278,7 @@ function mapLoincCode(result, loincMapping) {
 }
 
 function mapResult(result, loincMapping, testCodeResultMapping) {
+  if (!result.code.coding?.length) { return; }
   mapLoincCode(result, loincMapping);
 
   const customCodes = testCodeResultMapping.find(ts =>
@@ -292,6 +302,9 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   }
 }
 
+//
+// Strides Data
+//
 function mapStrideResult(patientData, patientDataMap, stridesData) {
   const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === 'MRN')?.value;
 
@@ -358,7 +371,32 @@ function mapStridesCode(stridesOrder, column) {
   }
 }
 
+/**
+ * If EpisodeOfCare.type has specific Epic Code,
+ * Add SNOMED CT Pregnancy coding to EpisodeOfCare.type
+ * @param {EpisodeOfCare} episodeOfCare
+ */
+function mapEpisodeOfCare(episodeOfCare) {
+  let pregnancyType, epicCoding;
 
+  pregnancyType = episodeOfCare.type?.find(type =>
+    type.coding?.some(coding => {
+      const isEpicCoding = episodeOfCareTypeCodeSystem.includes(coding.system) && coding.code === '6';
 
+      if (isEpicCoding) {
+        epicCoding = coding;
+      }
 
+      return isEpicCoding;
+    })
+  );
+
+  if (pregnancyType && epicCoding) {
+    pregnancyType.coding.push(snomedPregnancyCare);
+
+    if (!pregnancyType.text) {
+      pregnancyType.text = epicCoding.display;
+    }
+  }
+}
 

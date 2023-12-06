@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-expressions */
-const chai = require('chai');
-const expect = chai.expect;
-const fs = require('fs');
-const translate = require('../src/hooks/useCds/translate.js')
-
+import { expect } from 'chai';
+import fs from 'fs';
+import { translateResponse } from '../src/hooks/useCds/translate';
 
 describe('translate', () => {
   let patientData;
@@ -15,7 +13,7 @@ describe('translate', () => {
 
   describe('translateResponse', ()=>{
     it('should add SNOMED CT coding to Observation', () => {
-      translate.translateResponse(patientData);
+      translateResponse(patientData);
       expect(patientData.some(resource =>
         resource.resourceType === 'Observation' &&
         !resource.valueString &&
@@ -30,11 +28,28 @@ describe('translate', () => {
     const stridesData = JSON.parse(stridesDataContent);
 
     it('should include strides data', () => {
-      translate.translateResponse(patientData, stridesData);
+      translateResponse(patientData, stridesData);
       expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.length > 0)).to.be.true;
       expect(patientData.some(resource => resource.resourceType === 'Procedure')).to.be.true;
     });
   });
+
+  describe('translate EpisodeOfCare', () => {
+    it('should translate epic code to snomed code', () => {
+      translateResponse(patientData);
+
+      const episodeOfCare = patientData.filter(pd => pd.resourceType === 'EpisodeOfCare');
+      expect(episodeOfCare).to.not.be.empty;
+      expect(episodeOfCare.some(p => p.type.some(type => type.coding.some(coding => coding.code === '424525001' && coding.system === 'http://snomed.info/sct')))).to.be.true;
+      expect(episodeOfCare.some(p => p.type.some(type => type.text === 'PREGNANCY'))).to.be.true;
+    });
+
+    it('should skip if resource does not have EpisodeOfCare', () => {
+      let patientDataWithoutEpisodeOfCare = patientData.filter(pd => pd.resourceType !== 'EpisodeOfCare');
+      translateResponse(patientDataWithoutEpisodeOfCare);
+
+      const episodeOfCare = patientDataWithoutEpisodeOfCare.filter(pd => pd.resourceType === 'EpisodeOfCare');
+      expect(episodeOfCare).to.be.empty;
+    });
+  })
 });
-
-

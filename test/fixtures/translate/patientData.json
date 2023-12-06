@@ -119,11 +119,7 @@
           "state": "PA",
           "postalCode": "15069"
         }
-      ],
-      "managingOrganization": {
-        "reference": "Organization/ezKWT.j8qUdkQGj9X8mntlA3",
-        "display": "UNIV OF PITTSBURGH PHYSICIANS"
-      }
+      ]
     },
     {
       "resourceType": "DiagnosticReport",
@@ -384,6 +380,22 @@
           "text": "Abnormal"
         }
       ]
+    },
+    {
+      "resourceType" : "EpisodeOfCare",
+      "id" : "episdoeofcare-1",
+      "status" : "active",
+      "type" : [{
+        "coding" : [{
+          "system" : "urn:oid:1.2.840.114350.1.13.88.3.7.2.726668",
+          "code" : "6",
+          "display" : "PREGNANCY"
+        }]
+      }],
+      "patient" : {
+        "reference": "Patient/e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3",
+        "display": "Mitre, Fiftyfour"
+      }
     }
   ]
 }

@@ -257,6 +257,7 @@ function patientDataToHash(patientData) {
     hash[pd.resourceType].push(pd);
     return hash;
   }, {});
+}
 
 /**
  *
@@ -399,4 +400,3 @@ function mapEpisodeOfCare(episodeOfCare) {
     }
   }
 }
-

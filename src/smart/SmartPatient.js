@@ -100,8 +100,10 @@ export function SmartPatient() {
         console.log(e);
       }
 
+      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPE ?? 'urn:oid:1.2.840.114350.1.13.0.1.7.2.726668|2';
+      
       try {
-        await client.request('/EpisodeOfCare?patient=' + pid).then(async function(ec) {
+        await client.request('/EpisodeOfCare?patient=' + pid + '&type=' + epTypeStr).then(async function(ec) {
           await fhirParser(ec);
         });
       } catch(e) {

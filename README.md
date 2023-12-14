@@ -50,7 +50,7 @@ npm run download-value-sets
 ```
 
 ### Convert CSV File to JSON
-You can run this following command to convert CSV data to JSON object. You need to run this if the CVS file is changed.
+You can run this following command to convert CSV data to JSON object. You need to run this if the CSV file is changed:
 ```
 npm run convert-csv [filepath]
 ```

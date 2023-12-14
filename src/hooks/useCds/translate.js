@@ -250,6 +250,10 @@ export function translateResponse(patientData, stridesData) {
 }
 
 function patientDataToHash(patientData) {
+  if (patientData == null || patientData.length === 0) {
+    return {}
+  }
+
   return patientData.reduce((hash, pd) => {
     if (!hash[pd.resourceType]) {
       hash[pd.resourceType] = [];

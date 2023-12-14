@@ -32,4 +32,4 @@ results.forEach(row => {
 
 writeFileSync(jsonFile, 'export const stridesData = ' + JSON.stringify(groupedResults, null, 2));
 
-console.log("CSV file provided is coverted to JSON successfully.")
+console.log("CSV file provided is converted to JSON successfully.")

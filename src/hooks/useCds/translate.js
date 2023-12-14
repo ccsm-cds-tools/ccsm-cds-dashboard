@@ -121,6 +121,86 @@ const testCodeResultMapping = [
   }
 ]
 
+/**
+ * STRIDES IMS Discrete Procedure to SNOMED Mapping
+ * 1 = 'Hysterectomy' =>  116140006	Total hysterectomy (procedure)
+ * 2 = 'LEEP/Cone'  =>  120038005	Cervix Excision
+ * 3 = 'Cervical Bx'  =>  176786003	Colposcopy of cervix (procedure)
+ * 4 = 'ECC'  =>  52889002 Endocervical Curettage
+ * 5 = 'Polypectomy'  =>  176786003	Colposcopy of cervix (procedure)
+ * 6 = ‘Colposcopy’ =>  176786003	Colposcopy of cervix (procedure)
+ *
+ * STRIDES IMS Discrete Gold Diagnosis to SNOMED mapping
+ * . = 'Unknown'  =>  None	None
+ * .N = 'Non-cervical procedures with or without DX'   => None	None
+ * -2 = 'Missing cervical Dx' =>  None	None
+ * -1 = 'Insufficient for Dx' =>  112631006	Specimen insufficient for diagnosis
+ * 0 = 'Normal' =>  309162003	Biopsy result normal (finding)
+ * 1 = 'CIN1' =>  285836003	Cervical intraepithelial neoplasia grade 1 (disorder)
+ * 2 = 'CIN2' =>  285838002	Cervical intraepithelial neoplasia grade 2 (disorder)
+ * 3 = 'CIN3' =>  20365006	Squamous intraepithelial neoplasia, grade III (morphologic abnormality)
+ * 4 = 'AIS' => 254890008	Adenocarcinoma in situ of cervix (disorder)
+ * 5 = 'Cancer' =>  363354003	Malignant tumor of cervix (disorder)
+ */
+const stridesCodeMapping = {
+  IMSDiscreteprocedure: [
+    {
+      text: '1',
+      code: '116140006'
+    },
+    {
+      text: '2',
+      code: '120038005'
+    },
+    {
+      text: '3',
+      code: '176786003'
+    },
+    {
+      text: '4',
+      code: '52889002'
+    },
+    {
+      text: '5',
+      code: '176786003'
+    },
+    {
+      text: '6',
+      code: '176786003'
+    }
+  ],
+  IMSDiscreteGoldDiagnosis: [
+    {
+      text: "-1",
+      code: "112631006"
+    },
+    {
+      text: "0",
+      code: "309162003"
+    },
+    {
+      text: "1",
+      code: "285836003"
+    },
+    {
+      text: "2",
+      code: "285838002"
+    },
+    {
+      text: "3",
+      code: "20365006"
+    },
+    {
+      text: "4",
+      code: "254890008"
+    },
+    {
+      text: "5",
+      code: "363354003"
+    }
+  ]
+};
+
 const loincMapping = [
   {
     oldCode: '61372-9',
@@ -156,12 +236,31 @@ const snomedPregnancyCare = {
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData) {
-  patientData
-    .filter(pd => pd.resourceType === 'Observation')
-    .forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+export function translateResponse(patientData, stridesData) {
+  const patientDataMap = patientDataToHash(patientData);
 
-  translateEpisodeOfCare(patientData);
+  patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  patientDataMap.EpisodeOfCare?.forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
+
+  if (stridesData && Object.keys(stridesData).length > 0) {
+    mapStrideResult(patientData, patientDataMap, stridesData);
+  }
+
+  console.log("translate completed.")
+}
+
+function patientDataToHash(patientData) {
+  if (patientData == null || patientData.length === 0) {
+    return {}
+  }
+
+  return patientData.reduce((hash, pd) => {
+    if (!hash[pd.resourceType]) {
+      hash[pd.resourceType] = [];
+    }
+    hash[pd.resourceType].push(pd);
+    return hash;
+  }, {});
 }
 
 /**
@@ -188,7 +287,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   mapLoincCode(result, loincMapping);
 
   const customCodes = testCodeResultMapping.find(ts =>
-    result.code.coding.some(coding => ts.testCode.includes(coding.code))
+    result.code.coding.some(coding => ts.testCode?.includes(coding.code))
   );
 
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
@@ -209,12 +308,76 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
 }
 
 //
-// EpisodeOfCare
+// Strides Data
 //
-function translateEpisodeOfCare(patientData) {
-  patientData
-    .filter(resource => resource.resourceType === 'EpisodeOfCare')
-    .forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
+function mapStrideResult(patientData, patientDataMap, stridesData) {
+  if (patientDataMap?.Patient == null || patientDataMap.Patient.length === 0) {
+    return;
+  }
+
+  const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === 'MRN')?.value;
+
+  if (!mrn || patientDataMap.DiagnosticReport.length === 0) {
+    return;
+  }
+
+  const stridesPatientData = stridesData[mrn];
+
+  stridesPatientData.forEach(row => {
+    const orderId = row['ORDER_ID'];
+    const diagnosticReport = patientDataMap.DiagnosticReport.find(
+      dr => dr.identifier.some(identifier => identifier.system === 'urn:oid:1.2.840.114350.1.13.284.3.7.2.798268' && identifier.value == orderId));
+
+    if (!diagnosticReport) return;
+
+    const mappedDiagnosisCoding = mapStridesCode(row, 'IMSDiscreteGoldDiagnosis');
+
+    if (mappedDiagnosisCoding) {
+      diagnosticReport.conclusionCodes ||= [];
+
+      diagnosticReport.conclusionCodes.push(
+        {
+          coding: [mappedDiagnosisCoding]
+        }
+      );
+    }
+
+    const mappedProcedureCoding = mapStridesCode(row, 'IMSDiscreteprocedure');
+
+    if (mappedProcedureCoding) {
+      const newProcedure =
+      {
+        'resourceType': 'Procedure',
+        'id': diagnosticReport.id,
+        'subject': diagnosticReport.subject,
+        'status': 'completed',
+        code: {
+          'coding': [mappedProcedureCoding],
+        },
+        'performedDateTime': diagnosticReport.effectiveDateTime
+      };
+
+      if (newProcedure.id.length > 54) {
+        newProcedure.id = newProcedure.id.substring(0, 54) + '-procedure';
+      } else {
+        newProcedure.id += '-procedure';
+      }
+
+      patientData.push(newProcedure);
+    }
+  });
+}
+
+function mapStridesCode(stridesOrder, column) {
+  const stridesCode = stridesOrder[column];
+  const mappedCode = stridesCodeMapping[column]?.find(map => map.text === stridesCode)?.code;
+
+  if (mappedCode) {
+    return {
+      system: SCT_URL,
+      code: mappedCode
+    }
+  }
 }
 
 /**
@@ -245,4 +408,3 @@ function mapEpisodeOfCare(episodeOfCare) {
     }
   }
 }
-

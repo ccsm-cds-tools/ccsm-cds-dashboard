@@ -49,6 +49,17 @@ Once you have set the `UMLS_API_KEY` environment variable, you can use the follo
 npm run download-value-sets
 ```
 
+### Convert CSV File to JSON
+You can run this following command to convert CSV data to JSON object. You need to run this if the CSV file is changed:
+```
+npm run convert-csv [filepath]
+```
+
+The `[filepath]` is the location/path to the CSV file. Example:
+```
+npm run convert-csv data/strides.csv
+```
+
 ## Licenses
 
 (C) 2022 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 21-1556. Distribution Unlimited.

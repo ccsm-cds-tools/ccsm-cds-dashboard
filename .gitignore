@@ -29,8 +29,11 @@ yarn-error.log*
 valueset-db.json
 valueset-db.js
 /src/services/valueset/vsac-cache
+/src/hooks/useCds/strides.js
 
 # vscode
 /.vscode
 /data
 .env
+
+

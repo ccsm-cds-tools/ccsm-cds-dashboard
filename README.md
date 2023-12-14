@@ -55,7 +55,7 @@ You can run this following command to convert CSV data to JSON object. You need 
 npm run convert-csv [filepath]
 ```
 
-The `[filepath]` is the location/path to the CVS file. Ex
+The `[filepath]` is the location/path to the CSV file. Example:
 ```
 npm run convert-csv data/strides.csv
 ```

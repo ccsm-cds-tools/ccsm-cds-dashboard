@@ -330,31 +330,31 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
 
     if (!diagnosticReport) return;
 
-    const mappedDiagnosisCoding = mapStridesCode(row, 'IMSDiscreteGoldDiagnosis');
+    const mappedDiagnosisCodings = mapStridesCode(row, 'IMSDiscreteGoldDiagnosis');
 
-    if (mappedDiagnosisCoding) {
+    if (mappedDiagnosisCodings?.length > 0) {
       diagnosticReport.conclusionCodes ||= [];
 
       diagnosticReport.conclusionCodes.push(
         {
-          coding: [mappedDiagnosisCoding]
+          coding: mappedDiagnosisCodings
         }
       );
     }
 
-    const mappedProcedureCoding = mapStridesCode(row, 'IMSDiscreteprocedure');
+    const mappedProcedureCodings = mapStridesCode(row, 'IMSDiscreteprocedure');
 
-    if (mappedProcedureCoding) {
+    if (mappedProcedureCodings?.length > 0) {
       const newProcedure =
       {
-        'resourceType': 'Procedure',
-        'id': diagnosticReport.id,
-        'subject': diagnosticReport.subject,
-        'status': 'completed',
+        resourceType: 'Procedure',
+        id: diagnosticReport.id,
+        subject: diagnosticReport.subject,
+        status: 'completed',
         code: {
-          'coding': [mappedProcedureCoding],
+          coding: mappedProcedureCodings
         },
-        'performedDateTime': diagnosticReport.effectiveDateTime
+        performedDateTime: diagnosticReport.effectiveDateTime
       };
 
       if (newProcedure.id.length > 54) {
@@ -373,10 +373,16 @@ function mapStridesCode(stridesOrder, column) {
   const mappedCode = stridesCodeMapping[column]?.find(map => map.text === stridesCode)?.code;
 
   if (mappedCode) {
-    return {
-      system: SCT_URL,
-      code: mappedCode
-    }
+    console.log(`STRIDES code ${stridesCode} from ${column} is mapped to ${mappedCode}`)
+    return [
+      {
+        system: SCT_URL,
+        code: mappedCode
+      },
+      {
+        display: `STRIDES Code from ${column}: ${stridesCode}`
+      }
+    ]
   }
 }
 

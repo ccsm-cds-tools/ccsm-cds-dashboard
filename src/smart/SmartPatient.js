@@ -100,7 +100,7 @@ export function SmartPatient() {
         console.log(e);
       }
 
-      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPE ?? 'urn:oid:1.2.840.114350.1.13.0.1.7.2.726668|2';
+      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130|2,urn:oid:1.2.840.114350.1.13.284.3.7.4.726668.130|2';
       
       try {
         await client.request('/EpisodeOfCare?patient=' + pid + '&type=' + epTypeStr).then(async function(ec) {

@@ -252,7 +252,13 @@ const loincBiopsyReport = {
   system: LOINC_URL,
   code: '65753-6',
   display: 'Cervix Pathology biopsy report'
-}
+};
+
+const snomedImmunosuppressed = {
+  system: SCT_URL,
+  code: '370388006',
+  display: 'Patient immunocompromised (finding)'
+};
 
 /**
  * Translate terminology codings used in Observation
@@ -260,6 +266,10 @@ const loincBiopsyReport = {
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
 export function translateResponse(patientData, stridesData, isImmunosuppressed, isPregnant, isPregnantConcerned , isSymptomatic) {
+  if (patientData == null || patientData.length == 0) {
+    return;
+  }
+
   const patientDataMap = patientDataToHash(patientData);
 
   patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
@@ -269,14 +279,34 @@ export function translateResponse(patientData, stridesData, isImmunosuppressed, 
     mapStrideResult(patientData, patientDataMap, stridesData);
   }
 
+  handleToggles(patientDataMap.Patient.first, patientData, isImmunosuppressed, snomedImmunosuppressed, 'Immunosuppressed');
   console.log("translate completed.")
 }
 
-function patientDataToHash(patientData) {
-  if (patientData == null || patientData.length === 0) {
-    return {}
-  }
+function handleToggles(patient, patientData, isImmunosuppressed, coding, label) {
+  const newObsId = `new-observation-for-${label.toLowerCase()}`;
+  if (isImmunosuppressed) {
+    const newObs = {
+      resourceType: 'Observation',
+      id: newObsId,
+      subject: `Patient/${patient.id}`,
+      code: {
+        coding: [
+          coding
+        ]
+      }
+    }
 
+    patientData.push(newObs)
+    console.log(`Add new observation for ${label}.`)
+  } else {
+    patientData = patientData.filter(pd => pd.id !== newObsId)
+    console.log(`Rmove observation for ${label}.`)
+  }
+}
+
+
+function patientDataToHash(patientData) {
   return patientData.reduce((hash, pd) => {
     if (!hash[pd.resourceType]) {
       hash[pd.resourceType] = [];

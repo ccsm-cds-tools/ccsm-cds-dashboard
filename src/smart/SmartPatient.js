@@ -10,8 +10,32 @@ export function SmartPatient() {
   const [patientData, setPatientData] = useState([]);
   const [convertedData, setConvertedData] = useState([]);
   const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
-  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
+  const [isImmunosuppressed, setIsImmunosuppressed] = useState(false);
+  const [isPregnant, setIsPregnant] = useState(false);
+  const [isPregnantConcerned, setIsPregnantConcerned] = useState(false);
+  const [isSymptomatic, setIsSymptomatic] = useState(false);
+
+  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData,isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic);
+
+  const handleImmunosuppressedChange = (isImmunosuppressed) => {
+    setIsImmunosuppressed(isImmunosuppressed);
+  };
+
+  const handlePregnantChange = (event) => {
+    setIsPregnant(event.target.checked);
+    // Add your custom logic here
+  };
+
+  const handlePregnantConcernedChange = (event) => {
+    setIsPregnantConcerned(event.target.checked);
+    // Add your custom logic here
+  };
+
+  const handleSymptomaticChange = (event) => {
+    setIsSymptomatic(event.target.checked);
+    // Add your custom logic here
+  };
 
   useEffect(() => {
     async function smartOnFhir() {
@@ -153,11 +177,12 @@ export function SmartPatient() {
               <div className="spinner"></div>
             </div>
           )}
-          <Dashboard
-            input={dashboardInput}
-            config={config}
-            setPatientData={setPatientData}
-          />
+        <Dashboard
+          input={dashboardInput}
+          config={config}
+          setPatientData={setPatientData}
+          onImmunosuppressedChange={handleImmunosuppressedChange}
+        />
         </div>
       </div>
     )

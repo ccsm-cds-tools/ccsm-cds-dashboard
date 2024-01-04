@@ -16,7 +16,8 @@ function Dashboard(props) {
       patientReference=''
     },
     config={},
-    setPatientData=()=>{}
+    setPatientData=()=>{},
+    onImmunosuppressedChange
   } = props;
 
   return (
@@ -24,18 +25,19 @@ function Dashboard(props) {
       <Row>
         <Col xl={6}>
           <PatientInfo input={patientInfo} />
-          <PatientHistory 
-            input={patientHistory} 
-            resolver={resolver} 
-            config={config} 
+          <PatientHistory
+            input={patientHistory}
+            resolver={resolver}
+            config={config}
             setPatientData={setPatientData}
             patientReference={patientReference}
           />
         </Col>
         <Col xl={6}>
-          <DecisionAids 
+          <DecisionAids
             input={decisionAids}
             resolver={resolver}
+            onImmunosuppressedChange={onImmunosuppressedChange}
           />
         </Col>
     </Row>

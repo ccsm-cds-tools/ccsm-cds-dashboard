@@ -259,7 +259,7 @@ const loincBiopsyReport = {
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData, stridesData) {
+export function translateResponse(patientData, stridesData, isImmunosuppressed, isPregnant, isPregnantConcerned , isSymptomatic) {
   const patientDataMap = patientDataToHash(patientData);
 
   patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));

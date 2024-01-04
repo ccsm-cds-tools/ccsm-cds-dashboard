@@ -1,0 +1,22 @@
+{
+    "11111111": [
+      {
+        "UNIVESRAL_PAT_ID": "170321",
+        "MRN": "11111111",
+        "InitialCerivcalBiopsy": "SURG01",
+        "SURGERYCLINIC": "WH OR",
+        "ORDER_ID": "258954111",
+        "RESULTINGUSER": "md",
+        "RESULTDATE": "9/1/23",
+        "DATEORDERED": "",
+        "SURGSPECNUM": "S23-11111-A",
+        "SURGDATETAKEN": "9/3/23",
+        "FinalSNOMEDCodes": "",
+        "MDDiscreteDiagnosisValue": "",
+        "IMSDiscreteprocedure": "2",
+        "IMSDiscreteGoldDiagnosis": "3",
+        "ClinicianGoldTextDiagnosis": "",
+        "InitialCerivcalBiopsy(SeeSpssCodesDx)": "CERVIX, BIOPSY:  - Ulceration with acute and chronic inflammation, no dysplasia or malignancy identified   - Separate fragments of granulation tissue with acute inflammation and necrotic tissue    &#x20;A. Cervix.   Specimen A is received in formalin labeled with the patient's name, medical record number, \"cervical biopsies\" and consists of an aggregate of pink-tan tissue fragments (0.8 x 0.8 x 0.3 cm). The specimen is filtered through a biopsy bag and submitted in toto in A1.   (AJ)    &#x20;39 y.o. female with a PMHx of stage IIB SCC of cervix  ENDOMETRIUM, BIOPSY:  Atypical squamous epithelial proliferation with numerous keratin pearls in a background of blood and necrotic debris suspicious for squamous cell carcinoma.    &#x20;Comment:  Immunostain with appropriate control for p16 is positive.     &#x20;Electronically signed by Shenoy, Veena, MD on 1/20/2023 at 1039    &#x20;  Unless specified otherwise above, the quality of the H&amp;E and any other special stains performed at University of Mississippi Medical Center Pathology Laboratory (AFB, PAS, immunostains, etc) is satisfactory, and any internal or external positive and negative controls react appropriately.    Any immunohistochemical, immunofluorescence, or in-situ hybridization tests included  in this report that were performed at University of Mississippi Medical Center were developed and their performance characteristics determined by University of Mississippi Medical Center.  They have not been cleared or approved by the U.S. Food and Drug Administration (FDA). The FDA has determined that such clearance or approval is not necessary. These tests are used for clinical purposes. They should not be regarded as investigational or for research. The University of Mississippi Medical Center is certified under the Clinical Laboratory Improvement Act of 1988 (CLIA) as qualified to perform high complexity clinical laboratory testing.          I certify the accuracy of this report on the basis of my personal observations and interpretation.  Microscopic examination performed on all specimens except gross only.    "
+      }
+    ]
+  }

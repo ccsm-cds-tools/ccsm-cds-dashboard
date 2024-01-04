@@ -101,6 +101,14 @@ export function SmartPatient() {
         console.log(e);
       }
 
+      try {
+        await client.request('/EpisodeOfCare?patient=' + pid).then(async function(ec) {
+          await fhirParser(ec);
+        });
+      } catch(e) {
+        console.log(e);
+      }
+
       setPatientData(newData);
       setConvertedData(newFshData);
     }

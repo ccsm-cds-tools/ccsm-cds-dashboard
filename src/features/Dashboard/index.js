@@ -17,7 +17,10 @@ function Dashboard(props) {
     },
     config={},
     setPatientData=()=>{},
-    onImmunosuppressedChange
+    onImmunosuppressedChange,
+    onPregnantChange,
+    onPregnantConcernedChange,
+    onSymptomaticChange
   } = props;
 
   return (
@@ -38,6 +41,9 @@ function Dashboard(props) {
             input={decisionAids}
             resolver={resolver}
             onImmunosuppressedChange={onImmunosuppressedChange}
+            onPregnantChange={onPregnantChange}
+            onPregnantConcernedChange={onPregnantConcernedChange}
+            onSymptomaticChange={onSymptomaticChange}
           />
         </Col>
     </Row>

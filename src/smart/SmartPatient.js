@@ -18,23 +18,22 @@ export function SmartPatient() {
 
   const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData,isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic);
 
-  const handleImmunosuppressedChange = (isImmunosuppressed) => {
-    setIsImmunosuppressed(isImmunosuppressed);
+  const handleImmunosuppressedChange = (isChecked) => {
+    setIsImmunosuppressed(isChecked);
   };
 
-  const handlePregnantChange = (event) => {
-    setIsPregnant(event.target.checked);
+  const handlePregnantChange = (isChecked) => {
+    setIsPregnant(isChecked);
     // Add your custom logic here
   };
 
-  const handlePregnantConcernedChange = (event) => {
-    setIsPregnantConcerned(event.target.checked);
+  const handlePregnantConcernedChange = (isChecked) => {
+    setIsPregnantConcerned(isChecked);
     // Add your custom logic here
   };
 
-  const handleSymptomaticChange = (event) => {
-    setIsSymptomatic(event.target.checked);
-    // Add your custom logic here
+  const handleSymptomaticChange = (isChecked) => {
+    setIsSymptomatic(isChecked);
   };
 
   useEffect(() => {
@@ -182,6 +181,10 @@ export function SmartPatient() {
           config={config}
           setPatientData={setPatientData}
           onImmunosuppressedChange={handleImmunosuppressedChange}
+          onPregnantChange={handlePregnantChange}
+          onPregnantConcernedChange={handlePregnantConcernedChange}
+          onSymptomaticChange={handleSymptomaticChange}
+        />
         />
         </div>
       </div>

@@ -260,6 +260,13 @@ const snomedImmunosuppressed = {
   display: 'Patient immunocompromised (finding)'
 };
 
+const snomedPregnant = {
+  system: SCT_URL,
+  code: '77386006',
+  display: 'Patient currently pregnant (finding)'
+};
+
+
 /**
  * Translate terminology codings used in Observation
  * To be considered in future use: Translate terminology codings used DiagnosticReport
@@ -267,7 +274,7 @@ const snomedImmunosuppressed = {
  */
 export function translateResponse(patientData, stridesData, isImmunosuppressed, isPregnant, isPregnantConcerned , isSymptomatic) {
   if (patientData == null || patientData.length == 0) {
-    return;
+    return patientData;
   }
 
   const patientDataMap = patientDataToHash(patientData);
@@ -279,29 +286,39 @@ export function translateResponse(patientData, stridesData, isImmunosuppressed, 
     mapStrideResult(patientData, patientDataMap, stridesData);
   }
 
-  handleToggles(patientDataMap.Patient.first, patientData, isImmunosuppressed, snomedImmunosuppressed, 'Immunosuppressed');
+  handleToggles(patientDataMap.Patient[0], patientData, isImmunosuppressed, snomedImmunosuppressed, 'Immunosuppressed');
+  handleToggles(patientDataMap.Patient[0], patientData, isPregnant, snomedPregnant, 'Pregnant');
+
   console.log("translate completed.")
+  return patientData;
 }
 
-function handleToggles(patient, patientData, isImmunosuppressed, coding, label) {
+function handleToggles(patient, patientData, isChecked, coding, label) {
   const newObsId = `new-observation-for-${label.toLowerCase()}`;
-  if (isImmunosuppressed) {
-    const newObs = {
-      resourceType: 'Observation',
-      id: newObsId,
-      subject: `Patient/${patient.id}`,
-      code: {
-        coding: [
-          coding
-        ]
+  if (isChecked) {
+    const found = patientData.find(pd => pd.id === newObsId);
+    if (!found) {
+      const newObs = {
+        resourceType: 'Observation',
+        id: newObsId,
+        subject: `Patient/${patient.id}`,
+        code: {
+          coding: [
+            coding
+          ]
+        }
       }
-    }
 
-    patientData.push(newObs)
-    console.log(`Add new observation for ${label}.`)
+      patientData.push(newObs)
+      console.log(`Add new observation for ${label}.`)
+    }
   } else {
-    patientData = patientData.filter(pd => pd.id !== newObsId)
-    console.log(`Rmove observation for ${label}.`)
+    const index = patientData.findIndex(pd => pd.id === newObsId);
+
+    if (index >= 0) {
+      patientData.splice(index, 1);
+      console.log(`Remove new observation for ${label}.`)
+    }
   }
 }
 

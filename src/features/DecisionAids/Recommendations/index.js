@@ -19,7 +19,10 @@ function Recommendations(props) {
       riskTable={}
     },
     resolver=()=>{},
-    onImmunosuppressedChange
+    onImmunosuppressedChange,
+    onPregnantChange,
+    onPregnantConcernedChange,
+    onSymptomaticChange
   } = props;
 
   if (riskTable === null) riskTable = {};
@@ -43,7 +46,12 @@ function Recommendations(props) {
 
   return (
     <div>
-      <SpecialConsiderations onImmunosuppressedChange={onImmunosuppressedChange} />
+      <SpecialConsiderations
+        onImmunosuppressedChange={onImmunosuppressedChange}
+        onPregnantChange={onPregnantChange}
+        onPregnantConcernedChange={onPregnantConcernedChange}
+        onSymptomaticChange={onSymptomaticChange}
+      />
       <Card>
         <Card.Header>Screening and Management Recommendation</Card.Header>
         <Card.Body>

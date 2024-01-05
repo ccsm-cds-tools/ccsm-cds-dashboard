@@ -19,8 +19,15 @@ export const useCds = (patientData, isImmunosuppressed = false, isPregnant = fal
   useEffect(() => {
     setIsLoadingCdsData(true);
     console.log('patientData before translation: ', patientData);
+    console.log('isImmunosuppressed: ' + isImmunosuppressed);
+    console.log('isPregnant: ' + isPregnant);
+    console.log('isPregnantConcerned: ' + isPregnantConcerned);
+    console.log('isSymptomatic: ' + isSymptomatic);
+
     translateResponse(patientData, stridesData, isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic);
+
     console.log('patientData after translation: ', patientData);
+
     applyCds(patientData, setOutput, setIsLoadingCdsData);
   }, [patientData, isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic]);
 

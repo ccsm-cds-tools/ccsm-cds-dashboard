@@ -7,10 +7,7 @@ import './style.scss';
 
 function SpecialConsiderations(props) {
   let {
-    onImmunosuppressedChange,
-    onPregnantChange,
-    onPregnantConcernedChange,
-    onSymptomaticChange
+    onToggleStatusChange
   } = props;
 
 
@@ -19,32 +16,35 @@ function SpecialConsiderations(props) {
   const [isPregnant, setIsPregnant] = useState(false);
   const [isPregnantConcerned, setIsPregnantConcerned] = useState(false);
   const [isSymptomatic, setIsSymptomatic] = useState(false);
-  const [isPregnantActive, setIsPregnantActive] = useState(true);
-  const [isPregnantConcernedActive, setIsPregnantConcernedActive] = useState(true);
+  const [toggleStatus, setToggleStatus] = useState({
+    isImmunosuppressed: false,
+    isPregnant: false,
+    isPregnantConcerned: false,
+    isSymptomatic: false
+  });
+
+  useEffect(() => {
+    onToggleStatusChange(toggleStatus);
+  }, [toggleStatus]);
 
   const toggleNote = () => {
     setShow(!show);
   }
 
   const handleImmunosuppressedChange = (event) => {
-    setIsImmunosuppressed(event.target.checked);
-    onImmunosuppressedChange(event.target.checked);
+    setToggleStatus({ ...toggleStatus, isImmunosuppressed: event.target.checked });
   };
 
   const handlePregnantChange = (event) => {
-    setIsPregnant(event.target.checked);
-    onPregnantChange(event.target.checked);
-
+    setToggleStatus({ ...toggleStatus, isPregnant: event.target.checked });
   };
 
   const handlePregnantConcernedChange = (event) => {
-    setIsPregnantConcerned(event.target.checked);
-    onPregnantConcernedChange(event.target.checked);
+    setToggleStatus({ ...toggleStatus, isPregnantConcerned: event.target.checked });
   };
 
   const handleSymptomaticChange = (event) => {
-    setIsSymptomatic(event.target.checked);
-    onSymptomaticChange(event.target.checked);
+    setToggleStatus({ ...toggleStatus, isSymptomatic: event.target.checked });
   };
 
 
@@ -62,22 +62,22 @@ function SpecialConsiderations(props) {
       </Alert>
 
       <div className="form-check form-switch">
-        <input className="form-check-input" type="checkbox" role="switch" id="force_isImmunosuppressed" checked={isImmunosuppressed} onChange={handleImmunosuppressedChange} />
+        <input className="form-check-input" type="checkbox" role="switch" id="force_isImmunosuppressed" checked={toggleStatus.isImmunosuppressed} onChange={handleImmunosuppressedChange} />
         <label className="form-check-label" htmlFor="force_isImmunosuppressed">Immunosuppressed</label>
         <IconTooltip text="Is the patient immunocompromised? (i.e., Patient has HIV; Solid organ transplant or allogeneic hematopoietec stem cell transplant; systemic lupus erythematous; IBD or RA with immunosuppressive treatment)"></IconTooltip>
       </div>
       <div className="form-check form-switch">
-        <input className="form-check-input" type="checkbox" role="switch" id="force_isPregnant" checked={isPregnant} onChange={handlePregnantChange} disabled={isPregnantConcerned}/>
+        <input className="form-check-input" type="checkbox" role="switch" id="force_isPregnant" checked={toggleStatus.isPregnant} onChange={handlePregnantChange} disabled={toggleStatus.isPregnantConcerned}/>
         <label className="form-check-label" htmlFor="force_isPregnant">Pregnant</label>
         <IconTooltip text="Is the patient currently pregnant?"></IconTooltip>
       </div>
       <div className="form-check form-switch">
-        <input className="form-check-input" type="checkbox" role="switch" id="force_isPregnantConcerned" checked={isPregnantConcerned} onChange={handlePregnantConcernedChange} disabled={isPregnant} />
+        <input className="form-check-input" type="checkbox" role="switch" id="force_isPregnantConcerned" checked={toggleStatus.isPregnantConcerned} onChange={handlePregnantConcernedChange} disabled={toggleStatus.isPregnant} />
         <label className="form-check-label" htmlFor="force_isPregnantConcerned">Future pregnancy concerns</label>
         <IconTooltip text="Does the patient have future pregnancy concerns?"></IconTooltip>
       </div>
       <div className="form-check form-switch">
-        <input className="form-check-input" type="checkbox" role="switch" id="force_isSymptomatic" checked={isSymptomatic} onChange={handleSymptomaticChange} />
+        <input className="form-check-input" type="checkbox" role="switch" id="force_isSymptomatic" checked={toggleStatus.isSymptomatic} onChange={handleSymptomaticChange} />
         <label className="form-check-label" htmlFor="force_isSymptomatic">Symptomatic (abnormal bleeding)</label>
         <IconTooltip text="Is the patient experiencing abnormal uterine or vaginal bleeding today?"></IconTooltip>
       </div>

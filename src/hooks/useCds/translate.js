@@ -231,8 +231,10 @@ const loincMapping = [
 
 const SCT_URL = 'http://snomed.info/sct';
 const LOINC_URL = 'http://loinc.org';
+const LOCAL_URL = 'http://OUR-PLACEHOLDER-URL.com';
 const STRIDES_DIAG_URI = 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77';
 const STRIDES_PROC_URI = 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1';
+
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
@@ -255,16 +257,70 @@ const loincBiopsyReport = {
 };
 
 const snomedImmunosuppressed = {
-  system: SCT_URL,
-  code: '370388006',
-  display: 'Patient immunocompromised (finding)'
+  label: 'Immunosuppressed',
+  code: {
+    coding: [
+      {
+       system: SCT_URL,
+        code: '370388006',
+        display: 'Patient immunocompromised (finding)'
+      }
+    ]
+  }
 };
 
-const snomedPregnant = {
-  system: SCT_URL,
-  code: '77386006',
-  display: 'Patient currently pregnant (finding)'
+const pregnantObservation = {
+  label: 'Pregnant',
+  code: {
+    coding: [
+      {
+        system: SCT_URL,
+        code: '77386006',
+        display: 'Patient currently pregnant (finding)'
+      }
+    ]
+  }
 };
+
+const pregnantConcernedObservation = {
+  label: 'PregnantConcerned',
+  code: {
+    coding: [
+      {
+        system: LOCAL_URL,
+        code: 'FPCQ'
+      }
+    ]
+  },
+  valueCodeableConcept: {
+    coding: [
+      {
+        system: SCT_URL,
+        code: '373066001'
+      }
+    ]
+  }
+}
+
+const symptomaticObservation = {
+  label: 'Symptomatic',
+  code: {
+    coding: [
+      {
+        system: LOCAL_URL,
+        code: 'AUVBQ'
+      }
+    ]
+  },
+  valueCodeableConcept: {
+    coding: [
+      {
+        system: SCT_URL,
+        code: '373066001'
+      }
+    ]
+  }
+}
 
 
 /**
@@ -272,7 +328,7 @@ const snomedPregnant = {
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData, stridesData, isImmunosuppressed, isPregnant, isPregnantConcerned , isSymptomatic) {
+export function translateResponse(patientData, stridesData, toggleStatus) {
   if (patientData == null || patientData.length == 0) {
     return patientData;
   }
@@ -286,15 +342,17 @@ export function translateResponse(patientData, stridesData, isImmunosuppressed, 
     mapStrideResult(patientData, patientDataMap, stridesData);
   }
 
-  handleToggles(patientDataMap.Patient[0], patientData, isImmunosuppressed, snomedImmunosuppressed, 'Immunosuppressed');
-  handleToggles(patientDataMap.Patient[0], patientData, isPregnant, snomedPregnant, 'Pregnant');
+  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isImmunosuppressed, immunosuppressedObservation);
+  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isPregnant, pregnantObservation);
+  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isPregnantConcerned, pregnantConcernedObservation);
+  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isSymptomatic, symptomaticObservation);
 
   console.log("translate completed.")
   return patientData;
 }
 
-function handleToggles(patient, patientData, isChecked, coding, label) {
-  const newObsId = `new-observation-for-${label.toLowerCase()}`;
+function handleToggles(patient, patientData, isChecked, obs) {
+  const newObsId = `new-observation-for-${obs.label.toLowerCase()}`;
   if (isChecked) {
     const found = patientData.find(pd => pd.id === newObsId);
     if (!found) {
@@ -302,22 +360,22 @@ function handleToggles(patient, patientData, isChecked, coding, label) {
         resourceType: 'Observation',
         id: newObsId,
         subject: `Patient/${patient.id}`,
-        code: {
-          coding: [
-            coding
-          ]
-        }
+        code: obs.code
+      }
+
+      if (obs.valueCodeableConcept) {
+        newObs.valueCodeableConcept = obs.valueCodeableConcept
       }
 
       patientData.push(newObs)
-      console.log(`Add new observation for ${label}.`)
+      console.log(`Add new observation for ${obs.label}.`)
     }
   } else {
     const index = patientData.findIndex(pd => pd.id === newObsId);
 
     if (index >= 0) {
       patientData.splice(index, 1);
-      console.log(`Remove new observation for ${label}.`)
+      console.log(`Remove new observation for ${obs.label}.`)
     }
   }
 }

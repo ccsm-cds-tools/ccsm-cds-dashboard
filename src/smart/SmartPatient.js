@@ -11,29 +11,17 @@ export function SmartPatient() {
   const [convertedData, setConvertedData] = useState([]);
   const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
-  const [isImmunosuppressed, setIsImmunosuppressed] = useState(false);
-  const [isPregnant, setIsPregnant] = useState(false);
-  const [isPregnantConcerned, setIsPregnantConcerned] = useState(false);
-  const [isSymptomatic, setIsSymptomatic] = useState(false);
+  const [toggleStatus, setToggleStatus] = useState({
+    isImmunosuppressed: false,
+    isPregnant: false,
+    isPregnantConcerned: false,
+    isSymptomatic: false
+  });
 
-  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData,isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic);
+  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData,toggleStatus);
 
-  const handleImmunosuppressedChange = (isChecked) => {
-    setIsImmunosuppressed(isChecked);
-  };
-
-  const handlePregnantChange = (isChecked) => {
-    setIsPregnant(isChecked);
-    // Add your custom logic here
-  };
-
-  const handlePregnantConcernedChange = (isChecked) => {
-    setIsPregnantConcerned(isChecked);
-    // Add your custom logic here
-  };
-
-  const handleSymptomaticChange = (isChecked) => {
-    setIsSymptomatic(isChecked);
+  const handleToggleStatusChange = (toggleStatus) => {
+    setToggleStatus(toggleStatus);
   };
 
   useEffect(() => {
@@ -180,11 +168,7 @@ export function SmartPatient() {
           input={dashboardInput}
           config={config}
           setPatientData={setPatientData}
-          onImmunosuppressedChange={handleImmunosuppressedChange}
-          onPregnantChange={handlePregnantChange}
-          onPregnantConcernedChange={handlePregnantConcernedChange}
-          onSymptomaticChange={handleSymptomaticChange}
-        />
+          onToggleStatusChange={handleToggleStatusChange}
         />
         </div>
       </div>

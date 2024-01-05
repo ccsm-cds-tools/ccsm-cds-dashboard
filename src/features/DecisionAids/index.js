@@ -10,10 +10,7 @@ function DecisionAids(props) {
   const {
     input,
     resolver,
-    onImmunosuppressedChange,
-    onPregnantChange,
-    onPregnantConcernedChange,
-    onSymptomaticChange
+    onToggleStatusChange
   } = props;
   const { errors=[] } = input;
   const errorsExist = errors.length > 0;
@@ -25,11 +22,7 @@ function DecisionAids(props) {
         <Tab eventKey={'recs'} title={'Recommendations'}>
           <Recommendations
             input={input}
-            resolver={resolver}
-            onImmunosuppressedChange={onImmunosuppressedChange}
-            onPregnantChange={onPregnantChange}
-            onPregnantConcernedChange={onPregnantConcernedChange}
-            onSymptomaticChange={onSymptomaticChange}
+            onToggleStatusChange={onToggleStatusChange}
           />
         </Tab>
         <Tab eventKey={'refs'} title={'References'} disabled={errorsExist}>

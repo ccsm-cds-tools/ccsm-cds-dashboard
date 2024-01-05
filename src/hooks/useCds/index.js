@@ -11,25 +11,31 @@ import { stridesData } from './strides';
  * @param {Object[]} patientData
  * @returns {Object}
  */
-export const useCds = (patientData, isImmunosuppressed = false, isPregnant = false, isPregnantConcerned = false, isSymptomatic = false) => {
+export const useCds = (patientData, toggleStatus) => {
 
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
 
   useEffect(() => {
     setIsLoadingCdsData(true);
+
+    if (toggleStatus) {
+      console.log('toggleStatus: ', toggleStatus);
+    }
+
     console.log('patientData before translation: ', patientData);
     console.log('isImmunosuppressed: ' + isImmunosuppressed);
     console.log('isPregnant: ' + isPregnant);
     console.log('isPregnantConcerned: ' + isPregnantConcerned);
     console.log('isSymptomatic: ' + isSymptomatic);
 
-    translateResponse(patientData, stridesData, isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic);
+
+    translateResponse(patientData, stridesData, toggleStatus);
 
     console.log('patientData after translation: ', patientData);
 
     applyCds(patientData, setOutput, setIsLoadingCdsData);
-  }, [patientData, isImmunosuppressed, isPregnant, isPregnantConcerned, isSymptomatic]);
+  }, [patientData, toggleStatus]);
 
   return {output, isLoadingCdsData};
 }

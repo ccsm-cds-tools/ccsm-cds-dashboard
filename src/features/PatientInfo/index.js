@@ -1,3 +1,4 @@
+import { Row, Col } from 'react-bootstrap';
 import './style.scss';
 
 function PatientInfo(props) {
@@ -12,7 +13,7 @@ function PatientInfo(props) {
 
   return (
     <section className="patient-info">
-      <div className="patient-name">{input.name}</div>
+      <h1 className="patient-name">{input.name}</h1>
       <div className="patient-detail">
         <div className="id">
           {/* <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div> */}
@@ -20,8 +21,8 @@ function PatientInfo(props) {
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
         </div>
         <div className="info-items">
-          <div className="row">
-            <div className="col">
+          <Row>
+            <Col>
               <div className="info-item">
                 <b>Date of Birth</b> <span><time dateTime={dob}>{dob}</time></span>
               </div>
@@ -29,24 +30,24 @@ function PatientInfo(props) {
                 <b>Sex at Birth</b>
                 <span>{input.sexAtBirth}</span>
               </div>
-            </div>
-            <div className="col">
+            </Col>
+            <Col>
               <div className="info-item">
                 <b>Age</b> <span>{input.age}</span>
               </div>
               <div className="info-item">
                 <b>Gender</b> <span>{gender}</span>
               </div>
-            </div>
-            <div className="col-6">
+            </Col>
+            <Col>
               <div className="info-item">
                 <b>Preferred Language</b> <span>{input.primaryLanguage}</span>
               </div>
               <div className="info-item">
                 <b>Race/Ethnicity</b> <span>{input.race}</span>
               </div>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </div>
       </div>
     </section>

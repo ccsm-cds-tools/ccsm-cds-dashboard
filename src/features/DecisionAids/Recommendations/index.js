@@ -2,6 +2,8 @@ import { Alert, Button, Card } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import ViewDataDialog from 'components/ViewDataDialog';
 import RiskEstimates from 'features/DecisionAids/RiskEstimates';
+import SpecialConsiderations from 'features/SpecialConsiderations';
+
 import './style.scss';
 
 function Recommendations(props) {
@@ -40,7 +42,9 @@ function Recommendations(props) {
 
   return (
     <div>
+      <SpecialConsiderations />
       <Card>
+        <Card.Header>Screening and Management Recommendation</Card.Header>
         <Card.Body>
           <Card.Title as='h3'>
             { 
@@ -57,7 +61,6 @@ function Recommendations(props) {
             }
           </Card.Title>
           <Card.Subtitle as='h4'>
-            <div>{recommendationGroup}</div>
             <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
           </Card.Subtitle>
           {
@@ -65,6 +68,7 @@ function Recommendations(props) {
               return <Card.Text key={idx}>{detail}</Card.Text>
             })
           }
+          <div className="recommendation-group-text">{recommendationGroup}</div>
           <Alert 
             show={show} 
             variant={errors.length > 0 ? 'danger' : 'warning'}

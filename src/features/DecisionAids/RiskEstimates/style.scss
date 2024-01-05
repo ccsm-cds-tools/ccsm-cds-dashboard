@@ -3,7 +3,14 @@
     background-color:#ffed97;
     font-weight:bold;
   }
+  &.risktable {font-size:0.9rem}
 }
+
 div.risk {
   margin-top: 2vh;
+}
+div.risk-header {
+  display:flex;
+  justify-content:space-between;
+  Button.btn-toggle-link {font-size:0.9em}
 }

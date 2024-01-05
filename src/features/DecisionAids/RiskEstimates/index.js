@@ -1,4 +1,5 @@
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
+import { useEffect, useState, useRef } from 'react';
 import './style.scss';
 
 function RiskEstimates(props) {
@@ -14,6 +15,12 @@ function RiskEstimates(props) {
   } = props;
   const { input } = props;
 
+  const [show, setShow] = useState(false);
+  
+  const toggleTable = () => {
+    setShow(!show);
+  }
+    
   if (Object.keys(input).length === 0) return null;
 
   headers = headers ?? [];
@@ -23,11 +30,16 @@ function RiskEstimates(props) {
 
   return (
     <div className='risk'>
-      <h4>{title} <a href='#info' className='fs-5'><i className='bi bi-info-circle-fill'></i></a></h4>
+      <div className="risk-header">
+      <h4>{title}</h4>
+      <Button variant="link" className="btn-toggle-link" data-bs-toggle="collapse" role="button" aria-expanded="false" onClick={toggleTable} aria-controls="risktable">{show ? "Hide" : "Show"}</Button>
+      </div>
       <p className="text-secondary">{subtitle}</p>
+      
+      
       {
-        Object.keys(relevant).length > 0 ? 
-          <RiskTable 
+        Object.keys(relevant).length > 0 && show ? 
+          <RiskTable
             headers={headers} 
             relevant={relevant} 
             adjacent={adjacent} 
@@ -48,8 +60,9 @@ function RiskTable(props) {
 
   const numCols = headers.length;
 
+    
   return (
-    <Table className="risktable">
+    <Table className="risktable" id="risktable">
       <thead>
         <tr>
           { 

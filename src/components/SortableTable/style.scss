@@ -10,7 +10,7 @@ Table.sortable {
   }
   tbody tr td {
     border:none; 
-    padding:0rem 0.5rem;
+    padding:0.25rem 0.5rem 0 0.5rem;
     &.warn {
       background-color:#ffe392
     }
@@ -88,7 +88,9 @@ Table.sortable {
   td {
     vertical-align: middle;
   }
-
+  .btn-view-link {
+    padding:0;
+  }
 }
 
 .is_manual {

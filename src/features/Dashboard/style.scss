@@ -1,17 +1,9 @@
 div.main {
   background-color:white;
   border:1px solid #999;
-  padding:25px 15px;
+  padding:10px 15px;
   a {
     color:#005EA2;
-  }
-  Button {
-    &.nav-link {
-      color:#005EA2;
-    }
-    &.btn-link {
-      color:#005EA2;
-    }
   }
   
   h2 {
@@ -20,3 +12,11 @@ div.main {
   }
 }
 
+Button {
+  &.nav-link {
+    color:#005EA2;
+  }
+  &.btn-link {
+    color:#005EA2;
+  }
+}

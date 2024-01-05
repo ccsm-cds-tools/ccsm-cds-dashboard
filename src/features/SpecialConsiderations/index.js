@@ -12,10 +12,6 @@ function SpecialConsiderations(props) {
 
 
   const [show, setShow] = useState(false);
-  const [isImmunosuppressed, setIsImmunosuppressed] = useState(false);
-  const [isPregnant, setIsPregnant] = useState(false);
-  const [isPregnantConcerned, setIsPregnantConcerned] = useState(false);
-  const [isSymptomatic, setIsSymptomatic] = useState(false);
   const [toggleStatus, setToggleStatus] = useState({
     isImmunosuppressed: false,
     isPregnant: false,

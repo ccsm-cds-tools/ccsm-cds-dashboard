@@ -221,8 +221,8 @@ const LOINC_URL = 'http://loinc.org'
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
-  'urn:oid:1.2.840.114350.1.13.88.2.7.2.726668', // PROD
-  'urn:oid:1.2.840.114350.1.13.88.3.7.2.726668' // BLD & COP
+  'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130', // PRD
+  'urn:oid:1.2.840.114350.1.13.284.3.7.4.726668.130' // nonPRD
 ];
 
 const snomedPregnancyCare = {
@@ -396,7 +396,7 @@ function mapEpisodeOfCare(episodeOfCare) {
 
   pregnancyType = episodeOfCare.type?.find(type =>
     type.coding?.some(coding => {
-      const isEpicCoding = episodeOfCareTypeCodeSystem.includes(coding.system) && coding.code === '6';
+      const isEpicCoding = episodeOfCareTypeCodeSystem.includes(coding.system) && coding.code === '2';
 
       if (isEpicCoding) {
         epicCoding = coding;

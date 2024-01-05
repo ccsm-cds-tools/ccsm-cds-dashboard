@@ -3,7 +3,7 @@ import { applyPlan, simpleResolver } from 'encender';
 import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
-import { translateResponse } from './translate';
+import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
 
 /**
@@ -11,7 +11,7 @@ import { stridesData } from './strides';
  * @param {Object[]} patientData
  * @returns {Object}
  */
-export const useCds = (patientData, toggleStatus) => {
+export const useCds = (patientData, toggleStatus, isToggleChanged) => {
 
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
@@ -19,18 +19,14 @@ export const useCds = (patientData, toggleStatus) => {
   useEffect(() => {
     setIsLoadingCdsData(true);
 
-    if (toggleStatus) {
-      console.log('toggleStatus: ', toggleStatus);
-    }
-
+    console.log('toggleStatus: ', toggleStatus);
     console.log('patientData before translation: ', patientData);
-    console.log('isImmunosuppressed: ' + isImmunosuppressed);
-    console.log('isPregnant: ' + isPregnant);
-    console.log('isPregnantConcerned: ' + isPregnantConcerned);
-    console.log('isSymptomatic: ' + isSymptomatic);
 
-
-    translateResponse(patientData, stridesData, toggleStatus);
+    if (isToggleChanged) {
+      translateToggleChange(patientData, toggleStatus);
+    } else {
+      translateResponse(patientData, stridesData);
+    }
 
     console.log('patientData after translation: ', patientData);
 

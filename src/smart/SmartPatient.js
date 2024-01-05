@@ -11,6 +11,7 @@ export function SmartPatient() {
   const [convertedData, setConvertedData] = useState([]);
   const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
+  const [isToggleChanged, setIsToggleChanged] = useState(false);
   const [toggleStatus, setToggleStatus] = useState({
     isImmunosuppressed: false,
     isPregnant: false,
@@ -18,11 +19,19 @@ export function SmartPatient() {
     isSymptomatic: false
   });
 
-  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData,toggleStatus);
+  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData, toggleStatus, isToggleChanged);
 
-  const handleToggleStatusChange = (toggleStatus) => {
-    setToggleStatus(toggleStatus);
-  };
+  const handleToggleStatusChange = (newToggleStatus) => {
+    if (toggleStatus.isImmunosuppressed != newToggleStatus.isImmunosuppressed ||
+      toggleStatus.isPregnant != newToggleStatus.isPregnant ||
+      toggleStatus.isPregnantConcerned != newToggleStatus.isPregnantConcerned ||
+      toggleStatus.isSymptomatic != newToggleStatus.isSymptomatic) {
+        setIsToggleChanged(true);
+      } else {
+        setIsToggleChanged(false);
+      }
+    setToggleStatus(newToggleStatus);
+  }
 
   useEffect(() => {
     async function smartOnFhir() {

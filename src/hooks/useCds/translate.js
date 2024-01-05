@@ -328,9 +328,9 @@ const symptomaticObservation = {
  * To be considered in future use: Translate terminology codings used DiagnosticReport
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
-export function translateResponse(patientData, stridesData, toggleStatus) {
+export function translateResponse(patientData, stridesData) {
   if (patientData == null || patientData.length == 0) {
-    return patientData;
+    return;
   }
 
   const patientDataMap = patientDataToHash(patientData);
@@ -342,13 +342,19 @@ export function translateResponse(patientData, stridesData, toggleStatus) {
     mapStrideResult(patientData, patientDataMap, stridesData);
   }
 
-  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isImmunosuppressed, immunosuppressedObservation);
-  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isPregnant, pregnantObservation);
-  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isPregnantConcerned, pregnantConcernedObservation);
-  handleToggles(patientDataMap.Patient[0], patientData, toggleStatus.isSymptomatic, symptomaticObservation);
-
   console.log("translate completed.")
-  return patientData;
+}
+
+export function translateToggleChange(patientData, toggleStatus) {
+  if (patientData == null || patientData.length == 0) {
+    return;
+  }
+
+  const patient = patientData.find(pd => pd.resourceType == 'Patient');
+  handleToggles(patient, patientData, toggleStatus.isImmunosuppressed, immunosuppressedObservation);
+  handleToggles(patient, patientData, toggleStatus.isPregnant, pregnantObservation);
+  handleToggles(patient, patientData, toggleStatus.isPregnantConcerned, pregnantConcernedObservation);
+  handleToggles(patient, patientData, toggleStatus.isSymptomatic, symptomaticObservation);
 }
 
 function handleToggles(patient, patientData, isChecked, obs) {

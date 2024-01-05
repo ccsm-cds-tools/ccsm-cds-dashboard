@@ -365,8 +365,11 @@ function handleToggles(patient, patientData, isChecked, obs) {
       const newObs = {
         resourceType: 'Observation',
         id: newObsId,
-        subject: `Patient/${patient.id}`,
-        code: obs.code
+        subject: {
+          reference: `Patient/${patient.id}`
+        },
+        code: obs.code,
+        effectiveDateTime: (new Date()).toISOString()
       }
 
       if (obs.valueCodeableConcept) {

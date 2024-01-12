@@ -29,6 +29,11 @@ You can run the dashboard locally by following these steps:
 ### Configuring Dashboard Environment
 CCSM CDS Dashboard relies on environment variables for configuration. Configuration options are described in the [Environment Setting for Dashboard](https://github.com/ccsm-cds-tools/ccsm-cds-dashboard/wiki/Environment-Setting-for-Dashboard) section of the Wiki.
 
+### Environment Variables to be set
+There are several environment variables to be set for dashbard to run:
+- `REACT_APP_CCSM_EPISODEOFCARE_TYPES`: This is the search value for EpisodeOfCare type search. The value shall be in a string of `[system]|[code]`. If the environment value is not set, the default value `urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130|2` will be used.
+- `REACT_APP_CCSM_OBSERVATION_CATEGORIES`: This is the search value for Observation category search. The value shall be a string of comma seperated category codes. If the environment value is not set, the default value `laboratory;obstetrics-gynecology;smartdata` will be used.
+
 ### Download Value Sets
 If your CDS uses value sets from the [Value Set Authority Center (VSAC)](https://vsac.nlm.nih.gov/) you must download your value sets from VSAC using your [Unified Medical Language System (UMLS)](https://www.nlm.nih.gov/research/umls/index.html) API key. This will require creating a free Unified Medical Language System (UMLS) account from the National Library of Medicine (NLM).  If you do not yet have an account, [sign up here](https://uts.nlm.nih.gov//license.html).
 

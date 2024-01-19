@@ -29,8 +29,21 @@ describe('translate', () => {
 
     it('should include strides data', () => {
       translateResponse(patientData, stridesData);
-      expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.length > 0)).to.be.true;
+      expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.some(cc => cc.coding.some(coding => coding.display?.includes('STRIDES Code'))))).to.be.true;
       expect(patientData.some(resource => resource.resourceType === 'Procedure')).to.be.true;
+    });
+
+    it('should return when Patient does not have MRN', () => {
+      let patientWithoutMRN = patientData.find(pd => pd.resourceType === 'Patient')
+      patientWithoutMRN.identifier = patientWithoutMRN.identifier.filter(id => id.type.text !== 'MRN')
+      translateResponse(patientData, stridesData);
+      expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.some(cc => cc.coding.some(coding => coding.display?.includes('STRIDES Code'))))).to.be.false;
+    });
+
+    it('should return when patientData does not have DiagnosticReport', () => {
+      patientData = patientData.filter(pd => pd.resourceType !== 'DiagnosticReport')
+      translateResponse(patientData, stridesData);
+      expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.some(cc => cc.coding.some(coding => coding.display?.includes('STRIDES Code'))))).to.be.false;
     });
   });
 

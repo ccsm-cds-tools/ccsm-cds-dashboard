@@ -311,7 +311,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
 // Strides Data
 //
 function mapStrideResult(patientData, patientDataMap, stridesData) {
-  if (patientDataMap?.Patient == null || patientDataMap.Patient.length === 0 || patientDataMap.DiagnosticReport == null || patientDataMap.DiagnosticReport.length === 0) {
+  if (!patientDataMap || !(patientDataMap.Patient?.length) || !(patientDataMap.DiagnosticReport?.length)) {
     return;
   }
 

@@ -34,8 +34,8 @@ describe('translate', () => {
     });
 
     it('should return when Patient does not have MRN', () => {
-      let patientWithoutMRN = patientData.find(pd => pd.resourceType === 'Patient')
-      patientWithoutMRN.identifier = patientWithoutMRN.identifier.filter(id => id.type.text !== 'MRN')
+      let patientWithoutMRN = patientData.find(pd => pd.resourceType === 'Patient');
+      patientWithoutMRN.identifier = patientWithoutMRN.identifier.filter(id => id.type.text !== 'MRN');
       translateResponse(patientData, stridesData);
       expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.some(cc => cc.coding.some(coding => coding.display?.includes('STRIDES Code'))))).to.be.false;
     });

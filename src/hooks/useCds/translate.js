@@ -315,9 +315,9 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
     return;
   }
 
-  const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === 'MRN')?.value;
+  const mrn = patientDataMap.Patient[0].identifier?.find(id =>id.type?.text === ('MRN') || id.type?.text === ('Medical Record Number'))?.value;
 
-  if (!mrn || patientDataMap.DiagnosticReport.length === 0) {
+  if (!mrn || patientDataMap.DiagnosticReport.length === 0 || !(mrn in stridesData)) {
     return;
   }
 

@@ -229,8 +229,10 @@ const loincMapping = [
   }
 ];
 
-const SCT_URL = 'http://snomed.info/sct'
-const LOINC_URL = 'http://loinc.org'
+const SCT_URL = 'http://snomed.info/sct';
+const LOINC_URL = 'http://loinc.org';
+const STRIDES_DIAG_URI = 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77';
+const STRIDES_PROC_URI = 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1';
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
@@ -347,7 +349,7 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
 
     console.log(`DiagnosticReport/${diagnosticReport.id} is mapped to STRIDES order ${orderId}`)
 
-    const mappedDiagnosisCC = mapStridesCodeToCC(row, 'IMSDiscreteGoldDiagnosis');
+    const mappedDiagnosisCC = mapStridesCodeToCC(row, 'IMSDiscreteGoldDiagnosis', STRIDES_DIAG_URI);
 
     if (mappedDiagnosisCC) {
       diagnosticReport.conclusionCodes ||= [];
@@ -355,7 +357,7 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
       diagnosticReport.conclusionCodes.push(mappedDiagnosisCC);
     }
 
-    const mappedProcedureCC = mapStridesCodeToCC(row, 'IMSDiscreteprocedure');
+    const mappedProcedureCC = mapStridesCodeToCC(row, 'IMSDiscreteprocedure', STRIDES_PROC_URI);
 
     if (mappedProcedureCC) {
       const newProcedure =
@@ -379,7 +381,7 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
   });
 }
 
-function mapStridesCodeToCC(stridesOrder, column) {
+function mapStridesCodeToCC(stridesOrder, column, localSystemUri) {
   const stridesCode = stridesOrder[column];
   const mappedCode = stridesCodeMapping[column]?.find(map => map.text === stridesCode);
 
@@ -393,7 +395,7 @@ function mapStridesCodeToCC(stridesOrder, column) {
           display: mappedCode.display
         },
         {
-          system: `http://example.com/strides/${column}`,
+          system: localSystemUri,
           code: stridesCode
         }
       ],

@@ -61,7 +61,7 @@ function formatDateOfBirth(dateOfBirth) {
   const month = String(dateOfBirth?.month ?? '');
   const year = String(dateOfBirth?.year ?? '');
 
-  const dobString = 
+  const dobString =
     month.padStart(2,'0') + ' / ' +
     day.padStart(2,'0') + ' / ' +
     year;
@@ -72,11 +72,11 @@ function formatDateOfBirth(dateOfBirth) {
 function getMrn(ids) {
   if (ids.length > 0) {
     const mrnTextValues = ["MRN", "MR", "Medical Record Number"]
-    const mrn = ids.find(id => 
+    const mrn = ids.find(id =>
       mrnTextValues.includes(id.type?.text.value)||
       (id.type?.coding && mrnTextValues.includes(id.type?.coding[0].code.value))
     );
-    return mrn ? mrn.value.value : 'Unknown';  
+    return mrn ? mrn.value.value : 'Unknown';
   } else {
     return 'Unknown';
   }

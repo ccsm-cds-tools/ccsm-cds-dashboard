@@ -236,9 +236,9 @@ const STRIDES_PROC_URI = 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1';
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
-  'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668', //PRD
+  'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668', //PRD
   'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130', // PRD
-  'urn:oid:1.2.840.114350.1.13.284.3.7.4.726668', // nonPRD
+  'urn:oid:1.2.840.114350.1.13.284.3.7.2.726668', // nonPRD
   'urn:oid:1.2.840.114350.1.13.284.3.7.4.726668.130' // nonPRD
 ];
 

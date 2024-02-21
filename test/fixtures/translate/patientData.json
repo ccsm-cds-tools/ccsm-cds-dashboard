@@ -387,7 +387,7 @@
       "status" : "active",
       "type" : [{
         "coding" : [{
-          "system" : "urn:oid:1.2.840.114350.1.13.284.3.7.4.726668",
+          "system" : "urn:oid:1.2.840.114350.1.13.284.3.7.2.726668",
           "code" : "2",
           "display" : "PREGNANCY"
         }]

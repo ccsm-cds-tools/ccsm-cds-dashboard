@@ -29,7 +29,10 @@ describe('translate', () => {
 
     it('should include strides data', () => {
       translateResponse(patientData, stridesData);
-      expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' && resource.conclusionCodes?.length > 0)).to.be.true;
+      expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' &&
+              resource.code.coding.some(coding => coding.code === '65753-6' && coding.system === 'http://loinc.org') &&
+              resource.conclusionCodes?.length > 0)
+            ).to.be.true;
       expect(patientData.some(resource => resource.resourceType === 'Procedure')).to.be.true;
     });
   });

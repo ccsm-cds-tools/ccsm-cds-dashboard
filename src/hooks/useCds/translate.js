@@ -248,6 +248,12 @@ const snomedPregnancyCare = {
   'display': 'Antenatal care (regime/therapy)'
 };
 
+const loincBiopsyReport = {
+  system: LOINC_URL,
+  code: '65753-6',
+  display: 'Cervix Pathology biopsy report'
+}
+
 /**
  * Translate terminology codings used in Observation
  * To be considered in future use: Translate terminology codings used DiagnosticReport
@@ -352,6 +358,8 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
     const mappedDiagnosisCC = mapStridesCodeToCC(row, 'IMSDiscreteGoldDiagnosis', STRIDES_DIAG_URI);
 
     if (mappedDiagnosisCC) {
+      diagnosticReport.code.coding.push(loincBiopsyReport);
+
       diagnosticReport.conclusionCodes ||= [];
 
       diagnosticReport.conclusionCodes.push(mappedDiagnosisCC);

@@ -146,57 +146,70 @@ const stridesCodeMapping = {
   IMSDiscreteprocedure: [
     {
       text: '1',
-      code: '116140006'
+      code: '116140006',
+      display: 'Total hysterectomy (procedure)'
     },
     {
       text: '2',
-      code: '120038005'
+      code: '120038005',
+      display: 'Cervix Excision'
     },
     {
       text: '3',
-      code: '176786003'
+      code: '176786003',
+      display: 'Colposcopy of cervix (procedure)'
     },
     {
       text: '4',
-      code: '52889002'
+      code: '52889002',
+      display: 'Endocervical Curettage'
     },
     {
       text: '5',
-      code: '176786003'
+      code: '176786003',
+      display: 'Colposcopy of cervix (procedure)'
     },
     {
       text: '6',
-      code: '176786003'
+      code: '176786003',
+      display: 'Colposcopy of cervix (procedure)'
     }
   ],
   IMSDiscreteGoldDiagnosis: [
     {
       text: "-1",
-      code: "112631006"
+      code: "112631006",
+      display: 'Specimen insufficient for diagnosis'
     },
     {
       text: "0",
-      code: "309162003"
+      code: "309162003",
+      display: 'Biopsy result normal (finding)'
     },
     {
       text: "1",
-      code: "285836003"
+      code: "285836003",
+      display: 'Cervical intraepithelial neoplasia grade 1 (disorder)'
     },
     {
       text: "2",
-      code: "285838002"
+      code: "285838002",
+      display: 'Cervical intraepithelial neoplasia grade 2 (disorder)'
     },
     {
       text: "3",
-      code: "20365006"
+      code: "20365006",
+      display: 'Squamous intraepithelial neoplasia, grade III (morphologic abnormality)'
     },
     {
       text: "4",
-      code: "254890008"
+      code: "254890008",
+      display: 'Adenocarcinoma in situ of cervix (disorder)'
     },
     {
       text: "5",
-      code: "363354003"
+      code: "363354003",
+      display: 'Malignant tumor of cervix (disorder)'
     }
   ]
 };
@@ -216,12 +229,16 @@ const loincMapping = [
   }
 ];
 
-const SCT_URL = 'http://snomed.info/sct'
-const LOINC_URL = 'http://loinc.org'
+const SCT_URL = 'http://snomed.info/sct';
+const LOINC_URL = 'http://loinc.org';
+const STRIDES_DIAG_URI = 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77';
+const STRIDES_PROC_URI = 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1';
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
+  'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668', //PRD
   'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130', // PRD
+  'urn:oid:1.2.840.114350.1.13.284.3.7.4.726668', // nonPRD
   'urn:oid:1.2.840.114350.1.13.284.3.7.4.726668.130' // nonPRD
 ];
 
@@ -334,30 +351,26 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
 
     if (!diagnosticReport) return;
 
-    const mappedDiagnosisCodings = mapStridesCode(row, 'IMSDiscreteGoldDiagnosis');
+    console.log(`DiagnosticReport/${diagnosticReport.id} is mapped to STRIDES order ${orderId}`)
 
-    if (mappedDiagnosisCodings?.length > 0) {
+    const mappedDiagnosisCC = mapStridesCodeToCC(row, 'IMSDiscreteGoldDiagnosis', STRIDES_DIAG_URI);
+
+    if (mappedDiagnosisCC) {
       diagnosticReport.conclusionCodes ||= [];
 
-      diagnosticReport.conclusionCodes.push(
-        {
-          coding: mappedDiagnosisCodings
-        }
-      );
+      diagnosticReport.conclusionCodes.push(mappedDiagnosisCC);
     }
 
-    const mappedProcedureCodings = mapStridesCode(row, 'IMSDiscreteprocedure');
+    const mappedProcedureCC = mapStridesCodeToCC(row, 'IMSDiscreteprocedure', STRIDES_PROC_URI);
 
-    if (mappedProcedureCodings?.length > 0) {
+    if (mappedProcedureCC) {
       const newProcedure =
       {
         resourceType: 'Procedure',
         id: diagnosticReport.id,
         subject: diagnosticReport.subject,
         status: 'completed',
-        code: {
-          coding: mappedProcedureCodings
-        },
+        code: mappedProcedureCC,
         performedDateTime: diagnosticReport.effectiveDateTime
       };
 
@@ -372,21 +385,26 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
   });
 }
 
-function mapStridesCode(stridesOrder, column) {
+function mapStridesCodeToCC(stridesOrder, column, localSystemUri) {
   const stridesCode = stridesOrder[column];
-  const mappedCode = stridesCodeMapping[column]?.find(map => map.text === stridesCode)?.code;
+  const mappedCode = stridesCodeMapping[column]?.find(map => map.text === stridesCode);
 
   if (mappedCode) {
-    console.log(`STRIDES code ${stridesCode} from ${column} is mapped to ${mappedCode}`)
-    return [
-      {
-        system: SCT_URL,
-        code: mappedCode
-      },
-      {
-        display: `STRIDES Code from ${column}: ${stridesCode}`
-      }
-    ]
+    console.log(`STRIDES code ${stridesCode} from ${column} is mapped to Snomed CT code ${mappedCode.code} with display text ${mappedCode.display}`)
+    return {
+      coding: [
+        {
+          system: SCT_URL,
+          code: mappedCode.code,
+          display: mappedCode.display
+        },
+        {
+          system: localSystemUri,
+          code: stridesCode
+        }
+      ],
+      text: mappedCode.display
+    }
   }
 }
 

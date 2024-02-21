@@ -334,17 +334,21 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
 // Strides Data
 //
 function mapStrideResult(patientData, patientDataMap, stridesData) {
-  if (patientDataMap?.Patient == null || patientDataMap.Patient.length === 0) {
+  if (!patientDataMap || !(patientDataMap.Patient?.length) || !(patientDataMap.DiagnosticReport?.length)) {
     return;
   }
 
-  const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === 'MRN')?.value;
+  const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === ('MRN') || id.type?.text === ('Medical Record Number'))?.value;
 
-  if (!mrn || patientDataMap.DiagnosticReport.length === 0) {
+  if (!mrn) {
     return;
   }
 
   const stridesPatientData = stridesData[mrn];
+
+  if (!stridesPatientData) {
+    return;
+  }
 
   stridesPatientData.forEach(row => {
     const orderId = row['ORDER_ID'];

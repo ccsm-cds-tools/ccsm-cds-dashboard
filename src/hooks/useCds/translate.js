@@ -314,7 +314,8 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   );
 
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
-    const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(result.valueString, undefined, { sensitivity: 'base' }) === 0);
+    const firstLine = result.valueString.split("\r\n")[0];
+    const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(firstLine, undefined, { sensitivity: 'base' }) === 0);
 
     if (mappedCode) {
       result.valueCodeableConcept = {

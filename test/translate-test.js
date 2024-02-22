@@ -21,6 +21,21 @@ describe('translate', () => {
         resource.valueCodeableConcept?.coding?.some(coding => coding.system === 'http://snomed.info/sct' && coding.code === '441087007')
       )).to.be.true
     });
+
+    it('should add SNOMED CT coding to Observation if valueString has more than one line', () => {
+      const obs = patientData.find(pd => pd.resourceType === 'Observation' && pd.valueString);
+      const expectedString = obs.valueString + "\r\nadditional line";
+      obs.valueString = expectedString
+
+      translateResponse(patientData);
+
+      expect(patientData.some(resource =>
+        resource.resourceType === 'Observation' &&
+        !resource.valueString &&
+        resource.valueCodeableConcept?.text === expectedString &&
+        resource.valueCodeableConcept?.coding?.some(coding => coding.system === 'http://snomed.info/sct' && coding.code === '441087007')
+      )).to.be.true
+    });
   });
 
   describe('maps strides data', () => {

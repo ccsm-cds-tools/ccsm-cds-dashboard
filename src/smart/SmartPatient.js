@@ -101,12 +101,15 @@ export function SmartPatient() {
         console.log(e);
       }
 
-      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130|2';
+      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'TODO: Enter PROD Code|2;urn:oid:1.2.840.114350.1.13.284.3.7.2.726668|2';
+      let epTypeArr = epTypeStr.split(';');
 
       try {
-        await client.request('/EpisodeOfCare?patient=' + pid + '&type=' + epTypeStr).then(async function(ec) {
-          await fhirParser(ec);
-        });
+        await Promise.all(epTypeArr.map(cat => {
+          return client.request('/EpisodeOfCare?patient=' + pid + '&type=' + cat).then(async function(ec) {
+            await fhirParser(ec);
+          });
+        }));
       } catch(e) {
         console.log(e);
       }

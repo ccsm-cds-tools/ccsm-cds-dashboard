@@ -221,8 +221,8 @@ const LOINC_URL = 'http://loinc.org'
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
-  'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668.130', // PRD
-  'urn:oid:1.2.840.114350.1.13.284.3.7.4.726668.130' // nonPRD
+  'TODO: Enter PRD Code', // PRD
+  'urn:oid:1.2.840.114350.1.13.284.3.7.2.726668' // nonPRD
 ];
 
 const snomedPregnancyCare = {

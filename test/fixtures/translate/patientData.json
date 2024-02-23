@@ -292,18 +292,6 @@
     {
       "resourceType": "Observation",
       "id": "eUrGUNtzxT9id1SHtl3tpacHtu8tHcFVysvIu.pX25U.9uqPJrDlw20BL812chn6B3",
-      "extension": [
-        {
-          "valueString": "Electronically signed by Cynthia A Branch on 6/2/2023 at 0701",
-          "url": "http://open.epic.com/FHIR/StructureDefinition/extension/lab-e-signature"
-        }
-      ],
-      "basedOn": [
-        {
-          "reference": "ServiceRequest/eTIz4TR3sWOWgEbarJolJprh48aYPi5MwR-XpH3m8N0E3",
-          "display": "Pap Smear:"
-        }
-      ],
       "status": "final",
       "category": [
         {
@@ -350,23 +338,8 @@
         "reference": "Patient/e1S83RNdPiAD-yaxd0xvQZA3",
         "display": "Testmit\n Twseven"
       },
-      "encounter": {
-        "reference": "Encounter/ey1VmmdA7Y3EWse0th2Y1qg3",
-        "display": "Office Visit",
-        "identifier": {
-          "use": "usual",
-          "system": "urn:oid:1.2.840.114350.1.13.284.3.7.3.698084.8",
-          "value": "6000065122"
-        }
-      },
       "effectiveDateTime": "2022-12-31T22:02:00Z",
       "issued": "2023-06-02T12:01:10Z",
-      "performer": [
-        {
-          "reference": "Practitioner/egiXoQSv.MetRaicyKpUlSw3",
-          "display": "William P. Daley\n MD"
-        }
-      ],
       "valueString": "Atypical squamous cells of undetermined significance",
       "interpretation": [
         {

@@ -101,7 +101,7 @@ export function SmartPatient() {
         console.log(e);
       }
 
-      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'TODO: Enter PROD Code|2;urn:oid:1.2.840.114350.1.13.284.3.7.2.726668|2';
+      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2;urn:oid:1.2.840.114350.1.13.284.3.7.2.726668|2';
       let epTypeArr = epTypeStr.split(';');
 
       try {

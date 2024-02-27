@@ -9,7 +9,6 @@ import './style.scss';
 function DecisionAids(props) {
   const {
     input,
-    resolver,
     onToggleStatusChange
   } = props;
   const { errors=[] } = input;

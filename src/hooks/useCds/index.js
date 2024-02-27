@@ -31,7 +31,7 @@ export const useCds = (patientData, toggleStatus, isToggleChanged) => {
     console.log('patientData after translation: ', patientData);
 
     applyCds(patientData, setOutput, setIsLoadingCdsData);
-  }, [patientData, toggleStatus]);
+  }, [patientData, toggleStatus, isToggleChanged]);
 
   return {output, isLoadingCdsData};
 }

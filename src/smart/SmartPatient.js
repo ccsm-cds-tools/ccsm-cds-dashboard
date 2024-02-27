@@ -22,10 +22,10 @@ export function SmartPatient() {
   const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData, toggleStatus, isToggleChanged);
 
   const handleToggleStatusChange = (newToggleStatus) => {
-    if (toggleStatus.isImmunosuppressed != newToggleStatus.isImmunosuppressed ||
-      toggleStatus.isPregnant != newToggleStatus.isPregnant ||
-      toggleStatus.isPregnantConcerned != newToggleStatus.isPregnantConcerned ||
-      toggleStatus.isSymptomatic != newToggleStatus.isSymptomatic) {
+    if (toggleStatus.isImmunosuppressed !== newToggleStatus.isImmunosuppressed ||
+      toggleStatus.isPregnant !== newToggleStatus.isPregnant ||
+      toggleStatus.isPregnantConcerned !== newToggleStatus.isPregnantConcerned ||
+      toggleStatus.isSymptomatic !== newToggleStatus.isSymptomatic) {
         setIsToggleChanged(true);
       } else {
         setIsToggleChanged(false);

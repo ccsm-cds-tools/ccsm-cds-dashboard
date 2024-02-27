@@ -272,6 +272,15 @@ const snomedImmunosuppressed = {
 const pregnantObservation = {
   label: 'Pregnant',
   code: {
+    coding:[
+      {
+        system: LOINC_URL,
+        code: '82810-3',
+        display: 'Pregnancy status'
+      }
+    ]
+  },
+  valueCodeableConcept: {
     coding: [
       {
         system: SCT_URL,
@@ -288,7 +297,8 @@ const pregnantConcernedObservation = {
     coding: [
       {
         system: LOCAL_URL,
-        code: 'FPCQ'
+        code: 'FPCQ',
+        display: 'Does the patient have future pregnancy concerns related to treatment options?'
       }
     ]
   },
@@ -296,7 +306,8 @@ const pregnantConcernedObservation = {
     coding: [
       {
         system: SCT_URL,
-        code: '373066001'
+        code: '373066001',
+        display: 'Yes'
       }
     ]
   }
@@ -308,7 +319,8 @@ const symptomaticObservation = {
     coding: [
       {
         system: LOCAL_URL,
-        code: 'AUVBQ'
+        code: 'AUVBQ',
+        display: 'Is the patient experiencing abnormal uterine or vaginal bleeding today?'
       }
     ]
   },
@@ -316,7 +328,8 @@ const symptomaticObservation = {
     coding: [
       {
         system: SCT_URL,
-        code: '373066001'
+        code: '373066001',
+        display: 'Yes'
       }
     ]
   }

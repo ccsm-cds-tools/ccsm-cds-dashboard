@@ -21,7 +21,7 @@ function SpecialConsiderations(props) {
 
   useEffect(() => {
     onToggleStatusChange(toggleStatus);
-  }, [toggleStatus]);
+  }, [toggleStatus, onToggleStatusChange]);
 
   const toggleNote = () => {
     setShow(!show);

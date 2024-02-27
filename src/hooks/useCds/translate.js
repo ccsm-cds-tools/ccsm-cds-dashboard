@@ -256,7 +256,7 @@ const loincBiopsyReport = {
   display: 'Cervix Pathology biopsy report'
 };
 
-const snomedImmunosuppressed = {
+const immunosuppressedObservation = {
   label: 'Immunosuppressed',
   code: {
     coding: [

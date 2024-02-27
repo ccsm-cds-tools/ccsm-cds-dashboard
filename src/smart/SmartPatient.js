@@ -9,10 +9,13 @@ export function SmartPatient() {
 
   const [patientData, setPatientData] = useState([]);
   const [convertedData, setConvertedData] = useState([]);
-  const dashboardInput = useCds(patientData);
+  const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
+  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData);
+  const isLoading = isLoadingFHIRData || isLoadingCdsData;
 
   useEffect(() => {
     async function smartOnFhir() {
+      setIsLoadingFHIRData(true);
       let newData = [];
       let newFshData = [];
       let client = await FHIR.oauth2.ready();
@@ -113,6 +116,7 @@ export function SmartPatient() {
 
       setPatientData(newData);
       setConvertedData(newFshData);
+      setIsLoadingFHIRData(false);
     }
     smartOnFhir();
   },[]);
@@ -143,11 +147,18 @@ export function SmartPatient() {
   } else {
     return (
       <div className="content">
-        <Dashboard
-          input={dashboardInput}
-          config={config}
-          setPatientData={setPatientData}
-        />
+        <div className="dashboard-container">
+          {isLoading && (
+            <div className="overlay">
+              <div className="spinner"></div>
+            </div>
+          )}
+          <Dashboard
+            input={dashboardInput}
+            config={config}
+            setPatientData={setPatientData}
+          />
+        </div>
       </div>
     )
   }

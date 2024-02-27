@@ -14,15 +14,17 @@ import { stridesData } from './strides';
 export const useCds = (patientData) => {
 
   const [output, setOutput] = useState({});
+  const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
 
   useEffect(() => {
+    setIsLoadingCdsData(true);
     console.log('patientData before translation: ', patientData);
     translateResponse(patientData, stridesData);
     console.log('patientData after translation: ', patientData);
-    applyCds(patientData, setOutput);
+    applyCds(patientData, setOutput, setIsLoadingCdsData);
   }, [patientData]);
 
-  return output;
+  return {output, isLoadingCdsData};
 }
 
 /**
@@ -30,7 +32,7 @@ export const useCds = (patientData) => {
  * @param {Object[]} patientData
  * @param {function} setOutput
  */
-const applyCds = async function(patientData, setOutput) {
+const applyCds = async function(patientData, setOutput, setIsLoadingCdsData) {
   console.log('Starting applyCds()')
 
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
@@ -129,8 +131,9 @@ const applyCds = async function(patientData, setOutput) {
       }
 
       console.log('CDS output:', output);
-
+      setIsLoadingCdsData(false);
       setOutput(output);
+
     }
   }
 

@@ -7,7 +7,7 @@ import SpecialConsiderations from 'features/SpecialConsiderations';
 import './style.scss';
 
 function Recommendations(props) {
-  let { 
+  let {
     input: {
       recommendation='',
       recommendationGroup='',
@@ -47,16 +47,16 @@ function Recommendations(props) {
         <Card.Header>Screening and Management Recommendation</Card.Header>
         <Card.Body>
           <Card.Title as='h3'>
-            { 
+            {
               errors.length > 0 ?
               <i className='bi bi-exclamation-triangle-fill text-danger'></i> :
               null
             }
-            { 
+            {
               errors.length > 0 ?
                 'Cannot Make Recommendation' :
                 recommendation === '' ?
-                  'No Recommendation' :
+                  'Loading Recommendation' :
                   recommendation
             }
           </Card.Title>
@@ -69,8 +69,8 @@ function Recommendations(props) {
             })
           }
           <div className="recommendation-group-text">{recommendationGroup}</div>
-          <Alert 
-            show={show} 
+          <Alert
+            show={show}
             variant={errors.length > 0 ? 'danger' : 'warning'}
             dismissible={errors.length === 0}
             onClose={() => setShow(false)}

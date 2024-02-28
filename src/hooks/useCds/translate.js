@@ -381,6 +381,7 @@ function handleToggles(patient, patientData, isChecked, obs) {
         subject: {
           reference: `Patient/${patient.id}`
         },
+        status: 'final',
         code: obs.code,
         effectiveDateTime: (new Date()).toISOString()
       }

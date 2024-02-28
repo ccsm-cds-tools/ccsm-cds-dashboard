@@ -131,6 +131,10 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData) {
     }
 
     if (thereAreOutputs) {
+      if (patientHistory.observations.length > 0) {
+        patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
+      }
+
       const output = {
         patientInfo,
         patientHistory,

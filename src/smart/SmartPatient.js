@@ -10,8 +10,28 @@ export function SmartPatient() {
   const [patientData, setPatientData] = useState([]);
   const [convertedData, setConvertedData] = useState([]);
   const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
-  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData);
+  const [isToggleChanged, setIsToggleChanged] = useState(false);
+  const [toggleStatus, setToggleStatus] = useState({
+    isImmunosuppressed: false,
+    isPregnant: false,
+    isPregnantConcerned: false,
+    isSymptomatic: false
+  });
+
+  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData, toggleStatus, isToggleChanged);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
+
+  const handleToggleStatusChange = (newToggleStatus) => {
+    if (toggleStatus.isImmunosuppressed !== newToggleStatus.isImmunosuppressed ||
+      toggleStatus.isPregnant !== newToggleStatus.isPregnant ||
+      toggleStatus.isPregnantConcerned !== newToggleStatus.isPregnantConcerned ||
+      toggleStatus.isSymptomatic !== newToggleStatus.isSymptomatic) {
+        setIsToggleChanged(true);
+      } else {
+        setIsToggleChanged(false);
+      }
+    setToggleStatus(newToggleStatus);
+  }
 
   useEffect(() => {
     async function smartOnFhir() {
@@ -104,7 +124,7 @@ export function SmartPatient() {
         console.log(e);
       }
 
-      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.4.726668|2';
+      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2';
 
       try {
         await client.request('/EpisodeOfCare?patient=' + pid + '&type=' + epTypeStr).then(async function(ec) {
@@ -153,11 +173,12 @@ export function SmartPatient() {
               <div className="spinner"></div>
             </div>
           )}
-          <Dashboard
-            input={dashboardInput}
-            config={config}
-            setPatientData={setPatientData}
-          />
+        <Dashboard
+          input={dashboardInput}
+          config={config}
+          setPatientData={setPatientData}
+          onToggleStatusChange={handleToggleStatusChange}
+        />
         </div>
       </div>
     )

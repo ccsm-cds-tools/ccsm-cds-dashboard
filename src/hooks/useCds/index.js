@@ -3,7 +3,7 @@ import { applyPlan, simpleResolver } from 'encender';
 import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
-import { translateResponse } from './translate';
+import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
 
 /**
@@ -11,18 +11,27 @@ import { stridesData } from './strides';
  * @param {Object[]} patientData
  * @returns {Object}
  */
-export const useCds = (patientData) => {
+export const useCds = (patientData, toggleStatus, isToggleChanged) => {
 
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
 
   useEffect(() => {
     setIsLoadingCdsData(true);
+
+    console.log('toggleStatus: ', toggleStatus);
     console.log('patientData before translation: ', patientData);
-    translateResponse(patientData, stridesData);
+
+    if (isToggleChanged) {
+      translateToggleChange(patientData, toggleStatus);
+    } else {
+      translateResponse(patientData, stridesData);
+    }
+
     console.log('patientData after translation: ', patientData);
+
     applyCds(patientData, setOutput, setIsLoadingCdsData);
-  }, [patientData]);
+  }, [patientData, toggleStatus, isToggleChanged]);
 
   return {output, isLoadingCdsData};
 }
@@ -122,6 +131,10 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData) {
     }
 
     if (thereAreOutputs) {
+      if (patientHistory.observations.length > 0) {
+        patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
+      }
+
       const output = {
         patientInfo,
         patientHistory,

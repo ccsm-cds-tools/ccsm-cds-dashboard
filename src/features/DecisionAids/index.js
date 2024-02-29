@@ -7,16 +7,19 @@ import Timeline from 'features/DecisionAids/Timeline';
 import './style.scss';
 
 function DecisionAids(props) {
-  const { input, resolver } = props;
+  const {
+    input,
+    onToggleStatusChange
+  } = props;
   const { errors=[] } = input;
   const errorsExist = errors.length > 0;
-  
+
   return (
     <section>
       <h2 className="visually-hidden">Decision Aids</h2>
       <Tabs defaultActiveKey={'recs'} className='mb-3'>
         <Tab eventKey={'recs'} title={'Recommendations'}>
-          <Recommendations input={input} resolver={resolver} />
+          <Recommendations input={input} onToggleStatusChange={onToggleStatusChange} />
         </Tab>
         <Tab eventKey={'refs'} title={'References'} disabled={errorsExist}>
           <References input={input} />

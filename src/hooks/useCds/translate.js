@@ -231,8 +231,10 @@ const loincMapping = [
 
 const SCT_URL = 'http://snomed.info/sct';
 const LOINC_URL = 'http://loinc.org';
+const LOCAL_URL = 'http://OUR-PLACEHOLDER-URL.com';
 const STRIDES_DIAG_URI = 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77';
 const STRIDES_PROC_URI = 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1';
+
 
 // EPIC Code System for EpisodeOfCare Type
 const episodeOfCareTypeCodeSystem = [
@@ -252,7 +254,87 @@ const loincBiopsyReport = {
   system: LOINC_URL,
   code: '65753-6',
   display: 'Cervix Pathology biopsy report'
+};
+
+const immunosuppressedObservation = {
+  label: 'Immunosuppressed',
+  code: {
+    coding: [
+      {
+       system: SCT_URL,
+        code: '370388006',
+        display: 'Patient immunocompromised (finding)'
+      }
+    ]
+  }
+};
+
+const pregnantObservation = {
+  label: 'Pregnant',
+  code: {
+    coding:[
+      {
+        system: LOINC_URL,
+        code: '82810-3',
+        display: 'Pregnancy status'
+      }
+    ]
+  },
+  valueCodeableConcept: {
+    coding: [
+      {
+        system: SCT_URL,
+        code: '77386006',
+        display: 'Patient currently pregnant (finding)'
+      }
+    ]
+  }
+};
+
+const pregnantConcernedObservation = {
+  label: 'PregnantConcerned',
+  code: {
+    coding: [
+      {
+        system: LOCAL_URL,
+        code: 'FPCQ',
+        display: 'Does the patient have future pregnancy concerns related to treatment options?'
+      }
+    ]
+  },
+  valueCodeableConcept: {
+    coding: [
+      {
+        system: SCT_URL,
+        code: '373066001',
+        display: 'Yes'
+      }
+    ]
+  }
 }
+
+const symptomaticObservation = {
+  label: 'Symptomatic',
+  code: {
+    coding: [
+      {
+        system: LOCAL_URL,
+        code: 'AUVBQ',
+        display: 'Is the patient experiencing abnormal uterine or vaginal bleeding today?'
+      }
+    ]
+  },
+  valueCodeableConcept: {
+    coding: [
+      {
+        system: SCT_URL,
+        code: '373066001',
+        display: 'Yes'
+      }
+    ]
+  }
+}
+
 
 /**
  * Translate terminology codings used in Observation
@@ -260,6 +342,10 @@ const loincBiopsyReport = {
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
 export function translateResponse(patientData, stridesData) {
+  if (patientData == null || patientData.length == 0) {
+    return;
+  }
+
   const patientDataMap = patientDataToHash(patientData);
 
   patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
@@ -272,11 +358,53 @@ export function translateResponse(patientData, stridesData) {
   console.log("translate completed.")
 }
 
-function patientDataToHash(patientData) {
-  if (patientData == null || patientData.length === 0) {
-    return {}
+export function translateToggleChange(patientData, toggleStatus) {
+  if (patientData == null || patientData.length == 0) {
+    return;
   }
 
+  const patient = patientData.find(pd => pd.resourceType == 'Patient');
+  handleToggles(patient, patientData, toggleStatus.isImmunosuppressed, immunosuppressedObservation);
+  handleToggles(patient, patientData, toggleStatus.isPregnant, pregnantObservation);
+  handleToggles(patient, patientData, toggleStatus.isPregnantConcerned, pregnantConcernedObservation);
+  handleToggles(patient, patientData, toggleStatus.isSymptomatic, symptomaticObservation);
+}
+
+function handleToggles(patient, patientData, isChecked, obs) {
+  const newObsId = `new-observation-for-${obs.label.toLowerCase()}`;
+  if (isChecked) {
+    const found = patientData.find(pd => pd.id === newObsId);
+    if (!found) {
+      const newObs = {
+        resourceType: 'Observation',
+        id: newObsId,
+        subject: {
+          reference: `Patient/${patient.id}`
+        },
+        status: 'final',
+        code: obs.code,
+        effectiveDateTime: (new Date()).toISOString()
+      }
+
+      if (obs.valueCodeableConcept) {
+        newObs.valueCodeableConcept = obs.valueCodeableConcept
+      }
+
+      patientData.push(newObs)
+      console.log(`Add new observation for ${obs.label}.`)
+    }
+  } else {
+    const index = patientData.findIndex(pd => pd.id === newObsId);
+
+    if (index >= 0) {
+      patientData.splice(index, 1);
+      console.log(`Remove new observation for ${obs.label}.`)
+    }
+  }
+}
+
+
+function patientDataToHash(patientData) {
   return patientData.reduce((hash, pd) => {
     if (!hash[pd.resourceType]) {
       hash[pd.resourceType] = [];

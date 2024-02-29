@@ -18,7 +18,7 @@ function Recommendations(props) {
       suggestedOrders='',
       riskTable={}
     },
-    resolver=()=>{}
+    onToggleStatusChange
   } = props;
 
   if (riskTable === null) riskTable = {};
@@ -42,7 +42,7 @@ function Recommendations(props) {
 
   return (
     <div>
-      <SpecialConsiderations />
+      <SpecialConsiderations onToggleStatusChange={onToggleStatusChange} />
       <Card>
         <Card.Header>Screening and Management Recommendation</Card.Header>
         <Card.Body>

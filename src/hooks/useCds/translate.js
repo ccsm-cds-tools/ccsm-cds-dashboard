@@ -261,6 +261,15 @@ const immunosuppressedObservation = {
   code: {
     coding: [
       {
+        system: LOINC_URL,
+        code: 96381-9,
+        display: 'Immune Status'
+      }
+    ]
+  },
+  valueCodeableConcept: {
+    coding: [
+      {
        system: SCT_URL,
         code: '370388006',
         display: 'Patient immunocompromised (finding)'

@@ -15,23 +15,12 @@ export function SmartPatient() {
     isImmunosuppressed: false,
     isPregnant: false,
     isPregnantConcerned: false,
-    isSymptomatic: false
+    isSymptomatic: false,
+    isToggleChanged: false
   });
 
-  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData, toggleStatus, isToggleChanged);
+  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData, toggleStatus);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
-
-  const handleToggleStatusChange = (newToggleStatus) => {
-    if (toggleStatus.isImmunosuppressed !== newToggleStatus.isImmunosuppressed ||
-      toggleStatus.isPregnant !== newToggleStatus.isPregnant ||
-      toggleStatus.isPregnantConcerned !== newToggleStatus.isPregnantConcerned ||
-      toggleStatus.isSymptomatic !== newToggleStatus.isSymptomatic) {
-        setIsToggleChanged(true);
-      } else {
-        setIsToggleChanged(false);
-      }
-    setToggleStatus(newToggleStatus);
-  }
 
   useEffect(() => {
     async function smartOnFhir() {
@@ -177,7 +166,7 @@ export function SmartPatient() {
           input={dashboardInput}
           config={config}
           setPatientData={setPatientData}
-          onToggleStatusChange={handleToggleStatusChange}
+          onToggleStatusChange={setToggleStatus}
         />
         </div>
       </div>

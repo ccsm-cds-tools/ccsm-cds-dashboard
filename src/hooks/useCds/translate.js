@@ -262,7 +262,7 @@ const immunosuppressedObservation = {
     coding: [
       {
         system: LOINC_URL,
-        code: 96381-9,
+        code: '96381-9',
         display: 'Immune Status'
       }
     ]

@@ -10,7 +10,6 @@ export function SmartPatient() {
   const [patientData, setPatientData] = useState([]);
   const [convertedData, setConvertedData] = useState([]);
   const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
-  const [isToggleChanged, setIsToggleChanged] = useState(false);
   const [toggleStatus, setToggleStatus] = useState({
     isImmunosuppressed: false,
     isPregnant: false,
@@ -19,7 +18,7 @@ export function SmartPatient() {
     isToggleChanged: false
   });
 
-  const { output: dashboardInput, isLoadingCdsData: isLoadingCdsData } = useCds(patientData, toggleStatus);
+  const { output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
 
   useEffect(() => {

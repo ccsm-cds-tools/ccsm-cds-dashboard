@@ -18,7 +18,7 @@ export const useCds = (patientData, toggleStatus) => {
   const [isPregnant, setIsPreganant] = useState(false);
 
   useEffect(() => {
-    if (patientData.length == 0) {
+    if (patientData.length === 0) {
       return;
     }
 

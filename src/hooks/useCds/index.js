@@ -133,6 +133,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       let errors = JSON.parse(errorString);
       decisionAids = { errors };
       thereAreOutputs = true;
+    } else {
+      decisionAids = { noRecommendationReturned: true }
     }
 
     if (thereAreOutputs) {

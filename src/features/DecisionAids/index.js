@@ -9,6 +9,7 @@ import './style.scss';
 function DecisionAids(props) {
   const {
     input,
+    hasPatientInfo,
     onToggleStatusChange
   } = props;
   const { errors=[] } = input;
@@ -19,7 +20,7 @@ function DecisionAids(props) {
       <h2 className="visually-hidden">Decision Aids</h2>
       <Tabs defaultActiveKey={'recs'} className='mb-3'>
         <Tab eventKey={'recs'} title={'Recommendations'}>
-          <Recommendations input={input} onToggleStatusChange={onToggleStatusChange} />
+          <Recommendations input={input} hasPatientInfo={hasPatientInfo} onToggleStatusChange={onToggleStatusChange} />
         </Tab>
         <Tab eventKey={'refs'} title={'References'} disabled={errorsExist}>
           <References input={input} />

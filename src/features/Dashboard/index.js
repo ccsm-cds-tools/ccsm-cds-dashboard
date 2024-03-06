@@ -36,6 +36,7 @@ function Dashboard(props) {
         <Col xl={6}>
           <DecisionAids
             input={decisionAids}
+            hasPatientInfo={Object.keys(patientInfo).length > 0}
             onToggleStatusChange={onToggleStatusChange}
           />
         </Col>

@@ -102,14 +102,12 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     let patientInfo={};
     let patientHistory={};
     let decisionAids={};
-    let thereAreOutputs = false;
 
     if (DisplayCervicalCancerMedicalHistory?.payload?.length > 0) {
       let historyString = DisplayCervicalCancerMedicalHistory.payload[0].contentString;
       let history = JSON.parse(historyString);
       patientInfo = history.patientInfo;
       patientHistory = history.patientHistory;
-      thereAreOutputs = true;
     }
 
     if (CervicalCancerDecisionAids?.payload?.length > 0) {
@@ -127,40 +125,33 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
           default: return null;
         }
       });
-      thereAreOutputs = true;
     } else if (Errors?.payload?.length > 0) {
       let errorString = Errors.payload[0].contentString;
       let errors = JSON.parse(errorString);
       decisionAids = { errors };
-      thereAreOutputs = true;
+    }
+
+    if (patientHistory.observations.length > 0) {
+      patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
+    }
+
+    if (isToggleChanged) {
+      patientInfo.isPregnant = isPregnant;
     } else {
-      decisionAids = { noRecommendationReturned: true }
+      setIsPreganant(patientInfo.isPregnant);
     }
 
-    if (thereAreOutputs) {
-      if (patientHistory.observations.length > 0) {
-        patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
-      }
-
-      if (isToggleChanged) {
-        patientInfo.isPregnant = isPregnant;
-      } else {
-        setIsPreganant(patientInfo.isPregnant);
-      }
-
-      const output = {
-        patientInfo,
-        patientHistory,
-        decisionAids,
-        resolver: (r) => r === '' ? {} : resolver(r),
-        patientReference
-      }
-
-      console.log('CDS output:', output);
-      setIsLoadingCdsData(false);
-      setOutput(output);
-
+    const output = {
+      patientInfo,
+      patientHistory,
+      decisionAids,
+      resolver: (r) => r === '' ? {} : resolver(r),
+      patientReference
     }
+
+    console.log('CDS output:', output);
+    setIsLoadingCdsData(false);
+    setOutput(output);
   }
 
 }

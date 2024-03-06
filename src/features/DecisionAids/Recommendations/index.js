@@ -19,6 +19,7 @@ function Recommendations(props) {
       suggestedOrders='',
       riskTable={}
     },
+    hasPatientInfo,
     onToggleStatusChange
   } = props;
 
@@ -54,11 +55,10 @@ function Recommendations(props) {
               null
             }
             {
-              (errors.length > 0 || noRecommendationReturned) ?
-                'Cannot Make Recommendation' :
-                recommendation === '' ?
-                  'Loading Recommendation' :
-                  recommendation
+              errors.length > 0 ? 'Cannot Make Recommendation'
+                : !hasPatientInfo ? 'Loading Recommendation ...'
+                : recommendation === '' ? 'The guidelines do not provide any recommendation for this case. Please use clinical judgement.'
+                : recommendation
             }
           </Card.Title>
           <Card.Subtitle as='h4'>

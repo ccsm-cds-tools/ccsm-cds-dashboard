@@ -105,14 +105,14 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     let patientInfo={};
     let patientHistory={};
     let decisionAids={};
-    let thereAreOutput = false;
+    let thereAreOutputs = false;
 
     if (DisplayCervicalCancerMedicalHistory?.payload?.length > 0) {
       let historyString = DisplayCervicalCancerMedicalHistory.payload[0].contentString;
       let history = JSON.parse(historyString);
       patientInfo = history.patientInfo;
       patientHistory = history.patientHistory;
-      thereAreOutput = true;
+      thereAreOutputs = true;
     }
 
     if (CervicalCancerDecisionAids?.payload?.length > 0) {
@@ -136,7 +136,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       decisionAids = { errors };
     }
 
-    if (thereAreOutput) {
+    if (thereAreOutputs) {
       if (patientHistory.observations?.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
       }

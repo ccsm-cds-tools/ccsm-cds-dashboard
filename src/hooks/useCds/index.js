@@ -134,14 +134,16 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       decisionAids = { errors };
     }
 
-    if (patientHistory.observations.length > 0) {
+    if (patientHistory.observations?.length > 0) {
       patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
     }
 
-    if (isToggleChanged) {
-      patientInfo.isPregnant = isPregnant;
-    } else {
-      setIsPreganant(patientInfo.isPregnant);
+    if (patientInfo.isPregnant !== undefined) {
+      if (isToggleChanged) {
+        patientInfo.isPregnant = isPregnant;
+      } else {
+        setIsPreganant(patientInfo.isPregnant);
+      }
     }
 
     const output = {

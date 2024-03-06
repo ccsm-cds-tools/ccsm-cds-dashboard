@@ -14,7 +14,6 @@ function Recommendations(props) {
       recommendationDetails=[],
       recommendationDate='',
       errors=[],
-      noRecommendationReturned=false,
       disclaimer='',
       suggestedOrders='',
       riskTable={}
@@ -57,7 +56,7 @@ function Recommendations(props) {
             {
               errors.length > 0 ? 'Cannot Make Recommendation'
                 : !hasPatientInfo ? 'Loading Recommendation ...'
-                : recommendation === '' ? 'The guidelines do not provide any recommendation for this case. Please use clinical judgement.'
+                : recommendation.length === 0 ? 'Cannot Make Recommendation'
                 : recommendation
             }
           </Card.Title>
@@ -65,11 +64,12 @@ function Recommendations(props) {
             <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
           </Card.Subtitle>
           {
-            noRecommendationReturned === false ?
-              recommendationDetails.map((detail,idx) => {
-                return <Card.Text key={idx}>{detail}</Card.Text>
-              }) :
-              <Card.Text>The guidelines do not provide any recommendation for this case. Please use clinical judgement.</Card.Text>
+            !hasPatientInfo ? ''
+              : recommendation.length === 0 ?
+                <Card.Text>The guidelines do not provide any recommendation for this case. Please use clinical judgement.</Card.Text>
+              : recommendationDetails.map((detail,idx) => {
+                 return <Card.Text key={idx}>{detail}</Card.Text>
+               })
           }
           <div className="recommendation-group-text">{recommendationGroup}</div>
           <Alert

@@ -105,12 +105,14 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     let patientInfo={};
     let patientHistory={};
     let decisionAids={};
+    let thereAreOutput = false;
 
     if (DisplayCervicalCancerMedicalHistory?.payload?.length > 0) {
       let historyString = DisplayCervicalCancerMedicalHistory.payload[0].contentString;
       let history = JSON.parse(historyString);
       patientInfo = history.patientInfo;
       patientHistory = history.patientHistory;
+      thereAreOutput = true;
     }
 
     if (CervicalCancerDecisionAids?.payload?.length > 0) {
@@ -134,17 +136,19 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       decisionAids = { errors };
     }
 
-    if (patientHistory.observations?.length > 0) {
-      patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
-    }
+    if (thereAreOutput) {
+      if (patientHistory.observations?.length > 0) {
+        patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
+      }
 
-    if (patientInfo.isPregnant !== undefined) {
       if (isToggleChanged) {
         patientInfo.isPregnant = isPregnant;
       } else {
         setIsPreganant(patientInfo.isPregnant);
       }
     }
+
+    decisionAids.isCdsApplied = true;
 
     const output = {
       patientInfo,

@@ -16,7 +16,8 @@ function Recommendations(props) {
       errors=[],
       disclaimer='',
       suggestedOrders='',
-      riskTable={}
+      riskTable={},
+      isCdsApplied
     },
     onToggleStatusChange
   } = props;

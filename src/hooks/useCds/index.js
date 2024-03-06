@@ -11,18 +11,23 @@ import { stridesData } from './strides';
  * @param {Object[]} patientData
  * @returns {Object}
  */
-export const useCds = (patientData, toggleStatus, isToggleChanged) => {
+export const useCds = (patientData, toggleStatus) => {
 
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
+  const [isPregnant, setIsPreganant] = useState(false);
 
   useEffect(() => {
+    if (patientData.length === 0) {
+      return;
+    }
+
     setIsLoadingCdsData(true);
 
     console.log('toggleStatus: ', toggleStatus);
     console.log('patientData before translation: ', patientData);
 
-    if (isToggleChanged) {
+    if (toggleStatus.isToggleChanged) {
       translateToggleChange(patientData, toggleStatus);
     } else {
       translateResponse(patientData, stridesData);
@@ -30,8 +35,8 @@ export const useCds = (patientData, toggleStatus, isToggleChanged) => {
 
     console.log('patientData after translation: ', patientData);
 
-    applyCds(patientData, setOutput, setIsLoadingCdsData);
-  }, [patientData, toggleStatus, isToggleChanged]);
+    applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);
+  }, [patientData, toggleStatus, isPregnant]);
 
   return {output, isLoadingCdsData};
 }
@@ -41,7 +46,7 @@ export const useCds = (patientData, toggleStatus, isToggleChanged) => {
  * @param {Object[]} patientData
  * @param {function} setOutput
  */
-const applyCds = async function(patientData, setOutput, setIsLoadingCdsData) {
+const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant) {
   console.log('Starting applyCds()')
 
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
@@ -133,6 +138,12 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData) {
     if (thereAreOutputs) {
       if (patientHistory.observations.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
+      }
+
+      if (isToggleChanged) {
+        patientInfo.isPregnant = isPregnant;
+      } else {
+        setIsPreganant(patientInfo.isPregnant);
       }
 
       const output = {

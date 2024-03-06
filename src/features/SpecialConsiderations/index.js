@@ -16,7 +16,8 @@ function SpecialConsiderations(props) {
     isImmunosuppressed: false,
     isPregnant: false,
     isPregnantConcerned: false,
-    isSymptomatic: false
+    isSymptomatic: false,
+    isToggleChanged: false
   });
 
   useEffect(() => {
@@ -28,19 +29,19 @@ function SpecialConsiderations(props) {
   }
 
   const handleImmunosuppressedChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isImmunosuppressed: event.target.checked });
+    setToggleStatus({ ...toggleStatus, isImmunosuppressed: event.target.checked, isToggleChanged: true });
   };
 
   const handlePregnantChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isPregnant: event.target.checked });
+    setToggleStatus({ ...toggleStatus, isPregnant: event.target.checked, isToggleChanged: true });
   };
 
   const handlePregnantConcernedChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isPregnantConcerned: event.target.checked });
+    setToggleStatus({ ...toggleStatus, isPregnantConcerned: event.target.checked, isToggleChanged: true });
   };
 
   const handleSymptomaticChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isSymptomatic: event.target.checked });
+    setToggleStatus({ ...toggleStatus, isSymptomatic: event.target.checked, isToggleChanged: true });
   };
 
 

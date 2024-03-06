@@ -18,7 +18,6 @@ function Recommendations(props) {
       suggestedOrders='',
       riskTable={}
     },
-    applyCds,
     onToggleStatusChange
   } = props;
 

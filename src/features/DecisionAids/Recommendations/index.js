@@ -64,7 +64,7 @@ function Recommendations(props) {
             <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
           </Card.Subtitle>
           {
-            !isCdsApplied ? ''
+            !isCdsApplied || errors.length > 0 ? ''
               : recommendation.length === 0 ?
                 <Card.Text>The guidelines do not provide any recommendation for this case. Please use clinical judgement.</Card.Text>
               : recommendationDetails.map((detail,idx) => {

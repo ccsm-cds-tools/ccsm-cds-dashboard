@@ -26,6 +26,7 @@ export const useCds = (patientData, toggleStatus) => {
 
     console.log('toggleStatus: ', toggleStatus);
     console.log('patientData before translation: ', patientData);
+    console.time('Translate FHIR Data');
 
     if (toggleStatus.isToggleChanged) {
       translateToggleChange(patientData, toggleStatus);
@@ -33,6 +34,7 @@ export const useCds = (patientData, toggleStatus) => {
       translateResponse(patientData, stridesData);
     }
 
+    console.timeEnd('Translate FHIR Data');
     console.log('patientData after translation: ', patientData);
 
     applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);
@@ -47,7 +49,8 @@ export const useCds = (patientData, toggleStatus) => {
  * @param {function} setOutput
  */
 const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant) {
-  console.log('Starting applyCds()')
+  console.log('Starting applyCds()');
+  console.time('Apply CDS');
 
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
@@ -127,16 +130,14 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
           default: return null;
         }
       });
-      thereAreOutputs = true;
     } else if (Errors?.payload?.length > 0) {
       let errorString = Errors.payload[0].contentString;
       let errors = JSON.parse(errorString);
       decisionAids = { errors };
-      thereAreOutputs = true;
     }
 
     if (thereAreOutputs) {
-      if (patientHistory.observations.length > 0) {
+      if (patientHistory.observations?.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
       }
 
@@ -145,20 +146,22 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       } else {
         setIsPreganant(patientInfo.isPregnant);
       }
-
-      const output = {
-        patientInfo,
-        patientHistory,
-        decisionAids,
-        resolver: (r) => r === '' ? {} : resolver(r),
-        patientReference
-      }
-
-      console.log('CDS output:', output);
-      setIsLoadingCdsData(false);
-      setOutput(output);
-
     }
+
+    decisionAids.isCdsApplied = true;
+
+    const output = {
+      patientInfo,
+      patientHistory,
+      decisionAids,
+      resolver: (r) => r === '' ? {} : resolver(r),
+      patientReference
+    }
+
+    console.timeEnd('Apply CDS');
+    console.log('CDS output:', output);
+    setIsLoadingCdsData(false);
+    setOutput(output);
   }
 
 }

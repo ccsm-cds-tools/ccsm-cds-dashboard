@@ -16,7 +16,8 @@ function Recommendations(props) {
       errors=[],
       disclaimer='',
       suggestedOrders='',
-      riskTable={}
+      riskTable={},
+      isCdsApplied
     },
     onToggleStatusChange
   } = props;
@@ -53,20 +54,22 @@ function Recommendations(props) {
               null
             }
             {
-              errors.length > 0 ?
-                'Cannot Make Recommendation' :
-                recommendation === '' ?
-                  'Loading Recommendation' :
-                  recommendation
+              errors.length > 0 ? 'Cannot Make Recommendation'
+                : !isCdsApplied ? 'Loading Recommendation ...'
+                : recommendation.length === 0 ? 'Cannot Make Recommendation'
+                : recommendation
             }
           </Card.Title>
           <Card.Subtitle as='h4'>
             <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
           </Card.Subtitle>
           {
-            recommendationDetails.map((detail,idx) => {
-              return <Card.Text key={idx}>{detail}</Card.Text>
-            })
+            !isCdsApplied || errors.length > 0 ? ''
+              : recommendation.length === 0 ?
+                <Card.Text>The guidelines do not provide any recommendation for this case. Please use clinical judgement.</Card.Text>
+              : recommendationDetails.map((detail,idx) => {
+                 return <Card.Text key={idx}>{detail}</Card.Text>
+               })
           }
           <div className="recommendation-group-text">{recommendationGroup}</div>
           <Alert

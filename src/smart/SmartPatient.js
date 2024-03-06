@@ -23,6 +23,7 @@ export function SmartPatient() {
 
   useEffect(() => {
     async function smartOnFhir() {
+      console.time('Load FHIR Data');
       setIsLoadingFHIRData(true);
       let newData = [];
       let newFshData = [];
@@ -122,6 +123,7 @@ export function SmartPatient() {
         console.log(e);
       }
 
+      console.timeEnd('Load FHIR Data');
       setPatientData(newData);
       setConvertedData(newFshData);
       setIsLoadingFHIRData(false);

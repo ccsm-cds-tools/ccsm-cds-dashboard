@@ -26,6 +26,7 @@ export const useCds = (patientData, toggleStatus) => {
 
     console.log('toggleStatus: ', toggleStatus);
     console.log('patientData before translation: ', patientData);
+    console.time('Translate FHIR Data');
 
     if (toggleStatus.isToggleChanged) {
       translateToggleChange(patientData, toggleStatus);
@@ -33,6 +34,7 @@ export const useCds = (patientData, toggleStatus) => {
       translateResponse(patientData, stridesData);
     }
 
+    console.timeEnd('Translate FHIR Data');
     console.log('patientData after translation: ', patientData);
 
     applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);
@@ -47,7 +49,8 @@ export const useCds = (patientData, toggleStatus) => {
  * @param {function} setOutput
  */
 const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant) {
-  console.log('Starting applyCds()')
+  console.log('Starting applyCds()');
+  console.time('Apply CDS');
 
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
@@ -149,6 +152,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       patientReference
     }
 
+    console.timeEnd('Apply CDS');
     console.log('CDS output:', output);
     setIsLoadingCdsData(false);
     setOutput(output);

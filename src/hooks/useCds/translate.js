@@ -502,9 +502,9 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
     if (mappedDiagnosisCC) {
       diagnosticReport.code.coding.push(loincBiopsyReport);
 
-      diagnosticReport.conclusionCodes ||= [];
+      diagnosticReport.conclusionCode ||= [];
 
-      diagnosticReport.conclusionCodes.push(mappedDiagnosisCC);
+      diagnosticReport.conclusionCode.push(mappedDiagnosisCC);
     }
 
     const mappedProcedureCC = mapStridesCodeToCC(row, 'IMSDiscreteprocedure', STRIDES_PROC_URI);

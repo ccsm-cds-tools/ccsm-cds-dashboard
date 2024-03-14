@@ -37,12 +37,15 @@ export function SmartPatient() {
       });
 
       const promises = [];
-      promises.push(client.request('/Condition?patient=' + pid).then(fhirParser));
+
       promises.push(client.request('/DiagnosticReport?patient=' + pid).then(fhirParser));
       promises.push(client.request('/Encounter?patient=' + pid).then(fhirParser));
       promises.push(client.request('/Immunization?patient=' + pid).then(fhirParser));
       promises.push(client.request('/MedicationRequest?patient=' + pid).then(fhirParser));
       promises.push(client.request('/Procedure?patient=' + pid).then(fhirParser));
+
+      const condCatStr = process.env?.REACT_APP_CCSM_CONDITION_CATEGORIES ?? 'problem-list-item;encounter-diagnosis';
+      promises.push(client.request(`/Condition?patient=${pid}&category=${condCatStr}`).then(fhirParser));
 
       const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2';
       promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=${eocType}`).then(fhirParser));
@@ -50,7 +53,7 @@ export function SmartPatient() {
       const obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
       const obsCatArr = obsCatStr.split(';');
       obsCatArr.forEach(cat =>
-        promises.push(client.request('/Observation?patient=' + pid + '&category=' + cat).then(fhirParser))
+        promises.push(client.request(`/Observation?patient=${pid}&category=${cat}`).then(fhirParser))
       );
 
       try {
@@ -161,7 +164,8 @@ async function boundParser(data, fshData) {
 
     if (rsrc.resourceType === 'Bundle') {
       if (!rsrc.entry) return;
-      await Promise.all(rsrc.entry?.map(async (c) => {
+
+      await Promise.all(rsrc.entry.map(async (c) => {
         if (!c.resource) return;
         console.log(c.resource.resourceType);
 

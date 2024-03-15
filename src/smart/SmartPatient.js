@@ -57,10 +57,8 @@ export function SmartPatient() {
       );
 
       try {
-        // Wait for all promises (from all three requests) to resolve
         await Promise.all(promises);
       } catch (e) {
-        // If any of the promises are rejected, catch the error here
         console.log(e);
       }
 

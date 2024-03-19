@@ -36,90 +36,27 @@ export function SmartPatient() {
         return pt.id;
       });
 
-      try {
-        await client.request('/Condition?patient=' + pid).then(async function(cd) {
-          await fhirParser(cd);
-        });
-      } catch(e) {
-        console.log(e);
-      }
+      const promises = [];
+
+      promises.push(client.request(`/Condition?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/DiagnosticReport?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/Encounter?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/Immunization?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/MedicationRequest?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/Procedure?patient=${pid}`).then(fhirParser));
+
+      const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2';
+      promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=${eocType}`).then(fhirParser));
+
+      const obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
+      const obsCatArr = obsCatStr.split(';');
+      obsCatArr.forEach(cat =>
+        promises.push(client.request(`/Observation?patient=${pid}&category=${cat}`).then(fhirParser))
+      );
 
       try {
-        await client.request('/DiagnosticReport?patient=' + pid).then(async function(dr) {
-          await fhirParser(dr);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      try {
-        await client.request('/DocumentReference?patient=' + pid).then(async function(dr) {
-          await fhirParser(dr);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      try {
-        await client.request('/Encounter?patient=' + pid).then(async function(en) {
-          await fhirParser(en);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      try {
-        await client.request('/Immunization?patient=' + pid).then(async function(dr) {
-          await fhirParser(dr);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      try {
-        await client.request('/MedicationRequest?patient=' + pid).then(async function(mr) {
-          await fhirParser(mr);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      let obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
-      let obsCatArr = obsCatStr.split(';');
-
-      try {
-        await Promise.all(obsCatArr.map(cat => {
-          return client.request('/Observation?patient=' + pid + '&category=' + cat).then(async function(ob) {
-            await fhirParser(ob);
-          });
-        }));
-      } catch(e) {
-        console.log(e);
-      }
-
-      try {
-        await client.request('/Procedure?patient=' + pid).then(async function(pr) {
-          await fhirParser(pr);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      try {
-        await client.request('/QuestionnaireResponse?patient=' + pid).then(async function(qr) {
-          await fhirParser(qr);
-        });
-      } catch(e) {
-        console.log(e);
-      }
-
-      let epTypeStr = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2';
-
-      try {
-        await client.request('/EpisodeOfCare?patient=' + pid + '&type=' + epTypeStr).then(async function(ec) {
-          await fhirParser(ec);
-        });
-      } catch(e) {
+        await Promise.all(promises);
+      } catch (e) {
         console.log(e);
       }
 

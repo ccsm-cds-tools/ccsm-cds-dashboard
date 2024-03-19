@@ -46,7 +46,7 @@ describe('translate', () => {
       translateResponse(patientData, stridesData);
       expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport' &&
                               resource.code.coding.some(coding => coding.code === '65753-6' && coding.system === 'http://loinc.org') &&
-                              resource.conclusionCodes?.some(cc => cc.coding.some(coding => coding.system == 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77')))
+                              resource.conclusionCode?.some(cc => cc.coding.some(coding => coding.system == 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77')))
             ).to.be.true;
       expect(patientData.some(resource => resource.resourceType === 'Procedure' &&
                               resource.code.coding.some(coding => coding.system == 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1'))

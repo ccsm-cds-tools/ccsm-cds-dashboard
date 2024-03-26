@@ -55,7 +55,7 @@ export function SmartPatient() {
       );
 
       try {
-        await Promise.all(promises);
+        await Promise.allSettled(promises);
       } catch (e) {
         console.log(e);
       }

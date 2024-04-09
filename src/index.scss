@@ -52,3 +52,7 @@ code {
 $body-bg: #fff;
 
 @import '~bootstrap/scss/bootstrap.scss';
+
+.alert.alert-danger {
+  background-color: #ffe3e5;
+}

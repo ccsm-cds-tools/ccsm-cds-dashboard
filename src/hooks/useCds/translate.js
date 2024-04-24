@@ -98,7 +98,7 @@ const testCodeResultMapping = [
     ]
   },
   {
-    testCode: ['71431-1', '77399-4', '77400-0'],
+    testCode: ['82675-0' ,'71431-1', '77399-4', '77400-0'],
     testName: 'HPV',
     map: [
       {
@@ -215,6 +215,10 @@ const stridesCodeMapping = {
 };
 
 const loincMapping = [
+  {
+    oldCode: '49896-4',
+    newCode: '82675-0'
+  },
   {
     oldCode: '61372-9',
     newCode: '77399-4'
@@ -358,6 +362,7 @@ export function translateResponse(patientData, stridesData) {
   const patientDataMap = patientDataToHash(patientData);
 
   patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  patientDataMap.DiagnosticReport?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
   patientDataMap.EpisodeOfCare?.forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
 
   if (stridesData && Object.keys(stridesData).length > 0) {
@@ -450,6 +455,8 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
     result.code.coding.some(coding => ts.testCode?.includes(coding.code))
   );
 
+  // Should evaluate to false for DiagnosticReports, skipping the result mapping for these resources. We can add logic to
+  // map string values to codes values within DiagnosticReport.conclusionCode, if we find that this occurs in practice
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
     const firstLine = result.valueString.split("\r\n")[0];
     const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(firstLine, undefined, { sensitivity: 'base' }) === 0);

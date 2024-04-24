@@ -36,6 +36,24 @@ describe('translate', () => {
         resource.valueCodeableConcept?.coding?.some(coding => coding.system === 'http://snomed.info/sct' && coding.code === '441087007')
       )).to.be.true
     });
+
+    it('should translate LOINC code from a DiagnosticReport', () => {
+      const dr = patientData.find(pd => pd.resourceType === 'DiagnosticReport');
+      const genericHpvTestCode =
+        {
+          "system": "http://loinc.org",
+          "code": "49896-4"
+        };
+      dr.code.coding = [genericHpvTestCode];
+
+      translateResponse(patientData);
+
+      expect(patientData.some(resource =>
+        resource.resourceType === 'DiagnosticReport' &&
+        resource.code &&
+        resource.code?.coding?.some(coding => coding.system === 'http://loinc.org' && coding.code === '82675-0')
+      )).to.be.true
+    });
   });
 
   describe('maps strides data', () => {

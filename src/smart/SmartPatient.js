@@ -38,21 +38,18 @@ export function SmartPatient() {
 
       const promises = [];
 
-      promises.push(client.request(`/Condition?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/DiagnosticReport?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/Encounter?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/Immunization?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/MedicationRequest?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/Procedure?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/Condition?patient=${pid}&category=problems,medical-history`).then(fhirParser)); // Limit Conditions by category. Combine into one search. Check spelling of category names
+      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=laboratory`).then(fhirParser)); // Filter by lab category, although this may not narrow things down too much.
+      promises.push(client.request(`/Encounter?patient=${pid}`).then(fhirParser)); // Probably don't need all encounters. Could consider narrowing scope ny doing a _include on Condition
+      promises.push(client.request(`/Immunization?patient=${pid}&status=completed`).then(fhirParser)); // Could test to see if we can filter by vaccineCode
+      promises.push(client.request(`/MedicationRequest?patient=${pid}&status=active`).then(fhirParser));
+      promises.push(client.request(`/Procedure?patient=${pid}&category=order,surgery,surgical-history`).then(fhirParser)); // Use codes in search for the three specific types of procedures
 
-      const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2';
+      const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:id:1.2.840.114350.1.13.284.2.7.2.726668|2';
       promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=${eocType}`).then(fhirParser));
 
-      const obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
-      const obsCatArr = obsCatStr.split(';');
-      obsCatArr.forEach(cat =>
-        promises.push(client.request(`/Observation?patient=${pid}&category=${cat}`).then(fhirParser))
-      );
+      promises.push(client.request(`/Observation?patient=${pid}&category=laboratory,obstetrics-gynecology`).then(fhirParser)); // These can be combined into one search, with Observation categories separated by commas.
+      promises.push(client.request(`/Observation?patient=${pid}&category=social-history&code=pregnancy_status`).then(fhirParser));  // Add social history search that specifies pregnancy status. Remove smartdata
 
       try {
         await Promise.allSettled(promises);

@@ -38,21 +38,17 @@ export function SmartPatient() {
 
       const promises = [];
 
-      promises.push(client.request(`/Condition?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/DiagnosticReport?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/Encounter?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/Immunization?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/MedicationRequest?patient=${pid}`).then(fhirParser));
-      promises.push(client.request(`/Procedure?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/Condition?patient=${pid}&category=encounter-diagnosis,problem-list-item,medical-history&_include=Condition:encounter:Encounter`).then(fhirParser)); // include Encounters referenced by Conditions to avoid a separate API search
+      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab`).then(fhirParser));
+      promises.push(client.request(`/Immunization?patient=${pid}&status=completed&vaccine-code=118,137,165,62`).then(fhirParser));
+      promises.push(client.request(`/MedicationRequest?patient=${pid}&status=completed`).then(fhirParser));
+      promises.push(client.request(`/Procedure?patient=${pid}&status=completed&category=http://snomed.info/sct|103693007,http://snomed.info/sct|387713003`).then(fhirParser)); // Search Procedures with category of Diagnostic procedure or Surgical procedure
 
-      const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:oid:1.2.840.114350.1.13.284.2.7.2.726668|2';
+      const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:id:1.2.840.114350.1.13.284.2.7.2.726668|2'; // Search Episodes of Care with type of Pregnancy
       promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=${eocType}`).then(fhirParser));
 
-      const obsCatStr = process.env?.REACT_APP_CCSM_OBSERVATION_CATEGORIES ?? 'laboratory;obstetrics-gynecology;smartdata';
-      const obsCatArr = obsCatStr.split(';');
-      obsCatArr.forEach(cat =>
-        promises.push(client.request(`/Observation?patient=${pid}&category=${cat}`).then(fhirParser))
-      );
+      promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory,obstetrics-gynecology`).then(fhirParser));
+      promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=social-history&code=http://loinc.org|82810-3`).then(fhirParser)); // Search Observations with code of Pregnancy status
 
       try {
         await Promise.allSettled(promises);

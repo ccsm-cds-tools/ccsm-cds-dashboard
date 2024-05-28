@@ -12,7 +12,6 @@ import { config } from './test.config.js';
 export function TestPatient() {
   let params = useParams();
   const [patientData, setPatientData] = useState([]);
-  const [convertedData, setConvertedData] = useState([]);
 
   const [toggleStatus, setToggleStatus] = useState({
     isImmunosuppressed: false,
@@ -22,27 +21,36 @@ export function TestPatient() {
     isToggleChanged: false
   });
   const {output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus);
-  
+  const isLoading = isLoadingCdsData;
   // Extract the data for the requested test patient
   if (params.testName in testData) {
     if (patientData.length === 0) {
-      const newData = testData[params.testName].entry.reduce((acc,cv) => {
-        return [...acc, cv.resource];
-      },[])
+      // Assumes all test patient data is in a Bundle
+      const newData = testData[params.testName].entry.map((c) => {
+        if (!c.resource) return;
+        return c.resource;
+      })
       setPatientData(newData);
-      setConvertedData(newData);
     }
+
 
     // Return the Dashboard with a testing disclaimer at the top
     return (
       <div className="content">
-        <p className="alert alert-danger">Cervical Cancer CDS is for pilot evaluation use ONLY.</p>
+      <p className="alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation and is <b>not for use in clinical practice.</b></p>
+        <div className="dashboard-container">
+          {isLoading && (
+            <div className="overlay">
+              <div className="spinner"></div>
+            </div>
+          )}
         <Dashboard 
           input={dashboardInput} 
           config={config} 
           setPatientData={setPatientData}
           onToggleStatusChange={setToggleStatus}
         />
+      </div>
       </div>
     )
   } else {

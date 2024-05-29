@@ -26,7 +26,7 @@ export function TestPatient() {
     // Return the Dashboard with a testing disclaimer at the top
     return (
       <div className="content">
-        <p className="text-danger-dark">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
+        <p className="sticky-banner text-danger-dark">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
         <Dashboard 
           input={dashboardInput} 
           config={config} 

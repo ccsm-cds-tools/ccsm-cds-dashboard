@@ -46,7 +46,7 @@ export function SmartPatient() {
 
       const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:id:1.2.840.114350.1.13.284.2.7.2.726668|2'; // Search Episodes of Care with type of Pregnancy
       promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=${eocType}`).then(fhirParser));
-
+      promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=urn:oid:1.2.840.114350.1.13.284.3.7.2.726668|2`).then(fhirParser));
       promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory,obstetrics-gynecology`).then(fhirParser));
       promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=social-history&code=http://loinc.org|82810-3`).then(fhirParser)); // Search Observations with code of Pregnancy status
 

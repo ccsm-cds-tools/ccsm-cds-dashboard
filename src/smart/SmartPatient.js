@@ -94,7 +94,7 @@ export function SmartPatient() {
   } else {
     return (
       <div className="content">
-      <p className="alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation and is <b>not for use in clinical practice.</b></p>
+      <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation and is <b>not for use in clinical practice.</b></p>
         <div className="dashboard-container">
           {isLoading && (
             <div className="overlay">

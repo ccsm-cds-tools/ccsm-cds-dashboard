@@ -27,8 +27,7 @@ export function TestPatient() {
     if (patientData.length === 0) {
       // Assumes all test patient data is in a Bundle
       const newData = testData[params.testName].entry.map((c) => {
-        if (!c.resource) return;
-        return c.resource;
+       return (c.resource) ? c.resource : {};
       })
       setPatientData(newData);
     }
@@ -37,7 +36,7 @@ export function TestPatient() {
     // Return the Dashboard with a testing disclaimer at the top
     return (
       <div className="content">
-      <p className="alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation and is <b>not for use in clinical practice.</b></p>
+        <p className="alert alert-danger">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
         <div className="dashboard-container">
           {isLoading && (
             <div className="overlay">

@@ -64,8 +64,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     
     // TODO: Move cqlParameters to a separate file within this directory and import them into this file
     const cqlParameters = {
-      HrHPVLookbackDate: '2017-04-04',
-      CervicalCytologyLookbackDate : '2017-04-04',
+      CervicalCytologyLookbackDate : '2017-04-04'
     };
 
     const aux = {

@@ -36,7 +36,7 @@ export function TestPatient() {
     // Return the Dashboard with a testing disclaimer at the top
     return (
       <div className="content">
-        <p className="alert alert-danger">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
+        <p className="sticky-banner alert alert-danger">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
         <div className="dashboard-container">
           {isLoading && (
             <div className="overlay">

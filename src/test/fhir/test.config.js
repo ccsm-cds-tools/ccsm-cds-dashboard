@@ -7,6 +7,7 @@ export const config = {
         filled: '',
         empty: 'No results found'
       },
+      disclaimer: 'No disclaimer',
       tables: [
         {
           name: 'diagnosticReports',
@@ -45,6 +46,7 @@ export const config = {
         filled: 'Includes medical conditions, procedures, and medications that change screening risk',
         empty: 'No relevant history found'
       },
+      disclaimer: 'No disclaimer',
       tables: [
         {
           name: 'conditions',
@@ -146,6 +148,7 @@ export const config = {
         filled: '',
         empty: 'No vaccinations found'
       },
+      disclaimer: 'No disclaimer',
       tables: [
         {
           name: 'immunizations',

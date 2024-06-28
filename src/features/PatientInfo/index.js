@@ -16,38 +16,9 @@ function PatientInfo(props) {
       <h1 className="patient-name">{input.name}</h1>
       <div className="patient-detail">
         <div className="id">
-          {/* <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div> */}
+          <div><b>Date of Birth:</b> <span><time dateTime={dob}>{dob}</time></span> ({input.age} y.o.)</div>
           <div><b>MRN:</b> <span>{mrn}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
-        </div>
-        <div className="info-items">
-          <Row>
-            <Col>
-              <div className="info-item">
-                <b>Date of Birth</b> <span><time dateTime={dob}>{dob}</time></span>
-              </div>
-              <div className="info-item">
-                <b>Sex at Birth</b>
-                <span>{input.sexAtBirth}</span>
-              </div>
-            </Col>
-            <Col>
-              <div className="info-item">
-                <b>Age</b> <span>{input.age}</span>
-              </div>
-              <div className="info-item">
-                <b>Gender</b> <span>{gender}</span>
-              </div>
-            </Col>
-            <Col>
-              <div className="info-item">
-                <b>Preferred Language</b> <span>{input.primaryLanguage}</span>
-              </div>
-              <div className="info-item">
-                <b>Race/Ethnicity</b> <span>{input.race}</span>
-              </div>
-            </Col>
-          </Row>
         </div>
       </div>
     </section>
@@ -62,8 +33,8 @@ function formatDateOfBirth(dateOfBirth) {
   const year = String(dateOfBirth?.year ?? '');
 
   const dobString =
-    month.padStart(2,'0') + ' / ' +
-    day.padStart(2,'0') + ' / ' +
+    month.padStart(2,'0') + '/' +
+    day.padStart(2,'0') + '/' +
     year;
 
   return dateOfBirth ? dobString : null;

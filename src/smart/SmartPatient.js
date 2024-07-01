@@ -38,11 +38,7 @@ export function SmartPatient() {
 
       const promises = [];
 
-<<<<<<< HEAD
       promises.push(client.request(`/Condition?patient=${pid}&category=problem-list-item,medical-history`).then(fhirParser));
-=======
-      promises.push(client.request(`/Condition?patient=${pid}&category=encounter-diagnosis,problem-list-item,medical-history&_include=Condition:encounter:Encounter`).then(fhirParser)); // include Encounters referenced by Conditions to avoid a separate API search
->>>>>>> pilot
       promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab`).then(fhirParser));
       promises.push(client.request(`/Immunization?patient=${pid}&status=completed&vaccine-code=118,137,165,62`).then(fhirParser));
       promises.push(client.request(`/MedicationRequest?patient=${pid}&status=completed`).then(fhirParser));

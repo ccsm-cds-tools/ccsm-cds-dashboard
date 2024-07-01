@@ -7,6 +7,7 @@ export const config = {
         filled: '',
         empty: 'No results found'
       },
+      disclaimer: 'Histology and cytology results from before April 23, 2017 may not be available. The CDS will only compute recommendations based on the history shown.',
       tables: [
         {
           name: 'diagnosticReports',
@@ -41,6 +42,7 @@ export const config = {
         filled: 'Includes medical conditions, procedures, and medications that change screening risk',
         empty: 'No relevant history found'
       },
+      disclaimer: '',
       tables: [
         {
           name: 'conditions',
@@ -130,6 +132,7 @@ export const config = {
         filled: '',
         empty: 'No vaccinations found'
       },
+      disclaimer: 'Vaccination history is shown for reference only and is NOT used by CDS to compute recommendations.',
       tables: [
         {
           name: 'immunizations',

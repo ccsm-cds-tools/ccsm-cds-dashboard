@@ -12,26 +12,44 @@ import { config } from './test.config.js';
 export function TestPatient() {
   let params = useParams();
   const [patientData, setPatientData] = useState([]);
-  const dashboardInput = useCds(patientData);
-  
+
+  const [toggleStatus, setToggleStatus] = useState({
+    isImmunosuppressed: false,
+    isPregnant: false,
+    isPregnantConcerned: false,
+    isSymptomatic: false,
+    isToggleChanged: false
+  });
+  const {output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus);
+  const isLoading = isLoadingCdsData;
   // Extract the data for the requested test patient
   if (params.testName in testData) {
     if (patientData.length === 0) {
-      const newData = testData[params.testName].entry.reduce((acc,cv) => {
-        return [...acc, cv.resource];
-      },[])
+      // Assumes all test patient data is in a Bundle
+      const newData = testData[params.testName].entry.map((c) => {
+       return (c.resource) ? c.resource : {};
+      })
       setPatientData(newData);
     }
+
 
     // Return the Dashboard with a testing disclaimer at the top
     return (
       <div className="content">
-        <p className="text-danger-dark">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
+        <p className="sticky-banner alert alert-danger">NOTE: ALL CLINICAL ITEMS ARE NOTIONAL - FOR PURPOSES OF DEMONSTRATION ONLY</p>
+        <div className="dashboard-container">
+          {isLoading && (
+            <div className="overlay">
+              <div className="spinner"></div>
+            </div>
+          )}
         <Dashboard 
           input={dashboardInput} 
           config={config} 
           setPatientData={setPatientData}
+          onToggleStatusChange={setToggleStatus}
         />
+      </div>
       </div>
     )
   } else {

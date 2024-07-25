@@ -7,7 +7,7 @@ export const config = {
         filled: '',
         empty: 'No results found'
       },
-      disclaimer: 'Histology and cytology results from before April 23, 2017 may not be available. The CDS will only compute recommendations based on the history shown.',
+      disclaimer: 'Histology results from before April 23, 2017 and cytology results from before February 19, 2018 may not be available. The CDS will only compute recommendations based on the history shown.',
       tables: [
         {
           name: 'diagnosticReports',

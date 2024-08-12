@@ -17,6 +17,7 @@ function Recommendations(props) {
       disclaimer='',
       suggestedOrders='',
       riskTable={},
+      applyTime,
       isCdsApplied
     },
     onToggleStatusChange
@@ -89,6 +90,8 @@ function Recommendations(props) {
         </Card.Body>
       </Card>
       <RiskEstimates input={riskTable} />
+      <br/>
+      <p>CDS Apply Time: {applyTime}ms </p>
     </div>
   )
 }

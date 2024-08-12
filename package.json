@@ -28,6 +28,8 @@
     "chai": "^4.3.10",
     "constants-browserify": "^1.0.0",
     "convert-csv-to-json": "^2.0.0",
+    "cql-exec-fhir": "github:ccsm-cds-tools/cql-exec-fhir#memoize-to-fhir-object",
+    "cql-execution": "github:cqframework/cql-execution#alt-perf-opt-experiment",
     "cql-exec-vsac": "^2.0.1",
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.5.1",

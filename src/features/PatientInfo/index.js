@@ -1,4 +1,3 @@
-import { Row, Col } from 'react-bootstrap';
 import './style.scss';
 
 function PatientInfo(props) {

@@ -9,7 +9,8 @@ function PatientInfo(props) {
   const dob = formatDateOfBirth(input?.dateOfBirth?.value);
   const ids = input.id ?? [];
   const mrn = getMrn(ids);
-  const gender = capitalizeGender(input.gender);
+  // NOTE: Gender is no longer used in the patient-info display. Keeping the gender variable here, so that it can be added back in the future, if needed.
+  const gender = capitalizeGender(input.gender); // eslint-disable-line no-unused-vars
 
   return (
     <section className="patient-info">

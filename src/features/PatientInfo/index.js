@@ -6,6 +6,7 @@ function PatientInfo(props) {
   console.log("Dashboard input: ", input)
 
   const dob = formatDateOfBirth(input?.dateOfBirth?.value);
+  const age = input?.age ? ' (' + input.age + ' y.o.)' : '';
   const ids = input.id ?? [];
   const mrn = getMrn(ids);
   // NOTE: Gender is no longer used in the patient-info display. Keeping the gender variable here, so that it can be added back in the future, if needed.
@@ -16,7 +17,7 @@ function PatientInfo(props) {
       <h1 className="patient-name">{input.name}</h1>
       <div className="patient-detail">
         <div className="id">
-          <div><b>Date of Birth:</b> <span><time dateTime={dob}>{dob}</time></span> ({input.age} y.o.)</div>
+          <div><b>Date of Birth:</b> <span><time dateTime={dob}>{dob}</time></span>{age}</div>
           <div><b>MRN:</b> <span>{mrn}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
         </div>

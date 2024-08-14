@@ -29,9 +29,17 @@ function PatientInfo(props) {
 export default PatientInfo;
 
 function formatDateOfBirth(dateOfBirth) {
-  const day = String(dateOfBirth?.day ?? '');
-  const month = String(dateOfBirth?.month ?? '');
-  const year = String(dateOfBirth?.year ?? '');
+  let day, month, year;
+  if (typeof dateOfBirth == "string") {
+    const dateOfBirthComponents = dateOfBirth.split('-');
+    year = dateOfBirthComponents[0] ?? '';
+    month = dateOfBirthComponents[1] ?? '';
+    day = dateOfBirthComponents[2] ?? '';
+  } else {
+    day = String(dateOfBirth?.day ?? '');
+    month = String(dateOfBirth?.month ?? '');
+    year = String(dateOfBirth?.year ?? '');
+  }
 
   const dobString =
     month.padStart(2,'0') + '/' +

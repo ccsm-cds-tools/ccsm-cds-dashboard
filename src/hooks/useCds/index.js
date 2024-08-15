@@ -52,7 +52,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
   console.log('Starting applyCds()');
   console.time('Apply CDS');
   let applyStart = new Date();
-  let applyTime = 0;
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
   // TODO: Throw error if there is anything other than 1 patient resource

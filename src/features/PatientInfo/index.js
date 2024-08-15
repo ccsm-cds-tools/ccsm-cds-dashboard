@@ -1,4 +1,3 @@
-import { Row, Col } from 'react-bootstrap';
 import './style.scss';
 
 function PatientInfo(props) {
@@ -7,47 +6,20 @@ function PatientInfo(props) {
   console.log("Dashboard input: ", input)
 
   const dob = formatDateOfBirth(input?.dateOfBirth?.value);
+  const age = input?.age ? ' (' + input.age + ' y.o.)' : '';
   const ids = input.id ?? [];
   const mrn = getMrn(ids);
-  const gender = capitalizeGender(input.gender);
+  // NOTE: Gender is no longer used in the patient-info display. Keeping the gender variable here, so that it can be added back in the future, if needed.
+  const gender = capitalizeGender(input.gender); // eslint-disable-line no-unused-vars
 
   return (
     <section className="patient-info">
       <h1 className="patient-name">{input.name}</h1>
       <div className="patient-detail">
         <div className="id">
-          {/* <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div> */}
+          <div><b>Date of Birth:</b> <span><time dateTime={dob}>{dob}</time></span>{age}</div>
           <div><b>MRN:</b> <span>{mrn}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
-        </div>
-        <div className="info-items">
-          <Row>
-            <Col>
-              <div className="info-item">
-                <b>Date of Birth</b> <span><time dateTime={dob}>{dob}</time></span>
-              </div>
-              <div className="info-item">
-                <b>Sex at Birth</b>
-                <span>{input.sexAtBirth}</span>
-              </div>
-            </Col>
-            <Col>
-              <div className="info-item">
-                <b>Age</b> <span>{input.age}</span>
-              </div>
-              <div className="info-item">
-                <b>Gender</b> <span>{gender}</span>
-              </div>
-            </Col>
-            <Col>
-              <div className="info-item">
-                <b>Preferred Language</b> <span>{input.primaryLanguage}</span>
-              </div>
-              <div className="info-item">
-                <b>Race/Ethnicity</b> <span>{input.race}</span>
-              </div>
-            </Col>
-          </Row>
         </div>
       </div>
     </section>
@@ -57,13 +29,21 @@ function PatientInfo(props) {
 export default PatientInfo;
 
 function formatDateOfBirth(dateOfBirth) {
-  const day = String(dateOfBirth?.day ?? '');
-  const month = String(dateOfBirth?.month ?? '');
-  const year = String(dateOfBirth?.year ?? '');
+  let day, month, year;
+  if (typeof dateOfBirth == "string") {
+    const dateOfBirthComponents = dateOfBirth.split('-');
+    year = dateOfBirthComponents[0] ?? '';
+    month = dateOfBirthComponents[1] ?? '';
+    day = dateOfBirthComponents[2] ?? '';
+  } else {
+    day = String(dateOfBirth?.day ?? '');
+    month = String(dateOfBirth?.month ?? '');
+    year = String(dateOfBirth?.year ?? '');
+  }
 
   const dobString =
-    month.padStart(2,'0') + ' / ' +
-    day.padStart(2,'0') + ' / ' +
+    month.padStart(2,'0') + '/' +
+    day.padStart(2,'0') + '/' +
     year;
 
   return dateOfBirth ? dobString : null;

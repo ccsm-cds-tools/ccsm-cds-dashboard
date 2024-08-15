@@ -1,11 +1,15 @@
 
-.patient-name {font-size:2rem}
+.patient-name {font-size:1.5rem}
 
 .id {
   b {text-transform:uppercase;color:#666;font-size:0.9rem;margin-top:5px}
   a {font-size:0.9rem}
   border-bottom: 1px solid #ddd;
   padding-bottom:5px;
+  display:flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom:1rem;
 }
 
 .info-items {margin-bottom:1rem;border-bottom:1px solid #ccc;margin-top:1rem}

@@ -53,7 +53,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
   console.time('Apply CDS');
   let applyStart = new Date();
   let applyTime = 0;
-  let applyEnd = 0;
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
   // TODO: Throw error if there is anything other than 1 patient resource
@@ -164,12 +163,10 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       patientHistory,
       decisionAids,
       resolver: (r) => r === '' ? {} : resolver(r),
-      patientReference,
-      applyTime
+      patientReference
     }
     console.timeEnd('Apply CDS');
     let applyEnd = new Date();
-    output.applyTime = applyEnd - applyStart;
     decisionAids.applyTime = applyEnd - applyStart;
     console.log('CDS output:', output);
     setIsLoadingCdsData(false);

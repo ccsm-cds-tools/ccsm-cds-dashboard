@@ -20,6 +20,7 @@ function Recommendations(props) {
       applyTime,
       isCdsApplied
     },
+    toggleStatus, 
     onToggleStatusChange
   } = props;
 
@@ -44,7 +45,7 @@ function Recommendations(props) {
 
   return (
     <div>
-      <SpecialConsiderations onToggleStatusChange={onToggleStatusChange} />
+      <SpecialConsiderations toggleStatus={toggleStatus} onToggleStatusChange={onToggleStatusChange} />
       <Card>
         <Card.Header>Screening and Management Recommendation</Card.Header>
         <Card.Body>

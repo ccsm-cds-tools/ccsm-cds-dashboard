@@ -53,7 +53,9 @@ export function SmartPatient() {
 
       // promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory,obstetrics-gynecology`).then(fhirParser));
       // promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=social-history&code=http://loinc.org|82810-3`).then(fhirParser)); // Search Observations with code of Pregnancy status
-      promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory`).then(fhirParser));
+      // promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory`).then(fhirParser));
+      // promises.push(client.request(`/Observation?patient=${pid}`).then(fhirParser));
+      promises.push(client.request(`/Observation?patient=${pid}&category=laboratory,obstetrics-gynecology,core-characteristics,lda,social-history,vital-signs,smartdata,functional-mental-status,imaging,genomics,periodontal,labor-delivery,newborn-delivery`).then(fhirParser));
 
       try {
         await Promise.allSettled(promises);

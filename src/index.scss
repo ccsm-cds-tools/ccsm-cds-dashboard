@@ -63,12 +63,12 @@ $body-bg: #fff;
 }
 
 /* fix the width of the date-* and view columns in the tables */
-table tr th:nth-last-child(-n +2) {
+table.sortable.table tr th:nth-last-child(-n +2) {
   width:11em;
   max-width:11em;
 }
   
-table tr th:last-child {
+table.sortable.table tr th:last-child {
   width:7em;
   max-width:7em;
 }

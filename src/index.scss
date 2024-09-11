@@ -61,3 +61,14 @@ $body-bg: #fff;
   top:0;
   z-index:100;
 }
+
+/* fix the width of the date-* and view columns in the tables */
+table tr th:nth-last-child(-n +2) {
+  width:11em;
+  max-width:11em;
+}
+  
+table tr th:last-child {
+  width:7em;
+  max-width:7em;
+}

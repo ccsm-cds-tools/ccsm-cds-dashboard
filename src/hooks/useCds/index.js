@@ -37,7 +37,7 @@ export const useCds = (patientData, toggleStatus) => {
     console.timeEnd('Translate FHIR Data');
     console.log('patientData after translation: ', patientData);
 
-    applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);
+   window.setTimeout(()=> {applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);},500);
   }, [patientData, toggleStatus, isPregnant]);
 
   return {output, isLoadingCdsData};

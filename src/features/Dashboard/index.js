@@ -17,6 +17,7 @@ function Dashboard(props) {
     },
     config={},
     setPatientData=()=>{},
+    toggleStatus,
     onToggleStatusChange
   } = props;
 
@@ -36,6 +37,7 @@ function Dashboard(props) {
         <Col xl={6}>
           <DecisionAids
             input={decisionAids}
+            toggleStatus={toggleStatus}
             onToggleStatusChange={onToggleStatusChange}
           />
         </Col>

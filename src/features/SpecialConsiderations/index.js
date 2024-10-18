@@ -7,41 +7,31 @@ import './style.scss';
 
 function SpecialConsiderations(props) {
   let {
+    toggleStatus,
     onToggleStatusChange
   } = props;
 
 
   const [show, setShow] = useState(false);
-  const [toggleStatus, setToggleStatus] = useState({
-    isImmunosuppressed: false,
-    isPregnant: false,
-    isPregnantConcerned: false,
-    isSymptomatic: false,
-    isToggleChanged: false
-  });
-
-  useEffect(() => {
-    onToggleStatusChange(toggleStatus);
-  }, [toggleStatus, onToggleStatusChange]);
 
   const toggleNote = () => {
     setShow(!show);
   }
 
   const handleImmunosuppressedChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isImmunosuppressed: event.target.checked, isToggleChanged: true });
+    onToggleStatusChange({ ...toggleStatus, isImmunosuppressed: event.target.checked, isToggleChanged: true });
   };
 
   const handlePregnantChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isPregnant: event.target.checked, isToggleChanged: true });
+    onToggleStatusChange({ ...toggleStatus, isPregnant: event.target.checked, isToggleChanged: true });
   };
 
   const handlePregnantConcernedChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isPregnantConcerned: event.target.checked, isToggleChanged: true });
+    onToggleStatusChange({ ...toggleStatus, isPregnantConcerned: event.target.checked, isToggleChanged: true });
   };
 
   const handleSymptomaticChange = (event) => {
-    setToggleStatus({ ...toggleStatus, isSymptomatic: event.target.checked, isToggleChanged: true });
+    onToggleStatusChange({ ...toggleStatus, isSymptomatic: event.target.checked, isToggleChanged: true });
   };
 
 

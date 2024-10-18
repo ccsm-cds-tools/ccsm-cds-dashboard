@@ -106,6 +106,7 @@ export function SmartPatient() {
           input={dashboardInput}
           config={config}
           setPatientData={setPatientData}
+          toggleStatus={toggleStatus}
           onToggleStatusChange={setToggleStatus}
         />
         </div>

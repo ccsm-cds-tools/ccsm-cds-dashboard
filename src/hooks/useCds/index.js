@@ -59,9 +59,9 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
 
   if (patientReference !== 'Patient/undefined') {
     // NOTE: CQL Worker is not used with cql-execution branch of encender
-    // const WorkerFactory = () => {
-    //   return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
-    // };
+    const WorkerFactory = () => {
+      return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
+    };
     
     // TODO: Move cqlParameters to a separate file within this directory and import them into this file
     const cqlParameters = {
@@ -71,7 +71,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     const aux = {
       elmJsonDependencies,
       valueSetJson,
-      // WorkerFactory,
+      WorkerFactory,
       cqlParameters
     };
 

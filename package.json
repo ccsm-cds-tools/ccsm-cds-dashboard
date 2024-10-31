@@ -106,7 +106,7 @@
     "start": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=false node scripts/start.js",
     "prebuild": "node scripts/prebuild.js",
     "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true node scripts/build.js",
-    "prebuild-windows": "node scripts/prebuild.js",
+    "prebuild-windows": "rimraf build && node scripts/prebuild.js",
     "build-windows": "set \"DISABLE_ESLINT_PLUGIN=true\" && set \"BROWSER=none\" && set \"GENERATE_SOURCEMAP=true\"  && node scripts/build.js",
     "test": "node scripts/test.js",
     "test-mocha": "NODE_ENV=test ./node_modules/.bin/mocha --require @babel/register --reporter spec --recursive",
@@ -214,6 +214,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.23.5",
     "@babel/register": "^7.22.15",
+    "rimraf": "^6.0.1",
     "webpack-bundle-analyzer": "^4.8.0",
     "webpack-cli": "^5.0.1"
   }

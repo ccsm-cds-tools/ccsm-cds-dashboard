@@ -110,15 +110,12 @@ function cleanFsh(fsh) {
   const fshString = typeof fsh === "string" ? fsh : fsh.fsh;
   return fshString.replaceAll('undefined', '\n').replaceAll(',', '\n');
 }
-function handlePages(bundle, callback) {
+async function handlePages(bundle, callback) {
   if(bundle.link) {
-    bundle.link.forEach((link) => {
-      if(link.relation == 'next') {
-        client.request(link.url).then((resource) => {
-          callback(resource);
-        });
-      }    
-    });
+    const requests = bundle.link
+      .filter(link => link.relation === 'next')
+      .map(link => client.request(link.url).then(resource => callback(resource)));
+    await Promise.all(requests);
   }
 }
 
@@ -136,7 +133,7 @@ async function boundParser(data, fshData) {
     if (!rsrc) return;
 
     if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
-      handlePages(rsrc, parseFhir) // handle pages recursively
+      await handlePages(rsrc, parseFhir) // handle pages recursively
       await Promise.all(rsrc.entry.map(async (c) => {
         if (!c.resource) return;
         console.log(c.resource.resourceType);

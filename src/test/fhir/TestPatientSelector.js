@@ -2,7 +2,52 @@ import logo from 'assets/ccsm-tulip.svg';
 import '../basic/TestPatientSelector.scss';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { testData } from './testData';
 
+// generates information packet for each patient bundle
+function extractPatientInfo(keys, data) {
+  const patientInfo = [];
+
+  keys.forEach((key, i) => {
+      if (data[key] && Array.isArray(data[key].entry)) {
+          const patientEntry = data[key].entry.find(
+              item => item.resource && item.resource.resourceType === "Patient"
+          );
+
+          if (patientEntry && patientEntry.resource) {
+              const birthdate = patientEntry.resource.birthDate;
+              const name = formatName(patientEntry.resource.name);
+              const age = birthdate ? calculateAge(birthdate) : null;
+              patientInfo.push({key, name, age, scenario: 'MGB Demo Patient #' + (i+1), updated: '11/1/2024'});
+          }
+      }
+  });
+  return patientInfo;
+}
+
+// converts humanName FHIR object to readable name
+function formatName(nameArray) {
+  if (!Array.isArray(nameArray) || nameArray.length === 0) return null;
+  const nameObj = nameArray[0];
+  const givenName = Array.isArray(nameObj.given) && nameObj.given.length > 0 ? nameObj.given[0] : '';
+  const familyName = nameObj.family || '';
+  return `${givenName} ${familyName}`;
+}
+
+// calculate age based on today's date (could fix the date so the patients don't get "older")
+function calculateAge(birthdate) {
+  const birthDate = new Date(birthdate);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  return age;
+}
+
+const mgbKeys = ['reese', 'olivia', 'meryl', 'natalie', 'anne', 'kate','scarlett', 'dua', 'angelina', 'julia', 'nicole', 'mila', 'jennifer'];
+const mgbData = extractPatientInfo(mgbKeys, testData);
 const screeningData = [
   {
     key: 'susan',
@@ -41,8 +86,9 @@ const incompleteData = [
     updated: '7/20/2022'
   }
 ];
-const incompletePad = managementPad + managementData.length;
 
+const incompletePad = managementPad + managementData.length;
+const mgbPad = incompletePad + incompleteData.length;
 export function TestPatientSelector() {
   return (
     <div>
@@ -85,7 +131,10 @@ export function TestPatientSelector() {
               <td colSpan="6">Missing/Incomplete Data Scenarios</td>
             </tr>
             { incompleteData.map((rd,idx) => <IndexRow key={idx} index={incompletePad+idx} rowData={rd} />) }
-
+            <tr className="group">
+              <td colSpan="6">MGB Test Scenarios</td>
+            </tr>
+            { mgbData.map((rd,idx) => <IndexRow key={idx} index={mgbPad+idx} rowData={rd} />) }
           </tbody>
         </Table>
 

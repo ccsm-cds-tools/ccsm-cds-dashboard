@@ -31,6 +31,9 @@ export const useCds = (patientData, toggleStatus) => {
     if (toggleStatus.isToggleChanged) {
       translateToggleChange(patientData, toggleStatus);
     } else {
+      console.log("Calling translateResponse")
+      console.log("stridesData going into translateResponse: ")
+      console.log(stridesData)
       translateResponse(patientData, stridesData);
     }
 

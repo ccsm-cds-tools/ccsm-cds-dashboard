@@ -355,15 +355,24 @@ const symptomaticObservation = {
  * @param {Object[]} patientDatea - Array of FHIR resources
  */
 export function translateResponse(patientData, stridesData) {
+  console.log('patientData:');
+  console.log(patientData);
+
   if (patientData == null || patientData.length == 0) {
     return;
   }
 
   const patientDataMap = patientDataToHash(patientData);
+  console.log("PatientDataMap:");
+  console.log(patientDataMap);
+
 
   patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
   patientDataMap.DiagnosticReport?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
   patientDataMap.EpisodeOfCare?.forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
+
+  console.log("stridesData:");
+  console.log(stridesData);
 
   if (stridesData && Object.keys(stridesData).length > 0) {
     mapStrideResult(patientData, patientDataMap, stridesData);
@@ -485,11 +494,17 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
 
   const mrn = patientDataMap.Patient[0].identifier?.find(id => id.type?.text === ('MRN') || id.type?.text === ('Medical Record Number'))?.value;
 
+  console.log("mrn:");
+  console.log(mrn);
+
   if (!mrn) {
     return;
   }
 
   const stridesPatientData = stridesData[mrn];
+
+  console.log('stridesPatientData:');
+  console.log(stridesPatientData);
 
   if (!stridesPatientData) {
     return;

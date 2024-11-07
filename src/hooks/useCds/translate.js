@@ -497,10 +497,10 @@ function mapStrideResult(patientData, patientDataMap, stridesData) {
 
   stridesPatientData.forEach(row => {
     const orderId = row['ORDER_ID'];
-    const diagnosticReport = patientDataMap.DiagnosticReport.find((dr) =>
-      dr.identifier.some(
+    const diagnosticReport = patientDataMap.DiagnosticReport?.find((dr) =>
+      dr.identifier?.some(
         (identifier) =>
-          identifier.type?.coding.some((coding) => coding.code === "PLAC") &&
+          identifier.type?.coding?.some((coding) => coding.code === "PLAC") &&
           identifier.value == orderId
       )
     );

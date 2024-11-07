@@ -115,6 +115,13 @@ describe('translate', () => {
       translateResponse(patientData, stridesData);
       expect(patientData.some(resource => resource.resourceType === 'DiagnosticReport')).to.be.false;
     });
+
+    it('should return when DiagnosticReport does not have identifier', () => {
+      const dr = patientData.find(pd => pd.resourceType === 'DiagnosticReport');
+      delete dr.identifier
+      translateResponse(patientData, stridesData);
+      expect(patientData.filter(resource => resource.resourceType === 'DiagnosticReport').length).to.equal(1);
+    });
   });
 
   describe('translate EpisodeOfCare', () => {

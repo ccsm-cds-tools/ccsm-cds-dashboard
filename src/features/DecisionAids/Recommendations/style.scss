@@ -14,4 +14,10 @@ div.card div.card-body .recommendation-group-text {
   font-weight:bold;
   font-size:.8rem;
   margin-bottom:1em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.recommendation-details li p {
+  margin:0;
 }

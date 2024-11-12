@@ -1,5 +1,6 @@
 import { Alert, Button, Card } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import Markdown from 'react-markdown';
 import ViewDataDialog from 'components/ViewDataDialog';
 import RiskEstimates from 'features/DecisionAids/RiskEstimates';
 import SpecialConsiderations from 'features/SpecialConsiderations';
@@ -32,7 +33,6 @@ function Recommendations(props) {
       riskTable.relevant.fiveYearRisk =  'N/A';
     }
   }
-
   const [show, setShow] = useState(errors.length > 0 || disclaimer !== '');
 
   useEffect(() => {
@@ -68,9 +68,10 @@ function Recommendations(props) {
             !isCdsApplied || errors.length > 0 ? ''
               : recommendation.length === 0 ?
                 <Card.Text>The guidelines do not provide any recommendation for this case. Please use clinical judgement.</Card.Text>
-              : recommendationDetails.map((detail,idx) => {
-                 return <Card.Text key={idx}>{detail}</Card.Text>
-               })
+              : 
+                <div className="recommendation-details" key="markdown">
+                  <Markdown children={recommendationDetails.map((detail,idx)=>{ return idx==0 ? "**" + detail + "**\n" : detail}).join("\r\r")}/>
+                </div>
           }
           <div className="recommendation-group-text">{recommendationGroup}</div>
           <Alert

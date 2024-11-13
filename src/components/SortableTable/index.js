@@ -1,5 +1,7 @@
 import { Table, Button } from 'react-bootstrap';
 import { useSortableData } from './useSortableData.js';
+import { formatDate } from 'util/formatDate';
+
 import './style.scss';
 
 function SortableTable(props) {
@@ -72,7 +74,7 @@ function RenderRowElement(hdr, itm, formInfo, setDataToView) {
   const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
   if (key === 'date') return (
     <time className={incompleteClass} dateTime={itm.date}>
-      {itm.date}
+      {formatDate(itm.date)}
     </time>
   )
   else if (key === 'status') {

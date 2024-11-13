@@ -1,11 +1,11 @@
 import './style.scss';
-
+import { formatDate } from 'util/formatDate';
 function PatientInfo(props) {
 
   const {input} = props;
   console.log("Dashboard input: ", input)
 
-  const dob = formatDateOfBirth(input?.dateOfBirth?.value);
+  const dob = formatDate(input?.dateOfBirth?.value);
   const age = input?.age ? ' (' + input.age + ' y.o.)' : '';
   const ids = input.id ?? [];
   const mrn = getMrn(ids);
@@ -27,27 +27,6 @@ function PatientInfo(props) {
 }
 
 export default PatientInfo;
-
-function formatDateOfBirth(dateOfBirth) {
-  let day, month, year;
-  if (typeof dateOfBirth == "string") {
-    const dateOfBirthComponents = dateOfBirth.split('-');
-    year = dateOfBirthComponents[0] ?? '';
-    month = dateOfBirthComponents[1] ?? '';
-    day = dateOfBirthComponents[2] ?? '';
-  } else {
-    day = String(dateOfBirth?.day ?? '');
-    month = String(dateOfBirth?.month ?? '');
-    year = String(dateOfBirth?.year ?? '');
-  }
-
-  const dobString =
-    month.padStart(2,'0') + '/' +
-    day.padStart(2,'0') + '/' +
-    year;
-
-  return dateOfBirth ? dobString : null;
-}
 
 function getMrn(ids) {
   if (ids.length > 0) {

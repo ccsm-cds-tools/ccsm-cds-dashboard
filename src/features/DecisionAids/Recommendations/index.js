@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import ViewDataDialog from 'components/ViewDataDialog';
 import RiskEstimates from 'features/DecisionAids/RiskEstimates';
 import SpecialConsiderations from 'features/SpecialConsiderations';
+import { formatDate } from 'util/formatDate';
 
 import './style.scss';
 
@@ -62,7 +63,7 @@ function Recommendations(props) {
             }
           </Card.Title>
           <Card.Subtitle as='h4'>
-            <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
+            <div>{recommendationDate != '' ? 'Due: ' + formatDate(recommendationDate) : null}</div>
           </Card.Subtitle>
           {
             !isCdsApplied || errors.length > 0 ? ''

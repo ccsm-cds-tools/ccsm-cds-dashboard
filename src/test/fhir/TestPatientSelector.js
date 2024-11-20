@@ -18,9 +18,9 @@ const managementData = [
   {
     key: 'joanne',
     name: 'Joanne42 Smith657',
-    age: '31',
+    age: '33',
     scenario: 'Management Table 4.',
-    updated: '7/21/2022'
+    updated: '11/18/2024'
   }
 ];
 const managementPad = screeningPad + screeningData.length;
@@ -53,8 +53,8 @@ export function TestPatientSelector() {
       </div>
 
       <h3>FHIR Test Patients</h3>
-      <b>Author:</b> David Winters (<a href="mailto:dwinters@mitre.org">dwinters@mitre.org</a>)<br/>
-      <b>Last Updated:</b> Jul 20, 2022<br/>
+      <b>Author:</b> Michael O'Hanlon (<a href="mailto:mohanlon@mitre.org">mohanlon@mitre.org</a>)<br/>
+      <b>Last Updated:</b> Nov 18, 2024<br/>
 
       <div className="sitemap">
 

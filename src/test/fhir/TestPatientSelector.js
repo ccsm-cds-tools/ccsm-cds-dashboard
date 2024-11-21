@@ -7,9 +7,9 @@ const screeningData = [
   {
     key: 'susan',
     name: 'Susan21 Holden65',
-    age: '42',
+    age: '44',
     scenario: 'Average risk screening; patient has history.',
-    updated: '7/20/2022'
+    updated: '11/21/2024'
   }
 ];
 const screeningPad = 1;
@@ -31,14 +31,14 @@ const incompleteData = [
     name: 'Paulina58 Vale56',
     age: '28',
     scenario: 'Average risk screening; patient has no history.',
-    updated: '7/20/2022'
+    updated: '11/21/2024'
   },
   {
     key: 'lily',
     name: 'Lily23 Flowers68',
-    age: '36',
+    age: '38',
     scenario: 'Post-biopsy; unstructured data in record.',
-    updated: '7/20/2022'
+    updated: '11/21/2024'
   }
 ];
 const incompletePad = managementPad + managementData.length;

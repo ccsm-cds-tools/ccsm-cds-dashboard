@@ -37,7 +37,7 @@ const testCodeResultMapping = [
       },
       {
         text: "High grade squamous intraepithelial lesion, Carcinoma in situ dysplasia",
-        code: "62061000119107"
+        code: "416033009"
       },
       {
         text: "invasive squamous cell carcinoma",

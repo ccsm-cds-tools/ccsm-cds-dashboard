@@ -1099,46 +1099,6 @@ export const testData = {
           },
           {
               "resource": {
-                  "resourceType": "Condition",
-                  "id": "8ec09ad2-2499-492a-a9b6-398e4ae8f837",
-                  "subject": {
-                      "reference": "Patient/b0d65a87-8ec9-4d73-930e-b1dd925360ca"
-                  },
-                  "clinicalStatus": {
-                      "coding": [
-                          {
-                              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-                              "code": "active",
-                              "display": "Active"
-                          }
-                      ],
-                      "text": "Active"
-                  },
-                  "verificationStatus": {
-                      "coding": [
-                          {
-                              "system": "https://www.hl7.org/fhir/codesystem-condition-ver-status",
-                              "code": "confirmed",
-                              "display": "Confirmed"
-                          }
-                      ],
-                      "text": "Confirmed"
-                  },
-                  "code": {
-                      "coding": [
-                          {
-                              "system": "http://hl7.org/fhir/sid/icd-9-cm",
-                              "code": "710.0",
-                              "display": "Systemic lupus erythematosus"
-                          }
-                      ],
-                      "text": "Systemic lupus erythematosus"
-                  },
-                  "onsetDateTime": "2017-05-01T00:00:00.000Z"
-              }
-          },
-          {
-              "resource": {
                   "resourceType": "DiagnosticReport",
                   "id": "8a1322df-5e56-41d4-a9dc-079f5edbabcf",
                   "subject": {
@@ -1289,7 +1249,7 @@ export const testData = {
                       }
                   ],
                   "gender": "female",
-                  "birthDate": "1964-08-14",
+                  "birthDate": "1974-08-14",
                   "extension": [
                       {
                           "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
@@ -1450,7 +1410,7 @@ export const testData = {
                       }
                   ],
                   "gender": "female",
-                  "birthDate": "2003-04-01",
+                  "birthDate": "1985-04-01",
                   "extension": [
                       {
                           "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
@@ -2854,27 +2814,6 @@ export const testData = {
                       }
                   ],
                   "effectiveDateTime": "2024-03-02T00:00:00.000Z"
-              }
-          },
-          {
-              "resource": {
-                  "resourceType": "Procedure",
-                  "id": "d08fbd0d-a890-4f96-a740-b24f85f6e49d",
-                  "subject": {
-                      "reference": "Patient/bc32e003-d126-4595-9f53-a491eeb3379b"
-                  },
-                  "status": "completed",
-                  "code": {
-                      "coding": [
-                          {
-                              "system": "http://snomed.info/sct",
-                              "code": "23140002",
-                              "display": "Loop electrosurgical excision procedure of cervix (procedure)"
-                          }
-                      ],
-                      "text": "Loop electrosurgical excision procedure of cervix (procedure)"
-                  },
-                  "performedDateTime": "2023-08-22T00:00:00.000Z"
               }
           },
           {

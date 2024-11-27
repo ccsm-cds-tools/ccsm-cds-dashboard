@@ -13,7 +13,8 @@ function SortableTable(props) {
   const ascendingOrDescending = (name) => {
     return sortConfig?.key === name ? sortConfig.direction : 'none';
   };
-
+  const highlightClass = ['unknown','normal','high'];
+  
   if (items.length === 0) return <div></div>
   else return(
     <Table className='sortable'>
@@ -47,9 +48,10 @@ function SortableTable(props) {
       <tbody>{
         items.map((itm,idx) => {
           const incompleteClass = itm?.status === 'incomplete' ? 'incomplete' : '';
+          let gradeClass = highlightClass[itm.grade];
           return (
-            <tr className={incompleteClass} key={idx}>
-              { header.map((hdr,hid) => <td key={hid}>{RenderRowElement(hdr,itm,formInfo,setDataToView)}</td>) }
+            <tr className={incompleteClass + " " + gradeClass} key={idx}>
+              { header.map((hdr,hid) => <td key={hid} className={hdr.key}>{RenderRowElement(hdr,itm,formInfo,setDataToView)}</td>) }
             </tr>
           )
         })

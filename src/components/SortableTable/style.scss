@@ -1,6 +1,6 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
-Table.sortable {
+table.sortable {
   font-size:0.9rem;
   line-height:1.5em;
   thead tr th button {
@@ -10,9 +10,9 @@ Table.sortable {
   }
   tbody tr td {
     border:none; 
-    padding:0.25rem 0.5rem 0 0.5rem;
+    padding:0.20rem 0.5rem 0.1rem 0.5rem;
     &.warn {
-      background-color:#ffe392
+      background-color:#fbecee;
     }
     &:first-child {
       font-weight: bolder;
@@ -68,12 +68,18 @@ Table.sortable {
     color: black;
   }
 
-  .incomplete {
-    color: $red-700;
+
+  tr.incomplete {
+    background-color: #fbecee;
+    color: #9a2029;
     text-transform:uppercase;
     font-size:0.9rem;
     font-weight: bold;
   }
+  tr.high td.label {color:#9a2029; font-weight:bold}
+
+  tr.unknown td {background-color:#fec}
+  
   td.incomplete a {
     color: $red-700;
     font-weight: bold;
@@ -82,15 +88,23 @@ Table.sortable {
     border-bottom:1px solid #ccc;
     padding-bottom:0.5rem
   }
-  tr.incomplete {
-    background-color: $red-100;
-  }
   td {
     vertical-align: middle;
   }
   .btn-view-link {
     padding:0;
   }
+}
+
+/* fix the width of the date-* and view columns in the tables */
+table.sortable.table tr th:nth-last-child(-n +2) {
+  width:11em;
+  max-width:11em;
+}
+  
+table.sortable.table tr th:last-child {
+  width:7em;
+  max-width:7em;
 }
 
 .is_manual {

@@ -18,7 +18,7 @@ export const config = {
               detailKey: 'longName'
             },
             {
-              key: 'value',
+              key: 'label',
               display: 'Result',
               detailKey: 'longValue'
             },

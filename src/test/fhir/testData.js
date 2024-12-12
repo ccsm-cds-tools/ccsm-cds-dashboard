@@ -2050,6 +2050,27 @@ export const testData = {
               }
           },
           {
+            "resource": {
+              "resourceType": "Procedure",
+              "id": "02bc5f6b-4b32-4788-9e0d-a71ea57a1266-colpo",
+              "subject": {
+                "reference": "Patient/029331f9-8cc2-4fbe-94c2-6fa29f47302a"
+              },
+              "status": "completed",
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "176786003",
+                    "display": "Colposcopy of cervix (procedure)"
+                  }
+                ],
+                "text": "Colposcopy of cervix (procedure)"
+              },
+              "performedDateTime": "2022-11-18T00:00:00.000Z"
+            }
+          },
+          {
               "resource": {
                   "resourceType": "DiagnosticReport",
                   "id": "fc5e145f-d6cf-45ef-9338-cbbb1aad9b42",
@@ -2614,6 +2635,27 @@ export const testData = {
                   ],
                   "effectiveDateTime": "2023-02-05T00:00:00.000Z"
               }
+          },
+          {
+            "resource": {
+              "resourceType": "Procedure",
+              "id": "7e6403a2-4300-4021-888a-a9fef77818d3-colpo",
+              "subject": {
+                "reference": "Patient/fa6d5cd6-1ac3-452f-811e-7c62360f8092"
+              },
+              "status": "completed",
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "176786003",
+                    "display": "Colposcopy of cervix (procedure)"
+                  }
+                ],
+                "text": "Colposcopy of cervix (procedure)"
+              },
+              "performedDateTime": "2023-02-05T00:00:00.000Z"
+            }
           }
       ]
   },
@@ -2848,6 +2890,27 @@ export const testData = {
                   ],
                   "effectiveDateTime": "2023-08-06T00:00:00.000Z"
               }
+          },
+          {
+            "resource": {
+              "resourceType": "Procedure",
+              "id": "32af77cf-cc7f-43a9-b96e-676a67b5d6d2-colpo",
+              "subject": {
+                "reference": "Patient/bc32e003-d126-4595-9f53-a491eeb3379b"
+              },
+              "status": "completed",
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "176786003",
+                    "display": "Colposcopy of cervix (procedure)"
+                  }
+                ],
+                "text": "Colposcopy of cervix (procedure)"
+              },
+              "performedDateTime": "2023-08-06T00:00:00.000Z"
+            }
           }
       ]
   },
@@ -3016,6 +3079,27 @@ export const testData = {
                   ],
                   "effectiveDateTime": "2024-01-02T00:00:00.000Z"
               }
+          },
+          {
+            "resource": {
+              "resourceType": "Procedure",
+              "id": "0a2c80db-f080-48fd-9a23-dedc08942717-colpo",
+              "subject": {
+                "reference": "Patient/38539a1f-3a61-4c03-a27d-cc3d81707e9d"
+              },
+              "status": "completed",
+              "code": {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "176786003",
+                    "display": "Colposcopy of cervix (procedure)"
+                  }
+                ],
+                "text": "Colposcopy of cervix (procedure)"
+              },
+              "performedDateTime": "2024-01-02T00:00:00.000Z"
+            }
           },
           {
               "resource": {

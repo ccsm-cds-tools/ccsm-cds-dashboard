@@ -1,14 +1,18 @@
 
-.patient-name {font-size:2rem}
+.patient-name {font-size:1.5rem}
 
 .id {
   b {text-transform:uppercase;color:#666;font-size:0.9rem;margin-top:5px}
   a {font-size:0.9rem}
   border-bottom: 1px solid #ddd;
   padding-bottom:5px;
+  display:flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom:1rem;
 }
 
-.info-items {margin-bottom:2rem;border-bottom:1px solid #ccc;padding-bottom:0.5rem;margin-top:1rem}
-.info-items b {display:block;text-transform:uppercase;color:#666;font-size:0.8rem;margin-top:5px}
+.info-items {margin-bottom:1rem;border-bottom:1px solid #ccc;margin-top:1rem}
+.info-items b {display:block;text-transform:uppercase;color:#333;font-size:0.8rem;margin-top:5px}
 .info-item {margin-bottom:1rem}
 

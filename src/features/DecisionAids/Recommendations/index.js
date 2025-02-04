@@ -2,10 +2,13 @@ import { Alert, Button, Card } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import ViewDataDialog from 'components/ViewDataDialog';
 import RiskEstimates from 'features/DecisionAids/RiskEstimates';
+import SpecialConsiderations from 'features/SpecialConsiderations';
+import { formatDate } from 'util/formatDate';
+
 import './style.scss';
 
 function Recommendations(props) {
-  let { 
+  let {
     input: {
       recommendation='',
       recommendationGroup='',
@@ -14,9 +17,11 @@ function Recommendations(props) {
       errors=[],
       disclaimer='',
       suggestedOrders='',
-      riskTable={}
+      riskTable={},
+      isCdsApplied
     },
-    resolver=()=>{}
+    toggleStatus, 
+    onToggleStatusChange
   } = props;
 
   if (riskTable === null) riskTable = {};
@@ -40,33 +45,37 @@ function Recommendations(props) {
 
   return (
     <div>
+      <SpecialConsiderations toggleStatus={toggleStatus} onToggleStatusChange={onToggleStatusChange} />
       <Card>
+        <Card.Header>Screening and Management Recommendation</Card.Header>
         <Card.Body>
           <Card.Title as='h3'>
-            { 
+            {
               errors.length > 0 ?
               <i className='bi bi-exclamation-triangle-fill text-danger'></i> :
               null
             }
-            { 
-              errors.length > 0 ?
-                'Cannot Make Recommendation' :
-                recommendation === '' ?
-                  'No Recommendation' :
-                  recommendation
+            {
+              errors.length > 0 ? 'Cannot Make Recommendation'
+                : !isCdsApplied ? 'Loading Recommendation ...'
+                : recommendation.length === 0 ? 'Cannot Make Recommendation'
+                : recommendation
             }
           </Card.Title>
           <Card.Subtitle as='h4'>
-            <div>{recommendationGroup}</div>
-            <div>{recommendationDate != '' ? 'Due: ' + recommendationDate : null}</div>
+            <div>{recommendationDate != '' ? 'Due: ' + formatDate(recommendationDate) : null}</div>
           </Card.Subtitle>
           {
-            recommendationDetails.map((detail,idx) => {
-              return <Card.Text key={idx}>{detail}</Card.Text>
-            })
+            !isCdsApplied || errors.length > 0 ? ''
+              : recommendation.length === 0 ?
+                <Card.Text>The guidelines do not provide any recommendation for this case. Please use clinical judgement.</Card.Text>
+              : recommendationDetails.map((detail,idx) => {
+                 return <Card.Text key={idx}>{detail}</Card.Text>
+               })
           }
-          <Alert 
-            show={show} 
+          <div className="recommendation-group-text">{recommendationGroup}</div>
+          <Alert
+            show={show}
             variant={errors.length > 0 ? 'danger' : 'warning'}
             dismissible={errors.length === 0}
             onClose={() => setShow(false)}
@@ -77,8 +86,8 @@ function Recommendations(props) {
                 disclaimer
             }
           </Alert>
-          <RecommendationFooter areErrs={errors.length > 0} sugOrds={suggestedOrders} setDataToView={setDataToView} />
-          <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} />
+          {/* <RecommendationFooter areErrs={errors.length > 0} sugOrds={suggestedOrders} setDataToView={setDataToView} />
+          <ViewDataDialog resolver={resolver} dataToView={dataToView} setDataToView={setDataToView} /> */}
         </Card.Body>
       </Card>
       <RiskEstimates input={riskTable} />

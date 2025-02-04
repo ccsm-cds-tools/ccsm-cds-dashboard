@@ -3,6 +3,7 @@ import SortableTable from 'components/SortableTable';
 import ViewDataDialog from 'components/ViewDataDialog';
 import HistoryGroupFooter from './HistoryGroupFooter.js';
 import HistoryGroupModals from './HistoryGroupModals.js';
+import IconTooltip from 'components/IconTooltip';
 
 import './styles.scss';
 
@@ -15,6 +16,7 @@ function HistoryGroup(props) {
         filled='',
         empty=''
       },
+      disclaimer,
       tables=[]
     }, 
     tableData,
@@ -42,7 +44,8 @@ function HistoryGroup(props) {
 
   return (
     <div className="history-group">
-      <h2>{title}</h2>
+      <h2>{title}      { disclaimer ? <IconTooltip text={disclaimer}></IconTooltip> : null} </h2>
+
       <HistoryGroupHeading headingText={noHistory ? empty : filled} />
       {
         Object.entries(tableData).map((data,idx) => {

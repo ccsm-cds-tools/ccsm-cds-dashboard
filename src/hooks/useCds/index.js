@@ -3,75 +3,109 @@ import { applyPlan, simpleResolver } from 'encender';
 import { elmJsonDependencies } from 'services/cql/index.mjs';
 import { cdsResources } from 'services/fhir';
 import { valueSetJson } from 'services/valuesets';
+import { translateResponse, translateToggleChange } from './translate';
+import { stridesData } from './strides';
 
 /**
- * 
- * @param {Object[]} patientData 
+ *
+ * @param {Object[]} patientData
  * @returns {Object}
  */
-export const useCds = (patientData) => {
+export const useCds = (patientData, toggleStatus) => {
 
   const [output, setOutput] = useState({});
+  const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
+  const [isPregnant, setIsPreganant] = useState(false);
 
   useEffect(() => {
-    console.log('patientData: ', patientData);
-    applyCds(patientData, setOutput);
-  }, [patientData]);
+    if (patientData.length === 0) {
+      return;
+    }
 
-  return output; 
+    setIsLoadingCdsData(true);
+
+    console.log('toggleStatus: ', toggleStatus);
+    console.log('patientData before translation: ', patientData);
+    console.time('Translate FHIR Data');
+
+    if (toggleStatus.isToggleChanged) {
+      translateToggleChange(patientData, toggleStatus);
+    } else {
+      translateResponse(patientData, stridesData);
+    }
+
+    console.timeEnd('Translate FHIR Data');
+    console.log('patientData after translation: ', patientData);
+
+    applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);
+  }, [patientData, toggleStatus, isPregnant]);
+
+  return {output, isLoadingCdsData};
 }
 
 /**
- * 
- * @param {Object[]} patientData 
- * @param {function} setOutput 
+ *
+ * @param {Object[]} patientData
+ * @param {function} setOutput
  */
-const applyCds = async function(patientData, setOutput) {
+const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant) {
+  console.log('Starting applyCds()');
+  console.time('Apply CDS');
+
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
   // TODO: Throw error if there is anything other than 1 patient resource
   const patientReference = 'Patient/' + patientData.filter(pd => pd.resourceType === 'Patient').map(pd => pd.id)[0];
 
   if (patientReference !== 'Patient/undefined') {
+    // NOTE: CQL Worker is not used with cql-execution branch of encender
     const WorkerFactory = () => {
       return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
     };
+    
+    // TODO: Move cqlParameters to a separate file within this directory and import them into this file
+    const cqlParameters = {
+      CervicalCytologyLookbackDate : '2017-04-04'
+    };
+
     const aux = {
       elmJsonDependencies,
       valueSetJson,
       WorkerFactory,
+      cqlParameters
     };
+
     const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
-    
+
     let CommunicationRequests = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest');
     let DisplayCervicalCancerMedicalHistory = CommunicationRequests.filter(cr => {
-      return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/DisplayCervicalCancerMedicalHistory';
     })[0];
     let CervicalCancerDecisionAids = CommunicationRequests.filter(cr => {
-      return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids';
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CervicalCancerDecisionAids';
     })[0];
     let Errors = CommunicationRequests.filter(cr => {
-      return cr?.basedOn?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
     })[0];
 
     let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');
-    let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.display === 'Primary HPV')[0];
-    let CytologyRequest = ServiceRequests.filter(sr => sr.code.display === 'Cytology')[0];
-    let CotestRequest = ServiceRequests.filter(sr => sr.code.display === 'Cotest')[0];
-    let ColposcopyRequest = ServiceRequests.filter(sr => sr.code.display === 'Colposcopy')[0];
-    let SurveillanceRequest = ServiceRequests.filter(sr => sr.code.display === 'Surveillance')[0];
-    let TreatmentRequest = ServiceRequests.filter(sr => sr.code.display === 'Treatment')[0];
+    let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.text === 'Primary HPV')[0];
+    let CytologyRequest = ServiceRequests.filter(sr => sr.code.text === 'Cytology')[0];
+    let CotestRequest = ServiceRequests.filter(sr => sr.code.text === 'Cotest')[0];
+    let ColposcopyRequest = ServiceRequests.filter(sr => sr.code.text === 'Colposcopy')[0];
+    let SurveillanceRequest = ServiceRequests.filter(sr => sr.code.text === 'Surveillance')[0];
+    let TreatmentRequest = ServiceRequests.filter(sr => sr.code.text === 'Treatment')[0];
 
     resolver = simpleResolver(
       [
-        ...cdsResources, 
+        ...cdsResources,
         ...patientData,
         ...CommunicationRequests,
         ...ServiceRequests
-      ], 
+      ],
       false
     );
-    
+
     console.log('CarePlan: ', CarePlan);
     console.log('RequestGroup: ', RequestGroup);
     console.log('otherResources: ', otherResources);
@@ -104,25 +138,38 @@ const applyCds = async function(patientData, setOutput) {
           default: return null;
         }
       });
-      thereAreOutputs = true;
     } else if (Errors?.payload?.length > 0) {
       let errorString = Errors.payload[0].contentString;
       let errors = JSON.parse(errorString);
       decisionAids = { errors };
-      thereAreOutputs = true;
     }
 
     if (thereAreOutputs) {
-      setOutput(
-        {
-          patientInfo,
-          patientHistory,
-          decisionAids,
-          resolver: (r) => r === '' ? {} : resolver(r),
-          patientReference
-        }
-      );
+      if (patientHistory.observations?.length > 0) {
+        patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
+      }
+
+      if (isToggleChanged) {
+        patientInfo.isPregnant = isPregnant;
+      } else {
+        setIsPreganant(patientInfo.isPregnant);
+      }
     }
+
+    decisionAids.isCdsApplied = true;
+
+    const output = {
+      patientInfo,
+      patientHistory,
+      decisionAids,
+      resolver: (r) => r === '' ? {} : resolver(r),
+      patientReference
+    }
+
+    console.timeEnd('Apply CDS');
+    console.log('CDS output:', output);
+    setIsLoadingCdsData(false);
+    setOutput(output);
   }
-    
+
 }

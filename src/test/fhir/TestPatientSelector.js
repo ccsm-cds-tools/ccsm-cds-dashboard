@@ -7,9 +7,9 @@ const screeningData = [
   {
     key: 'susan',
     name: 'Susan21 Holden65',
-    age: '42',
+    age: '44',
     scenario: 'Average risk screening; patient has history.',
-    updated: '7/20/2022'
+    updated: '11/21/2024'
   }
 ];
 const screeningPad = 1;
@@ -18,9 +18,9 @@ const managementData = [
   {
     key: 'joanne',
     name: 'Joanne42 Smith657',
-    age: '31',
+    age: '33',
     scenario: 'Management Table 4.',
-    updated: '7/21/2022'
+    updated: '11/18/2024'
   }
 ];
 const managementPad = screeningPad + screeningData.length;
@@ -31,14 +31,14 @@ const incompleteData = [
     name: 'Paulina58 Vale56',
     age: '28',
     scenario: 'Average risk screening; patient has no history.',
-    updated: '7/20/2022'
+    updated: '11/21/2024'
   },
   {
     key: 'lily',
     name: 'Lily23 Flowers68',
-    age: '36',
+    age: '38',
     scenario: 'Post-biopsy; unstructured data in record.',
-    updated: '7/20/2022'
+    updated: '11/21/2024'
   }
 ];
 const incompletePad = managementPad + managementData.length;
@@ -53,8 +53,8 @@ export function TestPatientSelector() {
       </div>
 
       <h3>FHIR Test Patients</h3>
-      <b>Author:</b> David Winters (<a href="mailto:dwinters@mitre.org">dwinters@mitre.org</a>)<br/>
-      <b>Last Updated:</b> Jul 20, 2022<br/>
+      <b>Author:</b> Michael O'Hanlon (<a href="mailto:mohanlon@mitre.org">mohanlon@mitre.org</a>)<br/>
+      <b>Last Updated:</b> Nov 18, 2024<br/>
 
       <div className="sitemap">
 

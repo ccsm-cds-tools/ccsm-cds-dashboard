@@ -1,50 +1,25 @@
 import './style.scss';
-
+import { formatDate } from 'util/formatDate';
 function PatientInfo(props) {
 
   const {input} = props;
+  console.log("Dashboard input: ", input)
 
-  const dob = formatDateOfBirth(input?.dateOfBirth?.value);
+  const dob = formatDate(input?.dateOfBirth?.value);
+  const age = input?.age ? ' (' + input.age + ' y.o.)' : '';
   const ids = input.id ?? [];
-  const actNum = ids.length > 0 ? ids[0]?.value : '';
+  const mrn = getMrn(ids);
+  // NOTE: Gender is no longer used in the patient-info display. Keeping the gender variable here, so that it can be added back in the future, if needed.
+  const gender = capitalizeGender(input.gender); // eslint-disable-line no-unused-vars
 
   return (
     <section className="patient-info">
-      <div className="patient-name">{input.name}</div>
+      <h1 className="patient-name">{input.name}</h1>
       <div className="patient-detail">
         <div className="id">
-          <div className="float-end"><a href="fake_ehr.html" className="view">View patient in EHR</a></div>
-          <div><b>Account Number:</b> <span>{actNum}</span></div>
+          <div><b>Date of Birth:</b> <span><time dateTime={dob}>{dob}</time></span>{age}</div>
+          <div><b>MRN:</b> <span>{mrn}</span></div>
           <div><b>Pregnant:</b> <span>{input.isPregnant === false ? 'No' : input.isPregnant === true ? 'Yes' : null}</span></div>
-        </div>
-        <div className="info-items">
-          <div className="row">
-            <div className="col">
-              <div className="info-item">
-                <b>Date of Birth</b> <span><time dateTime={dob}>{dob}</time></span>
-              </div>
-              <div className="info-item">
-                <b>Sex at Birth</b>
-                <span>{input.sexAtBirth}</span>
-              </div>
-            </div>
-            <div className="col">
-              <div className="info-item">
-                <b>Age</b> <span>{input.age}</span>
-              </div>
-              <div className="info-item">
-                <b>Gender</b> <span>{input.gender}</span>
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="info-item">
-                <b>Preferred Language</b> <span>{input.primaryLanguage}</span>
-              </div>
-              <div className="info-item">
-                <b>Race/Ethnicity</b> <span>{input.race}</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -53,15 +28,19 @@ function PatientInfo(props) {
 
 export default PatientInfo;
 
-function formatDateOfBirth(dateOfBirth) {
-  const day = String(dateOfBirth?.day ?? '');
-  const month = String(dateOfBirth?.month ?? '');
-  const year = String(dateOfBirth?.year ?? '');
+function getMrn(ids) {
+  if (ids.length > 0) {
+    const mrnTextValues = ["MRN", "MR", "Medical Record Number"]
+    const mrn = ids.find(id =>
+      mrnTextValues.includes(id.type?.text.value)||
+      (id.type?.coding && mrnTextValues.includes(id.type?.coding[0].code.value))
+    );
+    return mrn ? mrn.value.value : 'Unknown';
+  } else {
+    return 'Unknown';
+  }
+}
 
-  const dobString = 
-    month.padStart(2,'0') + ' / ' +
-    day.padStart(2,'0') + ' / ' +
-    year;
-
-  return dateOfBirth ? dobString : null;
+function capitalizeGender(inputGender) {
+  return inputGender ? inputGender.charAt(0).toUpperCase() + inputGender.slice(1) : '';
 }

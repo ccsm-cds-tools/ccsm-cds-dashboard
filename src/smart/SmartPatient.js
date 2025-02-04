@@ -1,92 +1,220 @@
 import { useEffect, useState } from 'react';
 import FHIR from 'fhirclient';
-
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
-
 import { config } from './smart.config.js';
 
 export function SmartPatient() {
 
   const [patientData, setPatientData] = useState([]);
-  const dashboardInput = useCds(patientData);
+  const [convertedData, setConvertedData] = useState([]);
+  const [isLoadingFHIRData, setIsLoadingFHIRData] = useState(false);
+  const [client, setClient] = useState(undefined); // client
+  const [toggleStatus, setToggleStatus] = useState({
+    isImmunosuppressed: false,
+    isPregnant: false,
+    isPregnantConcerned: false,
+    isSymptomatic: false,
+    isToggleChanged: false
+  });
+
+  const { output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus);
+  const isLoading = isLoadingFHIRData || isLoadingCdsData;
+  useEffect(() => {
+    FHIR.oauth2.ready().then((client)=>{
+      console.log(client);
+      setClient(client);
+    });
+
+  }, []);
 
   useEffect(() => {
     async function smartOnFhir() {
+      console.time('Load FHIR Data');
+      setIsLoadingFHIRData(true);
       let newData = [];
-      let client = await FHIR.oauth2.ready();
-      
-      let pid = await client.patient.read().then(function(pt) {
-        if (pt) newData.unshift(pt);
-        console.log(pt);
+      let newFshData = [];
+
+      const fhirParser = await boundParser(newData, newFshData);
+
+      let pid = await client.patient.read().then(async function(pt) {
+        await fhirParser(pt);
         return pt.id;
       });
 
-      await client.request('/Condition?patient=' + pid).then(function(cd) {
-        if (cd) {
-          console.log(cd);
-          if (cd.resourceType == 'Bundle' && cd.entry) {
-            cd.entry.forEach(c => {
-              if (c.resource) newData.push(c.resource);
-            });
-          } else if (Array.isArray(cd)) {
-            cd.forEach(c => {
-              if (c.resourceType) newData.push(c);
-            });
-          } else {
-            newData.push(cd);
-          }
-        }
-      });
+      const promises = [];
 
-      await client.request('/Observation?patient=' + pid).then(function(ob) {
-        if (ob) {
-          console.log(ob);
-          if (ob.resourceType == 'Bundle' &&  ob.entry) {
-            ob.entry.forEach(o => {
-              if (o.resource) newData.push(o.resource);
-            });
-          } else if (Array.isArray(ob)) {
-            ob.forEach(o => {
-              if (o.resourceType) newData.push(o);
-            });
-          } else {
-            newData.push(o);
-          }
-        }
-      });
+      // NOTE: Certain API Searches have been commented out, in favor of performance, so that CDS can process only the data critical to making a recommendation.
+      // Data elements obtained from commented out API Searches can be supplemented in the meantime via the user toggle switches.
+      // TODO: Restore commented out API Searches once performance issues have been addressed
 
-      await client.request('/DiagnosticReport?patient=' + pid).then(function(dr) {
-        if (dr) {
-          console.log(dr);
-          if (dr.resourceType == 'Bundle' &&  dr.entry) {
-            dr.entry.forEach(d => {
-              if (d.resource) newData.push(d.resource);
-            });
-          } else if (Array.isArray(dr)) {
-            dr.forEach(d => {
-              if (d.resourceType) newData.push(d);
-            });
-          } else {
-            newData.push(dr);
-          }
-        }
-      });
+      // promises.push(client.request(`/Condition?patient=${pid}&category=problem-list-item,medical-history`).then(fhirParser));
+      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab`).then(fhirParser));
+      // promises.push(client.request(`/Immunization?patient=${pid}&status=completed&vaccine-code=118,137,165,62`).then(fhirParser));
+      // promises.push(client.request(`/MedicationRequest?patient=${pid}&status=completed`).then(fhirParser));
+      promises.push(client.request(`/Procedure?patient=${pid}&status=completed&category=http://snomed.info/sct|103693007,http://snomed.info/sct|387713003`).then(fhirParser)); // Search Procedures with category of Diagnostic procedure or Surgical procedure
 
+      // const eocType = process.env?.REACT_APP_CCSM_EPISODEOFCARE_TYPES ?? 'urn:id:1.2.840.114350.1.13.284.2.7.2.726668|2'; // Search Episodes of Care with type of Pregnancy
+      // promises.push(client.request(`/EpisodeOfCare?patient=${pid}&type=${eocType}`).then(fhirParser));
+
+      // promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory,obstetrics-gynecology`).then(fhirParser));
+      // promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=social-history&code=http://loinc.org|82810-3`).then(fhirParser)); // Search Observations with code of Pregnancy status
+      promises.push(client.request(`/Observation?patient=${pid}&status=final,corrected,amended&category=laboratory`).then(fhirParser));
+
+      try {
+        await Promise.allSettled(promises);
+      } catch (e) {
+        console.log(e);
+      }
+
+      console.timeEnd('Load FHIR Data');
       setPatientData(newData);
+      setConvertedData(newFshData);
+      setIsLoadingFHIRData(false);
     }
-    smartOnFhir();
-  },[]);
+    if(client){
+      smartOnFhir();
+    }
+  },[client]);
 
-  // Return the Dashboard
+
+
+function displayRecommendations(decisionAids) {
+  if (!decisionAids) {
+    return 'Waiting for recommendations ...';
+  }
+
+  const {
+    recommendation = '',
+    recommendationGroup = '',
+    recommendationDate = '',
+    recommendationDetails = [],
+    errors=[]
+  } = decisionAids;
+
+  let output = '';
+
+  if (errors.length > 0) {
+    output = `Cannot Make Recommendation.\n---\n${errors.join('\n')}`;
+  } else {
+    const formattedRecommendation = recommendation === '' ? 'No Recommendation' : recommendation;
+    const formattedRecommendationDate = recommendationDate !== '' ? `Due: ${recommendationDate}` : '';
+
+    output = `Recommendations: ${formattedRecommendation}\n${recommendationGroup}\n${formattedRecommendationDate}\n---\n${recommendationDetails.join('\n')}`;
+  }
+
+  return output;
+}
+
+function cleanFsh(fsh) {
+  const fshString = typeof fsh === "string" ? fsh : fsh.fsh;
+  return fshString.replaceAll('undefined', '\n').replaceAll(',', '\n');
+}
+async function handlePages(bundle, callback) {
+  if(bundle.link) {
+    const requests = bundle.link
+      .filter(link => link.relation === 'next')
+      .map(link => client.request(link.url).then(resource => callback(resource)));
+    await Promise.all(requests);
+  }
+}
+
+async function boundParser(data, fshData) {
+  const options = { dependencies: [], indent: true };
+
+  let convert = (c) => Promise.resolve(c);
+
+  if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+    const module = await import('./FSHHelpers');
+    convert = (c) => module.runGoFSH([JSON.stringify(c)], options);
+  }
+
+  return async function parseFhir(rsrc) {
+    if (!rsrc) return;
+
+    if (rsrc.resourceType === 'Bundle' && rsrc.entry) {
+      await handlePages(rsrc, parseFhir) // handle pages recursively
+      await Promise.all(rsrc.entry.map(async (c) => {
+        if (!c.resource) return;
+        console.log(c.resource.resourceType);
+
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c.resource);
+          fshData.push(cleanFsh(fsh));
+        }
+
+        data.push(c.resource);
+
+      }));
+    } else if (Array.isArray(rsrc)) {
+      await Promise.all(rsrc.map(async (c) => {
+        if (!c.resourceType) return;
+        console.log(c.resourceType);
+
+        if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+          const fsh = await convert(c);
+          fshData.push(cleanFsh(fsh));
+        }
+
+        data.push(c);
+      }));
+    } else {
+      if (!rsrc.resourceType) return;
+      console.log(rsrc.resourceType);
+
+      if (process.env?.REACT_APP_DEBUG_FHIR === 'true') {
+        const fsh = await convert(rsrc);
+        fshData.push(cleanFsh(fsh));
+      }
+
+      data.push(rsrc);
+    }
+  };
+}
+
+if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
   return (
-    <div className="content">
-      <Dashboard 
-        input={dashboardInput} 
-        config={config} 
-        setPatientData={setPatientData}
-      />
+    <div className="debug">
+      <div key="recommendations">
+        {
+          <pre>
+            {displayRecommendations(dashboardInput.decisionAids)}
+          </pre>
+        }
+      </div>
+      <hr />
+      <div key="patientData">
+        {
+          convertedData.map((converted, idx) => (
+            <div key={idx}>
+              <pre>{converted}</pre>
+              <hr />
+            </div>
+          ))
+        }
+      </div>
     </div>
   )
-  
+} else {
+  return (
+    <div className="content">
+    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation and is <b>not for use in clinical practice.</b></p>
+      <div className="dashboard-container">
+        {isLoading && (
+          <div className="overlay">
+            <div className="spinner"></div>
+          </div>
+        )}
+      <Dashboard
+        input={dashboardInput}
+        config={config}
+        setPatientData={setPatientData}
+        toggleStatus={toggleStatus}
+        onToggleStatusChange={setToggleStatus}
+      />
+      </div>
+    </div>
+  )
+}
+
 }

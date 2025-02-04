@@ -1,47 +1,48 @@
+// NOTE: Webpack is not understanding the ccsm-cds-with-tests exports, kludge is to use the relative path.
+
 // ActivityDefinition resources
-import { CervicalCancerDecisionAids } from "./ActivityDefinition/CervicalCancerDecisionAids";
-import { CervicalCancerManagementActivity } from "./ActivityDefinition/CervicalCancerManagementActivity";
-import { CervicalCancerScreeningActivity } from "./ActivityDefinition/CervicalCancerScreeningActivity";
-import { CommunicateErrors } from "./ActivityDefinition/CommunicateErrors";
-import { DisplayCervicalCancerMedicalHistory } from "./ActivityDefinition/DisplayCervicalCancerMedicalHistory";
+import { CervicalCancerDecisionAids } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/CervicalCancerDecisionAids.js';
+import { CervicalCancerManagementActivity } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/CervicalCancerManagementActivity.js';
+import { CervicalCancerScreeningActivity } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/CervicalCancerScreeningActivity.js';
+import { CommunicateErrors } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/CommunicateErrors.js';
+import { DisplayCervicalCancerMedicalHistory } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/DisplayCervicalCancerMedicalHistory.js';
 
 // Library resources
-import { DashboardLibrary } from "./Library/DashboardLibrary";
-import { ManagementLibrary } from "./Library/ManagementLibrary";
-import { OrderSetLibrary } from "./Library/OrderSetLibrary";
-import { ScreeningAverageRiskLibrary } from "./Library/ScreeningAverageRiskLibrary";
-import { ScreeningDesExposureLibrary } from "./Library/ScreeningDesExposureLibrary";
-import { ScreeningImmunocompromisedLibrary } from "./Library/ScreeningImmunocompromisedLibrary";
-import { ScreeningLibrary } from "./Library/ScreeningLibrary";
-import { ScreeningSymptomaticLibrary } from "./Library/ScreeningSymptomaticLibrary";
+import { DashboardLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/DashboardLibrary.js';
+import { ManagementLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ManagementLibrary.js';
+import { OrderSetLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/OrderSetLibrary.js';
+import { ScreeningAverageRiskLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningAverageRiskLibrary.js';
+import { ScreeningDesExposureLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningDesExposureLibrary.js';
+import { ScreeningImmunocompromisedLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningImmunocompromisedLibrary.js';
+import { ScreeningLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningLibrary.js';
+import { ScreeningSymptomaticLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningSymptomaticLibrary.js';
 
 // PlanDefinition resources
-import { CervicalCancerManagement } from "./PlanDefinition/CervicalCancerManagement";
-import { CervicalCancerManagementActions } from "./PlanDefinition/CervicalCancerManagementActions";
-import { CervicalCancerScreening } from "./PlanDefinition/CervicalCancerScreening";
-import { CervicalCancerScreeningActions } from "./PlanDefinition/CervicalCancerScreeningActions";
+import { CervicalCancerManagement } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerManagement.js';
+import { CervicalCancerManagementActions } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerManagementActions.js';
+import { CervicalCancerScreening } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerScreening.js';
+import { CervicalCancerScreeningActions } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerScreeningActions.js';
 import { 
   CervicalCancerScreeningAndManagementClinicalDecisionSupport 
-} from "./PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport";
+} from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport.js';
 
 // Questionnaire resources
-import { PertinentProcedureQuestionnaire } from "./Questionnaire/PertinentProcedureQuestionnaire";
-import { PertinentConditionQuestionnaire } from "./Questionnaire/PertinentConditionQuestionnaire";
-import { PertinentObservationQuestionnaire } from "./Questionnaire/PertinentObservationQuestionnaire";
-import { PertinentVaccinationQuestionnaire } from "./Questionnaire/PertinentVaccinationQuestionnaire";
-import { ScreeningAndManagementHistoryQuestionnaire } from "./Questionnaire/ScreeningAndManagementHistoryQuestionnaire";
-import { VaccinationHistoryQuestionnaire } from "./Questionnaire/VaccinationHistoryQuestionnaire";
+import { PertinentProcedureQuestionnaire } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Questionnaire/PertinentProcedureQuestionnaire.js';
+import { PertinentConditionQuestionnaire } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Questionnaire/PertinentConditionQuestionnaire.js';
+import { PertinentObservationQuestionnaire } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Questionnaire/PertinentObservationQuestionnaire.js';
+import { PertinentVaccinationQuestionnaire } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Questionnaire/PertinentVaccinationQuestionnaire.js';
+import { ScreeningAndManagementHistoryQuestionnaire } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Questionnaire/ScreeningAndManagementHistoryQuestionnaire.js';
 
 // ValueSet resources
-import { ScreeningAndManagementTestType } from "./ValueSet/ScreeningAndManagementTestType";
-import { CervicalCytologyResult } from "./ValueSet/CervicalCytologyResult";
-import { HpvTestResult } from "./ValueSet/HpvTestResult";
-import { CervicalHistologyResult } from "./ValueSet/CervicalHistologyResult";
-import { PertinentProcedureShortList } from "./ValueSet/PertinentProcedureShortList";
-import { PertinentConditionShortList } from "./ValueSet/PertinentConditionShortList";
-import { PertinentObservationShortList } from "./ValueSet/PertinentObservationShortList";
-import { QualifierValuesShortList } from "./ValueSet/QualifierValuesShortList";
-import { PertinentVaccinationShortList } from "./ValueSet/PertinentVaccinationShortList";
+import { ScreeningAndManagementTestType } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/ScreeningAndManagementTestType.js';
+import { CervicalCytologyResult } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/CervicalCytologyResult.js';
+import { HpvTestResult } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/HpvTestResult.js';
+import { CervicalHistologyResult } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/CervicalHistologyResult.js';
+import { PertinentProcedureShortList } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/PertinentProcedureShortList.js';
+import { PertinentConditionShortList } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/PertinentConditionShortList.js';
+import { PertinentObservationShortList } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/PertinentObservationShortList.js';
+import { QualifierValuesShortList } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/QualifierValuesShortList.js';
+import { PertinentVaccinationShortList } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ValueSet/PertinentVaccinationShortList.js';
 
 export const cdsResources = [
   CervicalCancerDecisionAids,
@@ -67,7 +68,6 @@ export const cdsResources = [
   PertinentObservationQuestionnaire,
   PertinentVaccinationQuestionnaire,
   ScreeningAndManagementHistoryQuestionnaire,
-  VaccinationHistoryQuestionnaire,
   ScreeningAndManagementTestType,
   CervicalCytologyResult,
   HpvTestResult,
@@ -79,4 +79,4 @@ export const cdsResources = [
   QualifierValuesShortList
 ];
 
-export { resourceConverter } from './resourceConverter.js';
+export { resourceConverter } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/resourceConverter.js';

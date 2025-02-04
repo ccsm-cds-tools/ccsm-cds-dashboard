@@ -1,0 +1,18 @@
+.tooltipIcon {
+  font-size:1.4rem;
+  color:#005EA2;
+  margin-left:0.5rem;
+  }
+
+.my-tooltip .tooltip-inner {
+background-color:#fcfdfd;
+border:1px solid #b6e0f0;
+color:#000;
+padding:.5rem 1rem;
+max-width:400px;
+
+}
+
+.my-tooltip.tooltip.show {opacity:1;
+}
+.my-tooltip.bs-tooltip-top .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before  {border-top-color:#b6e0f0;}

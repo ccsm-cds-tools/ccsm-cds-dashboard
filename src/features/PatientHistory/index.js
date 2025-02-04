@@ -12,7 +12,7 @@ function PatientHistory(props) {
   } = props;
 
   return (
-    <section>
+    <section id="histories">
       {
         histories.map((h,idx) => {
           const tableData = collateTableData(h.tables, input);

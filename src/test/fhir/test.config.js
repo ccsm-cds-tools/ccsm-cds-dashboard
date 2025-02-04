@@ -2,11 +2,51 @@
 export const config = {
   histories: [
     {
+      title: 'Screening and Management History',
+      heading: {
+        filled: '',
+        empty: 'No results found'
+      },
+      disclaimer: null,
+      tables: [
+        {
+          name: 'diagnosticReports',
+          header: [
+            {
+              key: 'name',
+              display: 'Test Name/Procedure',
+              detailKey: 'longName'
+            },
+            {
+              key: 'label',
+              display: 'Result',
+              detailKey: 'longValue'
+            },
+            {
+              key: 'date',
+              display: 'Date'
+            },
+            {
+              key: 'status',
+              display: 'Action'
+            }
+          ],
+          addButtonText: 'Add result',
+          form: {
+            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
+            title: 'Add Result',
+            preamble: null
+          }
+        } 
+      ]
+    },
+    {
       title: 'Relevant Medical History',
       heading: {
         filled: 'Includes medical conditions, procedures, and medications that change screening risk',
         empty: 'No relevant history found'
       },
+      disclaimer: null,
       tables: [
         {
           name: 'conditions',
@@ -103,49 +143,12 @@ export const config = {
       ]
     },
     {
-      title: 'Screening and Management History',
-      heading: {
-        filled: '',
-        empty: 'No results found'
-      },
-      tables: [
-        {
-          name: 'diagnosticReports',
-          header: [
-            {
-              key: 'name',
-              display: 'Test Name/Procedure',
-              detailKey: 'longName'
-            },
-            {
-              key: 'value',
-              display: 'Result',
-              detailKey: 'longValue'
-            },
-            {
-              key: 'date',
-              display: 'Date'
-            },
-            {
-              key: 'status',
-              display: 'Action'
-            }
-          ],
-          addButtonText: 'Add result',
-          form: {
-            canonicalUri: 'http://OUR-PLACEHOLDER-URL.com/Questionnaire/ScreeningAndManagementHistoryQuestionnaire',
-            title: 'Add Result',
-            preamble: null
-          }
-        } 
-      ]
-    },
-    {
       title: 'Vaccination History',
       heading: {
         filled: '',
         empty: 'No vaccinations found'
       },
+      disclaimer: null,
       tables: [
         {
           name: 'immunizations',

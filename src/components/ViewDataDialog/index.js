@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
 
 function ViewDataDialog(props) {
 
@@ -16,8 +17,8 @@ function ViewDataDialog(props) {
 
   useEffect(() => {
     setJsonString(JSON.stringify(resolver(dataToView.data), null, 2));
-    if (dataToView.form !== '') setAllowEdit(true);
-    else setAllowEdit(false);
+    if (isEmpty(dataToView.form)) setAllowEdit(false);
+     else setAllowEdit(true);
   }, [dataToView]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

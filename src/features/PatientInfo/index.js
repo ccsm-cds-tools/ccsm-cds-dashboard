@@ -33,7 +33,7 @@ function getMrn(ids) {
     const mrnTextValues = ["MRN", "MR", "Medical Record Number"]
     const mrn = ids.find(id =>
       mrnTextValues.includes(id.type?.text?.value)||
-      (id.type?.coding && mrnTextValues.includes(id.type?.coding[0].code.value))
+      (id.type?.coding && mrnTextValues.includes(id.type?.coding[0]?.code?.value))
     );
     return mrn ? mrn.value.value : 'Unknown';
   } else {

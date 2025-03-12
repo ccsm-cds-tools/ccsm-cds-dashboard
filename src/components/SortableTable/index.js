@@ -15,7 +15,7 @@ function SortableTable(props) {
   const ascendingOrDescending = (name) => {
     return sortConfig?.key === name ? sortConfig.direction : 'none';
   };
-  const highlightClass = ['unknown','normal','high'];
+  const highlightClass = ['unknown','normal','high','incomplete'];
   
   if (items.length === 0) return <div></div>
   else return(

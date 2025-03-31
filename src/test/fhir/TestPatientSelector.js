@@ -2,45 +2,61 @@ import logo from 'assets/ccsm-tulip.svg';
 import '../basic/TestPatientSelector.scss';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { testData } from './testData';
 
-const screeningData = [
-  {
-    key: 'susan',
-    name: 'Susan21 Holden65',
-    age: '44',
-    scenario: 'Average risk screening; patient has history.',
-    updated: '11/21/2024'
+// generates information packet for each patient bundle
+function extractPatientInfo(keys, data, scenario=["Example"], updated = '11/24/2024') {
+  const patientInfo = [];
+
+  keys.forEach((key, i) => {
+      if (data[key] && Array.isArray(data[key].entry)) {
+          const patientEntry = data[key].entry.find(
+              item => item.resource && item.resource.resourceType === "Patient"
+          );
+
+          if (patientEntry && patientEntry.resource) {
+              const birthdate = patientEntry.resource.birthDate;
+              const name = formatName(patientEntry.resource.name);
+              const age = birthdate ? calculateAge(birthdate) : null;
+              let scenarioResult = scenario[0];
+              if (scenario.length > i){
+                scenarioResult = scenario[i]
+              }
+              patientInfo.push({key, name, age, scenario: scenarioResult, updated: updated});
+          }
+      }
+  });
+  return patientInfo;
+}
+
+// converts humanName FHIR object to readable name
+function formatName(nameArray) {
+  if (!Array.isArray(nameArray) || nameArray.length === 0) return null;
+  const nameObj = nameArray[0];
+  const givenName = Array.isArray(nameObj.given) && nameObj.given.length > 0 ? nameObj.given[0] : '';
+  const familyName = nameObj.family || '';
+  return `${givenName} ${familyName}`;
+}
+
+// calculate age based on today's date (could fix the date so the patients don't get "older")
+function calculateAge(birthdate) {
+  const birthDate = new Date(birthdate);
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
   }
-];
+  return age;
+}
+const screeningData = extractPatientInfo(['susan'], testData, ['Average risk screening; patient has history.']);
+const managementData = extractPatientInfo(['joanne'], testData, ['Management Table 4'], '11/18/2024');
+const incompleteData = extractPatientInfo(['paulina', 'lily'], testData, ['Average risk screening; patient has no history.', 'Post-biopsy; unstructured data in record.'])
+
 const screeningPad = 1;
 
-const managementData = [
-  {
-    key: 'joanne',
-    name: 'Joanne42 Smith657',
-    age: '33',
-    scenario: 'Management Table 4.',
-    updated: '11/18/2024'
-  }
-];
 const managementPad = screeningPad + screeningData.length;
 
-const incompleteData = [
-  {
-    key: 'paulina',
-    name: 'Paulina58 Vale56',
-    age: '28',
-    scenario: 'Average risk screening; patient has no history.',
-    updated: '11/21/2024'
-  },
-  {
-    key: 'lily',
-    name: 'Lily23 Flowers68',
-    age: '38',
-    scenario: 'Post-biopsy; unstructured data in record.',
-    updated: '11/21/2024'
-  }
-];
 const incompletePad = managementPad + managementData.length;
 
 export function TestPatientSelector() {

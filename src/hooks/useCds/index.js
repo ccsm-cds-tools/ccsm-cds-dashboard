@@ -84,6 +84,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
             patientReference: patientReference,
             payload: JSON.parse(analyticsOutput)
           });
+          worker.terminate();
       };
     }
     

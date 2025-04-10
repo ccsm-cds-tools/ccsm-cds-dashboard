@@ -90,6 +90,9 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     let Errors = CommunicationRequests.filter(cr => {
       return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
     })[0];
+    let Analytics = CommunicationRequests.filter(cr => {
+      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/OutputAnalytics';
+    })[0];
 
     let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');
     let PrimaryHpvRequest = ServiceRequests.filter(sr => sr.code.text === 'Primary HPV')[0];
@@ -152,10 +155,13 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     console.timeEnd('Apply CDS');
 
     if (LOGGER_ENABLED){
+
+      let analyticsOutput = Analytics?.payload[0].contentString
+
       logMsg({
         timeRequestSent: new Date(),
         patientReference: patientReference,
-        payload: [patientInfo, decisionAids]
+        payload: [analyticsOutput]
       });
     }
     

@@ -6,6 +6,8 @@ import { CervicalCancerManagementActivity } from '../../../node_modules/ccsm-cds
 import { CervicalCancerScreeningActivity } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/CervicalCancerScreeningActivity.js';
 import { CommunicateErrors } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/CommunicateErrors.js';
 import { DisplayCervicalCancerMedicalHistory } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/DisplayCervicalCancerMedicalHistory.js';
+import { OutputAnalytics } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/ActivityDefinition/OutputAnalytics.js';
+
 
 // Library resources
 import { DashboardLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/DashboardLibrary.js';
@@ -16,6 +18,7 @@ import { ScreeningDesExposureLibrary } from '../../../node_modules/ccsm-cds-with
 import { ScreeningImmunocompromisedLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningImmunocompromisedLibrary.js';
 import { ScreeningLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningLibrary.js';
 import { ScreeningSymptomaticLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/ScreeningSymptomaticLibrary.js';
+import { AnalyticsLibrary } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Library/AnalyticsLibrary.js';
 
 // PlanDefinition resources
 import { CervicalCancerManagement } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerManagement.js';
@@ -25,6 +28,7 @@ import { CervicalCancerScreeningActions } from '../../../node_modules/ccsm-cds-w
 import { 
   CervicalCancerScreeningAndManagementClinicalDecisionSupport 
 } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport.js';
+import { CervicalCancerAnalytics } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/PlanDefinition/CervicalCancerAnalytics.js';
 
 // Questionnaire resources
 import { PertinentProcedureQuestionnaire } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/Questionnaire/PertinentProcedureQuestionnaire.js';
@@ -76,7 +80,10 @@ export const cdsResources = [
   PertinentConditionShortList,
   PertinentObservationShortList,
   PertinentVaccinationShortList,
-  QualifierValuesShortList
+  QualifierValuesShortList,
+  OutputAnalytics,
+  AnalyticsLibrary,
+  CervicalCancerAnalytics
 ];
 
 export { resourceConverter } from '../../../node_modules/ccsm-cds-with-tests/dist/fhir/resourceConverter.js';

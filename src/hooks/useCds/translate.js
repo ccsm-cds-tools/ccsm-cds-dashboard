@@ -216,20 +216,20 @@ const stridesCodeMapping = {
 
 const loincMapping = [
   {
-    oldCode: '49896-4',
-    newCode: '82675-0'
+    oldCode: '49896-4', // Human papilloma virus 16+18+31+33+35+39+45+51+52+56+58+59+68 DNA [Presence] in Specimen by NAA with probe detection	
+    newCode: '82675-0' // Human papilloma virus 16+18+31+33+35+39+45+51+52+56+58+59+66+68 DNA [Presence] in Cervix by NAA with probe detection	
   },
   {
-    oldCode: '61372-9',
-    newCode: '77399-4'
+    oldCode: '61372-9', // Human papilloma virus 16 DNA [Presence] in Specimen by NAA with probe detection	
+    newCode: '77399-4'// Human papilloma virus 16 DNA [Presence] in Cervix by NAA with probe detection	
   },
   {
-    oldCode: '61373-7',
-    newCode: '77400-0'
+    oldCode: '61373-7', // Human papilloma virus 18 DNA [Presence] in Specimen by NAA with probe detection	
+    newCode: '77400-0' // Human papilloma virus 18 DNA [Presence] in Cervix by NAA with probe detection	
   },
   {
-    oldCode: '50595-8',
-    newCode: '47527-7'
+    oldCode: '50595-8', // Pathologist interpretation of Specimen tests	
+    newCode: '47527-7' // Cytology report of Cervical or vaginal smear or scraping Cyto stain.thin prep	
   }
 ];
 

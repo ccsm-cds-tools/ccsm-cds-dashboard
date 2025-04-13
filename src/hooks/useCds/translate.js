@@ -664,8 +664,12 @@ function mapEpisodeOfCare(episodeOfCare) {
 
 function mapCptCode(procedure, cptMapping) {
   if (!procedure.code?.coding?.length) return;
-
-  const existingCodes = new Set(procedure.code.coding.map(coding => coding.code));
+  
+  const existingCodes = new Set(
+    procedure.code.coding
+      .filter(coding => coding.system === CPT_URL)
+      .map(coding => coding.code)
+  );
 
   for (const { oldCode, newCodings } of cptMapping) {
     if (existingCodes.has(oldCode)) {

@@ -57,7 +57,6 @@ describe('translate', () => {
 
     it('should translate CPT code from a Procedure', () => {
       translateResponse(patientData);
-      console.dir(patientData.find(pd => pd.resourceType === 'Procedure'), { depth: null });
 
       expect(patientData.some(resource =>
         resource.resourceType === 'Procedure' &&

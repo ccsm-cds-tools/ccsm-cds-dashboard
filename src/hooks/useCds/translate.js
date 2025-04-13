@@ -233,8 +233,74 @@ const loincMapping = [
   }
 ];
 
+const procedureCodings = {
+  colposcopy:
+    {
+      system: 'http://snomed.info/sct',
+      code: '392003006',
+      display: 'Colposcopy (procedure)'
+    },
+  ecc:
+    {
+      system: 'http://snomed.info/sct',
+      code: '52889002',
+      display: 'Endocervical curettage (procedure)'
+    },
+  leep:
+    {
+      system: 'http://snomed.info/sct',
+      code: '23140002',
+      display: 'Loop electrosurgical excision procedure of cervix (procedure)'
+    }
+}
+
+const cptMapping = [
+  {
+    oldCode: '57420', // colpo of vagina
+    newCodings: [procedureCodings.colposcopy]
+  },
+  {
+    oldCode: '57421', // colpo of vagina w/bx
+    newCodings: [procedureCodings.colposcopy]
+  },
+  {
+    oldCode: '57452', // colpo of cervix
+    newCodings: [procedureCodings.colposcopy]
+  },
+  {
+    oldCode: '57454', // colpo of cervix w/bx and ECC
+    newCodings: [procedureCodings.colposcopy, procedureCodings.ecc]
+  },
+  {
+    oldCode: '57455', // colpo of cervix w/bx
+    newCodings: [procedureCodings.colposcopy]
+  },
+  {
+    oldCode: '57456', // colpo of cervix w/ECC
+    newCodings: [procedureCodings.colposcopy, procedureCodings.ecc]
+  },
+  {
+    oldCode: '57460', // colpo of cervix w/loop or LEEP bx
+    newCodings: [procedureCodings.colposcopy, procedureCodings.leep]
+  },
+  {
+    oldCode: '57461', // colpo of cervix w/loop or LEEP conization
+    newCodings: [procedureCodings.colposcopy, procedureCodings.leep]
+  },
+  {
+    oldCode: '58110', // Endo bx when done w/colpo (use colpo code and endo bx code)
+    newCodings: [procedureCodings.colposcopy]
+  },
+  // Conization of cervix, knife/laser is already a concept in ccsm-cds-with-tests
+  // {
+  //   oldCode: '57520', // CKC
+  //   newCodings: [procedureCodings.colposcopy]
+  // },
+];
+
 const SCT_URL = 'http://snomed.info/sct';
 const LOINC_URL = 'http://loinc.org';
+const CPT_URL = 'http://www.ama-assn.org/go/cpt';
 const LOCAL_URL = 'http://OUR-PLACEHOLDER-URL.com';
 const STRIDES_DIAG_URI = 'urn:uuid:90915bcf-353c-49e1-b65e-0464798baa77';
 const STRIDES_PROC_URI = 'urn:uuid:273494e4-40f0-4a53-b1a3-2d30c32d76d1';
@@ -363,6 +429,7 @@ export function translateResponse(patientData, stridesData) {
 
   patientDataMap.Observation?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
   patientDataMap.DiagnosticReport?.forEach(pd => mapResult(pd, loincMapping, testCodeResultMapping));
+  patientDataMap.Procedure?.forEach(procedure => mapCptCode(procedure, cptMapping));
   patientDataMap.EpisodeOfCare?.forEach(episodeOfCare => mapEpisodeOfCare(episodeOfCare));
 
   if (stridesData && Object.keys(stridesData).length > 0) {
@@ -591,6 +658,19 @@ function mapEpisodeOfCare(episodeOfCare) {
 
     if (!pregnancyType.text) {
       pregnancyType.text = epicCoding.display;
+    }
+  }
+}
+
+function mapCptCode(procedure, cptMapping) {
+  if (!procedure.code?.coding?.length) return;
+
+  const existingCodes = new Set(procedure.code.coding.map(coding => coding.code));
+
+  for (const { oldCode, newCodings } of cptMapping) {
+    if (existingCodes.has(oldCode)) {
+      procedure.code.coding.push(...newCodings);
+      break;
     }
   }
 }

@@ -6,6 +6,7 @@ import { valueSetJson } from 'services/valuesets';
 import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
 import { logMsg } from 'util/logger';
+import { cqlParameters } from "./cqlParameters";
 
 const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
 
@@ -15,7 +16,6 @@ const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
  * @returns {Object}
  */
 export const useCds = (patientData, toggleStatus) => {
-
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
   const [isPregnant, setIsPreganant] = useState(false);
@@ -54,7 +54,7 @@ export const useCds = (patientData, toggleStatus) => {
 const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant) {
   console.log('Starting applyCds()');
   console.time('Apply CDS');
-
+  const cdsApplyStart = Date.now();
   let resolver = simpleResolver([...cdsResources, ...patientData], false);
   const planDefinition = resolver('PlanDefinition/CervicalCancerScreeningAndManagementClinicalDecisionSupport')[0];
   // TODO: Throw error if there is anything other than 1 patient resource
@@ -65,11 +65,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     const WorkerFactory = () => {
       return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
     };
-    
-    // TODO: Move cqlParameters to a separate file within this directory and import them into this file
-    const cqlParameters = {
-      CervicalCytologyLookbackDate : '2017-04-04'
-    };
 
     const aux = {
       elmJsonDependencies,
@@ -77,7 +72,22 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       WorkerFactory,
       cqlParameters
     };
-
+    
+    if (LOGGER_ENABLED) {
+      const worker = new Worker(new URL('./analyticsWorker.js', import.meta.url));
+      worker.postMessage( { patientData, patientReference });
+      worker.onmessage = ({data:{analyticsOutput}}) => {
+          logMsg({
+            cdsApplyStart: cdsApplyStart,
+            cdsApplyEnd: Date.now(),
+            timeRequestSent: new Date(),
+            patientReference: patientReference,
+            payload: JSON.parse(analyticsOutput)
+          });
+          worker.terminate();
+      };
+    }
+    
     const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
 
     let CommunicationRequests = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest');
@@ -89,9 +99,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     })[0];
     let Errors = CommunicationRequests.filter(cr => {
       return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/CommunicateErrors';
-    })[0];
-    let Analytics = CommunicationRequests.filter(cr => {
-      return cr?.basedOn[0]?.reference === 'http://OUR-PLACEHOLDER-URL.com/ActivityDefinition/OutputAnalytics';
     })[0];
 
     let ServiceRequests = otherResources.filter(otr => otr.resourceType === 'ServiceRequest');
@@ -150,21 +157,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
       decisionAids = { errors };
     }
 
-    // replace with actual logging data when ready from CQL 
-    // output otherResources as a temporary stand-in
     console.timeEnd('Apply CDS');
 
-    if (LOGGER_ENABLED){
-
-      let analyticsOutput = Analytics?.payload[0].contentString
-
-      logMsg({
-        timeRequestSent: new Date(),
-        patientReference: patientReference,
-        payload: [analyticsOutput]
-      });
-    }
-    
     if (thereAreOutputs) {
       if (patientHistory.observations?.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))

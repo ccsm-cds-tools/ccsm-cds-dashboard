@@ -80,7 +80,10 @@ export const cdsResources = [
   PertinentConditionShortList,
   PertinentObservationShortList,
   PertinentVaccinationShortList,
-  QualifierValuesShortList
+  QualifierValuesShortList,
+  OutputAnalytics,
+  AnalyticsLibrary,
+  CervicalCancerAnalytics
 ];
 
 export const cdsAnalyticsResources = [

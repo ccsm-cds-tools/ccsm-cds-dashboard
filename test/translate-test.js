@@ -54,6 +54,17 @@ describe('translate', () => {
         resource.code?.coding?.some(coding => coding.system === 'http://loinc.org' && coding.code === '82675-0')
       )).to.be.true
     });
+
+    it('should translate CPT code from a Procedure', () => {
+      translateResponse(patientData);
+
+      expect(patientData.some(resource =>
+        resource.resourceType === 'Procedure' &&
+        resource.code?.coding?.some(coding => coding.system === 'http://snomed.info/sct' && coding.code === '23140002') && // Loop electrosurgical excision procedure of cervix (procedure)
+        resource.code?.coding?.some(coding => coding.system === 'http://snomed.info/sct' && coding.code === '392003006') // CColposcopy (procedure)
+      )).to.be.true;
+    });
+
   });
 
   describe('maps strides data', () => {

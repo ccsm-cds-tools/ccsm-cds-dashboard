@@ -35,7 +35,8 @@ const elmJsonDependencyArray = [
   ScreeningDesExposureLibrary,
   ScreeningImmunocompromisedLibrary,
   ScreeningSymptomaticLibrary,
-  ScreeningLibrary
+  ScreeningLibrary,
+  AnalyticsLibrary
 ];
 
 // Reformat ELM JSON value set references to match what is expected by the 

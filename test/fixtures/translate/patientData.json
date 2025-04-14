@@ -355,6 +355,83 @@
       ]
     },
     {
+      "resourceType": "Procedure",
+      "id": "eiPOcxzeMPraFfhtYrDORrhnHRZWo2dSMSg8ODMV8WBq0Kq4lrgfa9TJMkSnJZJA83",
+      "identifier": [
+          {
+              "use": "usual",
+              "type": {
+                  "text": "ORD"
+              },
+              "system": "urn:oid:1.2.840.114350.1.13.284.3.7.2.798268",
+              "value": "26802378"
+          },
+          {
+              "use": "usual",
+              "type": {
+                  "text": "EAP"
+              },
+              "system": "urn:oid:1.2.840.114350.1.13.284.3.7.2.696580",
+              "value": "80435"
+          },
+          {
+              "use": "usual",
+              "type": {
+                  "text": "OPE"
+              },
+              "system": "urn:oid:1.2.840.114350.1.13.284.3.7.2.798069",
+              "value": "126"
+          }
+      ],
+      "status": "completed",
+      "category": {
+          "coding": [
+              {
+                  "system": "http://snomed.info/sct",
+                  "code": "103693007",
+                  "display": "Diagnostic procedure"
+              }
+          ],
+          "text": "Ordered Procedures"
+      },
+      "code": {
+          "coding": [
+              {
+                  "system": "http://www.ama-assn.org/go/cpt",
+                  "code": "57461",
+                  "display": "PR COLPOSCPY,LEEP+CONIZATION"
+              }
+          ],
+          "text": "LEEP"
+      },
+      "subject": {
+        "reference": "Patient/e4PvGpeKAVwquQqfBlWYLdzjlsu6fhhCrteqmVJpQ0nM3",
+        "display": "Mitre, Fiftyfour"
+      },
+      "encounter": {
+          "reference": "Encounter/ecJpaWpEFf.RWJVT-K4VYMA3",
+          "identifier": {
+              "use": "usual",
+              "system": "urn:oid:1.2.840.114350.1.13.284.3.7.3.698084.8",
+              "value": "6000066301"
+          },
+          "display": "Procedure visit"
+      },
+      "performedDateTime": "2023-08-09T13:00:00Z",
+      "reasonCode": [
+          {
+              "coding": [
+                  {
+                      "system": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+                      "code": "V76.2",
+                      "display": "Cervical cancer screening"
+                  }
+              ],
+              "text": "Cervical cancer screening"
+          }
+      ]
+    },
+    {
       "resourceType" : "EpisodeOfCare",
       "id" : "episdoeofcare-1",
       "status" : "active",

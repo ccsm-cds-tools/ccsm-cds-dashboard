@@ -40,7 +40,7 @@ export const useCds = (patientData, toggleStatus) => {
     console.timeEnd('Translate FHIR Data');
     console.log('patientData after translation: ', patientData);
 
-    applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus.isToggleChanged, isPregnant, setIsPreganant);
+    applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus, isPregnant, setIsPreganant);
   }, [patientData, toggleStatus, isPregnant]);
 
   return {output, isLoadingCdsData};
@@ -51,7 +51,7 @@ export const useCds = (patientData, toggleStatus) => {
  * @param {Object[]} patientData
  * @param {function} setOutput
  */
-const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isToggleChanged, isPregnant, setIsPreganant) {
+const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, toggleStatus, isPregnant, setIsPreganant) {
   console.log('Starting applyCds()');
   console.time('Apply CDS');
   const cdsApplyStart = Date.now();
@@ -61,6 +61,12 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
   const patientReference = 'Patient/' + patientData.filter(pd => pd.resourceType === 'Patient').map(pd => pd.id)[0];
 
   if (patientReference !== 'Patient/undefined') {
+    let isToggleChanged = toggleStatus.isToggleChanged;
+    let patientInfo={};
+    let patientHistory={};
+    let decisionAids={};
+    let thereAreOutputs = false;
+    
     // NOTE: CQL Worker is not used with cql-execution branch of encender
     const WorkerFactory = () => {
       return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
@@ -82,6 +88,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
             cdsApplyEnd: Date.now(),
             timeRequestSent: new Date(),
             patientReference: patientReference,
+            patientInfo: patientInfo,
+            toggleStatus: toggleStatus,
             payload: JSON.parse(analyticsOutput)
           });
           worker.terminate();
@@ -122,11 +130,6 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, isT
     console.log('CarePlan: ', CarePlan);
     console.log('RequestGroup: ', RequestGroup);
     console.log('otherResources: ', otherResources);
-
-    let patientInfo={};
-    let patientHistory={};
-    let decisionAids={};
-    let thereAreOutputs = false;
 
     if (DisplayCervicalCancerMedicalHistory?.payload?.length > 0) {
       let historyString = DisplayCervicalCancerMedicalHistory.payload[0].contentString;

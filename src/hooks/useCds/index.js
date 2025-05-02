@@ -18,6 +18,7 @@ const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
 export const useCds = (patientData, toggleStatus) => {
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
+  const [logStatus, setLogStatus] = useState();
   const [isPregnant, setIsPreganant] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export const useCds = (patientData, toggleStatus) => {
     }
 
     setIsLoadingCdsData(true);
+    setLogStatus("pending");
 
     console.log('toggleStatus: ', toggleStatus);
     console.log('patientData before translation: ', patientData);
@@ -40,10 +42,10 @@ export const useCds = (patientData, toggleStatus) => {
     console.timeEnd('Translate FHIR Data');
     console.log('patientData after translation: ', patientData);
 
-    applyCds(patientData, setOutput, setIsLoadingCdsData, toggleStatus, isPregnant, setIsPreganant);
+    applyCds(patientData, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant);
   }, [patientData, toggleStatus, isPregnant]);
 
-  return {output, isLoadingCdsData};
+  return {output, isLoadingCdsData, logStatus};
 }
 
 /**
@@ -51,7 +53,7 @@ export const useCds = (patientData, toggleStatus) => {
  * @param {Object[]} patientData
  * @param {function} setOutput
  */
-const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, toggleStatus, isPregnant, setIsPreganant) {
+const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant) {
   console.log('Starting applyCds()');
   console.time('Apply CDS');
   const cdsApplyStart = Date.now();
@@ -83,7 +85,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, tog
       const worker = new Worker(new URL('./analyticsWorker.js', import.meta.url));
       worker.postMessage( { patientData, patientReference });
       worker.onmessage = ({data:{analyticsOutput}}) => {
-          logMsg({
+          
+          (async () => {setLogStatus(await logMsg({
             cdsApplyStart: cdsApplyStart,
             cdsApplyEnd: Date.now(),
             timeRequestSent: new Date(),
@@ -91,7 +94,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, tog
             patientInfo: patientInfo,
             toggleStatus: toggleStatus,
             payload: JSON.parse(analyticsOutput)
-          });
+          })
+          )})()
           worker.terminate();
       };
     }
@@ -161,7 +165,7 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, tog
     }
 
     console.timeEnd('Apply CDS');
-
+    const cdsApplyEnd = Date.now();
     if (thereAreOutputs) {
       if (patientHistory.observations?.length > 0) {
         patientHistory.observations = patientHistory.observations.filter(obs => !obs.reference.includes('new-observation-for-'))
@@ -181,7 +185,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, tog
       patientHistory,
       decisionAids,
       resolver: (r) => r === '' ? {} : resolver(r),
-      patientReference
+      patientReference,
+      applyTime: cdsApplyEnd - cdsApplyStart
     }
 
     console.log('CDS output:', output);

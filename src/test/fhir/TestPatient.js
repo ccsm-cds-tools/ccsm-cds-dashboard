@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
 import './TestPatient.scss';
+import StatusBar from 'components/StatusBar';
 
 // Load the test data and configuration
 import { testData } from './testData.js';
@@ -20,8 +21,9 @@ export function TestPatient() {
     isSymptomatic: false,
     isToggleChanged: false
   });
-  const {output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus);
+  const {output: dashboardInput, isLoadingCdsData, logStatus } = useCds(patientData, toggleStatus);
   const isLoading = isLoadingCdsData;
+  const applyTime = dashboardInput.applyTime || 0;
   // Extract the data for the requested test patient
   if (params.testName in testData) {
     if (patientData.length === 0) {
@@ -43,15 +45,19 @@ export function TestPatient() {
               <div className="spinner"></div>
             </div>
           )}
-        <Dashboard 
-          input={dashboardInput} 
-          config={config} 
-          setPatientData={setPatientData}
-          toggleStatus={toggleStatus}
-          onToggleStatusChange={setToggleStatus}
+          <Dashboard 
+            input={dashboardInput} 
+            config={config} 
+            setPatientData={setPatientData}
+            toggleStatus={toggleStatus}
+            onToggleStatusChange={setToggleStatus}
+          />
+        </div>
+        <StatusBar
+          logStatus={logStatus}
+          applyTime={applyTime}
         />
-      </div>
-      </div>
+     </div>
     )
   } else {
     // TODO: Route back to TestPatientSelector

@@ -42,6 +42,10 @@ export function SmartPatient() {
         return pt.id;
       });
 
+      await client.encounter.read().then(async function(enc) {
+        await fhirParser(enc);
+      });
+
       const promises = [];
 
       // NOTE: Certain API Searches have been commented out, in favor of performance, so that CDS can process only the data critical to making a recommendation.

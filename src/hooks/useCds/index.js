@@ -81,11 +81,13 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, set
       cqlParameters
     };
     
+    let applyPromise = applyPlan(planDefinition, patientReference, resolver, aux);
+
     if (LOGGER_ENABLED) {
       const worker = new Worker(new URL('./analyticsWorker.js', import.meta.url));
       worker.postMessage( { patientData, patientReference });
       worker.onmessage = ({data:{analyticsOutput}}) => {
-          
+        applyPromise.then(() => {
           (async () => {setLogStatus(await logMsg({
             cdsApplyStart: cdsApplyStart,
             cdsApplyEnd: Date.now(),
@@ -97,10 +99,11 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, set
           })
           )})()
           worker.terminate();
+        });
       };
     }
-    
-    const [CarePlan, RequestGroup, ...otherResources] = await applyPlan(planDefinition, patientReference, resolver, aux);
+
+    const [CarePlan, RequestGroup, ...otherResources] = await applyPromise;
 
     let CommunicationRequests = otherResources.filter(otr => otr.resourceType === 'CommunicationRequest');
     let DisplayCervicalCancerMedicalHistory = CommunicationRequests.filter(cr => {

@@ -102,11 +102,11 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "REACT_APP_DEPLOYMENT=true gh-pages -d build",
     "prestart": "node scripts/prebuild.js",
     "start": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=false node scripts/start.js",
     "prebuild": "node scripts/prebuild.js",
-    "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true REACT_APP_DEPLOYMENT=true node scripts/build.js",
+    "build": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=true node scripts/build.js",
     "prebuild-windows": "rimraf build && node scripts/prebuild.js",
     "build-windows": "set \"DISABLE_ESLINT_PLUGIN=true\" && set \"BROWSER=none\" && set \"GENERATE_SOURCEMAP=true\"  && node scripts/build.js",
     "test": "node scripts/test.js",

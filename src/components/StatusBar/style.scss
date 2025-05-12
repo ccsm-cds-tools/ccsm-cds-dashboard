@@ -1,0 +1,5 @@
+.cds-status {font-size:9pt;opacity:0;color:#444;transition:1s; display:inline-block;}
+.cds-status:hover, .status:focus {transition:1.5ss;opacity:1;}
+#log_status.pending {color:orange}
+#log_status.success {color:green}
+#log_status.fail {color:red}

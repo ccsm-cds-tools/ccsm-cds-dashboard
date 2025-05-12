@@ -3,6 +3,7 @@ import FHIR from 'fhirclient';
 import Dashboard from 'features/Dashboard';
 import { useCds } from 'hooks/useCds';
 import { config } from './smart.config.js';
+import StatusBar from 'components/StatusBar';
 
 export function SmartPatient() {
 
@@ -18,8 +19,10 @@ export function SmartPatient() {
     isToggleChanged: false
   });
 
-  const { output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus);
+  const { output: dashboardInput, isLoadingCdsData, logStatus } = useCds(patientData, toggleStatus);
   const isLoading = isLoadingFHIRData || isLoadingCdsData;
+  const applyTime = dashboardInput.applyTime || 0;
+
   useEffect(() => {
     FHIR.oauth2.ready().then((client)=>{
       console.log(client);
@@ -214,6 +217,10 @@ if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
         onToggleStatusChange={setToggleStatus}
       />
       </div>
+        <StatusBar
+          logStatus={logStatus}
+          applyTime={applyTime}
+        />
     </div>
   )
 }

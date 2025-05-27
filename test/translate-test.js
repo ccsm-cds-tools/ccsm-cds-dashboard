@@ -37,6 +37,21 @@ describe('translate', () => {
       )).to.be.true
     });
 
+    it('should add SNOMED CT coding to Observation if valueString contains Reparative/reactive changes with a trailing space', () => {
+      const obs = patientData.find(pd => pd.resourceType === 'Observation' && pd.valueString);
+      const expectedString = "Reparative/reactive changes \r\nNegative for intraepithelial lesion or malignancy";
+      obs.valueString = expectedString
+
+      translateResponse(patientData);
+
+      expect(patientData.some(resource =>
+        resource.resourceType === 'Observation' &&
+        !resource.valueString &&
+        resource.valueCodeableConcept?.text === expectedString &&
+        resource.valueCodeableConcept?.coding?.some(coding => coding.system === 'http://snomed.info/sct' && coding.code === '373887005')
+      )).to.be.true
+    });
+
     it('should translate LOINC code from a DiagnosticReport', () => {
       const dr = patientData.find(pd => pd.resourceType === 'DiagnosticReport');
       const genericHpvTestCode =

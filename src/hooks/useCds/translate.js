@@ -525,7 +525,7 @@ function mapResult(result, loincMapping, testCodeResultMapping) {
   // Should evaluate to false for DiagnosticReports, skipping the result mapping for these resources. We can add logic to
   // map string values to codes values within DiagnosticReport.conclusionCode, if we find that this occurs in practice
   if (customCodes && !result.valueCodeableConcept && result.valueString) {
-    const firstLine = result.valueString.split("\r\n")[0];
+    const firstLine = result.valueString.split("\r\n")[0].trim();
     const mappedCode = customCodes.map.find(cc => cc.text.localeCompare(firstLine, undefined, { sensitivity: 'base' }) === 0);
 
     if (mappedCode) {

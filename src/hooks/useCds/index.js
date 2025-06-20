@@ -7,6 +7,7 @@ import { translateResponse, translateToggleChange } from './translate';
 import { stridesData } from './strides';
 import { logMsg } from 'util/logger';
 import { cqlParameters } from "./cqlParameters";
+import { DateTime } from 'cql-execution'
 
 const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
 
@@ -15,7 +16,7 @@ const LOGGER_ENABLED = process.env?.REACT_APP_LOGGER_ENABLED || false;
  * @param {Object[]} patientData
  * @returns {Object}
  */
-export const useCds = (patientData, toggleStatus) => {
+export const useCds = (patientData, toggleStatus, selectedDate) => {
   const [output, setOutput] = useState({});
   const [isLoadingCdsData, setIsLoadingCdsData] = useState(false);
   const [logStatus, setLogStatus] = useState();
@@ -42,7 +43,7 @@ export const useCds = (patientData, toggleStatus) => {
     console.timeEnd('Translate FHIR Data');
     console.log('patientData after translation: ', patientData);
 
-    applyCds(patientData, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant);
+    applyCds(patientData, selectedDate, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant);
   }, [patientData, toggleStatus, isPregnant]);
 
   return {output, isLoadingCdsData, logStatus};
@@ -53,7 +54,7 @@ export const useCds = (patientData, toggleStatus) => {
  * @param {Object[]} patientData
  * @param {function} setOutput
  */
-const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant) {
+const applyCds = async function(patientData, executionDateTime, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant) {
   console.log('Starting applyCds()');
   console.time('Apply CDS');
   const cdsApplyStart = Date.now();
@@ -73,7 +74,8 @@ const applyCds = async function(patientData, setOutput, setIsLoadingCdsData, set
     const WorkerFactory = () => {
       return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
     };
-
+    // We're using cqlParameters to pass executionDateTime - may want to change this 
+    cqlParameters.executionDateTime = executionDateTime.toISOString();
     const aux = {
       elmJsonDependencies,
       valueSetJson,

@@ -2,8 +2,9 @@ import PatientInfo from 'features/PatientInfo';
 import PatientHistory from 'features/PatientHistory';
 import DecisionAids from 'features/DecisionAids';
 import { Row, Col } from 'react-bootstrap';
-
+import DatePicker from 'react-datepicker';
 import './style.scss';
+import "react-datepicker/dist/react-datepicker.css";
 
 function Dashboard(props) {
 
@@ -18,7 +19,9 @@ function Dashboard(props) {
     config={},
     setPatientData=()=>{},
     toggleStatus,
-    onToggleStatusChange
+    onToggleStatusChange,
+    selectedDate,
+    setSelectedDate
   } = props;
 
   return (
@@ -26,6 +29,12 @@ function Dashboard(props) {
       <Row>
         <Col xl={6}>
           <PatientInfo input={patientInfo} />
+          <div>Rewind to date:
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+            />
+    </div>
           <PatientHistory
             input={patientHistory}
             resolver={resolver}

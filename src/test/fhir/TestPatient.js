@@ -21,7 +21,9 @@ export function TestPatient() {
     isSymptomatic: false,
     isToggleChanged: false
   });
-  const {output: dashboardInput, isLoadingCdsData, logStatus } = useCds(patientData, toggleStatus);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const {output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus, selectedDate);
   const isLoading = isLoadingCdsData;
   const applyTime = dashboardInput.applyTime || 0;
   // Extract the data for the requested test patient
@@ -51,6 +53,8 @@ export function TestPatient() {
             setPatientData={setPatientData}
             toggleStatus={toggleStatus}
             onToggleStatusChange={setToggleStatus}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}            
           />
         </div>
         <StatusBar

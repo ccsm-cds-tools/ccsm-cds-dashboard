@@ -52,12 +52,38 @@ function calculateAge(birthdate) {
 const screeningData = extractPatientInfo(['susan'], testData, ['Average risk screening; patient has history.']);
 const managementData = extractPatientInfo(['joanne'], testData, ['Management Table 4'], '11/18/2024');
 const incompleteData = extractPatientInfo(['paulina', 'lily'], testData, ['Average risk screening; patient has no history.', 'Post-biopsy; unstructured data in record.'])
-
+const basicData = extractPatientInfo([
+  'Alice14Winter87',
+  'Barb23Long56',
+  'Bernadette61MacKenzie82',
+  'Catherine23Sullivan98',
+  'Darla43Evans12',
+  'Erica94Castellanos87',
+  'Jill34Brown12',
+  'Lisa02Danvers12',
+  'Shana11Meyers45',
+  'Tanya44Marshall12'
+  ],
+  testData,
+  [
+    'Post-treatment Surveillance',
+    'Older than 65, adequately screened',
+    'Long-term surveillance following treatment for high-grade precancer',
+    'Surveillance with recommended colposcopy with history of prior screening results (Table 2B)',
+    'Colposcopy with hrHPV18',
+    'Surveillance with minimal abnormal result',
+    'Surveillance for low-grade result',
+    'Post-Treatment Surveillance',
+    'Surveillance after abnormalities',
+    'Individual older than 65 who is not adequately screened'
+  ],
+  '06/23/2025')
 const screeningPad = 1;
 
 const managementPad = screeningPad + screeningData.length;
 
 const incompletePad = managementPad + managementData.length;
+const basicPad = incompletePad + incompleteData.length;
 
 export function TestPatientSelector() {
   return (
@@ -101,6 +127,11 @@ export function TestPatientSelector() {
               <td colSpan="6">Missing/Incomplete Data Scenarios</td>
             </tr>
             { incompleteData.map((rd,idx) => <IndexRow key={idx} index={incompletePad+idx} rowData={rd} />) }
+ 
+            <tr className="group">
+              <td colSpan="6">Additional Scenarios</td>
+            </tr>
+            { basicData.map((rd,idx) => <IndexRow key={idx} index={basicPad+idx} rowData={rd} />) }
 
           </tbody>
         </Table>

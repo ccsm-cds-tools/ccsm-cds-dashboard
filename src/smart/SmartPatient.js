@@ -201,7 +201,7 @@ if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
 } else {
   return (
     <div className="content">
-    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation and is <b>not for use in clinical practice.</b><br/>
+    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation.<br/>
     Procedures or lab results may be missing from the patient history, and this may cause no recommendation to be shown.</p>
       <div className="dashboard-container">
         {isLoading && (

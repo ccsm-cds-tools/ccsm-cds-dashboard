@@ -23,7 +23,7 @@ export function TestPatient() {
   });
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const {output: dashboardInput, isLoadingCdsData } = useCds(patientData, toggleStatus, selectedDate);
+  const {output: dashboardInput, isLoadingCdsData, logStatus } = useCds(patientData, toggleStatus, selectedDate);
   const isLoading = isLoadingCdsData;
   const applyTime = dashboardInput.applyTime || 0;
   // Extract the data for the requested test patient

@@ -54,7 +54,7 @@ export const useCds = (patientData, toggleStatus, selectedDate) => {
  * @param {Object[]} patientData
  * @param {function} setOutput
  */
-const applyCds = async function(patientData, executionDateTime, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant) {
+const applyCds = async function(patientData, selectedDate, setOutput, setIsLoadingCdsData, setLogStatus, toggleStatus, isPregnant, setIsPreganant) {
   console.log('Starting applyCds()');
   console.time('Apply CDS');
   const cdsApplyStart = Date.now();
@@ -75,11 +75,12 @@ const applyCds = async function(patientData, executionDateTime, setOutput, setIs
       return new Worker(new URL('../../../node_modules/cql-worker/src/cql.worker.js', import.meta.url))
     };
     // We're using cqlParameters to pass executionDateTime - may want to change this 
-    cqlParameters.executionDateTime = executionDateTime.toISOString();
+    const executionDateTime = selectedDate.toISOString();
     const aux = {
       elmJsonDependencies,
       valueSetJson,
       WorkerFactory,
+      executionDateTime,
       cqlParameters
     };
     

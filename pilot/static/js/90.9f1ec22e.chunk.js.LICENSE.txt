@@ -16,8 +16,6 @@
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
 /**
  * @license IDBWrapper - A cross-browser wrapper for IndexedDB
  * Version 1.7.2

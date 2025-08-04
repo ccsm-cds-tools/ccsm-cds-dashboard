@@ -1,0 +1,641 @@
+/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+
+/*!
+       * Signature Pad v4.2.0 | https://github.com/szimek/signature_pad
+       * (c) 2024 Szymon Nowak | Released under the MIT license
+       */
+
+/*!
+  * prr
+  * (c) 2013 Rod Vagg <rod@vagg.org>
+  * https://github.com/rvagg/prr
+  * License: MIT
+  */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*!
+ * surveyjs - Survey JavaScript library v1.12.24
+ * Copyright (c) 2015-2025 Devsoft Baltic OÜ  - http://surveyjs.io/
+ * License: MIT (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/*! ModuleConcatenation bailout: Cannot concat with external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"} (<- Module is not an ECMAScript module) */
+
+/*! ModuleConcatenation bailout: Cannot concat with external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"} (<- Module is not an ECMAScript module) */
+
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+
+/*! exports provided: Version, ReleaseDate, checkLibraryVersion, setLicenseKey, slk, hasLicense, settings, Helpers, AnswerCountValidator, EmailValidator, NumericValidator, RegexValidator, SurveyValidator, TextValidator, ValidatorResult, ExpressionValidator, ValidatorRunner, ItemValue, Base, Event, EventBase, ArrayChanges, ComputedUpdater, SurveyError, SurveyElementCore, SurveyElement, DragTypeOverMeEnum, CalculatedValue, CustomError, AnswerRequiredError, OneAnswerRequiredError, RequreNumericError, ExceedSizeError, LocalizableString, LocalizableStrings, HtmlConditionItem, UrlConditionItem, ChoicesRestful, ChoicesRestfull, FunctionFactory, registerFunction, ConditionRunner, ExpressionRunner, ExpressionExecutor, Operand, Const, BinaryOperand, Variable, FunctionOperand, ArrayOperand, UnaryOperand, ConditionsParser, ProcessValue, JsonError, JsonIncorrectTypeError, JsonMetadata, JsonMetadataClass, JsonMissingTypeError, JsonMissingTypeErrorBase, JsonObject, JsonObjectProperty, JsonRequiredPropertyError, JsonUnknownPropertyError, Serializer, property, propertyArray, MatrixDropdownCell, MatrixDropdownRowModelBase, QuestionMatrixDropdownModelBase, MatrixDropdownColumn, matrixDropdownColumnTypes, QuestionMatrixDropdownRenderedCell, QuestionMatrixDropdownRenderedRow, QuestionMatrixDropdownRenderedErrorRow, QuestionMatrixDropdownRenderedTable, MatrixDropdownRowModel, QuestionMatrixDropdownModel, MatrixDynamicRowModel, QuestionMatrixDynamicModel, MatrixRowModel, MatrixCells, QuestionMatrixModel, QuestionMatrixBaseModel, MultipleTextItemModel, MultipleTextCell, MultipleTextErrorCell, MutlipleTextErrorRow, MutlipleTextRow, QuestionMultipleTextModel, MultipleTextEditorModel, PanelModel, PanelModelBase, QuestionRowModel, FlowPanelModel, PageModel, DefaultTitleModel, Question, QuestionNonValue, QuestionEmptyModel, QuestionCheckboxBase, QuestionSelectBase, QuestionCheckboxModel, QuestionTagboxModel, QuestionRankingModel, QuestionCommentModel, QuestionDropdownModel, QuestionFactory, ElementFactory, QuestionFileModel, QuestionFilePage, QuestionHtmlModel, QuestionRadiogroupModel, QuestionRatingModel, RenderedRatingItem, QuestionExpressionModel, QuestionTextBase, CharacterCounter, QuestionTextModel, QuestionBooleanModel, QuestionImagePickerModel, ImageItemValue, QuestionImageModel, QuestionSignaturePadModel, QuestionPanelDynamicModel, QuestionPanelDynamicItem, SurveyTimer, SurveyTimerModel, tryFocusPage, createTOCListModel, getTocRootCss, TOCModel, SurveyProgressModel, ProgressButtons, ProgressButtonsResponsivityManager, SurveyModel, SurveyTrigger, SurveyTriggerComplete, SurveyTriggerSetValue, SurveyTriggerVisible, SurveyTriggerCopyValue, SurveyTriggerRunExpression, SurveyTriggerSkip, Trigger, PopupSurveyModel, SurveyWindowModel, TextPreProcessor, Notifier, Cover, CoverCell, dxSurveyService, englishStrings, surveyLocalization, surveyStrings, getLocaleString, getLocaleStrings, setupLocale, QuestionCustomWidget, CustomWidgetCollection, QuestionCustomModel, QuestionCompositeModel, ComponentQuestionJSON, ComponentCollection, ListModel, MultiSelectListModel, PopupModel, createDialogOptions, PopupBaseViewModel, PopupDropdownViewModel, PopupModalViewModel, createPopupViewModel, createPopupModalViewModel, DropdownListModel, DropdownMultiSelectListModel, QuestionButtonGroupModel, ButtonGroupItemModel, ButtonGroupItemValue, IsMobile, IsTouch, _setIsTouch, confirmAction, confirmActionAsync, detectIEOrEdge, doKey2ClickUp, doKey2ClickDown, doKey2ClickBlur, loadFileFromBase64, increaseHeightByContent, createSvg, chooseFiles, sanitizeEditableContent, prepareElementForVerticalAnimation, cleanHtmlElementAfterAnimation, classesToSelector, renamedIcons, getIconNameFromProxy, InputMaskBase, InputMaskPattern, InputMaskNumeric, InputMaskDateTime, InputMaskCurrency, CssClassBuilder, TextAreaModel, surveyCss, defaultV2Css, defaultV2ThemeName, DragDropCore, DragDropChoices, DragDropRankingSelectToRank, StylesManager, defaultStandardCss, modernCss, SvgIconRegistry, SvgRegistry, SvgThemeSets, addIconsToThemeSet, RendererFactory, ResponsivityManager, VerticalResponsivityManager, unwrap, getOriginalEvent, getElement, activateLazyRenderingChecks, createDropdownActionModel, createDropdownActionModelAdvanced, createPopupModelWithListModel, getActionDropdownButtonTarget, BaseAction, Action, ActionDropdownViewModel, AnimationUtils, AnimationPropertyUtils, AnimationGroupUtils, AnimationProperty, AnimationBoolean, AnimationGroup, AnimationTab, AdaptiveActionContainer, defaultActionBarCss, ActionContainer, DragOrClickHelper, Model, bootstrapThemeName, bootstrapThemeColors, bootstrapThemeCssRules, bootstrapMaterialThemeName, bootstrapMaterialThemeColors, bootstrapMaterialThemeCssRules, defaultBootstrapCss, defaultBootstrapMaterialCss, Survey, attachKey2click, ReactSurveyElementsWrapper, SurveyNavigationBase, SurveyTimerPanel, SurveyPage, SurveyRow, SurveyPanel, SurveyFlowPanel, SurveyQuestion, SurveyElementErrors, SurveyQuestionAndErrorsCell, ReactSurveyElement, SurveyElementBase, SurveyQuestionElementBase, SurveyQuestionCommentItem, SurveyQuestionComment, SurveyQuestionCheckbox, SurveyQuestionCheckboxItem, SurveyQuestionRanking, SurveyQuestionRankingItem, SurveyQuestionRankingItemContent, RatingItem, RatingItemStar, RatingItemSmiley, RatingDropdownItem, TagboxFilterString, SurveyQuestionOptionItem, SurveyQuestionDropdownBase, SurveyQuestionDropdown, SurveyQuestionTagboxItem, SurveyQuestionTagbox, SurveyQuestionDropdownSelect, SurveyQuestionMatrix, SurveyQuestionMatrixRow, SurveyQuestionMatrixCell, SurveyQuestionHtml, SurveyQuestionFile, SurveyFileChooseButton, SurveyFilePreview, SurveyQuestionMultipleText, SurveyQuestionRadiogroup, SurveyQuestionRadioItem, SurveyQuestionText, SurveyQuestionBoolean, SurveyQuestionBooleanCheckbox, SurveyQuestionBooleanRadio, SurveyQuestionEmpty, SurveyQuestionMatrixDropdownCell, SurveyQuestionMatrixDropdownBase, SurveyQuestionMatrixDropdown, SurveyQuestionMatrixDynamic, SurveyQuestionMatrixDynamicAddButton, SurveyQuestionPanelDynamic, SurveyProgress, SurveyProgressButtons, SurveyProgressToc, SurveyQuestionRating, SurveyQuestionRatingDropdown, SurveyQuestionExpression, PopupSurvey, SurveyWindow, ReactQuestionFactory, ReactElementFactory, SurveyQuestionImagePicker, SurveyQuestionImage, SurveyQuestionSignaturePad, SurveyQuestionButtonGroup, SurveyQuestionCustom, SurveyQuestionComposite, Popup, ListItemContent, ListItemGroup, List, TitleActions, TitleElement, SurveyActionBar, LogoImage, SurveyHeader, SvgIcon, SurveyQuestionMatrixDynamicRemoveButton, SurveyQuestionMatrixDetailButton, SurveyQuestionMatrixDynamicDragDropIcon, SurveyQuestionPanelDynamicAddButton, SurveyQuestionPanelDynamicRemoveButton, SurveyQuestionPanelDynamicPrevButton, SurveyQuestionPanelDynamicNextButton, SurveyQuestionPanelDynamicProgressText, SurveyNavigationButton, QuestionErrorComponent, MatrixRow, Skeleton, NotifierComponent, ComponentsContainer, CharacterCounterComponent, HeaderMobile, HeaderCell, Header, SurveyLocStringViewer, SurveyLocStringEditor, LoadingIndicatorComponent, SvgBundleComponent, PopupModal */
+
+/*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! no static exports found */
+
+/*!********************************************!*\
+      !*** ./src/entries/react.ts + 289 modules ***!
+      \********************************************/
+
+/*!********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1 sync \.svg$ ***!
+      \********************************************************/
+
+/*!********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2 sync \.svg$ ***!
+      \********************************************************/
+
+/*!**********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/add-24x24.svg ***!
+      \**********************************************************/
+
+/*!**********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/add-24x24.svg ***!
+      \**********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/RemoveFile.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/drag-24x24.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/file-72x72.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/flip-24x24.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/more-24x24.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/RemoveFile.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/drag-24x24.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/file-72x72.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/flip-24x24.svg ***!
+      \***********************************************************/
+
+/*!***********************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/more-24x24.svg ***!
+      \***********************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ModernCheck.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ModernRadio.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/TimerCircle.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/check-16x16.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/check-24x24.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/clear-16x16.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/clear-24x24.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/close-16x16.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/close-24x24.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/image-48x48.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/rating-star.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ModernCheck.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ModernRadio.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/TimerCircle.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/check-16x16.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/check-24x24.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/clear-16x16.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/clear-24x24.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/close-16x16.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/close-24x24.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/image-48x48.svg ***!
+      \************************************************************/
+
+/*!************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/rating-star.svg ***!
+      \************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/camera-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/camera-32x32.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/cancel-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/delete-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/expand-16x16.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/folder-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/search-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/camera-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/camera-32x32.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/cancel-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/delete-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/expand-16x16.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/folder-24x24.svg ***!
+      \*************************************************************/
+
+/*!*************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/search-24x24.svg ***!
+      \*************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/loading-48x48.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/navmenu-24x24.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/noimage-48x48.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/rating-star-2.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/reorder-24x24.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/loading-48x48.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/navmenu-24x24.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/noimage-48x48.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/rating-star-2.svg ***!
+      \**************************************************************/
+
+/*!**************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/reorder-24x24.svg ***!
+      \**************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ProgressButton.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/collapse-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/fullsize-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/maximize-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/minimize-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ranking-arrows.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ProgressButton.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/collapse-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/fullsize-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/maximize-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/minimize-16x16.svg ***!
+      \***************************************************************/
+
+/*!***************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ranking-arrows.svg ***!
+      \***************************************************************/
+
+/*!****************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/arrowleft-16x16.svg ***!
+      \****************************************************************/
+
+/*!****************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/arrowleft-16x16.svg ***!
+      \****************************************************************/
+
+/*!*****************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/arrowright-16x16.svg ***!
+      \*****************************************************************/
+
+/*!*****************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/arrowright-16x16.svg ***!
+      \*****************************************************************/
+
+/*!******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/chevrondown-24x24.svg ***!
+      \******************************************************************/
+
+/*!******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/rating-star-small.svg ***!
+      \******************************************************************/
+
+/*!******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/restoredown-16x16.svg ***!
+      \******************************************************************/
+
+/*!******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/chevrondown-24x24.svg ***!
+      \******************************************************************/
+
+/*!******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/rating-star-small.svg ***!
+      \******************************************************************/
+
+/*!******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/restoredown-16x16.svg ***!
+      \******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/chevronright-16x16.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate1-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate2-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate3-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate4-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate5-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate6-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate7-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate8-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate9-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/chevronright-16x16.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate1-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate2-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate3-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate4-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate5-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate6-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate7-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate8-24x24.svg ***!
+      \*******************************************************************/
+
+/*!*******************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate9-24x24.svg ***!
+      \*******************************************************************/
+
+/*!********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/expanddetails-16x16.svg ***!
+      \********************************************************************/
+
+/*!********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/rating-star-small-2.svg ***!
+      \********************************************************************/
+
+/*!********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/smiley-rate10-24x24.svg ***!
+      \********************************************************************/
+
+/*!********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/expanddetails-16x16.svg ***!
+      \********************************************************************/
+
+/*!********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/rating-star-small-2.svg ***!
+      \********************************************************************/
+
+/*!********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/smiley-rate10-24x24.svg ***!
+      \********************************************************************/
+
+/*!*********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/draghorizontal-24x16.svg ***!
+      \*********************************************************************/
+
+/*!*********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/draghorizontal-24x16.svg ***!
+      \*********************************************************************/
+
+/*!**********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ModernBooleanCheckInd.svg ***!
+      \**********************************************************************/
+
+/*!**********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/collapsedetails-16x16.svg ***!
+      \**********************************************************************/
+
+/*!**********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ModernBooleanCheckInd.svg ***!
+      \**********************************************************************/
+
+/*!**********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/collapsedetails-16x16.svg ***!
+      \**********************************************************************/
+
+/*!***********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/rankingundefined-16x16.svg ***!
+      \***********************************************************************/
+
+/*!***********************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/rankingundefined-16x16.svg ***!
+      \***********************************************************************/
+
+/*!**************************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ModernBooleanCheckChecked.svg ***!
+      \**************************************************************************/
+
+/*!**************************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ModernBooleanCheckChecked.svg ***!
+      \**************************************************************************/
+
+/*!****************************************************************************!*\
+      !*** ./packages/survey-core/src/images-v1/ModernBooleanCheckUnchecked.svg ***!
+      \****************************************************************************/
+
+/*!****************************************************************************!*\
+      !*** ./packages/survey-core/src/images-v2/ModernBooleanCheckUnchecked.svg ***!
+      \****************************************************************************/
+
+/*!**************************************************************************************!*\
+      !*** external {"root":"React","commonjs2":"react","commonjs":"react","amd":"react"} ***!
+      \**************************************************************************************/
+
+/*!*****************************************************************************************************!*\
+      !*** external {"root":"ReactDOM","commonjs2":"react-dom","commonjs":"react-dom","amd":"react-dom"} ***!
+      \*****************************************************************************************************/
+
+/**
+ * @file Web Cryptography API shim
+ * @author Artem S Vybornov <vybornov@gmail.com>
+ * @license MIT
+ */
+
+/**
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/**
+ * @license IDBWrapper - A cross-browser wrapper for IndexedDB
+ * Version 1.7.2
+ * Copyright (c) 2011 - 2017 Jens Arps
+ * http://jensarps.de/
+ *
+ * Licensed under the MIT license
+ */
+
+/**
+ * @license React
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @remix-run/router v1.22.0
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+
+/**
+ * React Router DOM v6.29.0
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+
+/**
+ * React Router v6.29.0
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+
+/**!
+ * is
+ * the definitive JavaScript type testing library
+ * 
+ * @copyright 2013 Enrico Marino
+ * @license MIT
+ */

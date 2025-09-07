@@ -201,8 +201,8 @@ if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
 } else {
   return (
     <div className="content">
-    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation.<br/>
-    Procedures or lab results may be missing from the patient history, and this may cause no recommendation to be shown.</p>
+    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation. The recommendation shown is based on the results, history and procedures displayed.<br/>
+    Missing results may cause no recommendation to be shown. Questions, click Epic button{'>'}Help{'>'}Epic Help Desk Online or helpdesk@umc.edu.</p>
       <div className="dashboard-container">
         {isLoading && (
           <div className="overlay">

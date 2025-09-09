@@ -52,7 +52,7 @@ export function SmartPatient() {
       // TODO: Restore commented out API Searches once performance issues have been addressed
 
       // promises.push(client.request(`/Condition?patient=${pid}&category=problem-list-item,medical-history`).then(fhirParser));
-      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab`).then(fhirParser));
+      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab,http://loinc.org|LP7839-6`).then(fhirParser));
       promises.push(client.request(`/Immunization?patient=${pid}&status=completed&vaccine-code=118,137,165,62`).then(fhirParser));
       // promises.push(client.request(`/MedicationRequest?patient=${pid}&status=completed`).then(fhirParser));
       promises.push(client.request(`/Procedure?patient=${pid}&status=completed&category=http://snomed.info/sct|103693007,http://snomed.info/sct|387713003`).then(fhirParser)); // Search Procedures with category of Diagnostic procedure or Surgical procedure

@@ -53,7 +53,7 @@ export function SmartPatient() {
 
       // promises.push(client.request(`/Condition?patient=${pid}&category=problem-list-item,medical-history`).then(fhirParser));
       promises.push(client.request(`/Condition?patient=${pid}&category=problem-list-item,medical-history&code=http://snomed.info/sct|86406008,http://snomed.info/sct|91947003`).then(fhirParser)); // Search for HIV conditions
-      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab`).then(fhirParser));
+      promises.push(client.request(`/DiagnosticReport?patient=${pid}&category=http://terminology.hl7.org/CodeSystem/v2-0074|Lab,http://loinc.org|LP7839-6`).then(fhirParser));
       promises.push(client.request(`/Immunization?patient=${pid}&status=completed&vaccine-code=118,137,165,62`).then(fhirParser));
       // promises.push(client.request(`/MedicationRequest?patient=${pid}&status=completed`).then(fhirParser));
       promises.push(client.request(`/Procedure?patient=${pid}&status=completed&category=http://snomed.info/sct|103693007,http://snomed.info/sct|387713003`).then(fhirParser)); // Search Procedures with category of Diagnostic procedure or Surgical procedure
@@ -202,8 +202,8 @@ if (process.env?.REACT_APP_DEBUG_FHIR==='true') {
 } else {
   return (
     <div className="content">
-    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation.<br/>
-    Procedures or lab results may be missing from the patient history, and this may cause no recommendation to be shown.</p>
+    <p className="sticky-banner alert alert-danger">The CDC/MITRE Cervical Cancer CDS Dashboard is under pilot evaluation. The recommendation shown is based on the results, history and procedures displayed.<br/>
+    Missing results may cause no recommendation to be shown. Questions, click Epic button{'>'}Help{'>'}Epic Help Desk Online or helpdesk@umc.edu.</p>
       <div className="dashboard-container">
         {isLoading && (
           <div className="overlay">

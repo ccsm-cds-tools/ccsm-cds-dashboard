@@ -1,10 +1,10 @@
-
 import './App.scss';
 import { Container } from 'react-bootstrap';
 // NOTE: BrowserRouter does not work with Github Pages. For deployment, must 
 // replace with [HashRouter](https://create-react-app.dev/docs/deployment/#notes-on-client-side-routing).
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
+  HashRouter,
   Routes,
   Route
 } from 'react-router-dom';
@@ -17,6 +17,8 @@ import { LaunchSmart } from 'smart/LaunchSmart';
 import { SmartPatient } from 'smart/SmartPatient';
 
 document.body.className = 'bg-light';
+
+const Router = process.env.REACT_APP_DEPLOYMENT == 'true' ? HashRouter : BrowserRouter;
 
 function App() {
   return (

@@ -102,7 +102,7 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "REACT_APP_DEPLOYMENT=true gh-pages -d build",
     "prestart": "node scripts/prebuild.js",
     "start": "DISABLE_ESLINT_PLUGIN=true BROWSER=none GENERATE_SOURCEMAP=false node scripts/start.js",
     "prebuild": "node scripts/prebuild.js",
